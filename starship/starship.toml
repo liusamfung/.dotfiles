@@ -11,7 +11,7 @@ $character
 [username]
 style_user = '#248CD7 bold'
 style_root = '#C94C15 bold'
-format = '[$user]($style)'
+format = '[$user]($style) '
 show_always = true
 
 [hostname]
