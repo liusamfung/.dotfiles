@@ -1,0 +1,61 @@
+# [[mgr.prepend_keymap]]
+# on = "<C-q>"
+# run = "quit"
+# desc = "Quit Yazi"
+# Si quieres que 'q' ya NO funcione para salir, también puedes sobrescribirlo
+# con un comando que no haga nada o que haga otra cosa, o simplemente omitirlo.
+# Por ejemplo, para que 'q' no haga nada:
+# [[manager.prepend_keymap]]
+# on = "q"
+# run = "<F10>" # O un comando que no haga nada útil, como "nop" si existe
+# desc = "No operation (disables default quit)"
+
+[[mgr.prepend_keymap]]
+on = ["g", "w"]
+run = "cd ~/Dev/Work"
+desc = "Go to Work/PersonalProjects"
+
+[[mgr.prepend_keymap]]
+on = ["g", "p"]
+run = "cd ~/Dev/PersonalProjects"
+desc = "Go to PersonalProjects"
+
+[[mgr.prepend_keymap]]
+on = ["g", "a"]
+run = "cd ~/Dev/AcademicProjects"
+desc = "Go to AcademicProjects"
+
+[[mgr.prepend_keymap]]
+on = ["g", "i"]
+run = "cd '/Users/liusam/Library/Mobile Documents/com~apple~CloudDocs'"
+desc = "Go to Personal iCloud"
+
+[[mgr.prepend_keymap]]
+on = ["g", "o"]
+run = "cd '/Users/liusam/Library/CloudStorage/OneDrive-UniversidadTecnologicadelPeru'"
+desc = "Go to OneDrive"
+
+[[mgr.prepend_keymap]]
+on = ["g", "f"]
+run = "cd '/Users/liusam/Pictures/Fototeca de Photo Booth/Pictures'"
+desc = "Go to PhotoBoth Library"
+
+[[mgr.prepend_keymap]]
+on = ["g", "x"]
+run = "cd '/Users/liusam/Dev/TempTrash'"
+desc = "Go to TempTrash"
+
+[[mgr.prepend_keymap]]
+on = ["g", "e"]
+run = "cd '/Users/liusam/Dev/EnterpriseProjects'"
+desc = "Go to EnterpriseProjejcts"
+
+[[mgr.prepend_keymap]]
+on = ["g", "t"]
+run = "cd '/Users/liusam/Dev/Tools'"
+desc = "Go to Tools"
+
+[[mgr.prepend_keymap]]
+on = ["g", "."]
+run = "cd '/Users/liusam/Dev/.dotfiles'"
+desc = "Go to .dotfiles"

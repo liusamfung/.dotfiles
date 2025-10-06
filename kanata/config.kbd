@@ -1,0 +1,532 @@
+
+(defcfg
+  process-unmapped-keys yes
+  danger-enable-cmd yes
+)
+
+
+(defvar
+  tap-time 150
+  hold-time 200
+  subl-time 200
+ tmux-delay 40
+)
+
+
+
+
+(defalias
+ ;;Raycast variables
+
+ c_clipb (cmd open raycast://extensions/raycast/clipboard-history/clipboard-history)
+ k_killp (cmd open raycast://extensions/rolandleth/kill-process/index) ;;It's similar to Activity Monitor
+ b_raind (cmd open raycast://extensions/lardissone/raindrop-io/search) ;; Invoke 'raindrop.io search bookmarks'(Raycast's plugin). Plus, Raindrop.io is page for save all your bookmarks for use in anywhre
+ y_ytvid (cmd open raycast://extensions/tonka3000/youtube/search-videos?arguments=%7B%22query%22%3A%22%22%7D) ;;Invoke 'Youtube Search' (Plugin) find videos with autosuggestion anywhere and open direct
+ e_emoji (cmd open raycast://extensions/raycast/emoji-symbols/search-emoji-symbols) ;;Invoke 'emoji-symbols' (Native)
+ f_files (cmd open raycast://extensions/raycast/file-search/search-files) 
+ g_googl (cmd open raycast://extensions/mblode/google-search/index) ;;Invoke 'Google Search' (Plugin) Search in google with autosuggestion anywhere and open direct in new tab 
+ h_gihub (cmd open raycast://extensions/raycast/github/search-repositories) ;; Invoke 'Github search repositories'(Plugin)
+ d_dwnYT (cmd open raycast://extensions/vimtor/video-downloader/index) ;; Youtube video-downloader with  'yt-dlp'(github)
+)
+
+(defalias
+;; Nota importante. Debido a que El root no puede acceder a algunos archivos del los usuarios 
+;; En este caso (usuario: liusam) y mi archivo '/tmp/yabai_liusam.socket', Kanata no puede hacer 
+;; contacto con el socket de yabai debido a que el comando con el que se inicia el servicio de Kanata 
+;; (sudo your/path/kanata -c your/file/config.kbd) entra como modo root. Por ello, es 
+;; necesario mediante este archivo.kbd indicarle que para ejecutar un command  de yabai 
+;; (Por ejemplo 'yabai -m space --destroy') lo haga como usuario donde actual (sudo -u liusam)
+  v_creat (cmd sudo -u liusam yabai -m space --create)
+  w_destr (cmd sudo -u liusam yabai -m space --destroy)
+
+  h_spac1 (cmd sudo -u liusam yabai -m space --focus 1)
+  t_spac2 (cmd sudo -u liusam yabai -m space --focus 2)
+  n_spac3 (cmd sudo -u liusam yabai -m space --focus 3)
+  g_spac4 (cmd sudo -u liusam yabai -m space --focus 4)
+  c_spac5 (cmd sudo -u liusam yabai -m space --focus 5)
+  r_spac6 (cmd sudo -u liusam yabai -m space --focus 6)
+  7_spac7 (cmd sudo -u liusam yabai -m space --focus 7)
+  8_spac8 (cmd sudo -u liusam yabai -m space --focus 8)
+  9_spac9 (cmd sudo -u liusam yabai -m space --focus 9)
+  )
+
+(defalias
+
+  r_resta (cmd "/Users/liusam/Dev/.dotfiles/karabiner/restartGUI.sh")
+  s_split (cmd sudo -u liusam yabai -m window --toggle split)
+  w_close (cmd sudo -u liusam bash -c "yabai $(yabai -m window $(yabai -m query --windows --window | jq -re '.id') --close)")
+
+  h_westt (cmd sudo -u liusam yabai -m window --focus west)
+  t_south (cmd sudo -u liusam yabai -m window --focus south)
+  c_north (cmd sudo -u liusam yabai -m window --focus north)
+  n_eastt (cmd sudo -u liusam yabai -m window --focus east)
+
+  f_fulls (cmd sudo -u liusam yabai -m window --toggle zoom-fullscreen)
+  i_stick (cmd sudo -u liusam yabai -m window --toggle sticky)
+
+  9_rot90 (cmd sudo -u liusam yabai -m space --rotate 270) ;; 90 degrees for anti-clockwise
+                                                            ;;270 degrees to clocwise
+  8_flipY (cmd sudo -u liusam yabai -m space --mirror y-axis)
+  7_flipX (cmd sudo -u liusam yabai -m space --mirror x-axis)
+
+  e_bsppp (cmd sudo -u liusam yabai -m space --layout bsp)
+  o_float (cmd sudo -u liusam yabai -m space --layout float)
+  u_stack (cmd sudo -u liusam yabai -m space --layout stack)
+ ;;
+  )
+
+;; Navigation layer
+(defalias
+
+  all M-a
+  sav M-s
+  cls M-w
+  ndo M-z
+  cut M-x
+  cpy M-c
+  pst M-v
+
+
+  0 0
+  1 1
+  2 2
+  3 3
+  4 4
+  5 5
+  6 6
+  7 7
+  8 8
+  9 9
+)
+
+;; Symbols layer
+(defalias
+
+  ^  S-6
+  <  S-,
+  >  S-.
+  $  S-4
+  %  S-5
+  @  S-2
+  &  S-7
+  *  S-8
+  ;; `  `
+  ` 102d ;; Not conventional keyboard 🤷‍♂️
+
+  {  S-[
+  pl S-9
+  pr S-0
+  }  S-]
+  =  =
+  \  \
+  +  S-=
+  -  -
+  /  /
+  '' S-'
+
+  ~  S-102d ;; In my case 'shift + ` ' doesn't do ~ 
+  [  [
+  ]  ]
+  _  S--
+  #  S-3
+  |  S-\
+  !  S-1
+  ¡  A-1
+  ;  ;
+  :  S-;
+  ?  S-/
+  ¿  S-A-/
+)
+
+;; NumRow layer
+(defalias
+
+  s0 S-0
+  s1 S-1
+  s2 S-2
+  s3 S-3
+  s4 S-4
+  s5 S-5
+  s6 S-6
+  s7 S-7
+  s8 S-8
+  nbs spc ;; no narrow no-break space in Qwerty
+
+  dk1 XX
+  dk2 XX
+  dk3 XX
+  dk4 XX
+  dk5 XX
+)
+
+(defalias
+ A S-a
+ B S-b
+ C S-c
+ D S-d
+ E S-e
+ F S-f
+ G S-g
+ H S-h
+ I S-i
+ J S-j
+ K S-k
+ L S-l
+ M S-m
+ N S-n 
+ ;; nñ
+ O S-o
+ P S-p
+ Q S-q
+ R S-r
+ S S-s
+ T S-t
+ U S-u
+ V S-v
+ W S-w
+ X S-x
+ Y S-y
+ Z S-z
+)
+
+(defalias
+ ;; Utilitys 
+ raycastPrompt S-C-A-M-0
+ hrow_sc S-C-A-M-2
+ hrow_cl S-C-A-M-7
+ hrow_sl S-C-A-M-3
+ shrtcat S-C-A-M-6
+
+ q_lockS C-M-q
+ z_dndDi S-C-A-.
+ bsc_FrcQ A-M-esc
+ b_notif  S-C-A-u
+ #_zoom+ A-M-'
+ !_zoom- A-M--
+ @_zTogl A-M-8
+ 
+ y_AppLy S-M-c
+ p_AppLy S-A-d
+ ret_App M-l
+
+ swtApp2 M-tab
+ swtApp3 (macro M-(tab 20 tab))
+)
+
+;; o Navigation
+;; y .espaces
+;;  a windows
+;;  i sesion
+;;  u tabs
+(defalias
+  ' (multi f23 (tap-hold $tap-time $hold-time ' lmet))
+  , (multi f24 (tap-hold $tap-time $hold-time , lctl))
+  . (multi f24 (tap-hold $tap-time $hold-time . ralt))
+  p (multi f24 (tap-hold $tap-time $hold-time p lsft))
+
+  g (multi f24 (tap-hold $tap-time $hold-time g rsft))
+  c (multi f24 (tap-hold $tap-time $hold-time c ralt))
+  r (multi f24 (tap-hold $tap-time $hold-time r lctl))
+  l (multi f24 (tap-hold $tap-time $hold-time l rmet))
+  
+   ;; Si lo que quieres es que apenas pulsando otra tecla se accione el layer una -press
+   ;; Rsft_lyr (tap-hold-press  150 10 @hrow_sc (layer-toggle shift))
+   ;;UUUU
+   Rsft_lyr (tap-hold-press  $tap-time $hold-time @hrow_sc (layer-toggle shift))
+   Lsft_lyr (tap-hold-press  $tap-time $hold-time @hrow_cl (layer-toggle shift))
+   test_lyr (tap-hold-release-timeout $tap-time $hold-time e (layer-toggle shift) a )
+
+  ;; Sublayerrrrr #################################################################
+   msubl (tap-hold-press $subl-time $subl-time ret (layer-while-held sublayers))
+   win_slyr (tap-hold-press $subl-time $subl-time x (layer-while-held WindowsSubLayer))
+    spa_slyr (tap-hold-press $subl-time $subl-time y (layer-while-held SpaceSubLayer))
+
+   lnch_lyr (tap-hold $tap-time $hold-time a (layer-toggle apps))
+   num_lyr (tap-hold $tap-time $hold-time q (layer-toggle number))
+   ray_lyr (tap-hold $tap-time $hold-time n (layer-toggle raycastUtilyExtension))
+   spa_lyr (tap-hold $tap-time $hold-time y (layer-toggle SpaceLayer))
+   win_lyr (tap-hold $tap-time $hold-time x (layer-toggle WindowsLayer))
+   tab_lyr (tap-hold $tap-time $hold-time i (layer-toggle TabsLayer))
+
+   app_lyr (tap-hold $tap-time $hold-time spc (layer-toggle EspecificAppsLayer))
+
+   sys_lyr (tap-hold $tap-time $hold-time @: (layer-toggle systemLayer))
+   nav_lyr (tap-hold $tap-time $hold-time o (layer-toggle navigationLayer))
+   ;;ses_lyr (tap-hold $tap-time $hold-time j (layer-toggle sesionLayer))
+)
+(defalias 
+
+  @_1fill (tap-hold $tap-time $hold-time @@ C-A-M-p) ;; trickster
+  %_1pass (tap-hold $tap-time $hold-time @% S-C-A-M-p) ;; trickster
+  {_zappy (tap-hold $tap-time $hold-time @{ C-A-M-x) ;; trickster
+)
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  102d 1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab q    w    e    r    t    y    u    i    o    p    [    ]    ret
+  caps a    s    d    f    g    h    j    k    l    ;    '    \
+  lsft grv z    x    c    v    b    n    m    ,    .    /    rsft
+  fn lctl lalt lmet           spc           rmet ralt left down up   rght
+)
+
+(deflayer base
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  @$  @%_1pass    @}    @[    @{_zappy    @pl   @=     @*    @pr   @+     @]    @!    @#    bspc
+  tab @'    @,    @.    @p    @spa_lyr    f    @g    @c @r @l    @/    @@_1fill    @msubl
+  esc @lnch_lyr   @nav_lyr    e   u     @tab_lyr    d    h    t    @ray_lyr     s   -    \
+  @swtApp2 XX @sys_lyr @num_lyr    j    k    @win_lyr    b    m    w    v    z    @swtApp3
+  fn lctl lmet @Lsft_lyr        @app_lyr        @Rsft_lyr @test_lyr left down up   rght
+)
+
+ (deflayer sublayers
+
+    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+    tab       XX       XX       XX       XX    @spa_slyr    XX       XX       XX       XX       XX       XX       XX       XX
+      caps      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+   lsft    grv     XX       XX       XX       XX    @win_slyr    XX       XX       XX       XX       XX       rsft
+    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+  )
+
+(deflayer number
+  esc  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX  XX  XX
+  XX  XX    XX    XX    XX    XX    XX   7    8    9    XX    XX    XX    bspc
+  tab XX    XX    XX    XX    XX    XX    4    5    6    XX    XX    XX    ret
+  caps XX    XX    XX    XX    XX    XX    1    2    3    XX    XX    XX
+  lsft grv XX    @Q    j    k    XX    ,    0   0   .    XX    rsft
+  fn lctl lmet lsft        spc        rsft ralt left down up   rght
+)
+
+(defalias
+  h_leftA left
+  t_bttnA down
+  c_upppA up
+  n_rgthA rght
+  g_leftO A-left
+  r_rgthO A-rght
+  d_leftC M-left
+  s_rgthC M-rght
+)
+ (deflayer navigationLayer
+
+    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       bspc
+    tab       @'       @,       @.       @p       XX       XX    @g_leftO @c_upppA @r_rgthO    XX       XX       XX       XX
+      caps      XX       XX       XX       XX       XX    @d_leftC @h_leftA @t_bttnA @n_rgthA @s_rgthC    XX       XX
+   lsft    grv     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
+    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+  )
+
+ (deflayer SpaceLayer
+    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX    @7_spac7 @8_spac8 @9_spac9    XX       XX       XX       XX
+    tab       XX       XX       XX       XX       XX       XX    @g_spac4 @c_spac5 @r_spac6    XX       XX       XX       XX
+      caps      XX       XX       XX       XX       XX       XX    @h_spac1 @t_spac2 @n_spac3    XX       XX       XX
+   lsft    grv     XX       XX       XX       XX       XX       XX       XX    @w_destr @v_creat    XX       rsft
+    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+  )
+
+(defalias
+
+  h_sndW1 (cmd sudo -u liusam yabai -m window --space 1 --focus)
+  t_sndW2 (cmd sudo -u liusam yabai -m window --space 2 --focus)
+  n_sndW3 (cmd sudo -u liusam yabai -m window --space 3 --focus)
+  g_sndW4 (cmd sudo -u liusam yabai -m window --space 4 --focus)
+  c_sndW5 (cmd sudo -u liusam yabai -m window --space 5 --focus)
+  r_sndW6 (cmd sudo -u liusam yabai -m window --space 6 --focus)
+  7_sndW7 (cmd sudo -u liusam yabai -m window --space 7 --focus)
+  8_sndW8 (cmd sudo -u liusam yabai -m window --space 8 --focus)
+  9_sndW9 (cmd sudo -u liusam yabai -m window --space 9 --focus)
+
+)
+
+ (deflayer SpaceSubLayer
+
+    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX    @7_sndW7 @8_sndW8 @9_sndW9    XX       XX       XX       XX
+    tab       XX       XX       XX       XX       XX       XX    @g_sndW4 @c_sndW5 @r_sndW6    XX       XX       XX       XX
+      caps      XX       XX       XX       XX       XX       XX    @h_sndW1 @t_sndW2 @n_sndW3    XX       XX       XX
+   lsft    grv     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
+    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+  )
+
+
+ (deflayer WindowsLayer
+    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX    @7_flipX @8_flipY @9_rot90    XX       XX       XX       XX
+    tab       XX       XX       XX       XX       XX   @f_fulls    XX    @c_north @r_resta    XX       XX       XX       XX
+      caps      XX    @o_float @e_bsppp @u_stack @i_stick    XX    @h_westt @t_south @n_eastt @s_split    XX       XX
+   lsft    grv     XX       XX       XX       XX       XX       XX       XX    @w_close    XX       XX       rsft
+    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+  )
+
+
+(defalias
+
+  h_rLeft (cmd sudo -u liusam yabai -m window --resize right:-50:0; yabai -m window --resize left:-50:0)
+  t_rBttn (cmd sudo -u liusam yabai -m window --resize bottom:0:50; yabai -m window --resize top:0:50)
+  c_rTopp (cmd sudo -u liusam yabai -m window --resize top:0:-50; yabai -m window --resize bottom:0:-50)
+  n_rRgth (cmd sudo -u liusam yabai -m window --resize right:50:0; yabai -m window --resize left:50:0)
+
+)
+
+ (deflayer WindowsSubLayer
+
+    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+    tab       XX       XX       XX       XX       XX       XX       XX    @c_rTopp    XX       XX       XX       XX       XX
+      caps      XX       XX       XX       XX       XX       XX    @h_rLeft @t_rBttn @n_rRgth    XX       XX       XX
+   lsft    grv     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
+    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+  )
+
+(defalias
+ b_prviw (macro C-x $tmux-delay w) ;; -> Preview list of windows(tabs) and sessions
+ w_clsTb (macro C-x $tmux-delay @&) ;;  -> Quit current tab. (TmuxPrefix + &) 
+ v_crtTb (macro C-x $tmux-delay c) ;;  -> Kreate new tab (TmuxPrefix + c)
+ r_rnmTb (macro C-x $tmux-delay ,) ;; -> Rename current window (TmuxPrefix + ,)
+
+ h_goTb1 (macro C-x $tmux-delay h) ;; -> -> Go to tab number 1
+ t_goTb2 (macro C-x $tmux-delay j) ;; -> -> Go to tab number 2
+ n_goTb3 (macro C-x $tmux-delay k) ;; -> -> Go to tab number 3
+ g_goTb4 (macro C-x $tmux-delay l) ;; -> -> Go to tab number 4
+ c_goTb5 (macro C-x $tmux-delay y) ;; -> -> Go to tab number 5
+
+ ;;       [:dvrk-h [:!Tx :h]] ; (t + h) 
+ ;;       [:dvrk-t [:!Tx :j]] ; (t + j) -> Go to tab number 2
+ ;;       [:dvrk-n [:!Tx :k]] ; (t + k) -> Go to tab number 3
+ ;;       [:dvrk-g [:!Tx :l]] ; (t + l) -> Go to tab number 4
+ ;;       [:dvrk-c [:!Tx :y]] ; (t + y) -> Go to tab number 5
+)
+
+ (deflayer TabsLayer
+
+    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+    tab       XX       XX       XX       XX       XX       XX    @g_goTb4 @c_goTb5 @r_rnmTb    XX       XX       XX       XX
+      caps      XX       XX       XX       XX       XX       XX    @h_goTb1 @t_goTb2 @n_goTb3    XX       XX       XX
+   lsft    grv     XX       XX       XX       XX       XX    @b_prviw    XX    @w_clsTb @v_crtTb    XX       rsft
+    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+  )
+
+ (deflayer systemLayer
+    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX   @!_zoom-   @#_zoom+ @bsc_FrcQ
+    tab       XX       XX       XX       XX       XX       XX       🔅       🔊       🔆       ▶⏸       XX       @@_zTogl       XX
+      caps      XX       XX       XX       XX       XX       XX       ◀◀       🔉       ▶▶       XX       XX       XX
+   lsft    grv     XX   @q_lockS    XX       XX       XX       @b_notif       🔇       XX       XX    @z_dndDi    rsft
+    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+  )
+
+(deflayer shift
+  esc   f1   f2  f3   f4   f5   f6   f7   f8   f9  f10   f11   f12
+  @~  @&    7    5    3    1    9    0    2    4    @¿    @¡    @`    bspc
+  tab @''    @<    @>    @P    @Y    @F    @G    @C    @R    @L    @?    @^    ret
+  caps @A    @O    @E    @U    @I    @D    @H    @T    @N    @S    @_    @|
+  lsft grv @;    @Q    @J    @K    @X    @B    @M    @W    @V    @Z    rsft
+  fn lctl lmet lsft        @hrow_sl        rsft ralt left down up   rght
+)
+
+
+ (deflayer EspecificAppsLayer
+    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+    tab       XX       XX       XX    @p_AppLy @y_AppLy    XX       XX       XX       XX       XX       XX       XX       @ret_App
+      caps      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+   lsft    grv     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
+    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+  )
+
+(defalias 
+
+;; yabai -m query --windows | grep app
+
+     a_chrom (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Google Chrome'")
+     a_excel (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Microsoft Excel'")
+     a_wordd (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Microsoft Word'")
+     a_outlk (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Microsoft Outlook'")
+     a_canva (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Canva'")
+
+     a_ntion (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Notion'")
+     a_obsin (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Obsidian'")
+
+     a_term (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Ghostty'") ;;(T)terminal (This is my terminal emulator)
+     a_brwsr (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Zen'") ;;(B)rowser (This is my main browser) 
+
+     a_slack (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Slack'") 
+     a_whtsp (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'WhatsApp'") 
+     a_zoomm (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'zoom.us'") 
+     a_teams (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Microsoft Teams'") 
+     a_discd (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Discord'") 
+
+     a_1pssw (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh '1password'") 
+     a_remdr (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Reminders'") 
+
+     a_ytmsc (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'YouTube Music'") 
+     a_findr (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Finder'")
+     a_innaa (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'IINA'") 
+     a_prviw (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Preview'") 
+     a_fntcl (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Fantastical'") 
+
+     a_sttng (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'System Settings'") 
+
+
+            ;;5: app("DaVinci Resolve"), @linkarzu for video editing
+            ;;r: app("Recut"), Automatic recut space with silence @linkarzu
+            ;;7: app("Jitsi Meet"),Jitsi Meet is a fully encrypted, 100% open source video conferencing solution that you can use all day,
+            ;;o: app("OBS"),
+            ;;q: app("Setapp"),
+)
+
+ (deflayer apps
+    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX       XX    @a_excel @a_outlk @a_wordd @a_canva    XX       XX
+    tab       XX    @a_sttng    XX    @a_1pssw @a_ytmsc @a_findr    XX    @a_fntcl @a_remdr @a_chrom @a_prviw    XX       XX
+      caps      XX    @a_obsin    XX       XX       XX    @a_discd    XX    @a_term @a_ntion @a_slack @a_innaa    ret
+   lsft    grv     XX       XX       XX       XX       XX    @a_brwsr @a_whtsp    XX    @a_teams @a_zoomm    rsft
+    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+  )
+
+ (deflayer raycastUtilyExtension
+    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+    tab       XX       XX       XX       XX    @y_ytvid @f_files @g_googl @c_clipb    XX       XX       XX       XX       XX
+      caps      XX       XX    @e_emoji    XX       XX    @d_dwnYT @h_gihub    XX       XX       XX       XX       XX
+   lsft    grv     XX       XX       XX    @k_killp     XX    @b_raind    XX       XX       XX       XX       rsft
+    fn    lctl lalt lmet               @raycastPrompt                  rmet    ralt         left down up  rght
+  )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;; (deflayer template_copyAndPastThisSHit
+
+;;    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+;; 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+;;    tab       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+;;      caps      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+;;   lsft    grv     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
+;;    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+;;  )
+
+

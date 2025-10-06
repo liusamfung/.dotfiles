@@ -1,0 +1,19 @@
+[mgr]
+show_hidden    = true
+ratio          = [ 1, 2, 4 ]
+linemode       = "permissions"
+image_quality  = 50
+
+[preview]
+max_width       = 1500
+max_height      = 1800
+
+[opener]
+
+edit = [
+    { run = 'nvim "$@"', block = true, for = "unix" },
+]
+play = [
+    { run = 'iina "$@"', block = true, for = "unix" },
+]
+

@@ -1,0 +1,719 @@
+{
+    :profiles {
+        :goku {
+            :default true
+            ; :sim      200 ; keys need to be pressed within this threshold to be considered simultaneous 
+            ; :simlayer-threshold 250 ; ???????
+            :alone    250 ; hold for 495ms and single tap registered; hold for 505ms and seen as modifier
+            ; :delay    300 ; time after which the key press is count delayed
+
+            :held     150 ; key is fired twice when 1000 ms is elapsed (otherwise seen as a hold command)
+
+        }
+    }
+
+    :devices {
+        :velocifire [{:vendor_id 1452 :product_id 591}]
+    }
+
+    :templates {
+        :open_social "/Users/grn/bin/open_social %s"
+        :open "osascript -e 'tell application \"%s\" to activate'"
+        :showhide "osascript -e '
+                global isVisible
+                set isVisible to visible of process \"%s\"
+                set isVisible to not isVisible
+                set visible of process \"%s\" to isVisible
+              '"
+        :go_to_url "osascript -e 'open location \"%s\"'"
+        :zcode "/Users/grn/bin/gui.py &"
+        ; send keystrokes
+        :type "osascript -e 'tell application \"System Events\" to keystroke \"%s\"'"
+        ; send keystrokes and press enter
+        :type_cr "
+            osascript -e 'tell application \"System Events\" to keystroke \"%s\"';
+            osascript -e 'tell application \"System Events\" to keystroke return';"
+        :paste "osascript -e '
+              global storedClipboard
+              set storedClipboard to the clipboard
+              set the clipboard to \"%s\"
+              set the clipboard to the clipboard + \"%s\"
+              tell application \"System Events\"
+                      keystroke \"v\" using command down
+              end tell
+              delay 0.1
+              set the clipboard to storedClipboard
+              '"
+        :sleep "sleep %s" ; sample placeholder
+    }
+    :simlayers {
+    :launch-mode { :key :i }
+} ;; layers
+
+    :applications {
+        ; getting app id's with eg: osascript -e 'id of app "Slack"'
+        ; Your output will viewed like:    us.zoom.xos
+        ; add \\
+        ;com.brave.Browser
+        ;NOTE: If you are not sure what is of your application, 
+        ;you can use this command: yabai -m query --windows | grep app
+        ;(Este comando muestra todas las ventanas activas)
+
+        :chrome [ "^com.google.Chrome$" ]
+        :discord [ "^com.hnc.Discord" ]
+        :finder [ "^com.apple.finder" ]
+        :Obsidian [ "^md.obsidian" ]
+        :safari [ "^com.apple.Safari$" ]
+        :vscode [ "^com.microsoft.VSCode$" ]
+        :Notion ["^notion\\.id$"]
+        :Browsers ["^com\\.google\\.Chrome$" "^com\\.brave\\.Browser$" "^org\\.mozilla\\.firefox$" "^app\\.zen-browser\\.zen$"]
+        :Zoom [ "^us.zoom.xos$" ]
+        :Terminals ["^com\\.mitchellh\\.ghostty$"]
+        :WhatsappDesktop ["^net\\.whatsapp\\.WhatsApp$"]
+    }
+
+    :froms {
+        :any_key {:any :key_code}
+        :any_consumer {:any :consumer_key_code }
+        :any_button {:any :pointing_button}
+
+        ;alias
+        :delete {:key :delete_or_backspace}
+        :return {:key :return_or_enter}
+        :btick {:key :grave_accent_and_tilde}
+        :tilde {:key :grave_accent_and_tilde}
+        :bslash {:key :backslash}
+        :ls {:key :left_shift}
+        :rs {:key :right_shift}
+
+        ;colemak froms (for easier mnemonics)
+        :dvrk-quote {:key :q}
+        :dvrk-comma {:key :w}
+        :dvrk-period {:key :e}
+        :dvrk-p {:key :r}
+        :dvrk-y {:key :t}
+        :dvrk-f {:key :y}
+        :dvrk-g {:key :u}
+        :dvrk-c {:key :i}
+        :dvrk-r {:key :o}
+        :dvrk-l {:key :p}
+        
+        :dvrk-a {:key :a}
+        :dvrk-o {:key :s}
+        :dvrk-e {:key :d}
+        :dvrk-u {:key :f}
+        :dvrk-i {:key :g}
+        :dvrk-d {:key :h}
+        :dvrk-h {:key :j}
+        :dvrk-t {:key :k}
+        :dvrk-n {:key :l}
+        :dvrk-s {:key :semicolon}
+       
+        :dvrk-semicolon {:key :z}
+        :dvrk-q {:key :x}
+        :dvrk-j {:key :c}
+        :dvrk-k {:key :v}
+        :dvrk-x {:key :b}
+        :dvrk-b {:key :n}
+        :dvrk-m {:key :m}
+        :dvrk-w {:key :comma}
+        :dvrk-v {:key :period}
+        :dvrk-z {:key :slash}
+        ; oaeuoeu
+        :-q {:key :q}
+        :-w {:key :w}
+        :-f {:key :e}
+        :-p {:key :r}
+        :-g {:key :t}
+        :-j {:key :y}
+        :-l {:key :u}
+        :-u {:key :i}
+        :-y {:key :o}
+        :-semicolon {:key :p}
+
+        :-a {:key :a}
+        :-r {:key :s}
+        :-s {:key :d}
+        :-t {:key :f}
+        :-d {:key :g}
+        :-h {:key :h}
+        :-n {:key :j}
+        :-e {:key :k}
+        :-i {:key :l}
+        :-o {:key :semicolon}
+
+        :-z {:key :z}
+        :-x {:key :x}
+        :-c {:key :c}
+        :-v {:key :v}
+        :-b {:key :b}
+        :-k {:key :n}
+        :-m {:key :m}
+        ; oaeuoeu
+    }
+
+    :tos {
+        :dvrk-quote {:key :q}
+        :dvrk-comma {:key :w}
+        :dvrk-period {:key :e}
+        :dvrk-p {:key :r}
+        :dvrk-y {:key :t}
+        :dvrk-f {:key :y}
+        :dvrk-g {:key :u}
+        :dvrk-c {:key :i}
+        :dvrk-r {:key :o}
+        :dvrk-l {:key :p}
+        
+        :dvrk-a {:key :a}
+        :dvrk-o {:key :s}
+        :dvrk-e {:key :d}
+        :dvrk-u {:key :f}
+        :dvrk-i {:key :g}
+        :dvrk-d {:key :h}
+        :dvrk-h {:key :j}
+        :dvrk-t {:key :k}
+        :dvrk-n {:key :l}
+        :dvrk-s {:key :semicolon}
+       
+        :dvrk-semicolon {:key :z}
+        :dvrk-q {:key :x}
+        :dvrk-j {:key :c}
+        :dvrk-k {:key :v}
+        :dvrk-x {:key :b}
+        :dvrk-b {:key :n}
+        :dvrk-m {:key :m}
+        :dvrk-w {:key :comma}
+        :dvrk-v {:key :period}
+        :dvrk-z {:key :slash}
+
+        ;colemak tos (for easier string sending)
+        :-q {:key :q}
+        :-w {:key :w}
+        :-f {:key :e}
+        :-p {:key :r}
+        :-g {:key :t}
+        :-j {:key :y}
+        :-l {:key :u}
+        :-u {:key :i}
+        :-y {:key :o}
+        :-semicolon {:key :semicolon}
+
+        :-a {:key :a}
+        :-r {:key :s}
+        :-s {:key :d}
+        :-t {:key :f}
+        :-d {:key :g}
+        :-h {:key :h}
+        :-n {:key :j}
+        :-e {:key :k}
+        :-i {:key :l}
+        :-o {:key :semicolon}
+
+        :-z {:key :z}
+        :-x {:key :x}
+        :-c {:key :c}
+        :-v {:key :v}
+        :-b {:key :b}
+        :-k {:key :n}
+        :-m {:key :m}
+    
+        ;named symbols
+        :exclaim {:key :1 :modi :shift}
+        :at {:key :2 :modi :shift}
+        :hash {:key :3 :modi :shift}
+        :dollar {:key :4 :modi :shift}
+        :percent {:key :5 :modi :shift}
+        :caret {:key :6 :modi :shift}
+        :ampersand {:key :7 :modi :shift}
+        :bullet {:key :8 :modi :shift}
+        :open_paren {:key :9 :modi :shift}
+        :close_paren {:key :0 :modi :shift}
+        :hyphen {:key :hyphen}
+        :underscore {:key :hyphen :modi :shift}
+        :equal {:key :equal_sign}
+        :plus {:key :equal_sign :modi :shift}
+        :semicolon {:key :semicolon}
+        :colon {:key :semicolon :modi :shift}
+        :open_bracket {:key :open_bracket}
+        :close_bracket {:key :close_bracket}
+        :open_brace {:key :open_bracket :modi :shift}
+        :close_brace {:key :close_bracket :modi :shift}
+        :less_than {:key :comma :modi :shift}
+        :greater_than {:key :period :modi :shift}
+        :backquote {:key :grave_accent_and_tilde}
+        :tilde {:key :grave_accent_and_tilde :modi :shift}
+        :dquote {:key :quote :modi :shift}
+        :pipe {:key :backslash :modi :shift}
+        :question {:key :slash :modi :shift}
+        :ls {:key :left_shift}
+        :rs {:key :right_shift}
+
+        ; system-wide shortcuts
+        :mission_control {:key :!Tup_arrow}
+        :focus-dock {:key :!Tf3}
+        :toggle_zoom {:key :!OC8} ;default
+
+        ; 1password
+        :1passsword-autofill {:key :!TOCp}
+        :1password-quick-access {:key :!STOCp}
+        ; raycast
+        :raycast_open-insert {:key :!!0} 
+        :homerow_scrolling {:key :!!2}
+        :homerow_search {:key :!!3}
+        :homerow_clicking {:key :!!7}
+        :shortcat {:key :!!6}
+
+        :zappy_select-area {:key :!TOCx}
+        :flameshot_area {:key :!SCx}
+
+    }
+
+    ;; :simlayers {
+r   ;;     :apprun {:key :grave_accent_and_tilde}
+    ;; }
+
+    :main [
+        {
+            :des "Cmd+Option+Shift+Esc to Reset All Layers (when/if something goes horribly wrong)"
+            :rules [
+                [:!COTescape [
+                    ["blocked" 0] ["extend" 0], ["wm" 0], ["apprun" 0],
+                    ["qwerty" 0], ["capslock" 0], ["games" 0], ["layer" 0]
+                ]]
+            ]
+        }
+
+        {
+            :des "Toggle CapsLock w/ FN+CapsLock"
+            :rules [
+                [:!F#Pcaps_lock [:caps_lock [:noti :caps "Caps Lock"]["capslock" 1]] [["capslock" 0]["blocked" 0]]]
+                [:!F#Pcaps_lock [:caps_lock [:noti :caps ""]["capslock" 0]] [["capslock" 1]["blocked" 0]]]
+            ]
+        }
+
+        ; {
+        ;     :des "Rotate between Game Layer, QWERTY w/ layers and Karabiner Toggle w/ FN+LeftShift"
+        ;     :rules [
+        ;         [:!F#Pleft_shift [["blocked" 0]["qwerty" 1]["layer" 1]["wm_off" 0][:noti :layers "QWERTY w/ layers [Fn+LCtrl]"]]["layer" 0]]
+        ;         [:!F#Pleft_shift [["blocked" 1]["qwerty" 1]["layer" 2]["wm_off" 1][:noti :layers "QWERTY w/ IJKL locked to arrows [Fn+LCtrl]"]]["layer" 1]]
+        ;         [:!F#Pleft_shift [["blocked" 1]["qwerty" 1]["layer" 3]["wm_off" 1][:noti :layers "Karabiner Disabled [Fn+LCtrl]"]]["layer" 2]]
+        ;         [:!F#Pleft_shift [["blocked" 0]["qwerty" 0]["layer" 0]["wm_off" 0][:noti :layers ""]]["layer" 3]]
+        ;     ]
+        ; }
+
+        {:des "Navigation/arrows [VI Style]"
+          :rules [
+            [:condi :SelectArrowKey_sublayer]
+                 ;;Select mode
+                 [:dvrk-h :!Sleft_arrow]
+                 [:dvrk-t :!Sdown_arrow]
+                 [:dvrk-c :!Sup_arrow]
+                 [:dvrk-n :!Sright_arrow]
+                 [:dvrk-g :!SOleft_arrow]
+                 [:dvrk-r :!SOright_arrow]
+                 [:dvrk-d :!SCleft_arrow]
+                 [:dvrk-s :!SCright_arrow]
+
+                 ; [:!Oj {:mkey {:y 1536}}]
+                 ; [:!Ok {:mkey {:y -1536}}]
+                 ; [:!Oh {:mkey {:x -1536}}]
+                 ; [:!Ol {:mkey {:x 1536}}]
+                [:any_key :vk_none]
+                [:condi :cmd-plus-arrows]
+                [:dvrk-h :!Cleft_arrow]
+                [:dvrk-t :!Cdown_arrow]
+                [:dvrk-c :!Cup_arrow]
+                [:dvrk-n :!Cright_arrow]
+            ]
+        }
+
+
+        {:des "ResizeWindow sublayer papa"
+          :rules [
+            [:condi :ResizeWindow]
+                [:any_key :vk_none]
+           ]
+        }
+
+        {:des "ArrowKeys_layer layer"
+            :rules [
+                [:##left_option ["ArrowKeys_layer" 1] :!blocked { :afterup ["ArrowKeys_layer" 0]}]
+                :ArrowKeys_layer
+                [:left_shift     ["SelectArrowKey_sublayer" 1] nil {:afterup ["SelectArrowKey_sublayer" 0]}]
+                    [:return_or_enter            nil nil {:alone :system-force_quit_apps}]
+                  ;vi_style
+                 [:dvrk-h :left_arrow]
+                 [:dvrk-t :down_arrow]
+                 [:dvrk-c :up_arrow]
+                 [:dvrk-n :right_arrow]
+                 [:dvrk-g :!Oleft_arrow]
+                 [:dvrk-r :!Oright_arrow] ; like letter 'e' in normal-mode of vim
+                 [:dvrk-d :!Cleft_arrow] ; like <S-i> To inserte home to line 
+                 [:dvrk-s :!Cright_arrow]  ; like <S-a> To inserte text end to line
+
+                [:delete_or_backspace :delete_or_backspace]
+                [:spacebar :spacebar]
+                [:return_or_enter :return_or_enter]
+            ]
+        }
+
+        {:des "Ghostty layers"
+          :rules [
+                [:condi :session_mode :Terminals]
+                [:dvrk-b [:!Tx :s]] ; (s + v) Preview 'choose-tree' that's mean Seassion viewer (TmuxPrefix + %) 
+                 ; [:h []] ; (s + h) -> Go to session 1
+                 ; [:j []] ; (s + j) -> Go to session 2
+                 ; [:k []] ; (s + k) -> Go to session 3
+                 ; [:l []] ; (s + l) -> Go to session 4
+                 ; [:y []] ; (s + y) -> Go to session 5
+                 ; [:u []] ; (s + u) -> Go to session 6
+                 ; [:i []] ; (s + i) -> Go to session 7
+                 ; [:o []] ; (s + o) -> Go to session 8
+                 ;
+                 ;NOTE: USAR right_command + Space para hacer el fuzzyfinder de los dispositivos disponibles
+                 ;Es, decir debes usar el metodo 'alone' Despues usar el layer de ese mismo espacio para
+                 ;seleccionar los demas disp
+
+                 ; [:n []] ; (s + h) -> Go to device 1
+                 ; [:m []] ; (s + j) -> Go to device 2
+                 ; [:comma []] ; (s + k) -> Go to device 3
+                 ; [:period []] ; (s + l) -> Go to device 4
+                 ; [:slash []] ; (s + y) -> Go to device 5
+                 
+                [:any_key :vk_none]
+            [:condi :tab_mode :Terminals]
+                 [:dvrk-b [:!Tx :w]] ;(t + p) -> Preview list of windows(tabs) and sessions
+                 [:dvrk-w [:!Tx :!S7]] ; (t + w) -> Quit current tab. (TmuxPrefix + &) 
+                 [:dvrk-v [:!Tx :c]] ;  (t + n) -> Kreate new tab (TmuxPrefix + c)
+                 [:dvrk-r [:!Tx :comma]] ;(t + r) -> Rename current window (TmuxPrefix + ,)
+                 [:dvrk-h [:!Tx :h]] ; (t + h) -> Go to tab number 1
+                 [:dvrk-t [:!Tx :j]] ; (t + j) -> Go to tab number 2
+                 [:dvrk-n [:!Tx :k]] ; (t + k) -> Go to tab number 3
+                 [:dvrk-g [:!Tx :l]] ; (t + l) -> Go to tab number 4
+                 [:dvrk-c [:!Tx :y]] ; (t + y) -> Go to tab number 5
+                 ; [:-y [:!Tx :u]] ; (t + u) -> Go to tab number 6
+                 ; [:7 [:!Tx :i]] ; (t + i) -> Go to tab number 7
+                 ; [:8 [:!Tx :o]] ; (t + o) -> Go to tab number 8
+            ]
+        }
+
+        {:des "WhatsappDesktop "
+          :rules [
+                [:condi :session_mode :WhatsappDesktop]
+                 [:dvrk-h :!T1] ; (s + h) -> Go to session 1
+                 [:dvrk-t :!T2] ; (s + j) -> Go to session 2
+                 [:dvrk-n :!T3] ; (s + k) -> Go to session 3
+                 [:dvrk-g :!T4] ; (s + l) -> Go to session 4
+                 [:dvrk-c :!T5] ; (s + y) -> Go to session 5
+                 [:dvrk-r :!T6] ; (s + u) -> Go to session 6
+                 
+                [:any_key :vk_none]
+
+            [:condi :tab_mode :WhatsappDesktop]
+                 [:dvrk-h :!SCopen_bracket] ;(t + p) -> Preview list of windows(tabs) and sessions
+                 [:dvrk-n :!SCclose_bracket] ; (t + w) -> Quit current tab. (TmuxPrefix + &) 
+            ]
+        }
+        {:des "Obsidian"
+          :rules [
+            [:condi :tab_mode :Obsidian]
+                 [:dvrk-v :!Ct] ; (t + n) New tab
+                 [:dvrk-w :!Cw] ; (t + w) Close current tab 
+                 [:dvrk-d :!SCt] ; (t + r)j Undo closed  last
+                 [:dvrk-h :!TStab] ; Previus tab
+                 [:dvrk-n :!Ttab] ;next tab
+                 ;;history back
+                 [:dvrk-s :!COleft_arrow]
+                 ;;history forward
+                 [:dvrk-l :!COright_arrow]
+                [:any_key :vk_none]
+            ]
+        }
+
+        {:des "Notion "
+          :rules [
+            [:condi :tab_mode :Notion]
+                 [:dvrk-v :!Ct] ; (t + n) New tab
+                 [:dvrk-w :!Cw] ; (t + w) Close current tab 
+                 [:dvrk-d :!SCt] ; (t + r) Undo closed tab
+                 [:dvrk-h :!TStab] ; Previus tab
+                 [:dvrk-n :!Ttab] ;next tab
+                 ;;history back
+                 [:dvrk-s :!Copen_bracket]
+                 ;;history forward
+                 [:dvrk-l :!Cclose_bracket]
+
+                [:any_key :vk_none]
+            ]
+        }
+
+        {:des "Browsers layouts"
+          :rules [
+            [:condi :session_mode :Browsers]
+                 ;Para este apartado, pimero debes asignar Cmd+ctrl+(anynumber) en cada workspace de zen-browser
+                 ;Con la siguiente configuracion, tendremos un entorno similar a session-mode en tmux
+                 [:-n :!TC1] ; (s + h) -> Go to Workspace 1 (HomeWorkspace)
+                 [:-e :!TC2] ; (s + j) -> Go to workspace 2 (DevWorkspace)
+                 [:-i :!TC3] ; (s + k) -> Go to workspace 3 (AcademicWorkSpace: College, institue, etc)
+                 [:-l :!TC4] ; (s + l) -> Go to workspace 4 (EntertainmentWorkspace)
+                 [:-u :!TC5] ; (s + y) -> Go to tab number 4
+                 [:-y :!TC6] ; (s + u) -> Go to tab number 5
+                 [:##7 :!TC7] ; (s + i) -> Go to tab number 6
+                 [:##8 :!TC8] ; (s + o) -> Go to tab number 7
+                 [:##9 :!TC9] ; (s + p) -> Go to tab number 8
+                 [:any_key :vk_none]
+
+            [:condi :tab_mode :Browsers]
+                 [:dvrk-w :!Cw] ; 
+                 [:dvrk-v :!Ct] ;
+                 [:dvrk-d :!SCt] ; 
+                 [:dvrk-h :!C1] ; (Cmd + 1) Select tab 1
+                 [:dvrk-t :!C2] ; (Cmd + 2) Select tab 2
+                 [:dvrk-n :!C3] ; (Cmd + 3) Select tab 3
+                 [:dvrk-g :!C4] ; (Cmd + 4) Select tab 4
+                 [:dvrk-c :!C5] ; (Cmd + 5) Select tab 5
+                 [:dvrk-r :!C6] ; (Cmd + 6) Select tab 6
+                 [:##7 :!C7] ; (Cmd + 7) Select tab 7
+                 [:##8 :!C8] ; (Cmd + 8) Select tab 8
+                 ;;history back
+                 [:dvrk-s :!Copen_bracket]
+                 ;;history forward
+                 [:dvrk-l :!Cclose_bracket]
+
+            ]
+        }
+
+        {
+            :des "Power Combos"
+            :rules [
+                [:condi :!blocked :!extend :!apprun]
+                ;Teclas recomendadas: 
+                ;Recuerda, Leftcommand ya no es un modificador, solamente una teclad auxiliar para usar layouts. Puedes 
+                ;comprobar esto usando KeyCarst 
+                ;
+                ;;right_command + left_command (Aqui left_command funciona como tecla fisica, no como modificador)
+                ;;right_command + spacebar
+                ;;right_command alone
+                ;;shift + right_command
+                ;;:alone 
+                    ; global
+                    [:!T#Pspacebar :caps_lock]
+                    ; [:!S#Pcaps_lock :caps_lock] ; leftShift + CapsLock = Toggle CapsLock
+                    [:##caps_lock :left_control nil {:alone :escape}]
+                    [:##left_control :right_option]
+                    [:##fn :left_command]
+                    [:!Sright_shift :homerow_scrolling]
+                    [:!Sreturn_or_enter :shortcat]
+                    
+                    ;Terminals (Tmux)
+
+                    ; chrome
+                    [:!Qleft_command [:!Ql :!Qv :return_or_enter] :chrome]
+                    [:!Cright_command [:button2 :c :o :return_or_enter] :chrome]
+
+                    ; Browsers
+                    [:!Qleft_command [:!Cl :!Cv :return_or_enter] :Browsers] ;Pegar elemento copiado rapidamente en la URl principal
+
+                    ; discord
+                    [:right_command :right_command :discord {:alone :!Cu}] ; toggle user list
+                    ; ; kitty
+                    ; [:right_option :right_option [:kitty :!tmux_sync_panes] {:alone [:!Tx :!Ssemicolon [:type_cr "setw synchronize-panes on"] ["tmux_sync_panes" 1]]}]
+                    ; [:right_option :right_option [:kitty :tmux_sync_panes] {:alone [:!Tx :!Ssemicolon [:type_cr "setw synchronize-panes off"] ["tmux_sync_panes" 0]]}]
+            ]
+        } 
+        {
+
+            :des "Extended Layer - left_command"
+            :rules [
+                [:##left_command ["extend" 1] :!blocked {:alone :homerow_clicking :afterup ["extend" 0]}]
+                ; [:##right_command ["extend" 1] :!blocked { :afterup ["extend" 0]}]
+                :extend
+                    [:right_command :homerow_search]
+                    ;~ system wide shortcuts for top utilities
+                    [:tab :!Ctab]
+                    ;~ power apps & window positioning - 1 hand switching
+                    [:f14   ["fn_base" 1] nil {:afterup ["fn_base" 0]}]
+                    ;NOTE [:-o   ["OptionsEspecificApp" 1] nil {:afterup ["OptionsEspecificApp" 0]}]
+                    [:dvrk-a   ["AppsLaunch" 1] nil {:afterup ["AppsLaunch" 0]}]
+                    [:dvrk-comma   ["session_mode" 1] nil {:afterup ["session_mode" 0]}]
+                    [:dvrk-period   ["tab_mode" 1] nil {:afterup ["tab_mode" 0]}]
+                    [:dvrk-u   ["window_mode" 1] nil {:afterup ["window_mode" 0]}]
+                    ; [:dvrk-o   ["OBS_sublayer" 1] nil {:afterup ["OBS_sublayer" 0]}]
+                    [:dvrk-e   ["espacios_layout" 1] nil {:afterup ["espacios_layout" 0]}]
+                    [:spacebar   ["raycast_layout" 1] nil {:alone :raycast_open-insert :afterup ["raycast_layout" 0]}]
+                    [:dvrk-quote   ["SystemControl_sublayer" 1] nil {:afterup ["SystemControl_sublayer" 0]}]
+                    [:left_control   ["cmd-plus-arrows" 1] nil {:afterup ["cmd-plus-arrows" 0]}]
+                    ;~* function keys & social apps
+                    [:##1          nil nil {:alone :1passsword-autofill :held [:1password-quick-access]}]
+                    [:##2          nil nil {:alone :f2  :held [:open "Google Chrome"]}]
+                    [:##3          nil nil {:alone :f3  :held [:open "Messages"]}]
+                    [:##4          nil nil {:alone :flameshot_area}]
+                    [:##5          nil nil {:alone :zappy_select-area}]
+                [:any_key :vk_none]
+            ]
+        }
+
+
+{:des "Remap layout to Programmer Dvorak on MacBook Keyboard" :rules [
+
+            ;; numbers row
+            [:non_us_backslash :!S4] ;$
+            [:!Snon_us_backslash :!Snon_us_backslash] ;~
+            [:1 :!S5] ;&
+            [:!S1 :!S7] ;%
+            [:2 :!Requal_sign] ;%
+            [:!S2 :7] ;%
+            [:3 :open_bracket] ;%
+            [:!S3 :5] ;%
+            [:4 :!Sopen_bracket] ;%
+            [:!S4 :3] ;%
+            [:5 :!S9] ;(
+            [:!S5 :1] ;1
+            [:6 :equal_sign] ; =
+            [:!S6 :9] ;9
+            [:7 :!S8] ; *
+            [:!S7 :0] ; 0
+            [:8 :!S0] ; )
+            [:!S8 :2] ; 2
+            [:9 :!Sclose_bracket] ; +
+            [:!S9 :4] ; +
+            [:0 :close_bracket] ; ]
+            [:!S0 :6] ; ]
+            [:hyphen :!S1] ; !
+            [:!Shyphen :8] ; !
+            [:equal_sign :!S3] ; !
+            [:!Sequal_sign :non_us_backslash] ; !
+
+            ;; top row
+            [:##q :quote ]
+            [:##w :comma ]
+            [:##e :period ]
+            [:##r :p ]
+            [:##t :y ]
+            [:##y :f ]
+            [:##u :g ]
+            [:##i :c ]
+            [:##o :r ]
+            [:##p :l ]
+            [:##open_bracket :slash ]
+            [:!Sclose_bracket :!S6 ]
+            [:##close_bracket :!S2 ]
+
+            ;; home row
+            [:##a :a ]
+            [:##s :o ]
+            [:##d :e ]
+            [:##f :u ]
+            [:##g :i ]
+            [:##h :d ]
+            [:##j :h ]
+            [:##k :t ]
+            [:##l :n ]
+            [:##semicolon :s ]
+            [:##quote :hyphen ]
+
+            ;; bottom row
+            [:##z :semicolon ]
+            [:##x :q ]
+            [:##v :k ]
+            [:##c :j ]
+            [:##b :x ]
+            [:##n :b ]
+            [:##m :m ]
+            [:##comma :w ]
+            [:##period :v ]
+            [:##slash :z ]
+            [:##tab :left_option nil {:alone :tab}]
+            [:##right_shift :left_shift]
+        ]}
+
+        ; {
+        ;     :des "Colemak Layout"
+        ;     :rules [
+        ;         ; colemak
+        ;         [:condi :!qwerty]
+        ;         ; NOTE:
+        ;         ; ##y  Sirve para reasignar la tecla con todas sus características. (Si presionas shift, option + key te arrojará el output natural de esa tecla)
+        ;         ; y     a solas es para reasignar específicamente esa tecla o subtecla
+        ;             ; mod-wide colemak on the apple keyboard (full layout below; some keys are the same as QWERTY)
+
+        ;             [:non_us_backslash :!S4] ;$
+        ;             [:!Snon_us_backslash :!Snon_us_backslash] ;~
+        ;             [:1 :!S5] ;&
+        ;             [:!S1 :!S7] ;%
+        ;             [:2 :open_bracket] ;%
+        ;             [:!S2 :7] ;%
+        ;             [:3 :!Sopen_bracket] ;%
+        ;             [:!S3 :5] ;%
+        ;             [:4 :!Sclose_bracket] ;%
+        ;             [:!S4 :3] ;%
+        ;             [:5 :!S9] ;(
+        ;             [:!S5 :1] ;1
+        ;             [:6 :equal_sign] ; =
+        ;             [:!S6 :9] ;9
+        ;             [:7 :!S8] ; *
+        ;             [:!S7 :0] ; 0
+        ;             [:8 :!S0] ; )
+        ;             [:!S8 :2] ; 2
+        ;             [:9 :!Sequal_sign] ; +
+        ;             [:!S9 :4] ; +
+        ;             [:0 :close_bracket] ; ]
+        ;             [:!S0 :6] ; ]
+        ;             [:hyphen :!S1] ; !
+        ;             [:!Shyphen :8] ; !
+        ;             [:equal_sign :!S3] ; !
+        ;             [:!Sequal_sign :non_us_backslash] ; !
+        ;
+        ;
+        ;
+        ;             [:##tab :left_option nil {:alone :tab}]
+        ;             [:##q :q][:##w :w][:##e :f][:##r :p][:##t :g][:##y :j][:##u :l][:##i :u][:##o :y][:##p :semicolon][:##open_bracket :##hyphen][:close_bracket :!S2][:!Sclose_bracket :!S6]
+        ;             [:##a :a][:##s :r][:##d :s][:##f :t][:##g :d][:##h :h][:##j :n][:##k :e][:##l :i][:##semicolon :o][:##quote :##quote]
+        ;             [:##grave_accent_and_tilde :grave_accent_and_tilde][:##z :z][:##x :x][:##c :c][:##v :v][:##b :b][:##n :k][:##m :m][:##right_shift :left_shift]
+        ;         ]
+        ; }
+    ]
+}
+
+;; rule [:period ["media-mode" 1] nil {:afterup ["media-mode" 0] :alone :period}]
+;;       |_____| |_______________| |_| |_________________________________________|
+;;        <from>    <to>      <conditions>         <other options>
+;;
+;; !  | means mandatory -   modifier(s) alone when pressend change behavior
+;; #  | means optional  -   modifiers are optional (but atleast one necessary)
+;;
+;; :!Ca is keycode :a and prefix a with !C
+;;
+;; C  | left_command
+;; T  | left_control
+;; O  | left_option
+;; S  | left_shift
+;; F  | fn
+;; Q  | right_command
+;; W  | right_control
+;; E  | right_option
+;; R  | right_shift
+;; P  | caps_lock
+;;
+;; ## | optional any (this has no effect when used on the RHS; only LHS)
+;; !! | command + control + option + shift (hyper)
+;;
+;; to understand better how modifiers work in karabiner
+;; karabiner definition of mandatory and optional
+;; https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/from/modifiers/
+;;
+;; need to prefix C T O S F P with ! or #
+;;
+;; code for all this:
+;; https://github.com/yqrashawn/GokuRakuJoudo/blob/b9b334a187379f9bc8182ad59e2cca2a1789e9c0/src/karabiner_configurator/keys.clj#L68 
+;;
+;;
+;; list of keys usable in Karabiner
+;; https://github.com/pqrs-org/Karabiner-Elements/issues/925#issuecomment-323984568
+;;
+;; Sample mouse event remapping
+;; Could be used in a layer. Intercepting events from mice interferes with the scrollwheel.
+;; [{:pkey :button2} :delete_forward]
+;;
+;;
+;; URL of extend layer - https://forum.colemak.com/topic/2014-extend-extra-extreme/

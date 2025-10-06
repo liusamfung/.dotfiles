@@ -1,0 +1,80 @@
+# ############################################################################ 
+# The following command checks if tmux is installed.
+# If tmux is installed, it automatically attaches to an existing tmux session.
+# If no tmux session exists, a new one is created.
+# If tmux is not installed, it simply starts zsh without tmux.
+#
+# For this to work properly, you need to make sure that your shell is configured
+# for homebrew, so you should have this line:
+# eval "$(/opt/homebrew/bin/brew shellenv)"
+# In your ~/.zprofile file
+# If you don't have that line, or if the file doesn't exist, run this:
+# echo '' >>~/.zprofile && echo '# Configure shell for brew' >>~/.zprofile && echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>~/.zprofile && eval "$(/opt/homebrew/bin/brew shellenv)"
+#
+# This assumes you installed tmux through brew if using macos
+
+command = zsh --login -c "if command -v tmux >/dev/null 2>&1; then tmux attach || tmux; else zsh; fi"
+
+#If you want use float/quickterm (Ghostty terminal), you need choose one sesion predeterm
+# command = zsh --login -c "if command -v tmux >/dev/null 2>&1; then $HOME/github/dotfiles-latest/tmux/tools/prime/tmux-sessionizer.sh $HOME/github/dotfiles-latest || (tmux attach 2>/dev/null || tmux); else exec zsh; fi"
+
+#  Ideal background for 'solarized-osaka'
+background = #001b22 
+
+#  Background purplee
+# background = #1B1E35
+
+
+background-opacity = 0.80
+background-blur-radius = 20
+font-family = "JetBrainsMono Nerd Font"
+font-size = 20
+
+
+# macOS: To hide the titlebar without removing the native window borders
+#        or rounded corners, use `macos-titlebar-style = hidden` instead.
+macos-titlebar-style = "hidden"
+
+# Confirms that a surface should be closed before closing it. This defaults to
+# true. If set to false, surfaces will close without any confirmation.
+confirm-close-surface = false
+
+# `global:` - Make the keybind global. By default, keybinds only work
+#  within Ghostty and under the right conditions (application focused,
+#  sometimes terminal focused, etc.). If you want a keybind to work
+#  globally across your system (i.e. even when Ghostty is not focused),
+#  specify this prefix. This prefix implies `all:`. Note: this does not
+#  work in all environments; see the additional notes below for more
+#  information.
+# keybind = global:cmd+s=toggle_quick_terminal
+keybind = cmd+s=toggle_quick_terminal
+# Duration (in seconds) of the quick terminal enter and exit animation.
+# Set it to 0 to disable animation completely. This can be changed at
+# runtime.
+# quick-terminal-animation-duration = 0.1
+# quick-terminal-animation-duration = 0.08
+# quick-terminal-animation-duration = 0
+
+
+keybind = super+i=inspector:toggle
+keybind = super+r=reload_config
+
+### Mac Alt Fix
+# If `true`, the *Option* key will be treated as *Alt*. This makes terminal
+# sequences expecting *Alt* to work properly, but will break Unicode input
+# sequences on macOS if you use them via the *Alt* key. You may set this to
+# `false` to restore the macOS *Alt* key unicode sequences but this will break
+# terminal sequences expecting *Alt* to work.
+# 
+# The values `left` or `right` enable this for the left or right *Option*
+# key, respectively.
+# 
+# Note that if an *Option*-sequence doesn't produce a printable character, it
+# will be treated as *Alt* regardless of this setting. (i.e. `alt+ctrl+a`).
+# 
+# This does not work with GLFW builds.
+# Básicamente, tu option te servirá para que puedas poner tilde, virgulilla (˜), y otros caractéres especiales
+# que se usan fuera de idema ingles accionando Option Key. Por otro lado, tu  Rigth Option servirá como Alt, arreglando
+# la compatibilidad con otros sistemas no MacOs.
+macos-option-as-alt = right
+
