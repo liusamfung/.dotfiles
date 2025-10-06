@@ -15,7 +15,7 @@ format = '[$user]($style) '
 show_always = true
 
 [hostname]
-ssh_only = false # El nombre de tu PC Solo se mostrara cuando uses ssh 
+ssh_only = true # El nombre de tu PC Solo se mostrara cuando uses ssh 
 format = '@(white bold)[$hostname](#04d1f9 bold) '
 
 [directory]
