@@ -17,6 +17,18 @@ return {
       },
     },
   },
+  -- ntnthoeu
+  --
+  --   local f = io.open(oeuu
+  --
+  --     uoeu, "r")
+  --
+  --   while true do
+  --     line = f:read()
+  --     if line == nil then break end
+  --
+  --
+  --   end
 
   {
     "b0o/incline.nvim",
@@ -91,17 +103,21 @@ return {
                 hint = icons.diagnostics.Hint,
               },
             },
-            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-            { LazyVim.lualine.pretty_path() },
+            -- { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+            --No necesito saber la ruta exacta del  archivo en el que estoy
+            --parado. Se supone que se  donde estoy parado. Por ello, deshabilito el
+            --path y y tamb el icono (Ademas, ya tengo el nombre y el incono del archivo
+            --actual arriba a la derecha de cada panel conn con mi plugin 'incline.nvim'.
+            -- { LazyVim.lualine.pretty_path() },
           },
           lualine_x = {
             Snacks.profiler.status(),
-          -- stylua: ignore
-          {
-            function() return require("noice").api.status.command.get() end,
-            cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
-            color = function() return { fg = Snacks.util.color("Statement") } end,
-          },
+          -- stylua: ignore deasactivar la ultima tecla mostrada en status line
+          -- {
+          --   function() return require("noice").api.status.command.get() end,
+          --   cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
+          --   color = function() return { fg = Snacks.util.color("Statement") } end,
+          -- },
           -- stylua: ignore
           {
             function() return require("noice").api.status.mode.get() end,
@@ -140,13 +156,14 @@ return {
             },
           },
           lualine_y = {
-            { "progress", separator = " ", padding = { left = 1, right = 0 } },
+            -- { "progress", separator = " ", padding = { left = 1, right = 0 } },
             { "location", padding = { left = 0, right = 1 } },
           },
+          --Desactivando la hora (Ya la veo en mi sketchybar)
           lualine_z = {
-            function()
-              return " " .. os.date("%R")
-            end,
+            -- function()
+            --   return " " .. os.date("%R")
+            -- end,
           },
         },
         extensions = { "neo-tree", "lazy", "fzf" },
