@@ -3,16 +3,24 @@
 format = """
 $username\
 $hostname\
-$time\
 $all\
 $directory
 $character
 """
 
-# $kubernetes            this live btween directory and character. I'm no jjet use kubernet.
+[username]
+style_user = '#248CD7 bold'
+style_root = '#C94C15 bold'
+format = '[$user]($style)'
+show_always = true
+
+[hostname]
+ssh_only = false # El nombre de tu PC Solo se mostrara cuando uses ssh 
+format = '@(white bold)[$hostname](#04d1f9 bold) '
+
 [character]
-success_symbol = '[❯](#37f499 bold)'
-error_symbol = '[X](#f16c75 bold)'
+success_symbol = '[󰘍](#37f499 bold)'
+error_symbol = '[](#f16c75 bold)'
 vicmd_symbol = '[❮](#987afb bold)'
 
 [battery]
@@ -20,15 +28,6 @@ disabled = true
 
 [gcloud]
 disabled = true
-
-[time]
-style = '#987afb bold'
-disabled = false
-format = '[\[$time\]]($style) '
-# https://docs.rs/chrono/0.4.7/chrono/format/strftime/index.html
-# %T	00:34:60	Hour-minute-second format. Same to %H:%M:%S.
-# time_format = '%y/%m/%d %T'
-time_format = '%y/%m/%d'
 
 # For this to show up correctly, you need to have cluster access
 # So your ~/.kube/config needs to be configured on the local machine
@@ -47,21 +46,10 @@ format = '[$cluster](#9ad900 bold) [$namespace](#37f499 bold) '
 #   { context_pattern = "dev.local.cluster.k8s", style = "green", symbol = "💔 " },
 # ]
 
-[username]
-style_user = '#987afb bold'
-style_root = 'white bold'
-format = '[$user]($style).@.'
-show_always = true
 
-[hostname]
-ssh_only = true
-format = '(white bold)[$hostname](#37f499 bold)'
 
 [directory]
-style = '#04d1f9 bold'
+style = '#2C9F9D bold'
 truncation_length = 0
 truncate_to_repo = false
 
-[ruby]
-detect_variables = []
-detect_files = ['Gemfile', '.ruby-version']
