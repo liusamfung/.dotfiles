@@ -46,7 +46,7 @@ return {
   {
     "folke/snacks.nvim",
     opts = {
-      explorer = { enabled = false }, -- Cuando le doy a "open" desde Yazi a una carpeta, me abre directamente Explorer Snacks.
+      -- explorer = { enabled = false }, -- Cuando le doy a "open" desde Yazi a una carpeta, me abre directamente Explorer Snacks.
       -- No me gusta eso. Porque cualquier archivo que seleccione, se abrira desde ese sidebar.
       --Con esta opcion, solamente me abrirá una pagina en blanco.
       notifier = {

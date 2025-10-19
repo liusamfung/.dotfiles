@@ -19,13 +19,17 @@ command = zsh --login -c "if command -v tmux >/dev/null 2>&1; then tmux attach |
 # command = zsh --login -c "if command -v tmux >/dev/null 2>&1; then $HOME/github/dotfiles-latest/tmux/tools/prime/tmux-sessionizer.sh $HOME/github/dotfiles-latest || (tmux attach 2>/dev/null || tmux); else exec zsh; fi"
 
 #  Ideal background for 'solarized-osaka'
-background = #001b22 
+# background = #001b22 
+# background-opacity = 0.80
 
 #  Background purplee
 # background = #1B1E35
 
+background = #000
+background-opacity = 0.50
 
-background-opacity = 0.80
+
+
 background-blur-radius = 20
 font-family = "JetBrainsMono Nerd Font"
 font-size = 20

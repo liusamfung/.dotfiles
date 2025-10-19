@@ -3,8 +3,7 @@
 # Filename: ~/github/dotfiles-latest/scripts/macos/mac/misc/500-switchApp.sh
 # ~/github/dotfiles-latest/scripts/macos/mac/misc/500-switchApp.sh
 # Este script resulve mi problema con Tratar de abrir 'Finder' desde un shortcut
-#estando desde otro espacio.
-#NOTE: No olvidar darle permiso de ejecucion al
+#estando desd otro espacio. NOTE: No olvidar darle permiso de execucion al
 #archivo.
 
 APP="$1"

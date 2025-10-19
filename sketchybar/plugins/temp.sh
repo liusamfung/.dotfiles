@@ -1,5 +1,6 @@
 #!/bin/bash
-TEMP=$(/usr/local/bin/smctemp -c)
+# firt, you have to install this formula from brew (https://github.com/narugit/smctemp)
+TEMP=$(/opt/homebrew/bin/smctemp -c)
 
 # if [ $? -ne 0 ]; then
 # 	echo "Something has gone wrong."

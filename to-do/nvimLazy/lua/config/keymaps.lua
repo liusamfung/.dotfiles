@@ -6,10 +6,10 @@ discipline.cowboy()
 -- g Add any additional keymaps here
 --
 -- vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>", { desc = "Exit Terminal Mode" })
-vim.keymap.set("t", "<C-_>", "<C-\\><C-n>", { desc = "Exit Terminal Mode" })
 
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
+keymap.set("t", "<C-i>", "<C-\\><C-n>", { desc = "Exit Terminal Mode" })
 -- TODO: How to jump to next 'Todo'(Por hacer) '[ + t'  or '] + t'
 -- Increment/decrement
 keymap.set("n", "+", "<C-a>")

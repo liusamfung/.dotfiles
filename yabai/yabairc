@@ -1,3 +1,5 @@
+#These two line below enable 'sudo modo' (Required to switch between spaces)
+#WARNING: Anyway, please check documentacion
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
 
@@ -15,7 +17,7 @@ yabai -m signal --add event=application_terminated action="yabai -m query --wind
 # yabai -m rule --add app="^.*$" manage=on sticker=off  space=^2
 #
 yabai -m rule --add app="^.*$"   space=^2 
-yabai -m rule --add app="^Ghostty$"  space=^1
+yabai -m rule --add app="^kitty$"  space=^1
 
 yabai -m config layout bsp
 yabai -m space 1 --layout bsp
@@ -33,4 +35,4 @@ yabai -m config window_gap 15 #Space between windows
 
 
 yabai -m config external_bar all:$(sketchybar --query bar | jq .height):0 #https://github.com/FelixKratz/SketchyBar
-borders active_color=0xff06B6D4 inactive_color=0xff494d64 width=5.0 &  #https://github.com/FelixKratz/JankyBorders
+borders active_color=0xff06B6D4 inactive_color=0xff494d64 width=7.0 &  #https://github.com/FelixKratz/JankyBorders

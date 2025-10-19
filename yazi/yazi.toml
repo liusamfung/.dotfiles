@@ -1,9 +1,14 @@
 [mgr]
 show_hidden    = true
 ratio          = [ 1, 2, 4 ]
-linemode       = "permissions"
+# linemode       = "permissions"
 image_quality  = 50
 
+
+#NOTE: Esto hará que las imagenes sean mas grande, pero scrolleando entre archivos hara que se sienta
+#un ligero retraso. Esto pasa en todas las terminales. Pero por alguna razon KittyTerm va fenomenal.
+#No es siente para nada ese retraso.(Cosa que si sentia bastante en Ghostty). 
+#NOTE: Update: Now I use KittyTerm
 [preview]
 max_width       = 1500
 max_height      = 1800

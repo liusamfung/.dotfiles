@@ -211,10 +211,6 @@
 
  swtApp2 M-tab
  swtApp3 (macro M-(tab 20 tab))
-   act_acc (macro A-n)
-   grv_acc (macro A-e)
-   virgu (macro A-u)
-
 )
 
 ;; o Navigation
@@ -223,20 +219,21 @@
 ;;  i sesion
 ;;  u tabs
 (defalias
-  ' (multi f23 (tap-hold $tap-time $hold-time ' ralt))
-  , (multi f24 (tap-hold $tap-time $hold-time , lctl))
-  . (multi f24 (tap-hold $tap-time $hold-time . lsft))
-  p (multi f24 (tap-hold $tap-time $hold-time p lmet))
+  ' (multi f23 (tap-hold $tap-time $hold-time ' lctl))
+  , (multi f24 (tap-hold $tap-time $hold-time , lmet))
+  . (multi f24 (tap-hold $tap-time $hold-time . ralt))
+  p (multi f24 (tap-hold $tap-time $hold-time p lsft))
 
-  g (multi f24 (tap-hold $tap-time $hold-time g rmet))
-  c (multi f24 (tap-hold $tap-time $hold-time c rsft))
-  r (multi f24 (tap-hold $tap-time $hold-time r lctl))
-  l (multi f24 (tap-hold $tap-time $hold-time l ralt))
+  g (multi f24 (tap-hold $tap-time $hold-time g rsft))
+  c (multi f24 (tap-hold $tap-time $hold-time c ralt))
+  r (multi f24 (tap-hold $tap-time $hold-time r rmet))
+  l (multi f24 (tap-hold $tap-time $hold-time l lctl))
   
    ;; Si lo que quieres es que apenas pulsando otra tecla se accione el layer una -press
    ;; Rsft_lyr (tap-hold-press  150 10 @hrow_sc (layer-toggle shift))
-   Rsft_lyr (tap-hold-press  $tap-time $hold-time XX (layer-toggle shift))
-   Lsft_lyr (tap-hold-press  $tap-time $hold-time XX (layer-toggle shift))
+   ;;UUUU
+   Rsft_lyr (tap-hold-press  $tap-time $hold-time @hrow_sc (layer-toggle shift))
+   Lsft_lyr (tap-hold-press  $tap-time $hold-time @hrow_cl (layer-toggle shift))
    test_lyr (tap-hold-release-timeout $tap-time $hold-time e (layer-toggle shift) a )
 
   ;; Sublayerrrrr #################################################################
@@ -244,7 +241,6 @@
    win_slyr (tap-hold-press $subl-time $subl-time x (layer-while-held WindowsSubLayer))
     spa_slyr (tap-hold-press $subl-time $subl-time y (layer-while-held SpaceSubLayer))
 
-   nav_lyr (tap-hold $tap-time $hold-time a (layer-toggle navigationLayer))
    lnch_lyr (tap-hold $tap-time $hold-time o (layer-toggle apps))
    num_lyr (tap-hold $tap-time $hold-time q (layer-toggle number))
    ray_lyr (tap-hold $tap-time $hold-time n (layer-toggle raycastUtilyExtension))
@@ -255,7 +251,8 @@
    app_lyr (tap-hold $tap-time $hold-time spc (layer-toggle EspecificAppsLayer))
 
    sys_lyr (tap-hold $tap-time $hold-time @: (layer-toggle systemLayer))
-   ses_lyr (tap-hold $tap-time $hold-time u (layer-toggle sesionLayer))
+   nav_lyr (tap-hold $tap-time $hold-time a (layer-toggle navigationLayer))
+   ;;ses_lyr (tap-hold $tap-time $hold-time j (layer-toggle sesionLayer))
 )
 (defalias 
 
@@ -277,9 +274,9 @@
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   @$  @%_1pass    @}    @[    @{_zappy    @pl   @=     @*    @pr   @+     @]    @!    @#    bspc
   tab @'    @,    @.    @p    @spa_lyr    f    @g    @c @r @l    @/    @@_1fill    @msubl
-  esc @nav_lyr    @lnch_lyr   e   @ses_lyr     @tab_lyr    d    h    t    @ray_lyr     s   -    \
-  XX @swtApp2 @sys_lyr @num_lyr    j    k    @win_lyr    b    m    w    v    z    @swtApp3
-  fn lctl lmet    @Lsft_lyr           @app_lyr           @Rsft_lyr    @test_lyr left down up   rght
+  esc @nav_lyr   @lnch_lyr    e   u     @tab_lyr    d    h    t    @ray_lyr     s   -    \
+  @swtApp2 XX @sys_lyr @num_lyr    j    k    @win_lyr    b    m    w    v    z    @swtApp3
+  fn lctl lmet @Lsft_lyr        @app_lyr        @Rsft_lyr @test_lyr left down up   rght
 )
 
  (deflayer sublayers
@@ -292,25 +289,10 @@
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
 
-(defalias
-  t_dtfls (macro C-x $tmux-delay t)
-  h_homee (macro C-x $tmux-delay h)
-)
-
- (deflayer sesionLayer
-
-    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
- 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-    tab       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-      caps      XX       XX       XX       XX       XX       XX    @h_homee @t_dtfls    XX       XX       XX       XX
-   lsft    grv     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
-    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
-  )
-
 (deflayer number
   esc  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX  XX  XX
   XX  XX    XX    XX    XX    XX    XX   7    8    9    XX    XX    XX    bspc
-  tab @'    @,    @.    @p    XX    XX    4    5    6    XX    XX    XX    ret
+  tab XX    XX    XX    XX    XX    XX    4    5    6    XX    XX    XX    ret
   caps XX    XX    XX    XX    XX    XX    1    2    3    XX    XX    XX
   lsft grv XX    @Q    j    k    XX    ,    0   0   .    XX    rsft
   fn lctl lmet lsft        spc        rsft ralt left down up   rght
@@ -330,7 +312,7 @@
 
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       bspc
-    tab       @'       @,       @.       @p       XX       XX    @g_leftO @c_upppA @r_rgthO    XX       XX       XX       ret
+    tab       @'       @,       @.       @p       XX       XX    @g_leftO @c_upppA @r_rgthO    XX       XX       XX       XX
       caps      XX       XX       XX       XX       XX    @d_leftC @h_leftA @t_bttnA @n_rgthA @s_rgthC    XX       XX
    lsft    grv     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
@@ -439,7 +421,7 @@
 
 (deflayer shift
   esc   f1   f2  f3   f4   f5   f6   f7   f8   f9  f10   f11   f12
-  @~  @&    7    XX    @grv_acc    @virgu    9    0    XX    @act_acc    @¿    @¡    @`    bspc
+  @~  @&    7    5    3    1    9    0    2    4    @¿    @¡    @`    bspc
   tab @''    @<    @>    @P    @Y    @F    @G    @C    @R    @L    @?    @^    ret
   caps @A    @O    @E    @U    @I    @D    @H    @T    @N    @S    @_    @|
   lsft grv @;    @Q    @J    @K    @X    @B    @M    @W    @V    @Z    rsft
@@ -460,7 +442,6 @@
 
 ;; yabai -m query --windows | grep app
 
-     a_QkCam (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Quick Camera'")
      a_chrom (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Google Chrome'")
      a_excel (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Microsoft Excel'")
      a_wordd (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Microsoft Word'")
@@ -470,7 +451,7 @@
      a_ntion (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Notion'")
      a_obsin (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Obsidian'")
 
-     a_term (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'kitty'") ;;(T)terminal (This is my terminal emulator)
+     a_term (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Ghostty'") ;;(T)terminal (This is my terminal emulator)
      a_brwsr (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Zen'") ;;(B)rowser (This is my main browser) 
 
      a_slack (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Slack'") 
@@ -502,9 +483,9 @@
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX    @a_excel @a_outlk @a_wordd @a_canva    XX       XX
     tab       XX    @a_sttng    XX    @a_1pssw @a_ytmsc @a_findr    XX    @a_fntcl @a_remdr @a_chrom @a_prviw    XX       XX
-      caps   @a_obsin XX    XX       XX       XX    @a_discd    XX    @a_term @a_ntion @a_slack @a_innaa    ret
+      caps   @a_obsin    XX       XX       XX       XX    @a_discd    XX    @a_term @a_ntion @a_slack @a_innaa    ret
    lsft    grv     XX       XX       XX       XX       XX    @a_brwsr @a_whtsp    XX    @a_teams @a_zoomm    rsft
-    fn    lctl lalt lmet                 @a_QkCam                     rmet    ralt         left down up  rght
+    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
 
  (deflayer raycastUtilyExtension

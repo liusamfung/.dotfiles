@@ -22,7 +22,7 @@ desc = "Go to PersonalProjects"
 
 [[mgr.prepend_keymap]]
 on = ["g", "a"]
-run = "cd ~/Dev/AcademicProjects"
+run = "cd /Users/liusam/Dev/AcademicProjects/2025-II"
 desc = "Go to AcademicProjects"
 
 [[mgr.prepend_keymap]]
