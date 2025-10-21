@@ -501,9 +501,9 @@
  (deflayer apps
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX    @a_excel @a_outlk @a_wordd @a_canva    XX       XX
-    tab       XX    @a_sttng    XX    @a_1pssw @a_ytmsc @a_findr    XX    @a_fntcl @a_remdr @a_chrom @a_prviw    XX       XX
+    tab       XX    @a_sttng    XX    @a_1pssw @a_ytmsc @a_findr    XX    @a_fntcl @a_remdr XX @a_prviw    XX       XX
       caps   @a_obsin XX    XX       XX       XX    @a_discd    XX    @a_term @a_ntion @a_slack @a_innaa    ret
-   lsft    grv     XX       XX       XX       XX       XX    @a_brwsr @a_whtsp    XX    @a_teams @a_zoomm    rsft
+   lsft    grv     XX       XX       XX       XX       XX    @a_chrom @a_whtsp    XX    @a_teams @a_zoomm    rsft
     fn    lctl lalt lmet                 @a_QkCam                     rmet    ralt         left down up  rght
   )
 
