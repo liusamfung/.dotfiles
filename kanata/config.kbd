@@ -235,12 +235,12 @@
   
    ;; Si lo que quieres es que apenas pulsando otra tecla se accione el layer una -press
    ;; Rsft_lyr (tap-hold-press  150 10 @hrow_sc (layer-toggle shift))
-   Rsft_lyr (tap-hold-press  $tap-time $hold-time XX (layer-toggle shift))
-   Lsft_lyr (tap-hold-press  $tap-time $hold-time XX (layer-toggle shift))
+   Rsft_lyr (tap-hold-press  $tap-time $hold-time ret (layer-toggle shift))
+   Lsft_lyr (tap-hold-press  $tap-time $hold-time bspc (layer-toggle shift))
    test_lyr (tap-hold-release-timeout $tap-time $hold-time e (layer-toggle shift) a )
 
   ;; Sublayerrrrr #################################################################
-   msubl (tap-hold-press $subl-time $subl-time ret (layer-while-held sublayers))
+   msubl (tap-hold-press $subl-time $subl-time XX (layer-while-held sublayers))
    win_slyr (tap-hold-press $subl-time $subl-time x (layer-while-held WindowsSubLayer))
     spa_slyr (tap-hold-press $subl-time $subl-time y (layer-while-held SpaceSubLayer))
 
@@ -275,7 +275,7 @@
 
 (deflayer base
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  @$  @%_1pass @{_zappy @[    @}    @pl   @=     @*    @pr   @+     @]    @!    @#    bspc
+  @$  @%_1pass @{_zappy @[    @}    @pl   @=     @*    @pr   @+     @]    @!    @#    XX
   tab @'    @,    @.    @p    @spa_lyr    f    @g    @c @r @l    @/    @@_1fill    @msubl
   esc @nav_lyr    @lnch_lyr   e   @ses_lyr     @tab_lyr    d    h    t    @ray_lyr     s   -    \
   XX @swtApp2 @sys_lyr @num_lyr    j    k    @win_lyr    b    m    w    v    z    @swtApp3
