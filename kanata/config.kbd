@@ -275,7 +275,7 @@
 
 (deflayer base
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  @$  @%_1pass    @}    @[    @{_zappy    @pl   @=     @*    @pr   @+     @]    @!    @#    bspc
+  @$  @%_1pass @{_zappy @[    @}    @pl   @=     @*    @pr   @+     @]    @!    @#    bspc
   tab @'    @,    @.    @p    @spa_lyr    f    @g    @c @r @l    @/    @@_1fill    @msubl
   esc @nav_lyr    @lnch_lyr   e   @ses_lyr     @tab_lyr    d    h    t    @ray_lyr     s   -    \
   XX @swtApp2 @sys_lyr @num_lyr    j    k    @win_lyr    b    m    w    v    z    @swtApp3
@@ -309,10 +309,10 @@
 
 (deflayer number
   esc  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX  XX  XX
-  XX  XX    XX    XX    XX    XX    XX   7    8    9    XX    XX    XX    bspc
-  tab @'    @,    @.    @p    XX    XX    4    5    6    XX    XX    XX    ret
-  caps XX    XX    XX    XX    XX    XX    1    2    3    XX    XX    XX
-  lsft grv XX    @Q    j    k    XX    ,    0   0   .    XX    rsft
+  XX  XX    XX    XX    XX    XX    XX   @*    7    8    9    XX    XX    bspc
+  tab @'    @,    @.    @p    XX    XX    4    5    6    @+    @/    XX    ret
+  caps XX    XX    XX    XX    XX    XX    1    2    3    XX    @-    XX
+  lsft grv @:    @Q    j    k    XX    ,    0   0   .    XX    rsft
   fn lctl lmet lsft        spc        rsft ralt left down up   rght
 )
 
