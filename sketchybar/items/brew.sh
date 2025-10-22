@@ -5,7 +5,7 @@
 
 brew=(
 	icon=􀐛
-	label=Brew
+	label=Brew...
 	# label.font="OperatorMono Nerd Font:Bold Italic:14.0"
 	icon.color="$BLUE"
 	padding_right=10

@@ -24,13 +24,13 @@ yabai -m space 1 --layout bsp
 yabai -m space 2 --layout stack
 yabai -m space 3 --layout bsp
 
-yabai -m config top_padding 15
-yabai -m config bottom_padding 35
-yabai -m config left_padding 35
-yabai -m config right_padding 35
+# yabai -m config top_padding 15
+yabai -m config bottom_padding 3
+yabai -m config left_padding 3
+yabai -m config right_padding 3
 
 
-yabai -m config window_gap 15 #Space between windows
+yabai -m config window_gap 10 #Space between windows
 # # yabai -m query --windows | grep app
 
 
