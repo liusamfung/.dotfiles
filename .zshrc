@@ -80,17 +80,27 @@ source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 source $ZSH/oh-my-zsh.sh
 
 #EZA 
-alias ll='eza -lg --group-directories-last --icons' ##Lista sin mostrar carpetas ocultas
-alias la='eza -lag --group-directories-last --icons'
+# alias ll='eza -lg --group-directories-last --icons' ##Lista sin mostrar carpetas ocultas
+# alias la='eza -lag --group-directories-last --icons'
+#
+# alias lt='eza -lTg --level=2 --group-directories-last --icons'
+# alias lt2='eza -lTg --level=3 --group-directories-last --icons'
+# alias lt3='eza -lTg  --group-directories-last --icons'
+#
+# alias lta='eza -lTag --level=2 --group-directories-last --icons'
+# alias lta2='eza -lTag --level=3 --group-directories-last --icons'
+# alias lta3='eza -lTag --group-directories-last --icons'
 
-alias lt='eza -lTg --level=2 --group-directories-last --icons'
-alias lt2='eza -lTg --level=3 --group-directories-last --icons'
-alias lt3='eza -lTg  --group-directories-last --icons'
+alias ll='eza -lg --group-directories-first --icons' ##Lista sin mostrar carpetas ocultas
+alias la='eza -lag --group-directories-first --icons'
 
-alias lta='eza -lTag --level=2 --group-directories-last --icons'
-alias lta2='eza -lTag --level=3 --group-directories-last --icons'
-alias lta3='eza -lTag --group-directories-last --icons'
+alias lt='eza -lTg --level=2 --group-directories-first --icons'
+alias lt2='eza -lTg --level=3 --group-directories-first --icons'
+alias lt3='eza -lTg  --group-directories-first --icons'
 
+alias lta='eza -lTag --level=2 --group-directories-first --icons'
+alias lta2='eza -lTag --level=3 --group-directories-first --icons'
+alias lta3='eza -lTag --group-directories-first --icons'
 alias nt='nvim -c "terminal"'
 alias x='exit'
 
