@@ -5,19 +5,25 @@ return {
     lazy = false,
     ---@type snacks.Config
     opts = {
-      explorer = {
-        enabled = false,
+      explorer = { enabled = true }, --Lo habilitamos para que cuando abramos un directorio desde la terminal, lo abra con
+      --snacks.explore y no con netrw
+      lazygit = { enabled = false },
+      image = { enabled = true },
+      indent = { enabled = true }, --Remplazo de 'mini.indentscope'
+      -- input = { enabled = true } --TODO: Better vim.ui.input, but, What the hell is vim.ui.input?
+      -- words = { enabled = true }, --TODO: What the fuck does this?
+      notifier = {
+        enabled = true,
+        timeout = 3000,
       },
       picker = {
         -- hidden = true,
         enabled = true,
         layout = {
           preset = 'default',
-          -- Cuando lleges al final de todo. Que no te regrese nuevament hacia arriba.
-          cycle = false,
+          cycle = false, -- Cuando lleges al final de todo. Que no te regrese nuevamente hacia arriba.
         },
         --NOTE: Aqui deben ir todas las configuraciones referencentes a snacks.picker
-        --
         sources = {
           explorer = {
             layout = { preset = 'default', preview = true },
@@ -57,10 +63,6 @@ return {
             },
           },
         },
-      },
-      notifier = {
-        enabled = true,
-        timeout = 3000,
       },
       -- styles = {
       --   notification = {
@@ -106,7 +108,7 @@ return {
         desc = 'Notification History',
       },
       {
-        '<leader>e',
+        '<leader>ue',
         function()
           Snacks.explorer()
         end,
@@ -127,6 +129,21 @@ return {
         end,
         desc = 'Find Files',
       },
+      -- { '<leader>ff', LazyVim.pick 'files', desc = 'Find Files (Root Dir)' },
+      {
+        '<leader>fR',
+        function()
+          Snacks.picker.recent { filter = { cwd = true } }
+        end,
+        desc = 'Recent (cwd)',
+      },
+      {
+        '<leader>fr',
+        function()
+          Snacks.picker.recent()
+        end,
+        desc = 'Recent',
+      },
       {
         '<leader>fg',
         function()
@@ -140,13 +157,6 @@ return {
           Snacks.picker.projects()
         end,
         desc = 'Projects',
-      },
-      {
-        '<leader>fr',
-        function()
-          Snacks.picker.recent()
-        end,
-        desc = 'Recent',
       },
       -- git
       {
@@ -537,13 +547,7 @@ return {
             file = vim.api.nvim_get_runtime_file('doc/news.txt', false)[1],
             width = 0.6,
             height = 0.6,
-            wo = {
-              spell = false,
-              wrap = false,
-              signcolumn = 'yes',
-              statuscolumn = ' ',
-              conceallevel = 3,
-            },
+            wo = { spell = false, wrap = false, signcolumn = 'yes', statuscolumn = ' ', conceallevel = 3 },
           }
         end,
       },

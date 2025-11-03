@@ -102,7 +102,8 @@ alias lta='eza -lTag --level=2 --group-directories-first --icons'
 alias lta2='eza -lTag --level=3 --group-directories-first --icons'
 alias lta3='eza -lTag --group-directories-first --icons'
 alias nt='nvim -c "terminal"'
-alias x='exit'
+alias i='nvim'
+alias e='exit'
 
 alias nvim-kickstart='NVIM_APPNAME="nvim-kickstart" nvim'
 
@@ -189,3 +190,5 @@ function java21() {
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="/opt/homebrew/lib/ruby/gems/3.4.0/bin:$PATH"
 export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
+
+export PATH="/opt/homebrew/opt/trash-cli/bin:$PATH"

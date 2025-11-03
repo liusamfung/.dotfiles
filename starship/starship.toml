@@ -1,10 +1,12 @@
 # This will show the time on a 2nd line
 # Add a "\" at the end of an item, if you want the next item to show on the same line
 format = """
+$sudo\
 $username\
 $hostname\
 $all\
 $directory
+${env_var.yazi_level}\
 $character
 """
 
@@ -28,4 +30,9 @@ success_symbol = '[󰘍](#37f499 bold)'
 error_symbol = '[](#f16c75 bold)'
 vicmd_symbol = '[❮](#987afb bold)'
 
-
+[env_var.yazi_level]
+description = "Indicate the shell was launched by `yazi`"
+variable = "YAZI_LEVEL"
+style = '#F08A3F bold'
+symbol = " ->🦆"
+format = '[ $symbol ]($style)'

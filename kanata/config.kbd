@@ -246,7 +246,7 @@
 
    nav_lyr (tap-hold $tap-time $hold-time a (layer-toggle navigationLayer))
    lnch_lyr (tap-hold $tap-time $hold-time o (layer-toggle apps))
-   num_lyr (tap-hold $tap-time $hold-time q (layer-toggle number))
+   num_lyr (tap-hold $tap-time $hold-time spc (layer-toggle number))
    ray_lyr (tap-hold $tap-time $hold-time n (layer-toggle raycastUtilyExtension))
    spa_lyr (tap-hold $tap-time $hold-time y (layer-toggle SpaceLayer))
    win_lyr (tap-hold $tap-time $hold-time x (layer-toggle WindowsLayer))
@@ -262,6 +262,7 @@
   @_1fill (tap-hold $tap-time $hold-time @@ C-A-M-p) ;; trickster
   %_1pass (tap-hold $tap-time $hold-time @% S-C-A-M-p) ;; trickster
   {_zappy (tap-hold $tap-time $hold-time @{ C-A-M-x) ;; trickster
+  d_dicti (tap-hold $tap-time $hold-time d S-C-A-M-d) ;; easydictionary (https://github.com/tisfeng/Easydict)
 )
 
 (defsrc
@@ -277,9 +278,9 @@
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   @$  @%_1pass @{_zappy @[    @}    @pl   @=     @*    @pr   @+     @]    @!    @#    XX
   tab @'    @,    @.    @p    @spa_lyr    f    @g    @c @r @l    @/    @@_1fill    @msubl
-  esc @nav_lyr    @lnch_lyr   e   @ses_lyr     @tab_lyr    d    h    t    @ray_lyr     s   -    \
-  XX @swtApp2 @sys_lyr @num_lyr    j    k    @win_lyr    b    m    w    v    z    @swtApp3
-  fn lctl lmet    @Lsft_lyr           @app_lyr           @Rsft_lyr    @test_lyr left down up   rght
+  esc @nav_lyr    @lnch_lyr   e   @ses_lyr     @tab_lyr    @d_dicti    h    t    @ray_lyr     s   -    \
+  XX caps @sys_lyr    q    j    k    @win_lyr    b    m    w    v    z    @swtApp3
+  fn lctl lmet    @Lsft_lyr           @num_lyr           @Rsft_lyr    @test_lyr left down up   rght
 )
 
  (deflayer sublayers
@@ -287,8 +288,8 @@
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
     tab       XX       XX       XX       XX    @spa_slyr    XX       XX       XX       XX       XX       XX       XX       XX
-      caps      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-   lsft    grv     XX       XX       XX       XX    @win_slyr    XX       XX       XX       XX       XX       rsft
+      esc      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+   lsft    caps     XX       XX       XX       XX    @win_slyr    XX       XX       XX       XX       XX       rsft
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
 
@@ -302,8 +303,8 @@
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
     tab       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-      caps      XX       XX       XX       XX       XX       XX    @h_homee @t_dtfls    XX       XX       XX       XX
-   lsft    grv     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
+      esc      XX       XX       XX       XX       XX       XX    @h_homee @t_dtfls    XX       XX       XX       XX
+   lsft    caps     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
 
@@ -311,8 +312,8 @@
   esc  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX  XX  XX
   XX  XX    XX    XX    XX    XX    XX   @*    7    8    9    XX    XX    bspc
   tab @'    @,    @.    @p    XX    XX    4    5    6    @+    @/    XX    ret
-  caps XX    XX    XX    XX    XX    XX    1    2    3    XX    @-    XX
-  lsft grv @:    @Q    j    k    XX    ,    0   0   .    XX    rsft
+  esc XX    XX    XX    XX    XX    XX    1    2    3    XX    @-    XX
+  lsft caps @:    @Q    j    k    XX    ,    0   0   .    XX    rsft
   fn lctl lmet lsft        spc        rsft ralt left down up   rght
 )
 
@@ -331,8 +332,8 @@
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       bspc
     tab       @'       @,       @.       @p       XX       XX    @g_leftO @c_upppA @r_rgthO    XX       XX       XX       ret
-      caps      XX       XX       XX       XX       XX    @d_leftC @h_leftA @t_bttnA @n_rgthA @s_rgthC    XX       XX
-   lsft    grv     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
+      esc      XX       XX       XX       XX       XX    @d_leftC @h_leftA @t_bttnA @n_rgthA @s_rgthC    XX       XX
+   lsft    caps     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
 
@@ -340,8 +341,8 @@
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX    @7_spac7 @8_spac8 @9_spac9    XX       XX       XX       XX
     tab       XX       XX       XX       XX       XX       XX    @g_spac4 @c_spac5 @r_spac6    XX       XX       XX       XX
-      caps      XX       XX       XX       XX       XX       XX    @h_spac1 @t_spac2 @n_spac3    XX       XX       XX
-   lsft    grv     XX       XX       XX       XX       XX       XX       XX    @w_destr @v_creat    XX       rsft
+      esc      XX       XX       XX       XX       XX       XX    @h_spac1 @t_spac2 @n_spac3    XX       XX       XX
+   lsft    caps     XX       XX       XX       XX       XX       XX       XX    @w_destr @v_creat    XX       rsft
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
 
@@ -364,8 +365,8 @@
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX    @7_sndW7 @8_sndW8 @9_sndW9    XX       XX       XX       XX
     tab       XX       XX       XX       XX       XX       XX    @g_sndW4 @c_sndW5 @r_sndW6    XX       XX       XX       XX
-      caps      XX       XX       XX       XX       XX       XX    @h_sndW1 @t_sndW2 @n_sndW3    XX       XX       XX
-   lsft    grv     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
+      esc      XX       XX       XX       XX       XX       XX    @h_sndW1 @t_sndW2 @n_sndW3    XX       XX       XX
+   lsft    caps     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
 
@@ -374,8 +375,8 @@
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX    @7_flipX @8_flipY @9_rot90    XX       XX       XX       XX
     tab       XX       XX       XX       XX       XX   @f_fulls    XX    @c_north @r_resta    XX       XX       XX       XX
-      caps      XX    @o_float @e_bsppp @u_stack @i_stick    XX    @h_westt @t_south @n_eastt @s_split    XX       XX
-   lsft    grv     XX       XX       XX       XX       XX       XX       XX    @w_close    XX       XX       rsft
+      esc      XX    @o_float @e_bsppp @u_stack @i_stick    XX    @h_westt @t_south @n_eastt @s_split    XX       XX
+   lsft    caps     XX       XX       XX       XX       XX       XX       XX    @w_close    XX       XX       rsft
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
 
@@ -394,8 +395,8 @@
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
     tab       XX       XX       XX       XX       XX       XX       XX    @c_rTopp    XX       XX       XX       XX       XX
-      caps      XX       XX       XX       XX       XX       XX    @h_rLeft @t_rBttn @n_rRgth    XX       XX       XX
-   lsft    grv     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
+      esc      XX       XX       XX       XX       XX       XX    @h_rLeft @t_rBttn @n_rRgth    XX       XX       XX
+   lsft    caps     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
 
@@ -423,8 +424,8 @@
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
     tab       XX       XX       XX       XX       XX       XX    @g_goTb4 @c_goTb5 @r_rnmTb    XX       XX       XX       XX
-      caps      XX       XX       XX       XX       XX       XX    @h_goTb1 @t_goTb2 @n_goTb3    XX       XX       XX
-   lsft    grv     XX       XX       XX       XX       XX    @b_prviw    XX    @w_clsTb @v_crtTb    XX       rsft
+      esc      XX       XX       XX       XX       XX       XX    @h_goTb1 @t_goTb2 @n_goTb3    XX       XX       XX
+   lsft    caps     XX       XX       XX       XX       XX    @b_prviw    XX    @w_clsTb @v_crtTb    XX       rsft
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
 
@@ -432,17 +433,17 @@
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX   @!_zoom-   @#_zoom+ @bsc_FrcQ
     tab       XX       XX       XX       XX       XX       XX       🔅       🔊       🔆       ▶⏸       XX       @@_zTogl       XX
-      caps      XX       XX       XX       XX       XX       XX       ◀◀       🔉       ▶▶       XX       XX       XX
-   lsft    grv     XX   @q_lockS    XX       XX       XX       @b_notif       🔇       XX       XX    @z_dndDi    rsft
+      esc      XX       XX       XX       XX       XX       XX       ◀◀       🔉       ▶▶       XX       XX       XX
+   lsft    caps     XX   @q_lockS    XX       XX       XX       @b_notif       🔇       XX       XX    @z_dndDi    rsft
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
 
 (deflayer shift
   esc   f1   f2  f3   f4   f5   f6   f7   f8   f9  f10   f11   f12
   @~  @&    7    XX    @grv_acc    @virgu    9    0    XX    @act_acc    @¿    @¡    @`    bspc
-  tab @''    @<    @>    @P    @Y    @F    @G    @C    @R    @L    @?    @^    ret
-  caps @A    @O    @E    @U    @I    @D    @H    @T    @N    @S    @_    @|
-  lsft grv @;    @Q    @J    @K    @X    @B    @M    @W    @V    @Z    rsft
+  @swtApp2 @''    @<    @>    @P    @Y    @F    @G    @C    @R    @L    @?    @^    ret
+  esc @A    @O    @E    @U    @I    @D    @H    @T    @N    @S    @_    @|
+  lsft caps @;    @Q    @J    @K    @X    @B    @M    @W    @V    @Z    rsft
   fn lctl lmet lsft        @hrow_sl        rsft ralt left down up   rght
 )
 
@@ -451,8 +452,8 @@
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
     tab       XX       XX       XX    @p_AppLy @y_AppLy    XX       XX       XX       XX       XX       XX       XX       @ret_App
-      caps      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-   lsft    grv     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
+      esc      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+   lsft    caps     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
 
@@ -461,7 +462,7 @@
 ;; yabai -m query --windows | grep app
 
      a_QkCam (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Quick Camera'")
-     a_chrom (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Google Chrome'")
+     a_chrom (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Zen'")
      a_excel (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Microsoft Excel'")
      a_wordd (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Microsoft Word'")
      a_outlk (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Microsoft Outlook'")
@@ -502,8 +503,8 @@
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX    @a_excel @a_outlk @a_wordd @a_canva    XX       XX
     tab       XX    @a_sttng    XX    @a_1pssw @a_ytmsc @a_findr    XX    @a_fntcl @a_remdr XX @a_prviw    XX       XX
-      caps   @a_obsin XX    XX       XX       XX    @a_discd    XX    @a_term @a_ntion @a_slack @a_innaa    ret
-   lsft    grv     XX       XX       XX       XX       XX    @a_chrom @a_whtsp    XX    @a_teams @a_zoomm    rsft
+      esc   @a_obsin XX    XX       XX       XX    @a_discd    XX    @a_term @a_ntion @a_slack @a_innaa    ret
+   lsft    caps     XX       XX       XX       XX       XX    @a_chrom @a_whtsp    XX    @a_teams @a_zoomm    rsft
     fn    lctl lalt lmet                 @a_QkCam                     rmet    ralt         left down up  rght
   )
 
@@ -511,8 +512,8 @@
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
     tab       XX       XX       XX       XX    @y_ytvid @f_files @g_googl @c_clipb    XX       XX       XX       XX       XX
-      caps      XX       XX    @e_emoji    XX       XX    @d_dwnYT @h_gihub    XX       XX       XX       XX       XX
-   lsft    grv     XX       XX       XX    @k_killp     XX    @b_raind    XX       XX       XX       XX       rsft
+      esc      XX       XX    @e_emoji    XX       XX    @d_dwnYT @h_gihub    XX       XX       XX       XX       XX
+   lsft    caps     XX       XX       XX    @k_killp     XX    @b_raind    XX       XX       XX       XX       rsft
     fn    lctl lalt lmet               @raycastPrompt                  rmet    ralt         left down up  rght
   )
 
@@ -543,8 +544,8 @@
 ;;    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
 ;; 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
 ;;    tab       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-;;      caps      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-;;   lsft    grv     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
+;;      esc      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+;;   lsft    caps     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
 ;;    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
 ;;  )
 
