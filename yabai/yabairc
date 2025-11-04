@@ -15,14 +15,42 @@ yabai -m signal --add event=application_hidden action="yabai -m query --windows 
 yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 
 # yabai -m rule --add app="^.*$" manage=on sticker=off  space=^2
-yabai -m rule --add app="^.*$"   space=^2 
-yabai -m rule --add app="^kitty$"  space=^1
 
-yabai -m rule --add app="^Clock$" manage=off 
-yabai -m config layout bsp
+
+
+apps_terminal="(kitty|Terminal)" 
+apps_testing="(Google Chrome)" # I test web development stuff with Google Chrome
+apps_organization="(Fantastical|Reminders|Notion|Obsidian)"
+apps_workspace="(Canva|Microsoft Excel|Microsoft Word)"
+apps_media="(Firefox|Preview|QuickTime Player|INNA|Microsoft Teams|zoom.us|Photos)" #Generalmente solo usas una de estas apps a la vez
+apps_msg="(Microsoft Outlook|WhatsApp|Slack)" 
+apps_browsing="(Zen)" # 
+
+apps_mgoff_normal="(Clock|Quick Camera|Photo Booth)" #Apps no administradas por yabai(Por defecto, flat)
+
+yabai -m config layout stack #General 
 yabai -m space 1 --layout bsp
-yabai -m space 2 --layout stack
-yabai -m space 3 --layout bsp
+yabai -m space 2 --layout bsp
+
+
+#NOTE: This line below have to place first of others rules.
+yabai -m rule --add app="^.*$"  space=^7 # Any other app 
+
+yabai -m rule --add app="^${apps_terminal}$"  space=^1 # Terminal 
+yabai -m rule --add app="^${apps_testing}$"  space=^2 # Workspace to testing 
+yabai -m rule --add app="^${apps_workspace}$"  space=^3 # Worktyping or others (Canva, Word, Excel)
+yabai -m rule --add app="^${apps_organization}$"  space=^4 # Organización (Fantastical, Reminders, Notion, etc)
+yabai -m rule --add app="^${apps_media}$"  space=^5 # Media (Watch, pdf, videos, images, etc)
+yabai -m rule --add app="^${apps_browsing}$"  space=^6 
+yabai -m rule --add app="^${apps_msg}$"  space=^8
+# yabai -m rule --add app="^${}$"  space=^9 
+
+yabai -m rule --add app="^${apps_mgoff_normal}$" manage=off
+
+
+
+
+
 
 yabai -m config top_padding 3
 yabai -m config bottom_padding 40

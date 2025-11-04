@@ -240,22 +240,23 @@
    test_lyr (tap-hold-release-timeout $tap-time $hold-time e (layer-toggle shift) a )
 
   ;; Sublayerrrrr #################################################################
-   msubl (tap-hold-press $subl-time $subl-time XX (layer-while-held sublayers))
-   win_slyr (tap-hold-press $subl-time $subl-time x (layer-while-held WindowsSubLayer))
-    spa_slyr (tap-hold-press $subl-time $subl-time y (layer-while-held SpaceSubLayer))
+   ;;msubl (tap-hold-press $subl-time $subl-time XX (layer-while-held sublayers))
 
    nav_lyr (tap-hold $tap-time $hold-time a (layer-toggle navigationLayer))
    lnch_lyr (tap-hold $tap-time $hold-time o (layer-toggle apps))
    num_lyr (tap-hold $tap-time $hold-time spc (layer-toggle number))
    ray_lyr (tap-hold $tap-time $hold-time n (layer-toggle raycastUtilyExtension))
-   spa_lyr (tap-hold $tap-time $hold-time y (layer-toggle SpaceLayer))
+
+   spa_lyr (tap-hold $tap-time $hold-time u (layer-toggle SpaceLayer))
+   spa_slyr (tap-hold-press $subl-time $subl-time spc (layer-while-held SpaceSubLayer))
    win_lyr (tap-hold $tap-time $hold-time x (layer-toggle WindowsLayer))
+   win_slyr (tap-hold-press $subl-time $subl-time spc (layer-while-held WindowsSubLayer))
    tab_lyr (tap-hold $tap-time $hold-time i (layer-toggle TabsLayer))
+   ses_lyr (tap-hold $tap-time $hold-time y (layer-toggle sesionLayer))
 
    app_lyr (tap-hold $tap-time $hold-time spc (layer-toggle EspecificAppsLayer))
 
    sys_lyr (tap-hold $tap-time $hold-time @: (layer-toggle systemLayer))
-   ses_lyr (tap-hold $tap-time $hold-time u (layer-toggle sesionLayer))
 )
 (defalias 
 
@@ -277,8 +278,8 @@
 (deflayer base
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   @$  @%_1pass @{_zappy @[    @}    @pl   @=     @*    @pr   @+     @]    @!    @#    XX
-  tab @'    @,    @.    @p    @spa_lyr    f    @g    @c @r @l    @/    @@_1fill    @msubl
-  esc @nav_lyr    @lnch_lyr   e   @ses_lyr     @tab_lyr    @d_dicti    h    t    @ray_lyr     s   -    \
+  tab @'    @,    @.    @p    @ses_lyr    f    @g    @c @r @l    @/    @@_1fill    XX
+  esc @nav_lyr    @lnch_lyr   e   @spa_lyr     @tab_lyr    @d_dicti    h    t    @ray_lyr     s   -    \
   XX caps @sys_lyr    q    j    k    @win_lyr    b    m    w    v    z    @swtApp3
   fn lctl lmet    @Lsft_lyr           @num_lyr           @Rsft_lyr    @test_lyr left down up   rght
 )
@@ -339,11 +340,11 @@
 
  (deflayer SpaceLayer
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
- 102d     XX      XX       XX       XX       XX       XX    @7_spac7 @8_spac8 @9_spac9    XX       XX       XX       XX
+ 102d     XX      XX       XX       XX       XX       XX      XX     @7_spac7 @8_spac8 @9_spac9    XX       XX       XX
     tab       XX       XX       XX       XX       XX       XX    @g_spac4 @c_spac5 @r_spac6    XX       XX       XX       XX
       esc      XX       XX       XX       XX       XX       XX    @h_spac1 @t_spac2 @n_spac3    XX       XX       XX
    lsft    caps     XX       XX       XX       XX       XX       XX       XX    @w_destr @v_creat    XX       rsft
-    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+    fn    lctl lalt lmet                 @spa_slyr                     rmet    ralt         left down up  rght
   )
 
 (defalias
@@ -377,7 +378,7 @@
     tab       XX       XX       XX       XX       XX   @f_fulls    XX    @c_north @r_resta    XX       XX       XX       XX
       esc      XX    @o_float @e_bsppp @u_stack @i_stick    XX    @h_westt @t_south @n_eastt @s_split    XX       XX
    lsft    caps     XX       XX       XX       XX       XX       XX       XX    @w_close    XX       XX       rsft
-    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+    fn    lctl lalt lmet                 @win_slyr                     rmet    ralt         left down up  rght
   )
 
 
@@ -444,7 +445,7 @@
   @swtApp2 @''    @<    @>    @P    @Y    @F    @G    @C    @R    @L    @?    @^    ret
   esc @A    @O    @E    @U    @I    @D    @H    @T    @N    @S    @_    @|
   lsft caps @;    @Q    @J    @K    @X    @B    @M    @W    @V    @Z    rsft
-  fn lctl lmet lsft        @hrow_sl        rsft ralt left down up   rght
+  fn lctl lmet lsft        @hrow_cl        rsft ralt left down up   rght
 )
 
 

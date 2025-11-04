@@ -1,198 +1,54 @@
-# [[mgr.prepend_keymap]]
-# on = "<C-q>"
-# run = "quit"
-# desc = "Quit Yazi"
-# Si quieres que 'q' ya NO funcione para salir, también puedes sobrescribirlo
-# con un comando que no haga nada o que haga otra cosa, o simplemente omitirlo.
-# Por ejemplo, para que 'q' no haga nada:
-# [[manager.prepend_keymap]]
-# on = "q"
-# run = "<F10>" # O un comando que no haga nada útil, como "nop" si existe
-# desc = "No operation (disables default quit)"
+[mgr]
+  prepend_keymap = [
+    { on = [ "g", "r" ], run = 'shell -- ya emit cd "$(git rev-parse --show-toplevel)"', desc = "Go to root(.git level in current project)" },
 
-#######################TIPS SECTION#############################################
-# https://yazi-rs.github.io/docs/tips/
+    # https://yazi-rs.github.io/docs/tips/#macos-quick-look
+    { on = "<C-p>", run = 'shell -- qlmanage -p "$@"' },
+    # https://github.com/Sonico98/yazi-prompt.sh
+    { on   = "!", for  = "unix", run  = 'shell "$SHELL" --block', desc = "Open $SHELL here" },
+    # https://github.com/Sonico98/yazi-prompt.sh
+    { on   = [ "c", "p" ], run  = "plugin command", desc = "Yazi command prompt" },
+    # https://github.com/AnirudhG07/custom-shell.yazi
+    #Esto me permite ejectar alias declarados en mi .zshrc que Yazia vanilla no me deja.
+    { on   = ":", run = "plugin custom-shell -- zsh --block=true", desc = "custom-shell as default, waits for user" },
+    # https://github.com/mikavilpas/easyjump.yazi
+    { on   = "i", run  = "plugin easyjump", desc = "easyjump" },
+    # https://github.com/ndtoan96/ouch.yazi?
+    { on = ["C"], run = "plugin ouch", desc = "Compress with ouch" },
+    # https://github.com/wylie102/duckdb.yazi
+    { on = "H", run = "plugin duckdb -1", desc = "Scroll one column to the left" },
+    { on = "L", run = "plugin duckdb +1", desc = "Scroll one column to the right" },
+    { on = ["g", "b", "o"], run = "plugin duckdb -open", desc = "open with duckdb" },
+    { on = ["g", "b", "u"], run = "plugin duckdb -ui", desc = "open with duckdb ui" },
+    # https://github.com/yazi-rs/plugins/tree/main/toggle-pane.yazi
+    { on   = "P", run  = "plugin toggle-pane max-preview", desc = "Maximize or restore the preview pane" },
+    # https://github.com/boydaihungst/restore.yazi
+    { on = "u", run = "plugin restore", desc = "Restore last deleted files/folders" },
+    { on = "U", run = "plugin restore -- --interactive", desc = "Restore deleted files/folders Interactive" },
+    # https://github.com/uhs-robert/recycle-bin.yazi
+    { on = "T", run = "plugin recycle-bin", desc = "Open Trash interactive" } ,
+    { on = [ "d", "t" ], run = "plugin recycle-bin -- delete", desc = "Delete from Trash" },
+    { on = [ "d", "D" ], run = "plugin recycle-bin -- emptyDays", desc = "Empty by days deleted" },
+    # https://github.com/yazi-rs/plugins/tree/main/smart-filter.yazi
+    { on   = "F", run  = "plugin smart-filter", desc = "Smart filter" },
+    # https://github.com/ktunprasert/git-files.yazi
+    #Show list (similar to 'git status')
+    { on   = [ "g", "c" ], run  = "plugin git-files", desc = "Show Git file changes" },
+    # https://github.com/orhnk/system-clipboard.yazi?tab=readme-ov-file
+    # use 'ya pkg add orhnk/system-clipboard' to install it
+    { on = "<A-y>", run = ["plugin system-clipboard"], desc = "Copy file as File/photo, etc" },
+    #NOTE: Install `trahs-cli` https://formulae.brew.sh/formula/trash-cli
+    { on = [ "d", "d" ], run = [ "escape --visual", ''' shell --confirm 'trash-put "$@"' ''' ] ,desc = "Mover archivos a la papelera (trash-cli)" } ,
 
-# https://yazi-rs.github.io/docs/tips/#cd-to-git-root
-
-# ~/.config/yazi/keymap.toml
-
-# ... otras configuraciones
-
-
-# [mgr]
-#   prepend_keymap = [
-#
-# ]
-
-
-[[mgr.prepend_keymap]]
-on = [ "g", "r" ]
-run = 'shell -- ya emit cd "$(git rev-parse --show-toplevel)"'
-desc = "Go to root(.git level in current project)"
-
-# https://yazi-rs.github.io/docs/tips/#macos-quick-look
-[[mgr.prepend_keymap]] 
-on = "<C-p>"
-run = 'shell -- qlmanage -p "$@"'
-
-#######################PLUGINS SECTION##########################################
-#This a keymap vanilla(Check doc), however, in my zsh I have aliases to indicate 
-# that I'm in a subshell.
-# https://github.com/Sonico98/yazi-prompt.sh
-[[mgr.prepend_keymap]]
-on   = "!"
-for  = "unix"
-run  = 'shell "$SHELL" --block'
-desc = "Open $SHELL here"
-
-# https://github.com/Sonico98/yazi-prompt.sh
-[[mgr.prepend_keymap]]
-on   = [ "c", "p" ]
-run  = "plugin command"
-desc = "Yazi command prompt"
-
-# https://github.com/AnirudhG07/custom-shell.yazi
-[[mgr.prepend_keymap]]
-on   = ":"
-run = "plugin custom-shell -- zsh --block=true" #Esto me permite ejectar alias declarados en mi .zshrc que Yazia vanilla no me deja.
-desc = "custom-shell as default, waits for user"
-[[mgr.prepend_keymap]]
-on   = ";"
-run = "plugin custom-shell -- zsh --block=true --wait=true" #Esto me permite ejectar alias declarados en mi .zshrc que Yazia vanilla no me deja.
-desc = "custom-shell as default, waits for user"
-
-# https://github.com/mikavilpas/easyjump.yazi
-[[mgr.prepend_keymap]]
-on   = "i"
-run  = "plugin easyjump"
-desc = "easyjump"
-
-# https://github.com/ndtoan96/ouch.yazi?
-[[mgr.prepend_keymap]]
-on = ["C"]
-run = "plugin ouch"
-desc = "Compress with ouch"
-
-# https://github.com/wylie102/duckdb.yazi
-[[mgr.prepend_keymap]]
-on = "H"
-run = "plugin duckdb -1"
-desc = "Scroll one column to the left"
-[[mgr.prepend_keymap]]
-on = "L"
-run = "plugin duckdb +1"
-desc = "Scroll one column to the right"
-[[mgr.prepend_keymap]]
-on = ["g", "b", "o"]
-run = "plugin duckdb -open"
-desc = "open with duckdb"
-[[mgr.prepend_keymap]]
-on = ["g", "b", "u"]
-run = "plugin duckdb -ui"
-desc = "open with duckdb ui"
-
-# https://github.com/yazi-rs/plugins/tree/main/toggle-pane.yazi
-[[mgr.prepend_keymap]]
-on   = "P"
-run  = "plugin toggle-pane max-preview"
-desc = "Maximize or restore the preview pane"
-
-# https://github.com/boydaihungst/restore.yazi
-[[mgr.prepend_keymap]]
-on = "u"
-run = "plugin restore"
-desc = "Restore last deleted files/folders"
-[[mgr.prepend_keymap]]
-on = "U"
-run = "plugin restore -- --interactive"
-desc = "Restore deleted files/folders Interactive"
-
-# https://github.com/uhs-robert/recycle-bin.yazi
-[[mgr.prepend_keymap]]
-on = "T"
-run = "plugin recycle-bin"
-desc = "Open Trash interactive" 
-[[mgr.prepend_keymap]]
-on = [ "d", "t" ]
-run = "plugin recycle-bin -- delete"
-desc = "Delete from Trash"
-[[mgr.prepend_keymap]]
-on = [ "d", "D" ]
-run = "plugin recycle-bin -- emptyDays"
-desc = "Empty by days deleted"
-
-# https://github.com/yazi-rs/plugins/tree/main/smart-filter.yazi
-[[mgr.prepend_keymap]]
-on   = "F"
-run  = "plugin smart-filter"
-desc = "Smart filter"
-
-# https://github.com/ktunprasert/git-files.yazi
-#Show list (similar to 'git status')
-[[mgr.prepend_keymap]]
-on   = [ "g", "c" ]
-run  = "plugin git-files"
-desc = "Show Git file changes"
-
-# https://github.com/orhnk/system-clipboard.yazi?tab=readme-ov-file
-[[mgr.prepend_keymap]] # use 'ya pkg add orhnk/system-clipboard' to install it
-on = "<A-y>"
-run = ["plugin system-clipboard"]
-desc = "Copy file as File/photo, etc"
-########################PERSONAL KEYMAPS########################################
-#NOTE: Install `trahs-cli` https://formulae.brew.sh/formula/trash-cli
-[[mgr.prepend_keymap]]
-on = [ "d", "d" ]
-run = [ "escape --visual", ''' shell --confirm 'trash-put "$@"' ''' ] 
-desc = "Mover archivos a la papelera (trash-cli)" 
-
-[[mgr.prepend_keymap]]
-on = ["g", "w"]
-run = "cd ~/Dev/Work"
-desc = "Go to Work/PersonalProjects"
-
-[[mgr.prepend_keymap]]
-on = ["g", "p"]
-run = "cd ~/Dev/PersonalProjects"
-desc = "Go to PersonalProjects"
-
-[[mgr.prepend_keymap]]
-on = ["g", "a"]
-run = "cd /Users/liusam/Dev/AcademicProjects/2025-II"
-desc = "Go to AcademicProjects"
-
-[[mgr.prepend_keymap]]
-on = ["g", "i"]
-run = "cd '/Users/liusam/Library/Mobile Documents/com~apple~CloudDocs'"
-desc = "Go to Personal iCloud"
-
-[[mgr.prepend_keymap]]
-on = ["g", "o"]
-run = "cd '/Users/liusam/Library/CloudStorage/OneDrive-UniversidadTecnologicadelPeru'"
-desc = "Go to OneDrive"
-
-[[mgr.prepend_keymap]]
-on = ["g", "f"]
-run = "cd '/Users/liusam/Pictures/Fototeca de Photo Booth/Pictures'"
-desc = "Go to PhotoBoth Library"
-
-[[mgr.prepend_keymap]]
-on = ["g", "x"]
-run = "cd '/Users/liusam/Dev/TempTrash'"
-desc = "Go to TempTrash"
-
-[[mgr.prepend_keymap]]
-on = ["g", "e"]
-run = "cd '/Users/liusam/Dev/EnterpriseProjects'"
-desc = "Go to EnterpriseProjejcts"
-
-[[mgr.prepend_keymap]]
-on = ["g", "t"]
-run = "cd '/Users/liusam/Dev/Tools'"
-desc = "Go to Tools"
-
-[[mgr.prepend_keymap]]
-on = ["g", "."]
-run = "cd '/Users/liusam/Dev/.dotfiles'"
-desc = "Go to .dotfiles"
+    ########################PERSONAL KEYMAPS########################################
+    { on = ["g", "w"], run = "cd ~/Dev/Work", desc = "Go to Work/PersonalProjects" },
+    { on = ["g", "p"], run = "cd ~/Dev/PersonalProjects", desc = "Go to PersonalProjects" },
+    { on = ["g", "a"], run = "cd /Users/liusam/Dev/AcademicProjects/2025-II", desc = "Go to AcademicProjects" },
+    { on = ["g", "i"], run = "cd '/Users/liusam/Library/Mobile Documents/com~apple~CloudDocs'", desc = "Go to Personal iCloud" },
+    { on = ["g", "o"], run = "cd '/Users/liusam/Library/CloudStorage/OneDrive-UniversidadTecnologicadelPeru'", desc = "Go to OneDrive" },
+    { on = ["g", "f"], run = "cd '/Users/liusam/Pictures/Fototeca de Photo Booth/Pictures'", desc = "Go to PhotoBoth Library" },
+    { on = ["g", "x"], run = "cd '/Users/liusam/Dev/TempTrash'", desc = "Go to TempTrash" },
+    { on = ["g", "e"], run = "cd '/Users/liusam/Dev/EnterpriseProjects'", desc = "Go to EnterpriseProjejcts" },
+    { on = ["g", "."], run = "cd '/Users/liusam/Dev/.dotfiles'", desc = "Go to .dotfiles" },
+    { on = ["g", "t"], run = "cd '/Users/liusam/Dev/Tools'", desc = "Go to Tools" },
+]
