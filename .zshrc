@@ -102,26 +102,14 @@ alias lta='eza -lTag --level=2 --group-directories-first --icons'
 alias lta2='eza -lTag --level=3 --group-directories-first --icons'
 alias lta3='eza -lTag --group-directories-first --icons'
 alias nt='nvim -c "terminal"'
+<<<<<<< HEAD
 alias i='nvim'
 alias e='exit'
+=======
+>>>>>>> refs/remotes/origin/main
 
 alias nvim-kickstart='NVIM_APPNAME="nvim-kickstart" nvim'
 
-#NOTE: Now, when I press 'y' in term Yazi open. And when I out of it, change current
-#directory
-function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	yazi "$@" --cwd-file="$tmp"
-	IFS= read -r -d '' cwd < "$tmp"
-	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
-	rm -f -- "$tmp"
-}
-
-# Only changing the escape key to `jk` in insert mode, we still
-# keep using the default keybindings `^[` in other modes
-# ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
-ZVM_VI_INSERT_ESCAPE_BINDKEY=^c
-# User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
