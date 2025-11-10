@@ -263,12 +263,7 @@
   @_1fill (tap-hold $tap-time $hold-time @@ C-A-M-p) ;; trickster
   %_1pass (tap-hold $tap-time $hold-time @% S-C-A-M-p) ;; trickster
   {_zappy (tap-hold $tap-time $hold-time @{ C-A-M-x) ;; trickster
-<<<<<<< HEAD
   d_dicti (tap-hold $tap-time $hold-time d S-C-A-M-d) ;; easydictionary (https://github.com/tisfeng/Easydict)
-=======
-  a_Dictn (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Dictionary'")
-  diction (tap-hold $tap-time $hold-time d @a_Dictn) ;; Dictionary 
->>>>>>> refs/remotes/origin/main
 )
 
 (defsrc
