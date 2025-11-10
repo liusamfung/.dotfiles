@@ -102,11 +102,8 @@ alias lta='eza -lTag --level=2 --group-directories-first --icons'
 alias lta2='eza -lTag --level=3 --group-directories-first --icons'
 alias lta3='eza -lTag --group-directories-first --icons'
 alias nt='nvim -c "terminal"'
-<<<<<<< HEAD
 alias i='nvim'
 alias e='exit'
-=======
->>>>>>> refs/remotes/origin/main
 
 alias nvim-kickstart='NVIM_APPNAME="nvim-kickstart" nvim'
 

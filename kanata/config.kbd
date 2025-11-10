@@ -278,17 +278,10 @@
 (deflayer base
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   @$  @%_1pass @{_zappy @[    @}    @pl   @=     @*    @pr   @+     @]    @!    @#    XX
-<<<<<<< HEAD
   tab @'    @,    @.    @p    y    f    @g    @c @r @l    @/    @@_1fill    XX
   esc @nav_lyr    @lnch_lyr   @ses_lyr   @spa_lyr     @tab_lyr    @d_dicti    h    t    @ray_lyr     s   -    \
   XX caps @sys_lyr    q    j    k    @win_lyr    b    m    w    v    z    @swtApp3
   fn lctl lmet    @Lsft_lyr           @num_lyr           @Rsft_lyr    @test_lyr left down up   rght
-=======
-  tab @'    @,    @.    @p    @spa_lyr    f    @g    @c @r @l    @/    @@_1fill    @msubl
-  esc @nav_lyr    @lnch_lyr   e   @ses_lyr     @tab_lyr @diction h    t    @ray_lyr     s   -    \
-  XX @swtApp2 @sys_lyr @num_lyr    j    k    @win_lyr    b    m    w    v    z    @swtApp3
-  fn lctl lmet    @Lsft_lyr           @app_lyr           @Rsft_lyr    @test_lyr left down up   rght
->>>>>>> refs/remotes/origin/main
 )
 
  (deflayer sublayers
