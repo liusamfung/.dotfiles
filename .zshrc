@@ -79,17 +79,6 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 source $ZSH/oh-my-zsh.sh
 
-#EZA 
-# alias ll='eza -lg --group-directories-last --icons' ##Lista sin mostrar carpetas ocultas
-# alias la='eza -lag --group-directories-last --icons'
-#
-# alias lt='eza -lTg --level=2 --group-directories-last --icons'
-# alias lt2='eza -lTg --level=3 --group-directories-last --icons'
-# alias lt3='eza -lTg  --group-directories-last --icons'
-#
-# alias lta='eza -lTag --level=2 --group-directories-last --icons'
-# alias lta2='eza -lTag --level=3 --group-directories-last --icons'
-# alias lta3='eza -lTag --group-directories-last --icons'
 
 alias ll='eza -lg --group-directories-first --icons' ##Lista sin mostrar carpetas ocultas
 alias la='eza -lag --group-directories-first --icons'
@@ -107,36 +96,11 @@ alias e='exit'
 
 alias nvim-kickstart='NVIM_APPNAME="nvim-kickstart" nvim'
 
-
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='nvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch $(uname -m)"
-
-# Set personal aliases, overriding those provided by Oh My Zsh libs,
-# plugins, and themes. Aliases can be placed here, though Oh My Zsh
-# users are encouraged to define aliases within a top-level file in
-# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
-#/a - $ZSH_CUSTOM/aliases.zsh
-# - $ZSH_CUSTOM/macos.zsh
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-#
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 
@@ -149,6 +113,13 @@ eval "$(starship init zsh)"
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
 
 function java17() {
   export JAVA_HOME="/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home"
