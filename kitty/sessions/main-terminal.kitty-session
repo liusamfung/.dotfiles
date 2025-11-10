@@ -1,0 +1,8 @@
+# Set the layout for the current tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~
+# Create the "main" window and run an editor in it to edit the project files
+launch --title "main-term" /bin/zsh -i -c 'nt'
+focus
+focus_os_window

@@ -64,11 +64,17 @@ return {
           },
         },
       },
-      -- styles = {
-      --   notification = {
-      --     -- wo = { wrap = true } -- Wrap notifications
-      --   },
-      -- },
+      styles = {
+        notification = {
+          -- wo = { wrap = true } -- Wrap notifications
+        },
+        split = {
+          position = 'bottom',
+          height = 0.99,
+          width = 0.4,
+        },
+        terminal = {},
+      },
     },
     keys = {
       -- Top Pickers & Explorer

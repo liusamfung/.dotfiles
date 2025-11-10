@@ -1,0 +1,10 @@
+
+# Set the layout for the current tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/Downloads
+# Create the "main" window and run an editor in it to edit the project files
+launch --title "File Explorer" /bin/zsh -i -c 'y'
+# Create a side window to run a shell to build or test project
+focus
+focus_os_window

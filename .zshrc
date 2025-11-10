@@ -164,13 +164,6 @@ eval "$(starship init zsh)"
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-#Inicia cada vez que se abra una nueva instancia de terminal.
-#Quier que se habra con el emulador de nvim. Ya que me resulta 
-#mas cómodo ls shortcuts y el ambiente (El cop)
-# if [ -z "$NVIM_TERMINAL" ]; then
-#     export NVIM_TERMINAL=1
-#     exec nvim -c "terminal"
-# fi
 
 function java17() {
   export JAVA_HOME="/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home"

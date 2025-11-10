@@ -1,0 +1,29 @@
+{
+  "id": "3373efd1-d037-46da-afde-32aea2f1f3ba",
+  "name": "liusam's Simulated mechanical keyboard",
+  "isNew": true,
+  "source": "Mix default Thock layers",
+  "license": {
+    "type": "What is that?!",
+    "url": "https://github.com/liusamfung/.dotfiles"
+  },
+  "supportsKeyUp": true,
+  "sounds": {
+    "default": {
+      "down": ["12.mp3", "57419.mp3", "57424.mp3"],
+      "up": []
+    },
+    "enter": {
+      "down": ["301.mp3"],
+      "up": []
+    },
+    "tab": {
+      "down": ["15.mp3"],
+      "up": []
+    },
+    "space": {
+      "down": ["15.mp3"],
+      "up": []
+    }
+  }
+}

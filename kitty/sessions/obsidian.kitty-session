@@ -1,0 +1,11 @@
+# Set the layout for the current tab
+layout tall
+# Set the working directory for windows in the current tab
+#PersonalKnowledge es un symlink de mi vault de Obsidian
+cd ~/PersonalKnowledge
+# Create the "main" window and run an editor in it to edit the project files
+launch --title "Obsidian" /bin/zsh -i -c 'nvim'
+focus
+focus_os_window
+
+

@@ -52,7 +52,7 @@
 
 (defalias
 
-  r_resta (cmd "/Users/liusam/Dev/.dotfiles/karabiner/restartGUI.sh")
+  r_resta (cmd "/Users/liusam/dotfiles/yabai/restartGUI.sh")
   s_split (cmd sudo -u liusam yabai -m window --toggle split)
   w_close (cmd sudo -u liusam bash -c "yabai $(yabai -m window $(yabai -m query --windows --window | jq -re '.id') --close)")
 
@@ -252,7 +252,7 @@
    win_lyr (tap-hold $tap-time $hold-time x (layer-toggle WindowsLayer))
    win_slyr (tap-hold-press $subl-time $subl-time spc (layer-while-held WindowsSubLayer))
    tab_lyr (tap-hold $tap-time $hold-time i (layer-toggle TabsLayer))
-   ses_lyr (tap-hold $tap-time $hold-time y (layer-toggle sesionLayer))
+   ses_lyr (tap-hold $tap-time $hold-time e (layer-toggle sesionLayer))
 
    app_lyr (tap-hold $tap-time $hold-time spc (layer-toggle EspecificAppsLayer))
 
@@ -278,8 +278,8 @@
 (deflayer base
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   @$  @%_1pass @{_zappy @[    @}    @pl   @=     @*    @pr   @+     @]    @!    @#    XX
-  tab @'    @,    @.    @p    @ses_lyr    f    @g    @c @r @l    @/    @@_1fill    XX
-  esc @nav_lyr    @lnch_lyr   e   @spa_lyr     @tab_lyr    @d_dicti    h    t    @ray_lyr     s   -    \
+  tab @'    @,    @.    @p    y    f    @g    @c @r @l    @/    @@_1fill    XX
+  esc @nav_lyr    @lnch_lyr   @ses_lyr   @spa_lyr     @tab_lyr    @d_dicti    h    t    @ray_lyr     s   -    \
   XX caps @sys_lyr    q    j    k    @win_lyr    b    m    w    v    z    @swtApp3
   fn lctl lmet    @Lsft_lyr           @num_lyr           @Rsft_lyr    @test_lyr left down up   rght
 )
@@ -295,16 +295,22 @@
   )
 
 (defalias
-  t_dtfls (macro C-x $tmux-delay t)
-  h_homee (macro C-x $tmux-delay h)
+  h1term_ (macro C-M-1)
+  t2logts (macro C-M-2)
+  n3nvim_ (macro C-M-3)
+  g4Obsid (macro C-M-4)
+  c5FileE (macro C-M-5)
+  r6dotfi (macro C-M-6)
+
+
 )
 
  (deflayer sesionLayer
 
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-    tab       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-      esc      XX       XX       XX       XX       XX       XX    @h_homee @t_dtfls    XX       XX       XX       XX
+    tab       XX       XX       XX       XX       XX       XX    @g4Obsid @c5FileE @r6dotfi    XX       XX       XX       XX
+      esc      XX       XX       XX       XX       XX       XX    @h1term_ @t2logts @n3nvim_    XX       XX       XX
    lsft    caps     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
@@ -364,7 +370,7 @@
  (deflayer SpaceSubLayer
 
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
- 102d     XX      XX       XX       XX       XX       XX    @7_sndW7 @8_sndW8 @9_sndW9    XX       XX       XX       XX
+ 102d     XX      XX       XX       XX       XX       XX       XX    @7_sndW7 @8_sndW8 @9_sndW9       XX       XX       XX
     tab       XX       XX       XX       XX       XX       XX    @g_sndW4 @c_sndW5 @r_sndW6    XX       XX       XX       XX
       esc      XX       XX       XX       XX       XX       XX    @h_sndW1 @t_sndW2 @n_sndW3    XX       XX       XX
    lsft    caps     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
@@ -462,35 +468,35 @@
 
 ;; yabai -m query --windows | grep app
 
-     a_QkCam (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Quick Camera'")
-     a_chrom (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Zen'")
-     a_excel (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Microsoft Excel'")
-     a_wordd (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Microsoft Word'")
-     a_outlk (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Microsoft Outlook'")
-     a_canva (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Canva'")
+     a_QkCam (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Quick Camera'")
+     a_chrom (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Zen'")
+     a_excel (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Microsoft Excel'")
+     a_wordd (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Microsoft Word'")
+     a_outlk (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Microsoft Outlook'")
+     a_canva (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Canva'")
 
-     a_ntion (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Notion'")
-     a_obsin (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Obsidian'")
+     a_ntion (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Notion'")
+     a_obsin (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Obsidian'")
 
-     a_term (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'kitty'") ;;(T)terminal (This is my terminal emulator)
-     a_brwsr (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Zen'") ;;(B)rowser (This is my main browser) 
+     a_term (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'kitty'") ;;(T)terminal (This is my terminal emulator)
+     a_brwsr (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Zen'") ;;(B)rowser (This is my main browser) 
 
-     a_slack (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Slack'") 
-     a_whtsp (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'WhatsApp'") 
-     a_zoomm (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'zoom.us'") 
-     a_teams (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Microsoft Teams'") 
-     a_discd (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Discord'") 
+     a_slack (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Slack'") 
+     a_whtsp (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'WhatsApp'") 
+     a_zoomm (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'zoom.us'") 
+     a_teams (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Microsoft Teams'") 
+     a_discd (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Discord'") 
 
-     a_1pssw (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh '1password'") 
-     a_remdr (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Reminders'") 
+     a_1pssw (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh '1password'") 
+     a_remdr (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Reminders'") 
 
-     a_ytmsc (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'YouTube Music'") 
-     a_findr (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Finder'")
-     a_innaa (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'IINA'") 
-     a_prviw (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Preview'") 
-     a_fntcl (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'Fantastical'") 
+     a_ytmsc (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'YouTube Music'") 
+     a_findr (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Finder'")
+     a_innaa (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'IINA'") 
+     a_prviw (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Preview'") 
+     a_fntcl (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Fantastical'") 
 
-     a_sttng (cmd sudo -u liusam zsh -lc "/Users/liusam/Dev/.dotfiles/kanata/500-switchApp.sh 'System Settings'") 
+     a_sttng (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'System Settings'") 
 
 
             ;;5: app("DaVinci Resolve"), @linkarzu for video editing

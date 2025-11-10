@@ -1,0 +1,9 @@
+# Set the layout for the current tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/Dev
+# Create the "main" window and run an editor in it to edit the project files
+launch --title "Neovim" /bin/zsh -i -c nvim
+# Create a side window to run a shell to build or test project
+focus
+focus_os_window
