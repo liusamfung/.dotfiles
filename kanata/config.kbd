@@ -54,14 +54,14 @@
 
   r_resta (cmd "/Users/liusam/dotfiles/yabai/restartGUI.sh")
   s_split (cmd sudo -u liusam yabai -m window --toggle split)
-  w_close (cmd sudo -u liusam bash -c "yabai $(yabai -m window $(yabai -m query --windows --window | jq -re '.id') --close)")
+  x_close (cmd sudo -u liusam bash -c "yabai $(yabai -m window $(yabai -m query --windows --window | jq -re '.id') --close)")
 
   h_westt (cmd sudo -u liusam yabai -m window --focus west)
   t_south (cmd sudo -u liusam yabai -m window --focus south)
   c_north (cmd sudo -u liusam yabai -m window --focus north)
   n_eastt (cmd sudo -u liusam yabai -m window --focus east)
 
-  f_fulls (cmd sudo -u liusam yabai -m window --toggle zoom-fullscreen)
+  z_fulls (cmd sudo -u liusam yabai -m window --toggle zoom-fullscreen)
   i_stick (cmd sudo -u liusam yabai -m window --toggle sticky)
 
   9_rot90 (cmd sudo -u liusam yabai -m space --rotate 270) ;; 90 degrees for anti-clockwise
@@ -242,21 +242,24 @@
   ;; Sublayerrrrr #################################################################
    ;;msubl (tap-hold-press $subl-time $subl-time XX (layer-while-held sublayers))
 
-   nav_lyr (tap-hold $tap-time $hold-time a (layer-toggle navigationLayer))
-   lnch_lyr (tap-hold $tap-time $hold-time o (layer-toggle apps))
+   nav_lyr (tap-hold $tap-time $hold-time s (layer-toggle navigationLayer))
+
+   lnch_lyr (tap-hold $tap-time $hold-time a (layer-toggle apps))
+
+
    num_lyr (tap-hold $tap-time $hold-time spc (layer-toggle number))
    ray_lyr (tap-hold $tap-time $hold-time n (layer-toggle raycastUtilyExtension))
 
    spa_lyr (tap-hold $tap-time $hold-time u (layer-toggle SpaceLayer))
    spa_slyr (tap-hold-press $subl-time $subl-time spc (layer-while-held SpaceSubLayer))
-   win_lyr (tap-hold $tap-time $hold-time x (layer-toggle WindowsLayer))
+   win_lyr (tap-hold $tap-time $hold-time t (layer-toggle WindowsLayer))
    win_slyr (tap-hold-press $subl-time $subl-time spc (layer-while-held WindowsSubLayer))
    tab_lyr (tap-hold $tap-time $hold-time i (layer-toggle TabsLayer))
    ses_lyr (tap-hold $tap-time $hold-time e (layer-toggle sesionLayer))
 
    app_lyr (tap-hold $tap-time $hold-time spc (layer-toggle EspecificAppsLayer))
 
-   sys_lyr (tap-hold $tap-time $hold-time @: (layer-toggle systemLayer))
+   sys_lyr (tap-hold $tap-time $hold-time z (layer-toggle systemLayer))
 )
 (defalias 
 
@@ -279,8 +282,8 @@
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   @$  @%_1pass @{_zappy @[    @}    @pl   @=     @*    @pr   @+     @]    @!    @#    XX
   tab @'    @,    @.    @p    y    f    @g    @c @r @l    @/    @@_1fill    XX
-  esc @nav_lyr    @lnch_lyr   @ses_lyr   @spa_lyr     @tab_lyr    @d_dicti    h    t    @ray_lyr     s   -    \
-  XX caps @sys_lyr    q    j    k    @win_lyr    b    m    w    v    z    @swtApp3
+  esc @lnch_lyr    o   @ses_lyr   @spa_lyr     @tab_lyr    @d_dicti    h    @win_lyr    @ray_lyr  @nav_lyr -    \
+  XX caps    @:       q    j    k       x        b    m    w    v    @sys_lyr    @swtApp3
   fn lctl lmet    @Lsft_lyr           @num_lyr           @Rsft_lyr    @test_lyr left down up   rght
 )
 
@@ -325,22 +328,22 @@
 )
 
 (defalias
-  h_leftA left
-  t_bttnA down
-  c_upppA up
-  n_rgthA rght
-  g_leftO A-left
-  r_rgthO A-rght
-  d_leftC M-left
-  s_rgthC M-rght
+  q_leftA left
+  j_bttnA down
+  k_upppA up
+  x_rgthA rght
+  e_leftO A-left
+  u_rgthO A-rght
+  o_leftC M-left
+  i_rgthC M-rght
 )
  (deflayer navigationLayer
 
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       bspc
-    tab       @'       @,       @.       @p       XX       XX    @g_leftO @c_upppA @r_rgthO    XX       XX       XX       ret
-      esc      XX       XX       XX       XX       XX    @d_leftC @h_leftA @t_bttnA @n_rgthA @s_rgthC    XX       XX
-   lsft    caps     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
+    tab       @'       @,       @.       @p       XX       XX       XX       XX       XX       XX       XX       XX       ret
+      esc      XX    @o_leftC @e_leftO @u_rgthO @i_rgthC    XX       XX       XX       XX       XX       XX       XX
+   lsft    caps     XX    @q_leftA @j_bttnA @k_upppA @x_rgthA    XX       XX       XX       XX       XX       rsft
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
 
@@ -380,10 +383,10 @@
 
  (deflayer WindowsLayer
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
- 102d     XX      XX       XX       XX       XX       XX    @7_flipX @8_flipY @9_rot90    XX       XX       XX       XX
-    tab       XX       XX       XX       XX       XX   @f_fulls    XX    @c_north @r_resta    XX       XX       XX       XX
-      esc      XX    @o_float @e_bsppp @u_stack @i_stick    XX    @h_westt @t_south @n_eastt @s_split    XX       XX
-   lsft    caps     XX       XX       XX       XX       XX       XX       XX    @w_close    XX       XX       rsft
+ 102d     XX      XX    @7_flipX @8_flipY @9_rot90    XX       XX       XX       XX       XX       XX       XX       XX
+    tab    @o_float @e_bsppp @u_stack @i_stick    XX      XX       XX       XX    @r_resta    XX       XX       XX       XX
+      esc      XX       XX       XX       XX       XX       XX       XX       XX       XX    @s_split    XX       XX
+   lsft    caps     XX    @h_westt @t_south @c_north @n_eastt @x_close       XX       XX       XX    @z_fulls    rsft
     fn    lctl lalt lmet                 @win_slyr                     rmet    ralt         left down up  rght
   )
 
@@ -401,9 +404,9 @@
 
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-    tab       XX       XX       XX       XX       XX       XX       XX    @c_rTopp    XX       XX       XX       XX       XX
-      esc      XX       XX       XX       XX       XX       XX    @h_rLeft @t_rBttn @n_rRgth    XX       XX       XX
-   lsft    caps     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
+    tab       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+      esc      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+   lsft    caps     XX    @h_rLeft @t_rBttn @c_rTopp @n_rRgth    XX       XX       XX       XX       XX       rsft
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
 
@@ -438,11 +441,11 @@
 
  (deflayer systemLayer
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
- 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX   @!_zoom-   @#_zoom+ @bsc_FrcQ
-    tab       XX       XX       XX       XX       XX       XX       🔅       🔊       🔆       ▶⏸       XX       @@_zTogl       XX
-      esc      XX       XX       XX       XX       XX       XX       ◀◀       🔉       ▶▶       XX       XX       XX
-   lsft    caps     XX   @q_lockS    XX       XX       XX       @b_notif       🔇       XX       XX    @z_dndDi    rsft
-    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+ 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX      XX         XX    XX
+    tab    @@_zTogl @!_zoom- @#_zoom+    ▶⏸       XX       XX       XX       XX       XX       XX       XX          XX          XX
+      esc      XX       XX    🔅    🔆    XX       XX       XX       XX    @z_dndDi    XX       XX       XX
+   lsft    caps     XX   ◀◀    🔉    🔊    ▶▶       @b_notif       🔇       @q_lockS       XX       XX       rsft
+    fn    lctl lalt @bsc_FrcQ                 XX                     rmet    ralt         left down up  rght
   )
 
 (deflayer shift
@@ -510,7 +513,7 @@
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX    @a_excel @a_outlk @a_wordd @a_canva    XX       XX
     tab       XX    @a_sttng    XX    @a_1pssw @a_ytmsc @a_findr    XX    @a_fntcl @a_remdr XX @a_prviw    XX       XX
-      esc   @a_obsin XX    XX       XX       XX    @a_discd    XX    @a_term @a_ntion @a_slack @a_innaa    ret
+      esc      XX @a_obsin XX       XX       XX    @a_discd    XX    @a_term @a_ntion @a_slack @a_innaa    ret
    lsft    caps     XX       XX       XX       XX       XX    @a_chrom @a_whtsp    XX    @a_teams @a_zoomm    rsft
     fn    lctl lalt lmet                 @a_QkCam                     rmet    ralt         left down up  rght
   )

@@ -42,4 +42,27 @@ return {
       { '=P', '<Plug>(YankyPutBeforeFilter)', desc = 'Put Before Applying a Filter' },
     },
   },
+
+  {
+    'knubie/vim-kitty-navigator',
+    build = 'cp ./*.py ~/.config/kitty/',
+    -- Yo no uso el teclado QWERTY, uso dvrk. Por ello me es mas comodo rempearlo
+    -- de esta forma para que todo los motions esten en una sola mano.bb
+    -- Si tú usas QWERTY, qudate con la configuración por defecto.
+    init = function()
+      -- Deshabilita los keymaps por defecto del plugin (Vimscript: let g:kitty_navigator_no_mappings = 1)
+      vim.g.kitty_navigator_no_mappings = 1
+    end,
+    -- Función `config`: Se ejecuta después de que el plugin se ha cargado.
+    -- Aquí definimos nuestros keymaps personalizados de forma directa.
+    config = function()
+      local map = vim.keymap.set
+      local opts = { silent = true, remap = false }
+      map('n', '<C-q>', ':KittyNavigateLeft<CR>', { desc = 'Kitty: Mover Izquierda (Re-mapeado)' })
+      map('n', '<C-j>', ':KittyNavigateDown<CR>', { desc = 'Kitty: Mover Abajo' })
+      map('n', '<C-k>', ':KittyNavigateUp<CR>', { desc = 'Kitty: Mover Arriba' })
+      map('n', '<C-x>', ':KittyNavigateRight<CR>', { desc = 'Kitty: Mover Derecha (Re-mapeado)' })
+      print 'vim-kitty-navigator: Mapeos personalizados cargados (C-q, C-j, C-k, C-x).'
+    end,
+  },
 }
