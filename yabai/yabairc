@@ -61,6 +61,7 @@ yabai -m config right_padding 3
 yabai -m config window_gap 10 #Space between windows
 # yabai -m query --windows | grep app
 
-
+# CONTROL DE BORDES (JankyBorders)
+# Dispara el control de bordes cuando se cambia a un nuevo espacio.
 # yabai -m config external_bar all:$(sketchybar --query bar | jq .height):35 #https://github.com/FelixKratz/SketchyBar
 borders active_color=0xff06B6D4 inactive_color=0xff494d64 width=7.0 &  #https://github.com/FelixKratz/JankyBorders
