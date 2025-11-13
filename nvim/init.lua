@@ -1,4 +1,3 @@
---
 --[[
     After understanding a bit more about Lua, you can use `:help lua-guide` as a
     reference for how Neovim integrates Lua.
@@ -66,6 +65,11 @@ vim.opt.spelllang = { 'en', 'es' } -- Agregamos el diccionario para ingles y esp
   - z=: Para abrir la lista de sugerencias de corrección ortográfica (muy útil para corregir errores rápidamente).
   ]]
 --
+
+-- Agrega 'I' (para suprimir el mensaje de "Press ENTER")
+-- Asegúrate de no borrar otras banderas si ya las tenías
+vim.opt.shortmess:append 'I'
+-- vim.opt.cmdheight = 2
 
 vim.opt.termguicolors = true -- True color support
 
@@ -173,5 +177,4 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.hl.on_yank()
   end,
 })
-
 require 'config.lazy'

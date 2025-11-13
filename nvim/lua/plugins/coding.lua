@@ -62,7 +62,6 @@ return {
       map('n', '<C-j>', ':KittyNavigateDown<CR>', { desc = 'Kitty: Mover Abajo' })
       map('n', '<C-k>', ':KittyNavigateUp<CR>', { desc = 'Kitty: Mover Arriba' })
       map('n', '<C-x>', ':KittyNavigateRight<CR>', { desc = 'Kitty: Mover Derecha (Re-mapeado)' })
-      print 'vim-kitty-navigator: Mapeos personalizados cargados (C-q, C-j, C-k, C-x).'
     end,
   },
 }

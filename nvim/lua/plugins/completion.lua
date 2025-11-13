@@ -78,11 +78,13 @@ return {
         -- adding any nvim-cmp sources here will enable them
         -- with blink.compat
         -- compat = {},
-        default = { 'lsp', 'path', 'snippets', 'lazydev', 'buffer' }, --NOTE: La tabla esta ordenada por prioridad, siendo 1ero 'lsp' y ultima 'buffer'
+        default = { 'lsp', 'path', 'snippets', 'lazydev', 'buffer', 'dadbod' }, --NOTE: La tabla esta ordenada por prioridad, siendo 1ero 'lsp' y ultima 'buffer'
+        -- default = { 'lsp', 'path', 'snippets', 'lazydev', 'buffer' }, --NOTE: La tabla esta ordenada por prioridad, siendo 1ero 'lsp' y ultima 'buffer'
         --Si no quieres que te muestre como sugerencia palabras que escribiste en este buffer, elimina "buffres"
 
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+          dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },
         },
       },
 
@@ -116,16 +118,31 @@ return {
         },
       },
 
-      -- TODO: BUSCAR COMO LLEVAR VAR BLIKNK.CMP A LA TERM DE NVIM
       -- term = {
       --   enabled = true,
+      --   keymap = { preset = 'inherit' }, -- Inherits from top level `keymap` config when not set
+      --   sources = {},
       --   completion = {
-      --     menu = {
-      --
-      --       auto_show = true,
+      --     trigger = {
+      --       show_on_blocked_trigger_characters = {},
+      --       show_on_x_blocked_trigger_characters = nil, -- Inherits from top level `completion.trigger.show_on_blocked_trigger_characters` config when not set
       --     },
+      --     -- Inherits from top level config options when not set
+      --     list = {
+      --       selection = {
+      --         -- When `true`, will automatically select the first item in the completion list
+      --         preselect = nil,
+      --         -- When `true`, inserts the completion item automatically when selecting it
+      --         auto_insert = nil,
+      --       },
+      --     },
+      --     -- Whether to automatically show the window when new completion items are available
+      --     menu = { auto_show = true },
+      --     -- Displays a preview of the selected item on the current line
+      --     ghost_text = { enabled = nil },
       --   },
       -- },
+
       keymap = {
         preset = 'super-tab',
         -- 'default' (recommended) for mappings similar to built-in completions

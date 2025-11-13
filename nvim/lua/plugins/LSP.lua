@@ -1,5 +1,4 @@
 return {
-
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
@@ -200,6 +199,7 @@ return {
         ts_ls = {},
         html = {},
         bashls = {},
+        cssls = {},
         -- -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
@@ -245,6 +245,7 @@ return {
         -- linting
         'eslint_d', --js ande ts
         'shellcheck',
+        'sqlfluff',
 
         --DAP
         'java-debug-adapter', --Java
@@ -280,7 +281,6 @@ return {
       }
     end,
   },
-
   {
     'mason-org/mason.nvim',
     cmd = 'Mason', -- El plugin será cargado tan pronto como el usuario ejecute el comando :Mason en Neovim. (Hasta que no lo haga, no se cargará)
@@ -297,7 +297,6 @@ return {
       },
     },
   },
-
   {
     'mfussenegger/nvim-jdtls',
   },
