@@ -164,6 +164,28 @@ vim.keymap.set('n', '<C-x>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+vim.keymap.set('n', '<leader>use', function()
+  vim.opt.spelllang = 'en'
+  vim.cmd "echo 'Spell language set to English'"
+end, { desc = 'Spelling language English' })
+
+vim.keymap.set('n', '<leader>uss', function()
+  vim.opt.spelllang = 'es'
+  vim.cmd "echo 'Spell language set to Spanish'"
+end, { desc = 'Spelling language Spanish' })
+
+vim.keymap.set('n', '<leader>usb', function()
+  vim.opt.spelllang = 'en,es'
+  vim.cmd "echo 'Spell language set to Spanish and English'"
+end, { desc = 'Spelling language Spanish and English' })
+
+vim.keymap.set('n', '<leader>usS', function()
+  vim.cmd 'normal! 1z='
+end, { desc = 'Spelling suggestions' })
+-- Amigo moi Como etas
+-- Amigo como ¿Estoy muy contento por verte? No.
+--
+--
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 

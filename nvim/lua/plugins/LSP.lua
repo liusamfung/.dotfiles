@@ -200,6 +200,7 @@ return {
         html = {},
         bashls = {},
         cssls = {},
+        marksman = {},
         -- -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
@@ -281,6 +282,7 @@ return {
       }
     end,
   },
+
   {
     'mason-org/mason.nvim',
     cmd = 'Mason', -- El plugin será cargado tan pronto como el usuario ejecute el comando :Mason en Neovim. (Hasta que no lo haga, no se cargará)

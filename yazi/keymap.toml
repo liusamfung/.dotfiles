@@ -48,7 +48,7 @@
     { on = ["g", "w"], run = "cd ~/Dev/Work", desc = "Go to Work/PersonalProjects" },
     { on = ["g", "p"], run = "cd ~/Dev/PersonalProjects", desc = "Go to PersonalProjects" },
     { on = ["g", "a"], run = "cd ~/Dev/AcademicProjects/2025-II", desc = "Go to AcademicProjects" },
-    { on = ["g", "i"], run = "cd '~/Library/Mobile Documents/com~apple~CloudDocs'", desc = "Go to Personal iCloud" },
+    { on = ["g", "i"], run = "cd '~/Library/Mobile Documents/com~apple~CloudDocs/Documents/'", desc = "Go to Personal iCloud" },
     { on = ["g", "o"], run = "cd '~/Library/CloudStorage/OneDrive-UniversidadTecnologicadelPeru'", desc = "Go to OneDrive" },
     { on = ["g", "f"], run = "cd '~/Pictures/Fototeca de Photo Booth/Pictures'", desc = "Go to PhotoBoth Library" },
     { on = ["g", "x"], run = "cd '~/Dev/TempTrash'", desc = "Go to TempTrash" },
