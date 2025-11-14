@@ -200,7 +200,7 @@ return {
         html = {},
         bashls = {},
         cssls = {},
-        marksman = {},
+        -- marksman = {},
         -- -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
