@@ -519,6 +519,10 @@ return {
         '<c-/>',
         function()
           Snacks.terminal()
+          -- Poner relativernumber en la terminal Toggle:w
+          vim.opt_local.relativenumber = true
+          vim.opt_local.wrap = false
+          vim.opt_local.number = true
         end,
         desc = 'Toggle Terminal',
       },

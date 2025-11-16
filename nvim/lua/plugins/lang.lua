@@ -38,6 +38,16 @@ return {
       -- Usa "google-chrome" para Linux, o el nombre de tu ejecutable.
       -- Para Windows/macOS, usa el comando que abre Chrome (ver notas abajo).
       vim.g.mkdp_browser = '/Applications/Google Chrome.app'
+
+      -- Dentro de tu archivo de configuración (ej. init.lua o la tabla de lazy.nvim)
+      vim.g.mkdp_page_html_head = [[
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.2.3/dist/mermaid.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        mermaid.initialize({ startOnLoad: true });
+    });
+</script>
+]]
     end,
     config = function()
       vim.cmd [[do FileType]]
@@ -73,5 +83,16 @@ return {
         set = require('render-markdown').set,
       }):map '<leader>um'
     end,
+  },
+  {
+    'lervag/vimtex',
+    lazy = false, -- lazy-loading will disable inverse search
+    config = function()
+      vim.g.vimtex_mappings_disable = { ['n'] = { 'K' } } -- disable `K` as it conflicts with LSP hover
+      vim.g.vimtex_quickfix_method = vim.fn.executable 'pplatex' == 1 and 'pplatex' or 'latexlog'
+    end,
+    keys = {
+      { '<localLeader>l', '', desc = '+vimtex', ft = 'tex' },
+    },
   },
 }

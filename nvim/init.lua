@@ -182,6 +182,15 @@ end, { desc = 'Spelling language Spanish and English' })
 vim.keymap.set('n', '<leader>usS', function()
   vim.cmd 'normal! 1z='
 end, { desc = 'Spelling suggestions' })
+
+--If you wanna view relotivenumber in 'terminalmode'
+vim.api.nvim_create_autocmd('termopen', {
+  callback = function()
+    vim.opt_local.relativenumber = true
+    vim.opt_local.wrap = false
+  end,
+})
+
 -- Amigo moi Como etas
 -- Amigo como ¿Estoy muy contento por verte? No.
 --
