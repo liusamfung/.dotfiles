@@ -235,9 +235,9 @@
   
    ;; Si lo que quieres es que apenas pulsando otra tecla se accione el layer una -press
    ;; Rsft_lyr (tap-hold-press  150 10 @hrow_sc (layer-toggle shift))
-   Rsft_lyr (tap-hold-press  $tap-time $hold-time ret (layer-toggle shift))
-   Lsft_lyr (tap-hold-press  $tap-time $hold-time bspc (layer-toggle shift))
-   test_lyr (tap-hold-release-timeout $tap-time $hold-time e (layer-toggle shift) a )
+   Rsft_lyr (tap-hold-press  $tap-time $hold-time ret (layer-toggle RightShift))
+   Lsft_lyr (tap-hold-press  $tap-time $hold-time bspc (layer-toggle LeftShift))
+   test_lyr (tap-hold-release-timeout $tap-time $hold-time e (layer-toggle LeftShift) a )
 
   ;; Sublayerrrrr #################################################################
    ;;msubl (tap-hold-press $subl-time $subl-time XX (layer-while-held sublayers))
@@ -448,7 +448,7 @@
     fn    lctl lalt @bsc_FrcQ                 XX                     rmet    ralt         left down up  rght
   )
 
-(deflayer shift
+(deflayer LeftShift
   esc   f1   f2  f3   f4   f5   f6   f7   f8   f9  f10   f11   f12
   @~  @&    7    XX    @grv_acc    @virgu    9    0    XX    @act_acc    @¿    @¡    @`    bspc
   @swtApp2 @''    @<    @>    @P    @Y    @F    @G    @C    @R    @L    @?    @^    ret
@@ -457,6 +457,14 @@
   fn lctl lmet lsft        @hrow_cl        rsft ralt left down up   rght
 )
 
+(deflayer RightShift
+  esc   f1   f2  f3   f4   f5   f6   f7   f8   f9  f10   f11   f12
+  @~  @&    7    XX    @grv_acc    @virgu    9    0    XX    @act_acc    @¿    @¡    @`    bspc
+  @swtApp2 @''    @<    @>    @P    @Y    @F    @G    @C    @R    @L    @?    @^    ret
+  esc @A    @O    @E    @U    @I    @D    @H    @T    @N    @S    @_    @|
+  lsft caps @;    @Q    @J    @K    @X    @B    @M    @W    @V    @Z    rsft
+  fn lctl lmet lsft        @hrow_sc        rsft ralt left down up   rght
+)
 
  (deflayer EspecificAppsLayer
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
