@@ -21,12 +21,12 @@ yabai -m signal --add event=application_terminated action="yabai -m query --wind
 apps_terminal="(kitty)" 
 apps_testing="(Google Chrome)" # I test web development stuff with Google Chrome
 apps_organization="(Fantastical|Reminders|Notion|Obsidian)"
-apps_workspace="(Canva|Microsoft Excel|Microsoft Word)"
+apps_workspace="(Canva|Microsoft Excel|Microsoft Word|Microsoft PowerPoint)"
 apps_media="(Firefox|Preview|IINA|Microsoft Teams|zoom.us|Photos|YouTube Music)" #Generalmente solo usas una de estas apps a la vez
-apps_msg="(Microsoft Outlook|WhatsApp|Slack)" 
+apps_msg="(Microsoft Outlook|net.whatsapp.WhatsApp|Slack)" 
 apps_browsing="(Zen)" # 
 
-apps_mgoff_normal="(Clock|Quick Camera|Photo Booth|QuickTime Player|System Preferences|System Settings|Terminal)" #Apps no administradas por yabai(Por defecto, flat)
+apps_mgoff_normal="(Clock|Quick Camera|Photo Booth|QuickTime Player|System Preferences|System Settings|Terminal|Godot)" #Apps no administradas por yabai(Por defecto, flat)
 
 yabai -m config layout stack #General 
 yabai -m space 1 --layout bsp
@@ -42,7 +42,7 @@ yabai -m rule --add app="^${apps_organization}$"  space=^4 # Organización (Fant
 yabai -m rule --add app="^${apps_media}$"  space=^5 # Media (Watch, pdf, videos, images, etc)
 yabai -m rule --add app="^${apps_browsing}$"  space=^6 
 yabai -m rule --add app="^${apps_msg}$"  space=^8
-yabai -m rule --add app="^WhatsApp$"  space=^8
+yabai -m rule --add app="net.whatsapp.WhatsApp"  space=^8
 # yabai -m rule --add app="^${}$"  space=^9 
 
 yabai -m rule --add app="^${apps_mgoff_normal}$" manage=off

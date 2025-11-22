@@ -280,7 +280,7 @@
 
 (deflayer base
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  @$  @%_1pass @{_zappy @[    @}    @pl   @=     @*    @pr   @+     @]    @!    @#    XX
+  @+  @= @* @[    @{_zappy    @pl   @%_1pass     @$    @pr   @}     @]    @!    @#    XX
   tab @'    @,    @.    @p    y    f    @g    @c @r @l    @/    @@_1fill    XX
   esc @lnch_lyr    o   @ses_lyr   @spa_lyr     @tab_lyr    @d_dicti    h    @win_lyr    @ray_lyr  @nav_lyr -    \
   XX caps    @:       q    j    k       x        b    m    w    v    @sys_lyr    @swtApp3
