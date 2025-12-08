@@ -147,8 +147,9 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- vim.keymap.set('t', '<Esc><Esc>', '', { desc = "Don't do anything" })
 vim.keymap.set('t', '<C-b>', '<C-\\><C-n>', { desc = 'Go to normal mode' })
 
-vim.keymap.set('n', 'tsh', ':sp | term<Return>', opts)
-vim.keymap.set('n', 'tss', ':vs | term<Return>', opts)
+-- vim.keymap.set('n', 'tsh', ':sp | term<Return>', opts)
+-- vim.keymap.set('n', 'tss', ':vs | term<Return>', opts)
+
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
 -- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')

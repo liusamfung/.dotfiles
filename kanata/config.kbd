@@ -280,7 +280,7 @@
 
 (deflayer base
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  XX  XX @~ @[    @{_zappy    @pl   @%_1pass     @$    @pr   @}     @]    @!    @#    XX
+  XX  @+ @~ @[    @{_zappy    @pl   @%_1pass     @$    @pr   @}     @]    @!    @#    XX
   tab @'    @,    @.    @p    y    f    @g    @c @r @l    @/    @@_1fill    XX
   esc @lnch_lyr    o   @ses_lyr   @spa_lyr     @tab_lyr    @d_dicti    h    @win_lyr    @ray_lyr  @nav_lyr -    \
   XX caps    @:       q    j    k       x        b    m    w    v    @sys_lyr    @swtApp3
@@ -341,7 +341,7 @@
 
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       bspc
-    tab       @'       @,       @.       @p       XX       XX       XX       XX       XX       XX       XX       XX       ret
+    tab       @'       @,       @.       @p       XX       XX       @g       @c       @r       @l       XX       XX       ret
       esc      XX    @o_leftC @e_leftO @u_rgthO @i_rgthC    XX       XX       XX       XX       XX       XX       XX
    lsft    caps     XX    @q_leftA @j_bttnA @k_upppA @x_rgthA    XX       XX       XX       XX       XX       rsft
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
@@ -455,7 +455,7 @@
   @swtApp2 @''    @<    @>    @P    @Y    @F    @G    @C    @R    @L    @?    @^    ret
   esc @A    @O    @E    @U    @I    @D    @H    @T    @N    @S    @_    @|
   lsft caps @;    @Q    @J    @K    @X    @B    @M    @W    @V    @Z    rsft
-  fn lctl lmet lsft        @hrow_sl        @hrow_cl ralt left down up   rght
+  fn lctl lmet lsft        @hrow_cl        @hrow_sl ralt left down up   rght
 )
 
 (deflayer RightShift

@@ -58,10 +58,35 @@ return {
     config = function()
       local map = vim.keymap.set
       local opts = { silent = true, remap = false }
-      map('n', '<C-q>', ':KittyNavigateLeft<CR>', { desc = 'Kitty: Mover Izquierda (Re-mapeado)' })
+      map('n', '<C-q>', ':KittyNavigateLeft<CR>', { desc = 'Kitty: Mover Izquierda' })
       map('n', '<C-j>', ':KittyNavigateDown<CR>', { desc = 'Kitty: Mover Abajo' })
       map('n', '<C-k>', ':KittyNavigateUp<CR>', { desc = 'Kitty: Mover Arriba' })
-      map('n', '<C-x>', ':KittyNavigateRight<CR>', { desc = 'Kitty: Mover Derecha (Re-mapeado)' })
+      map('n', '<C-x>', ':KittyNavigateRight<CR>', { desc = 'Kitty: Mover Derecha' })
     end,
+  },
+
+  {
+    'folke/flash.nvim',
+    event = 'VeryLazy',
+    ---@type Flash.Config
+    opts = {},
+    keys = {
+      {
+        's',
+        mode = { 'n', 'x', 'o' },
+        function()
+          require('flash').jump()
+        end,
+        desc = 'Flash',
+      },
+      {
+        'S',
+        mode = { 'n', 'o', 'x' },
+        function()
+          require('flash').treesitter()
+        end,
+        desc = 'Flash Treesitter',
+      },
+    },
   },
 }
