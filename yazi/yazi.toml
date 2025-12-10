@@ -12,13 +12,38 @@ image_quality  = 50
 max_width       = 1500
 max_height      = 1800
 
+[open]
+prepend_rules = [
+	{ name = "*.png", use = "imagen" },
+  { name = "*.jpg",  use = "imagen" },
+  { name = "*.jpeg", use = "imagen" },
+  # { name = "*.gif",  use = "imagen" },
+  { name = "*.webp", use = "imagen" },
+  { name = "*.svg",  use = "docs" },  # Abrirlo con Firefox.
+  { name = "*.ico",  use = "imagen" },
+  { name = "*.avif", use = "imagen" },
+  { name = "*.heic", use = "imagen" },
+  { name = "*.bmp",  use = "imagen" },
+  { name = "*.tiff", use = "imagen" },
+
+  { name = "*.pdf", use = "docs" },
+	# # Multiple openers for a single rule
+	# { name = "*.html", use = [ "open", "edit" ] },
+]
+
 [opener]
 
+docs = [
+    { run = 'open -a "Firefox" "$@"', block = true, for = "unix" },
+]
+imagen = [
+    { run = 'open -a "Shottr" "$@"', block = true, for = "macos" },
+]
 edit = [
     { run = 'nvim "$@"', block = true, for = "unix" },
 ]
 play = [
-    { run = 'open -a "QuickTime Player" "$@"', block = true, for = "unix" },
+    { run = 'open -a "QuickTime Player" "$@"', block = true, for = "macos" },
 ]
 extract = [
 	{ run = 'ouch d -y %*', desc = "Extract here with ouch", for = "windows" },

@@ -9,6 +9,17 @@ sudo yabai --load-sa
 yabai -m config window_placement second_child
 # yabai -m config mouse_modifier fn
 
+
+
+# Enfocar automáticamente cualquier ventana nueva al crearse
+# El problema es que las reglas (rules) de Yabai mueven la ventana antes de que el sistema operativo termine de asignarle el foco, o el cambio de espacio interrumpe la solicitud de foco.
+# Necesitas un signal que detecte cuando una ventana nueva nace y fuerce el foco inmediatamente sobre ella, usando su ID específico.
+yabai -m signal --add event=window_created action="yabai -m window \$YABAI_WINDOW_ID --focus"
+
+# Forzar foco a la ventana que esta debajo del mouse cada vez que se cambia de espacio.
+# Si solo hay una ventan activa en el stack del espacio actual, entonces se activa el signal, sino, no.
+# yabai -m signal --add event=space_changed action="[ $(yabai -m query --windows --space | jq '. | length') -eq 1 ] && yabai -m window --focus mouse"
+
 yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 yabai -m signal --add event=window_minimized action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 yabai -m signal --add event=application_hidden action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
@@ -18,7 +29,7 @@ yabai -m signal --add event=application_terminated action="yabai -m query --wind
 
 
 
-apps_terminal="(kitty)" 
+apps_terminal="(kitty)"
 apps_testing="(Google Chrome)" # I test web development stuff with Google Chrome
 apps_organization="(Fantastical|Reminders|Notion|Obsidian)"
 apps_workspace="(Canva|Microsoft Excel|Microsoft Word|Microsoft PowerPoint)"
@@ -26,7 +37,7 @@ apps_media="(Firefox|Preview|IINA|Microsoft Teams|zoom.us|Photos|YouTube Music|B
 apps_msg="(Microsoft Outlook|net.whatsapp.WhatsApp|Slack)" 
 apps_browsing="(Zen)" # 
 
-apps_mgoff_normal="(Clock|Quick Camera|Photo Booth|QuickTime Player|System Preferences|System Settings|Terminal|Godot)" #Apps no administradas por yabai(Por defecto, flat)
+apps_mgoff_normal="(Clock|Quick Camera|Photo Booth|QuickTime Player|System Preferences|System Settings|Terminal|Godot|Shottr)" #Apps no administradas por yabai(Por defecto, flat)
 
 yabai -m config layout stack #General 
 yabai -m space 1 --layout bsp
@@ -40,6 +51,7 @@ yabai -m rule --add app="^${apps_testing}$"  space=^2 # Workspace to testing
 yabai -m rule --add app="^${apps_workspace}$"  space=^3 # Worktyping or others (Canva, Word, Excel)
 yabai -m rule --add app="^${apps_organization}$"  space=^4 # Organización (Fantastical, Reminders, Notion, etc)
 yabai -m rule --add app="^${apps_media}$"  space=^5 # Media (Watch, pdf, videos, images, etc)
+yabai -m rule --add app="^Shottr$"  space=^5 #Forzar que se habra en el espcio 5, pero Yabai no va a manejarlo.
 yabai -m rule --add app="^${apps_browsing}$"  space=^6 
 yabai -m rule --add app="^${apps_msg}$"  space=^8
 yabai -m rule --add app="net.whatsapp.WhatsApp"  space=^8

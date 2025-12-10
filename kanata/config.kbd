@@ -30,6 +30,9 @@
 )
 
 (defalias
+  nxtFcus (cmd sudo -u liusam yabai -m window --focus stack.next)
+  prvFcus (cmd sudo -u liusam yabai -m window --focus stack.prev)
+
 ;; Nota importante. Debido a que El root no puede acceder a algunos archivos del los usuarios 
 ;; En este caso (usuario: liusam) y mi archivo '/tmp/yabai_liusam.socket', Kanata no puede hacer 
 ;; contacto con el socket de yabai debido a que el comando con el que se inicia el servicio de Kanata 
@@ -196,6 +199,8 @@
  hrow_cl S-C-A-M-7
  hrow_sl S-C-A-M-3
  shrtcat S-C-A-M-6
+ fullSS C-A-M-f
+ slctSS C-A-M-x
 
  q_lockS C-M-q
  z_dndDi S-C-A-.
@@ -237,7 +242,7 @@
    ;; Rsft_lyr (tap-hold-press  150 10 @hrow_sc (layer-toggle shift))
    Rsft_lyr (tap-hold-press  $tap-time $hold-time ret (layer-toggle RightShift))
    Lsft_lyr (tap-hold-press  $tap-time $hold-time bspc (layer-toggle LeftShift))
-   test_lyr (tap-hold-release-timeout $tap-time $hold-time e (layer-toggle LeftShift) a )
+   ;; test_lyr (tap-hold-press-timeout  $tap-time $hold-time e (layer-toggle LeftShift) a )
 
   ;; Sublayerrrrr #################################################################
    ;;msubl (tap-hold-press $subl-time $subl-time XX (layer-while-held sublayers))
@@ -260,12 +265,13 @@
    app_lyr (tap-hold $tap-time $hold-time spc (layer-toggle EspecificAppsLayer))
 
    sys_lyr (tap-hold $tap-time $hold-time z (layer-toggle systemLayer))
+   scr_lyr (tap-hold $tap-time $hold-time @{ (layer-toggle ScreenShotLayer))
 )
 (defalias 
 
   @_1fill (tap-hold $tap-time $hold-time @@ C-A-M-p) ;; trickster
   %_1pass (tap-hold $tap-time $hold-time @% S-C-A-M-p) ;; trickster
-  {_zappy (tap-hold $tap-time $hold-time @{ C-A-M-x) ;; trickster
+  {_zappy (tap-hold $tap-time $hold-time @{ C-A-M-z) ;; trickster
   d_dicti (tap-hold $tap-time $hold-time d S-C-A-M-d) ;; easydictionary (https://github.com/tisfeng/Easydict)
 )
 
@@ -280,11 +286,11 @@
 
 (deflayer base
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  XX  @+ @~ @[    @{_zappy    @pl   @%_1pass     @$    @pr   @}     @]    @!    @#    XX
+  XX  @+ @~ @[    @scr_lyr    @pl   @%_1pass     @$    @pr   @}     @]    @!    @#    XX
   tab @'    @,    @.    @p    y    f    @g    @c @r @l    @/    @@_1fill    XX
   esc @lnch_lyr    o   @ses_lyr   @spa_lyr     @tab_lyr    @d_dicti    h    @win_lyr    @ray_lyr  @nav_lyr -    \
-  XX caps    @:       q    j    k       x        b    m    w    v    @sys_lyr    @swtApp3
-  fn lctl lmet    @Lsft_lyr           @num_lyr           @Rsft_lyr    @test_lyr left down up   rght
+  XX caps    @:       q    j    k       x        b    m    w    v    @sys_lyr    @nxtFcus
+  fn lctl lmet    @Lsft_lyr           @num_lyr           @Rsft_lyr    XX left down up   rght
 )
 
  (deflayer sublayers
@@ -294,6 +300,28 @@
     tab       XX       XX       XX       XX    @spa_slyr    XX       XX       XX       XX       XX       XX       XX       XX
       esc      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
    lsft    caps     XX       XX       XX       XX    @win_slyr    XX       XX       XX       XX       XX       rsft
+    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+  )
+
+(defalias
+  showSht (macro S-C-A-M-s)
+
+  fullSS_ (macro C-A-M-f)
+  areaSS_ (macro C-A-M-a)
+  repeatA (macro C-A-M-r)
+  windwSS (macro C-A-M-w) ;; Seleccionar que ventana del espacio actual hacer screeeshot.
+  textSS_ (macro C-A-M-t)
+  ;; scrllSS (macro C-A-M-s)
+  scrllSS (cmd sudo -u liusam open -a "ScrollSnap")
+)
+
+ (deflayer ScreenShotLayer
+
+    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+    tab       XX      XX       XX       XX       XX    @fullSS_    XX       XX    @repeatA    XX       XX       XX       XX
+      esc   @areaSS_    XX       XX       XX       XX       XX       XX    @textSS_    XX    @scrllSS    XX       XX
+   lsft    caps     XX       XX       XX       XX       XX       XX       XX    @windwSS    XX       XX       rsft
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
 
@@ -320,7 +348,7 @@
 
 (deflayer number
   esc  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX  XX  XX
-  XX  XX    XX    XX    XX    XX    @*   7    8    9    XX    XX    XX    bspc
+  XX  XX    XX    XX    XX    XX    XX    @*   7    8    9    XX    XX    bspc
   tab @'    @,    @.    @p    XX    XX    4    5    6    @+    @/    XX    ret
   esc XX    XX    XX    XX    XX    XX    1    2    3    XX    @-    XX
   lsft caps @:    @Q    j    k    XX    ,    0   0   .    XX    rsft
@@ -348,8 +376,8 @@
   )
 
  (deflayer SpaceLayer
-    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
- 102d     XX      XX       XX       XX       XX       XX   @7_spac7 @8_spac8 @9_spac9 XX    XX       XX       XX
+    esc       f1       f2       f3       f4       f5       f      f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX       XX   @7_spac7 @8_spac8 @9_spac9 XX       XX       XX
     tab       XX       XX       XX       XX       XX       XX    @g_spac4 @c_spac5 @r_spac6    XX       XX       XX       XX
       esc      XX       XX       XX       XX       XX       XX    @h_spac1 @t_spac2 @n_spac3    XX       XX       XX
    lsft    caps     XX       XX       XX       XX       XX       XX       XX    @w_destr @v_creat    XX       rsft
@@ -373,7 +401,7 @@
  (deflayer SpaceSubLayer
 
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
- 102d     XX      XX       XX       XX       XX       XX    @7_sndW7 @8_sndW8 @9_sndW9 XX       XX       XX       XX
+ 102d     XX      XX       XX       XX       XX       XX       XX    @7_sndW7 @8_sndW8 @9_sndW9        XX       XX       XX
     tab       XX       XX       XX       XX       XX       XX    @g_sndW4 @c_sndW5 @r_sndW6    XX       XX       XX       XX
       esc      XX       XX       XX       XX       XX       XX    @h_sndW1 @t_sndW2 @n_sndW3    XX       XX       XX
    lsft    caps     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
@@ -451,10 +479,10 @@
 
 (deflayer LeftShift
   esc   f1   f2  f3   f4   f5   f6   f7   f8   f9  f10   f11   f12
-  XX  XX    XX    @=    @grv_acc    @virgu    @&    @*    @+    @act_acc    @¿    @¡    @`    bspc
+  XX  XX    XX    @=    @fullSS   @virgu    @&    @*    @+    @act_acc    @¿    @¡    @`    bspc
   @swtApp2 @''    @<    @>    @P    @Y    @F    @G    @C    @R    @L    @?    @^    ret
   esc @A    @O    @E    @U    @I    @D    @H    @T    @N    @S    @_    @|
-  lsft caps @;    @Q    @J    @K    @X    @B    @M    @W    @V    @Z    rsft
+  lsft caps @;    @Q    @J    @K    @X    @B    @M    @W    @V    @Z    @prvFcus
   fn lctl lmet lsft        @hrow_cl        @hrow_sl ralt left down up   rght
 )
 
@@ -464,7 +492,7 @@
   @swtApp2 @''    @<    @>    @P    @Y    @F    @G    @C    @R    @L    @?    @^    ret
   esc @A    @O    @E    @U    @I    @D    @H    @T    @N    @S    @_    @|
   lsft caps @;    @Q    @J    @K    @X    @B    @M    @W    @V    @Z    rsft
-  fn lctl lmet lsft        @hrow_sc        rsft ralt left down up   rght
+  fn lctl lmet @raycastPrompt        @hrow_sc        rsft ralt left down up   rght
 )
 
  (deflayer EspecificAppsLayer
@@ -533,7 +561,7 @@
     tab       XX       XX       XX       XX    @y_ytvid @f_files @g_googl @c_clipb    XX       XX       XX       XX       XX
       esc      XX       XX    @e_emoji    XX       XX    @d_dwnYT @h_gihub    XX       XX       XX       XX       XX
    lsft    caps     XX       XX       XX    @k_killp     XX    @b_raind    XX       XX       XX       XX       rsft
-    fn    lctl lalt lmet               @raycastPrompt                  rmet    ralt         left down up  rght
+    fn    lctl lalt lmet               XX                  rmet    ralt         left down up  rght
   )
 
 
