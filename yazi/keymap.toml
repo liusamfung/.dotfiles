@@ -5,12 +5,12 @@
     # https://yazi-rs.github.io/docs/tips/#macos-quick-look
     { on = "<C-p>", run = 'shell -- qlmanage -p "$@"' },
     # https://github.com/Sonico98/yazi-prompt.sh
-    { on   = "!", for  = "unix", run  = 'shell "$SHELL" --block', desc = "Open $SHELL here" },
+    { on   =  "<C-/>", for  = "unix", run  = 'shell "$SHELL" --block', desc = "Open $SHELL here" },
     # https://github.com/Sonico98/yazi-prompt.sh
     { on   = [ "c", "p" ], run  = "plugin command", desc = "Yazi command prompt" },
     # https://github.com/AnirudhG07/custom-shell.yazi
-    #Esto me permite ejectar alias declarados en mi .zshrc que Yazia vanilla no me deja.
-    { on   = ":", run = "plugin custom-shell -- zsh --block=true", desc = "custom-shell as default, waits for user" },
+    #Esto me permite ejectar alias declarados en mi .zshrc que Yazia vanilla no me deja. 
+    { on   = ":", run = "plugin custom-shell -- zsh --wait --block=true", desc = "custom-shell as default, waits for user" },
     # https://github.com/mikavilpas/easyjump.yazi
     { on   = "i", run  = "plugin easyjump", desc = "easyjump" },
     # https://github.com/ndtoan96/ouch.yazi?

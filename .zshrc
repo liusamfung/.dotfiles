@@ -128,6 +128,14 @@ function java17() {
   java -version
 }
 
+function java25() {
+  export JAVA_HOME="/opt/homebrew/opt/openjdk@25/libexec/openjdk.jdk/Contents/Home"
+  export PATH="$JAVA_HOME/bin:$PATH"
+  echo "✅ PATH de Java cambiado a JDK 25"
+  java -version
+}
+
+
 function java21() {
   # La primera exportación ya está en el .zshrc
   export JAVA_HOME="/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"

@@ -27,24 +27,26 @@ update_icon() {
       items+=("space.$i")
     fi
   done
-  local state_file="/tmp/sketchybar_state"
-  # echo $NAME: update_icon: $DND_STATE
-  if [ "$DND_STATE" == "focus_on" ]; then
-    mv "$state_file" "$state_file.bak" 2>/dev/null || true # Backup old state file if it exists
-    for item in "${items[@]}"; do
-      state=$(sketchybar --query "$item" | jq -r ".geometry.drawing")
-      echo "$item $state" >>"$state_file"
-      sketchybar --set "$item" drawing="off"
-    done
-    # open raycast://extensions/raycast/raycast-focus/toggle-focus-session
-  else
-    while read -r item state; do
-      if [ "$state" = "on" ]; then
-        sketchybar --set "$item" drawing="on"
-      fi
-    done <"$state_file"
-    # open raycast://extensions/raycast/raycast-focus/complete-focus-session
-  fi
+
+  # If you want to hide some items when DoNotDisturb it's already. Descomente the lines below.
+  # local state_file="/tmp/sketchybar_state"
+  # # echo $NAME: update_icon: $DND_STATE
+  # if [ "$DND_STATE" == "focus_on" ]; then
+  #   mv "$state_file" "$state_file.bak" 2>/dev/null || true # Backup old state file if it exists
+  #   for item in "${items[@]}"; do
+  #     state=$(sketchybar --query "$item" | jq -r ".geometry.drawing")
+  #     echo "$item $state" >>"$state_file"
+  #     sketchybar --set "$item" drawing="off"
+  #   done
+  #   # open raycast://extensions/raycast/raycast-focus/toggle-focus-session
+  # else
+  #   while read -r item state; do
+  #     if [ "$state" = "on" ]; then
+  #       sketchybar --set "$item" drawing="on"
+  #     fi
+  #   done <"$state_file"
+  #   # open raycast://extensions/raycast/raycast-focus/complete-focus-session
+  # fi
 
   sketchybar --set $NAME icon.color=$COLOR
 }

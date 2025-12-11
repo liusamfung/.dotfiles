@@ -200,6 +200,7 @@ return {
         html = {},
         bashls = {},
         cssls = {},
+        jdtls = {},
         -- marksman = {},
         -- -- gopls = {},
         -- pyright = {},

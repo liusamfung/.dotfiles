@@ -1,0 +1,21 @@
+------------------- PHOTOSHOW SETTINGS BEGIN -------------------
+- EXPORTED AT:    2025-12-10T00:15:11.918Z
+- VERSION:        1.5.0.0
+- SOURCE:         PhotoShow 4.83.0
+- BROWSER:        Firefox 145.0
+- PLATFORM:       MacIntel
+----------------------------------------------------------------
+LLncWUX0cYHtuhfpj+wO0l46egGv6PNi39sOC32FkHh4SetbiA/Ea8Py1GgZmzrN
+dj3vrBK7pI1M0weAhoIl3JJKwto/VXqOsH7NYQNh5oVSEnhICqjGH8bDlfbqtyLY
+7nweZqH7lKI8rcxTjnhV4NcTtFWjrTyx+fUY+SWdeCwpzpRH5DqQ2NvpLmlQfWMs
+i9yFIUMU0oCgdy2+yTlC5mP9zYavtgNpM54QzKxfM+lPwGCxc9TKy/nLPbVxANbi
+xh8qy2xVnQsSiWBeSQYNpaXOZLMMsr4IuN9x5/1qOQjXjBea2mf9axaj3hJ2jYmS
+V5cxTfh5EFOZ77lLdJ+BwbhxNeoH1AI4ZthNa6QH0PN29otQEBbVFpgD7UwMk6dl
+gtz9NTt5CwNTxelQs0lZelS39vcP8uIc7yLFkWKrpGTe1ye26xQYkiIA0fE8gRh0
+n60CzwMzlxc/uUE8jfzrFgy0fFH7Naz1AYC6C39UAh1RSUReT5H0OHOQO58s8sSI
+4pVKiACEHOkdSSxl7GUu90qd84ew9lwYemXBS17YYuNfv1GRdworw1tNy8tL1HNW
+GAK4fRrXjZOnaxnVzckMy2uWVjCxwjuZEJKs7FgAeso2loNN7NfCvPCivv4bYZ36
+0747CT5tDgASx/pg55Qnp6wG/fkF27XJnbBoRQNX/fgc+P0/QvTo5bcNuameCriu
+Rg5mctLFcmM0ZBtCnkduSfSn/war6SXSCyq8P3otPhfeEsFddu4bn5PogdlBMspt
+oadbnj9bQU1wZF5Q9G8TnaSYyaVuPt9/unPsTqUTuLz/N2trYQ0=
+-------------------- PHOTOSHOW SETTINGS END --------------------
