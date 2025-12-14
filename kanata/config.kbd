@@ -253,11 +253,12 @@
 
 
    num_lyr (tap-hold $tap-time $hold-time spc (layer-toggle number))
-   ray_lyr (tap-hold $tap-time $hold-time n (layer-toggle raycastUtilyExtension))
+   ray_lyr (tap-hold $tap-time $hold-time h (layer-toggle raycastUtilyExtension))
 
    spa_lyr (tap-hold $tap-time $hold-time u (layer-toggle SpaceLayer))
    spa_slyr (tap-hold-press $subl-time $subl-time spc (layer-while-held SpaceSubLayer))
-   win_lyr (tap-hold $tap-time $hold-time t (layer-toggle WindowsLayer))
+   win_lyr (tap-hold $tap-time $hold-time n (layer-toggle WindowsLayer))
+   ter_lyr (tap-hold $tap-time $hold-time t (layer-toggle TerminalPaneLayer))
    win_slyr (tap-hold-press $subl-time $subl-time spc (layer-while-held WindowsSubLayer))
    tab_lyr (tap-hold $tap-time $hold-time i (layer-toggle TabsLayer))
    ses_lyr (tap-hold $tap-time $hold-time e (layer-toggle sesionLayer))
@@ -288,7 +289,7 @@
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   XX  @+ @~ @[    @scr_lyr    @pl   @%_1pass     @$    @pr   @}     @]    @!    @#    XX
   tab @'    @,    @.    @p    y    f    @g    @c @r @l    @/    @@_1fill    XX
-  esc @lnch_lyr    o   @ses_lyr   @spa_lyr     @tab_lyr    @d_dicti    h    @win_lyr    @ray_lyr  @nav_lyr -    \
+  esc @lnch_lyr    o   @ses_lyr   @spa_lyr     @tab_lyr    @d_dicti    @ray_lyr    @ter_lyr    @win_lyr  @nav_lyr -    \
   XX caps    @:       q    j    k       x        b    m    w    v    @sys_lyr    @nxtFcus
   fn lctl lmet    @Lsft_lyr           @num_lyr           @Rsft_lyr    XX left down up   rght
 )
@@ -410,12 +411,12 @@
 
 
  (deflayer WindowsLayer
-    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+    @r_resta       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX    @7_flipX @8_flipY @9_rot90    XX       XX       XX       XX       XX       XX       XX       XX
-    tab    @o_float @e_bsppp @u_stack @i_stick    XX      XX       XX       XX    @r_resta    XX       XX       XX       XX
-      esc      XX       XX       XX       XX       XX       XX       XX       XX       XX    @s_split    XX       XX
-   lsft    caps     XX    @h_westt @t_south @c_north @n_eastt @x_close       XX       XX       XX    @z_fulls    rsft
-    fn    lctl lalt lmet                 @win_slyr                     rmet    ralt         left down up  rght
+    tab    @i_stick @e_bsppp @z_fulls @u_stack @o_float   XX       XX       XX    XX    XX       XX       XX       XX
+      esc   @s_split    XX       XX       XX       XX       XX       XX       XX       XX    XX    XX       XX
+   lsft    caps     XX    @h_westt @t_south @c_north @n_eastt XX       XX       XX       XX    XX    rsft
+    fn    lctl lalt @x_close                 @win_slyr                     rmet    ralt         left down up  rght
   )
 
 
@@ -436,6 +437,35 @@
       esc      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
    lsft    caps     XX    @h_rLeft @t_rBttn @c_rTopp @n_rRgth    XX       XX       XX       XX       XX       rsft
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+  )
+
+(defalias
+;; I use C-b to get out from terminal-mode in Nvim. (I use my terminal in Nvim). After that, we'll join to Insert-mode (i)
+bttmPane  (macro C-b C-j)
+topPane_  (macro C-b C-k)
+leftPane  (macro C-b C-q)
+rightPane (macro C-b C-x)
+
+gridLyt__ (macro C-A-M-y)
+stackLyt_ (macro C-A-M-o)
+fatLyt___ (macro C-A-M-i)
+tallLyt__ (macro C-A-M-u)
+
+zoomPane_ (macro C-A-M-d)
+
+
+nwHorPane (macro M-ret)
+nwVerPane (macro M-ret)
+deletPane (macro C-A-M-x)
+)
+
+ (deflayer TerminalPaneLayer
+    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+    tab    @fatLyt___    @gridLyt__    @zoomPane_ @stackLyt_    XX       XX       XX       XX       XX       XX       XX       XX       XX
+      esc      XX       XX       XX       XX       XX       XX    @nwHorPane    XX       XX    @nwVerPane    XX       XX
+   lsft    caps     XX    @leftPane @bttmPane @topPane_ @rightPane    XX       XX       XX       XX       XX       rsft
+    fn    lctl lalt @deletPane                 spc                     rmet    ralt         left down up  rght
   )
 
 (defalias
@@ -470,7 +500,7 @@
  (deflayer systemLayer
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX      XX         XX    XX
-    tab    @@_zTogl @!_zoom- @#_zoom+    ▶⏸       XX       XX       XX       XX       XX       XX       XX          XX          XX
+    tab    @!_zoom- @#_zoom+ @@_zTogl    ▶⏸       XX       XX       XX       XX       XX       XX       XX          XX          XX
       esc      XX       XX    🔅    🔆    XX       XX       XX       XX    @z_dndDi    XX       XX       XX
    lsft    caps     XX   ◀◀    🔉    🔊    ▶▶       @b_notif       🔇       @q_lockS       XX       XX       rsft
     fn    lctl lalt @bsc_FrcQ                 XX                     rmet    ralt         left down up  rght

@@ -3,6 +3,7 @@ local function setup()
 	local dated_paths = {
 		home .. "/Downloads", --concadenamos 'Users/liusam' con '/Downloads'
 		home .. "/.local/share/Trash/files",
+		home .. "/Pictures/Fototeca de Photo Booth/Pictures", --Only for MacOS
 	}
 
 	ps.sub("cd", function()

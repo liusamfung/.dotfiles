@@ -7,6 +7,7 @@ cd ~/
 # 'nt' es mi alias para abrir neovim y  la ves lanzar la terminal
 launch --title "test-log" /bin/zsh -i -c 'nt'
 launch --title "pane1" /bin/zsh -i -c 'nt'
+launch --title "pane2" /bin/zsh -i -c 'nt'
 
 focus
 focus_os_window

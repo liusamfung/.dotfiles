@@ -6,7 +6,7 @@ sudo yabai --load-sa
 # Load all the variables I need from the yabai_env.sh file
 # source "/Users/liusam/.config/yabai/yabai_env.sh"
 
-yabai -m config window_placement second_child
+# yabai -m config window_placement second_child
 # yabai -m config mouse_modifier fn
 
 
@@ -42,6 +42,7 @@ apps_mgoff_normal="(Clock|Quick Camera|Photo Booth|QuickTime Player|System Prefe
 yabai -m config layout stack #General 
 yabai -m space 1 --layout bsp
 yabai -m space 2 --layout bsp
+yabai -m space 8 --layout bsp
 
 
 # Cualquier otra apliacion, que se 
@@ -59,6 +60,9 @@ yabai -m rule --add app="net.whatsapp.WhatsApp"  space=^8
 yabai -m rule --add app="^${apps_mgoff_normal}$" manage=off
 
 
+# Regla Final (La más segura): Ignorar cualquier ventana de Outlook que NO sea una ventana estándar (p.ej., pop-ups de calendario, alertas, etc.)
+# Aunque tus ejemplos son AXStandardWindow, esto es buena práctica:
+# yabai -m rule --add app="^Microsoft Outlook$" subrole!="AXStandardWindow" manage=off
 
 
 
@@ -70,6 +74,28 @@ yabai -m config right_padding 3
 
 
 yabai -m config window_gap 10 #Space between windows
+
+
+##################################Especific rules (OUTLOOK)#######################################################################
+# https://github.com/asmvik/yabai/blob/master/doc/yabai.asciidoc#rule
+# Hacemos que cualquier ventana de Outlook cuyo título NO sea exactamente el del buzón (es decir, un correo individual) FLOTE.
+# (Esto captura la estructura 'Asunto - Carpeta • Email')
+yabai -m rule --add app="^Microsoft Outlook$" \
+    title="^.* - .* • .*$" \
+    manage=off \
+    opacity=0.98 \
+    # grid="1:1:0:200:900:1000" # Usando grid para el tamaño
+
+# Ventanas de composición de correo nuevo (patrón: Asunto • Email)
+# Nota: "Untitled" puede cambiar al escribir el asunto, por lo que usamos ^.* para capturar cualquier asunto.
+yabai -m rule --add app="^Microsoft Outlook$" \
+    title="^Untitled • .*@.*$" \
+    manage=off \
+    opacity=0.98 \
+    # grid="1:1:0:200:900:1000" # Usando grid para el tamaño
+##################################Especific rules ()#######################################################################
+
+
 # yabai -m query --windows | grep app
 
 # CONTROL DE BORDES (JankyBorders)
