@@ -58,10 +58,14 @@ return {
     config = function()
       local map = vim.keymap.set
       local opts = { silent = true, remap = false }
-      map('n', '<C-q>', ':KittyNavigateLeft<CR>', { desc = 'Kitty: Mover Izquierda' })
-      map('n', '<C-j>', ':KittyNavigateDown<CR>', { desc = 'Kitty: Mover Abajo' })
-      map('n', '<C-k>', ':KittyNavigateUp<CR>', { desc = 'Kitty: Mover Arriba' })
-      map('n', '<C-x>', ':KittyNavigateRight<CR>', { desc = 'Kitty: Mover Derecha' })
+      -- if you don't want to see the pop-up for a micro while. Don't use ":KittyNavigate...<CR>"
+      -- Instead of use "<cmd>KittyNavigate...<CR>"
+      -- Aditionality. If you want to type inmdiality when you switch in panes. You can do it like that line below
+      -- map('n', '<C-q>', '<cmd>KittyNavigateLeft<CR><cmd>startinsert<CR>', { desc = 'Kitty: Mover Izquierda' })
+      map('n', '<C-q>', '<cmd>KittyNavigateLeft<CR>', { desc = 'Kitty: Mover Izquierda' })
+      map('n', '<C-j>', '<cmd>KittyNavigateDown<CR>', { desc = 'Kitty: Mover Abajo' })
+      map('n', '<C-k>', '<cmd>KittyNavigateUp<CR>', { desc = 'Kitty: Mover Arriba' })
+      map('n', '<C-x>', '<cmd>KittyNavigateRight<CR>', { desc = 'Kitty: Mover Derecha' })
     end,
   },
 
