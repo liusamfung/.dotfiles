@@ -2,14 +2,17 @@
 (defcfg
   process-unmapped-keys yes
   danger-enable-cmd yes
+  concurrent-tap-hold yes
 )
 
 
 (defvar
-  tap-time 150
-  hold-time 200
+  tap-time 10 ;; Deshabilitamos el tapcontinous porque interfiere con mi num_lyr
+
+  hold-time  200
   subl-time 200
  tmux-delay 40
+ chord-time 60
 )
 
 
@@ -58,6 +61,8 @@
   r_resta (cmd "/Users/liusam/dotfiles/yabai/restartGUI.sh")
   s_split (cmd sudo -u liusam yabai -m window --toggle split)
   x_close (cmd sudo -u liusam bash -c "yabai $(yabai -m window $(yabai -m query --windows --window | jq -re '.id') --close)")
+  m_minim (cmd sudo -u liusam yabai -m window --minimize)
+  b_remin (cmd sudo -u liusam yabai -m window --deminimize)
 
   h_westt (cmd sudo -u liusam yabai -m window --focus west)
   t_south (cmd sudo -u liusam yabai -m window --focus south)
@@ -228,48 +233,71 @@
 ;;  i sesion
 ;;  u tabs
 (defalias
+
+  ;; ' (multi f23 (tap-hold-release-keys $tap-time $hold-time ' (layer-toggle MetaLayer) (lctl rctl)))
+
   ' (multi f23 (tap-hold $tap-time $hold-time ' ralt))
+  'mod (multi f23 (tap-hold-press $tap-time $hold-time ralt ralt))
   , (multi f24 (tap-hold $tap-time $hold-time , lctl))
+  ,mod (multi f24 (tap-hold-press $tap-time $hold-time lctl lctl))
   . (multi f24 (tap-hold $tap-time $hold-time . lsft))
+  .mod (multi f24 (tap-hold-press $tap-time $hold-time lsft lsft))
   p (multi f24 (tap-hold $tap-time $hold-time p lmet))
+  pmod (multi f24 (tap-hold-press $tap-time $hold-time lmet lmet))
 
   g (multi f24 (tap-hold $tap-time $hold-time g rmet))
+  gmod (multi f24 (tap-hold-press $tap-time $hold-time rmet rmet))
   c (multi f24 (tap-hold $tap-time $hold-time c rsft))
+  cmod (multi f24 (tap-hold-press $tap-time $hold-time rsft rsft))
   r (multi f24 (tap-hold $tap-time $hold-time r lctl))
+  rmod (multi f24 (tap-hold-press $tap-time $hold-time lctl lctl))
   l (multi f24 (tap-hold $tap-time $hold-time l ralt))
+  lmod (multi f24 (tap-hold-press $tap-time $hold-time ralt ralt))
   
    ;; Si lo que quieres es que apenas pulsando otra tecla se accione el layer una -press
    ;; Rsft_lyr (tap-hold-press  150 10 @hrow_sc (layer-toggle shift))
-   Rsft_lyr (tap-hold-press  $tap-time $hold-time ret XX)
+   Rsft_lyr (tap-hold-press  $tap-time $hold-time ret (layer-toggle MainLayer))
    MRsft_lyr (tap-hold-press  $tap-time $hold-time rsft (layer-toggle RightShift))
-   Lsft_lyr (tap-hold-press  $tap-time $hold-time bspc XX)
+   Lsft_lyr (tap-hold-press  $tap-time $hold-time bspc (layer-toggle MainLayer))
    MLsft_lyr (tap-hold-press  $tap-time $hold-time lsft (layer-toggle LeftShift))
    ;; test_lyr (tap-hold-press-timeout  $tap-time $hold-time e (layer-toggle LeftShift) a )
 
   ;; Sublayerrrrr #################################################################
    ;;msubl (tap-hold-press $subl-time $subl-time XX (layer-while-held sublayers))
 
-   nav_lyr (tap-hold $tap-time $hold-time s (layer-toggle navigationLayer))
+   nav_lyr (layer-toggle navigationLayer)
+   s (tap-hold-release-keys $tap-time $hold-time s (layer-toggle navigationLayer) (lctl rctl))
+   x (tap-hold-tap-keys $tap-time $hold-time o d (f12 rmet))
 
-   lnch_lyr (tap-hold $tap-time $hold-time a (layer-toggle apps))
+   lnch_lyr (layer-toggle apps)
+   a (tap-hold-release-keys $tap-time $hold-time a (layer-toggle apps) (lctl rctl))
 
 
    num_lyr (tap-hold $tap-time $hold-time spc (layer-toggle number))
    ray_lyr (tap-hold $tap-time $hold-time h (layer-toggle raycastUtilyExtension))
 
-   spa_lyr (tap-hold $tap-time $hold-time u (layer-toggle SpaceLayer))
-   spa_slyr (tap-hold-press $subl-time $subl-time spc (layer-while-held SpaceSubLayer))
-   win_lyr (tap-hold $tap-time $hold-time n (layer-toggle WindowsLayer))
-   ter_lyr (tap-hold $tap-time $hold-time t (layer-toggle TerminalPaneLayer))
-   win_slyr (tap-hold-press $subl-time $subl-time spc (layer-while-held WindowsSubLayer))
-   tab_lyr (tap-hold $tap-time $hold-time i (layer-toggle TabsLayer))
-   ses_lyr (tap-hold $tap-time $hold-time e (layer-toggle sesionLayer))
+   spa_lyr (layer-toggle SpaceLayer)
+   o (tap-hold-release-keys $tap-time $hold-time o (layer-toggle SpaceLayer) (lctl rctl))
+   spa_slyr (layer-toggle SpaceSubLayer)
 
-   app_lyr (tap-hold $tap-time $hold-time spc (layer-toggle EspecificAppsLayer))
+   win_lyr (layer-toggle WindowsLayer)
+   n (tap-hold-release-keys $tap-time $hold-time n (layer-toggle WindowsLayer) (lctl rctl))
+   win_slyr (layer-toggle WindowsSubLayer)
 
-   sys_lyr (tap-hold $tap-time $hold-time z (layer-toggle systemLayer))
+   ter_lyr (layer-toggle TerminalPaneLayer)
+   t (tap-hold-release-keys $tap-time $hold-time t (layer-toggle TerminalPaneLayer) (lctl rctl))
+
+   ses_lyr (layer-toggle sesionLayer)
+   e (tap-hold-release-keys $tap-time $hold-time e (layer-toggle sesionLayer) (lctl rctl))
+
+   sys_lyr (layer-toggle systemLayer)
+   z (tap-hold-release-keys $tap-time $hold-time z (layer-toggle systemLayer) (lctl rctl))
+
    scr_lyr (tap-hold $tap-time $hold-time @{ (layer-toggle ScreenShotLayer))
+
+   tab_lyr (tap-hold $tap-time $hold-time i (layer-toggle TabsLayer))
 )
+
 (defalias 
 
   @_1fill (tap-hold $tap-time $hold-time @@ C-A-M-p) ;; trickster
@@ -291,10 +319,22 @@
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   XX  @+ @~ @[    @scr_lyr    @pl   @%_1pass     @$    @pr   @}     @]    @!    @#    XX
   tab @'    @,    @.    @p    y    f    @g    @c @r @l    @/    @@_1fill    caps
-  esc @lnch_lyr    o   @ses_lyr   @spa_lyr     @tab_lyr    @d_dicti    @ray_lyr    @ter_lyr    @win_lyr  @nav_lyr -    \
-  @MLsft_lyr @MLsft_lyr    @;       q    j    k       x        b    m    w    v    @sys_lyr    @MRsft_lyr
+  esc @a    @o   @e   u     @tab_lyr    @d_dicti    @ray_lyr    @t    @n  @s -    \
+  @MLsft_lyr @MLsft_lyr    @;       q    j    k       x        b    m    w    v    @z    @MRsft_lyr
   fn lctl lmet    @Lsft_lyr           @num_lyr           @Rsft_lyr    XX left down up   rght
 )
+
+
+ (deflayer MainLayer
+
+    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+    tab       @'mod       @,mod       @.mod       @pmod       XX       XX       @gmod       @cmod       @rmod       @lmod       XX       XX  XX
+      esc      @lnch_lyr       @ses_lyr       @spa_lyr       XX       XX       XX       @ray_lyr       @ter_lyr       @win_slyr       @nav_lyr       XX       XX
+   lsft    caps     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
+    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+  )
+
 
  (deflayer sublayers
 
@@ -382,7 +422,7 @@
     esc       f1       f2       f3       f4       f5       f      f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX   @7_spac7 @8_spac8 @9_spac9 XX       XX       XX
     tab       XX       XX       XX       XX       XX       XX    @g_spac4 @c_spac5 @r_spac6    XX       XX       XX       XX
-      esc      XX       XX       XX       XX       XX       XX    @h_spac1 @t_spac2 @n_spac3    XX       XX       XX
+      @spa_slyr      XX       XX       XX       XX       XX       XX    @h_spac1 @t_spac2 @n_spac3    XX       XX       XX
    lsft    caps     XX       XX       XX       XX       XX       XX       XX    @w_destr @v_creat    XX       rsft
     fn    lctl lalt lmet                 @spa_slyr                     rmet    ralt         left down up  rght
   )
@@ -417,7 +457,7 @@
  102d     XX      XX    @7_flipX @8_flipY @9_rot90    XX       XX       XX       XX       XX       XX       XX       XX
     tab    @i_stick @e_bsppp @z_fulls @u_stack @o_float   XX       XX       XX    XX    XX       XX       XX       XX
       esc   @s_split    XX       XX       XX       XX       XX       XX       XX       XX    XX    XX       XX
-   lsft    caps     XX    @h_westt @t_south @c_north @n_eastt XX       XX       XX       XX    XX    rsft
+   lsft    caps     XX    @h_westt @t_south @c_north @n_eastt @b_remin @m_minim    XX       XX    XX    rsft
     fn    lctl lalt @x_close                 @win_slyr                     rmet    ralt         left down up  rght
   )
 
