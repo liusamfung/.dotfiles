@@ -146,6 +146,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 
 -- vim.keymap.set('t', '<Esc><Esc>', '', { desc = "Don't do anything" })
 vim.keymap.set('t', '<C-b>', '<C-\\><C-n>', { desc = 'Go to normal mode' })
+vim.keymap.set('i', '<C-b>', '<cmd>stopinsert<CR>', { desc = 'Go to normal mode' })
 
 -- vim.keymap.set('n', 'tsh', ':sp | term<Return>', opts)
 -- vim.keymap.set('n', 'tss', ':vs | term<Return>', opts)

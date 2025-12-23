@@ -62,10 +62,10 @@ return {
       -- Instead of use "<cmd>KittyNavigate...<CR>"
       -- Aditionality. If you want to type inmdiality when you switch in panes. You can do it like that line below
       -- map('n', '<C-q>', '<cmd>KittyNavigateLeft<CR><cmd>startinsert<CR>', { desc = 'Kitty: Mover Izquierda' })
-      map('n', '<C-q>', '<cmd>KittyNavigateLeft<CR>', { desc = 'Kitty: Mover Izquierda' })
-      map('n', '<C-j>', '<cmd>KittyNavigateDown<CR>', { desc = 'Kitty: Mover Abajo' })
-      map('n', '<C-k>', '<cmd>KittyNavigateUp<CR>', { desc = 'Kitty: Mover Arriba' })
-      map('n', '<C-x>', '<cmd>KittyNavigateRight<CR>', { desc = 'Kitty: Mover Derecha' })
+      map('n', '<C-q>', '<cmd>KittyNavigateLeft<CR><cmd>startinsert<CR>', { desc = 'Kitty: Mover Izquierda' })
+      map('n', '<C-j>', '<cmd>KittyNavigateDown<CR><cmd>startinsert<CR>', { desc = 'Kitty: Mover Abajo' })
+      map('n', '<C-k>', '<cmd>KittyNavigateUp<CR><cmd>startinsert<CR>', { desc = 'Kitty: Mover Arriba' })
+      map('n', '<C-x>', '<cmd>KittyNavigateRight<CR><cmd>startinsert<CR>', { desc = 'Kitty: Mover Derecha' })
     end,
   },
 
