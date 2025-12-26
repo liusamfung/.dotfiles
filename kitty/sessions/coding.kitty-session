@@ -1,9 +1,21 @@
-# Set the layout for the current tab
+new_tab Term
+  cd ~/dev/
+    launch  --title  "term-pane" zsh
+
+
+new_tab Test-log
+  layout fat
+    launch --hold ov --multi-color "ERROR,WARN,INFO,DEBUG,not,^.{24}" /Users/liusam/.local/state/nvim/lsp.log
+      focus # Con esta linea estoy volviendo el pane actual en el enfocado después de crear los demás panes(Windows)
+  cd ~/Dev/
+    launch  --title  "pane2" zsh
+  cd ~/Dev/
+    launch  --title  "pane3" zsh
+# launch --cwd=current --title  "Currennt" zsh
+
+new_tab Neovim
 layout tall
-# Set the working directory for windows in the current tab
-cd ~/Dev
-# Create the "main" window and run an editor in it to edit the project files
-launch --title "Neovim" /bin/zsh -i -c nvim
-# Create a side window to run a shell to build or test project
-focus
+cd ~/Dev/
+    launch  --hold /bin/zsh -c nvim
+
 focus_os_window

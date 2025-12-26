@@ -1,11 +1,11 @@
-# Set the layout for the current tab
-layout tall
+new_tab OBSIDIAN
+  layout tall
 # Set the working directory for windows in the current tab
 #PersonalKnowledge es un symlink de mi vault de Obsidian
-cd ~/PersonalKnowledge
-# Create the "main" window and run an editor in it to edit the project files
-launch --title "Obsidian" /bin/zsh -i -c 'nvim'
+  cd ~/PersonalKnowledge
+    launch --title "Obsidian-pane" /bin/zsh -i -c 'nvim'
+
+# When you open many session in diferents OS windows, focus the window that it
+# has already open the session and no create another same session in that OS Window. (Duplicate session)
 focus
 focus_os_window
-
-

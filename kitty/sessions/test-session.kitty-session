@@ -1,0 +1,20 @@
+# PATH=$PATH:/opt/sysadmin/scripts
+new_tab Term
+  cd ~/dev/
+    launch --cwd ~/dev/AcademicProjects/ --title  "Currennt" zsh
+
+
+new_tab Test-log
+  layout fat
+    launch --hold ov --multi-color "ERROR,WARN,INFO,DEBUG,not,^.{24}" /Users/liusam/.local/state/nvim/lsp.log
+      focus # Con esta linea estoy volviendo el pane actual en el enfocado después de crear los demás panes(Windows)
+  # cd ~/Dev/
+    launch --cwd ~/dev/AcademicProjects/ --title  "Currennt" zsh
+  # cd ~/Dev/
+    launch --cwd ~/dev/iso/ --title  "Currennt" zsh
+
+new_tab <ProjectName>
+layout tall
+  launch --cwd=current --title  "Currennt" zsh
+
+focus_os_window

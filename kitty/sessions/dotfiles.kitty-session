@@ -1,9 +1,31 @@
-# Set the layout for the current tab
-layout tall
-# Set the working directory for windows in the current tab
-cd ~/dotfiles
-# Create the "main" window and run an editor in it to edit the project files
-launch --title "Dotfiles" /bin/zsh -i -c nvim
-# Create a side window to run a shell to build or test project
+
+new_tab Term
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [40], "window_groups": [{"id": 40, "window_ids": [40]}]}}
+cd ../..
+
+launch 'kitty-unserialize-data={"id": 40}' --title=term-pane /bin/zsh
 focus
-focus_os_window
+
+new_tab Test-log
+layout fat
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Fat", "all_windows": {"active_group_idx": 0, "active_group_history": [41, 42, 43], "window_groups": [{"id": 41, "window_ids": [41]}, {"id": 42, "window_ids": [42]}, {"id": 43, "window_ids": [43]}]}}
+cd ../../../Dev
+
+launch 'kitty-unserialize-data={"id": 41}' --hold /opt/homebrew/bin/ov --multi-color 'ERROR,WARN,INFO,DEBUG,not,^.{24}' /Users/liusam/.local/state/nvim/lsp.log
+focus
+launch 'kitty-unserialize-data={"id": 42}' --cwd=../../../Dev/AcademicProjects --title=traductor /bin/zsh
+launch 'kitty-unserialize-data={"id": 43}' --title=Currennt /bin/zsh
+
+new_tab Dotfiles
+layout tall
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Tall", "all_windows": {"active_group_idx": 0, "active_group_history": [44], "window_groups": [{"id": 44, "window_ids": [44]}]}}
+cd ../..
+
+launch 'kitty-unserialize-data={"id": 44}' --title=Dotfiles /bin/zsh -i -c nvim
+focus
+
+focus_tab 9

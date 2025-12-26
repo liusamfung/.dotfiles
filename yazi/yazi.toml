@@ -1,6 +1,6 @@
 [mgr]
 show_hidden    = true
-ratio          = [ 0, 3, 5 ] # a + b + c = 8
+ratio          = [ 0, 4, 4 ] # a + b + c = 8
 # linemode       = "permissions"
 image_quality  = 50
 

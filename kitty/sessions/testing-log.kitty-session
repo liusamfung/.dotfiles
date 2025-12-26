@@ -1,13 +1,19 @@
-
+new_tab TEST-LOG
 # Set the layout for the current tab
-layout fat
+  layout fat
 # Set the working directory for windows in the current tab
-cd ~/
-# Create the "main" window and run an editor in it to edit the project files
-# 'nt' es mi alias para abrir neovim y  la ves lanzar la terminal
-launch --title "test-log" /bin/zsh -i -c 'nt'
-launch --title "pane1" /bin/zsh -i -c 'nt'
-launch --title "pane2" /bin/zsh -i -c 'nt'
+  cd ~/
+    launch --title "pane1" 
+    focus
+    launch --title "pane2" 
+    launch --title "pane3"
 
-focus
+# # Create the "main" window and run an editor in it to edit the project files
+# # 'nt' es mi alias para abrir neovim y  la ves lanzar la terminal
+# launch --title "test-log" /bin/zsh -i -c 'nt'
+# launch --title "pane1" /bin/zsh -i -c 'nt'
+# launch --title "pane2" /bin/zsh -i -c 'nt'
+
+# When you open many session in diferents OS windows, focus the window that it
+# has already open the session and no create another same session in that OS Window. (Duplicate session)
 focus_os_window

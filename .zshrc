@@ -94,7 +94,12 @@ alias nt='nvim -c "terminal"'
 alias i='nvim'
 alias e='exit'
 
+alias ks='kitty --session'
+
 alias nvim-kickstart='NVIM_APPNAME="nvim-kickstart" nvim'
+
+alias nvim-ju='NVIM_APPNAME=nvim-jugarpeupv nvim'
+alias nvim-anti='NVIM_APPNAME=nvim-anti nvim'
 
 # export MANPATH="/usr/local/man:$MANPATH"
 

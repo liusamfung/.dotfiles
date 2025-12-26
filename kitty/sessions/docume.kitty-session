@@ -1,0 +1,39 @@
+new_tab Documetation
+# Set the layout for the current tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/dotfiles
+# Create the "main" window and run an editor in it to edit the project files
+  launch --title "Dotfiles" /bin/zsh -i -c nvim
+
+
+new_tab Test-log
+  layout fat
+# Si quieres correr un programa en una ventana (Lo que significaría que si cierras el programa por error, se borra también el window)
+# launch ov --multi-color "ERROR,WARN,INFO,DEBUG,not,^.{24}" /Users/liusam/.local/state/nvim/lsp.log
+# Si lo que quieres es crear una ventana, luego correr el programa apenas la abras hazlo siguiente. (De esta forma si lo cierras de casualidad, no vas a cerrar la ventana(pane))
+    launch --hold ov --multi-color "ERROR,WARN,INFO,DEBUG,not,^.{24}" /Users/liusam/.local/state/nvim/lsp.log
+    focus # Con esta linea estoy volviendo el pane actual en el enfocado después de crear los demás panes(Windows)
+  cd ~/Dev/AcademicProjects/
+    launch  --title  "traductor" zsh
+  cd ~/Dev/
+    launch  --title  "Currennt" zsh
+# launch --cwd=current --title  "Currennt" zsh
+
+new_tab log
+  launch --title "logi" /bin/zsh -i -c nvim
+
+new_tab pane
+  launch --title "panes" /bin/zsh -i -c nvim
+
+
+# Create a side window to run a shell to build or test project
+# focus_os_window
+
+# Crea una nueva ventana y mira el output que genera "Brew outdated"
+# launch --hold brew outdated
+
+# When you open many session in diferents OS windows, focus the window that it
+# has already open the session and no create another same session in that OS Window. (Duplicate session)
+focus
+focus_os_window

@@ -33,7 +33,7 @@ apps_terminal="(kitty)"
 apps_testing="(Google Chrome)" # I test web development stuff with Google Chrome
 apps_organization="(Fantastical|Reminders|Notion|Obsidian)"
 apps_workspace="(Canva|Microsoft Excel|Microsoft Word|Microsoft PowerPoint)"
-apps_media="(Firefox|Preview|IINA|Microsoft Teams|zoom.us|Photos|YouTube Music|Brave Browser)" #Generalmente solo usas una de estas apps a la vez
+apps_media="(Firefox|Preview|IINA|Microsoft Teams|zoom.us|Photos|YouTube Music|Brave Browser|Spotify)" #Generalmente solo usas una de estas apps a la vez
 apps_msg="(Microsoft Outlook|net.whatsapp.WhatsApp|Slack)" 
 apps_browsing="(Zen)" # 
 

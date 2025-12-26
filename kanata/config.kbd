@@ -1,4 +1,3 @@
-
 (defcfg
   process-unmapped-keys yes
   danger-enable-cmd yes
@@ -12,12 +11,8 @@
   hold-time  200
   subl-time 200
  tmux-delay 40
- chord-time 60
+ chord-time 500
 )
-
-
-
-
 (defalias
  ;;Raycast variables
 
@@ -199,7 +194,7 @@
 
 (defalias
  ;; Utilitys 
- raycastPrompt S-C-A-M-0
+ raycastPrompt S-C-A-M-r
  hrow_sc S-C-A-M-2
  hrow_cl S-C-A-M-7
  hrow_sl S-C-A-M-3
@@ -227,75 +222,80 @@
 
 )
 
-;; o Navigation
-;; y .espaces
-;;  a windows
-;;  i sesion
-;;  u tabs
+(defchordsv2
+
+  (r e lmet) (multi lmet lsft) $chord-time first-release () ;; Shift + Meta (Left-hand)
+  (u i rmet) (multi rmet rsft) $chord-time first-release () ;; Shift + Meta (Rigth-hand)
+
+  (w r lmet) (multi lsft lctl) $chord-time first-release () ;; Shift + Control (Left-hand)
+  (u o rmet) (multi lsft lctl) $chord-time first-release () ;; Shift + Control (Rigth-hand)
+
+  (w e lmet) (multi lmet lctl) $chord-time first-release () ;; Meta + Control (Left-hand)
+  (i o rmet) (multi rmet rctl) $chord-time first-release () ;; Meta + Control (Rigth-hand)
+
+  (q e lmet) (multi lmet ralt) $chord-time first-release () ;; Meta + alt (Left-hand)
+  (i p rmet) (multi rmet ralt) $chord-time first-release () ;; Meta + alt (Rigth-hand)
+
+  (q r lmet) (multi ralt lsft) $chord-time first-release () ;; Alt + Shift (left-hand)
+  (p u rmet) (multi ralt rsft) $chord-time first-release () ;; Alt + Shift (left-hand)
+
+  (q lmet) ralt $chord-time first-release ()
+  (w lmet) lctl $chord-time first-release ()
+  (e lmet) lmet $chord-time first-release ()
+  (r lmet) lsft $chord-time first-release ()
+
+  (u rmet) rsft $chord-time first-release ()
+  (i rmet) rmet $chord-time first-release ()
+  (o rmet) lctl $chord-time first-release ()
+  (p rmet) ralt $chord-time first-release ()
+
+  (spc tab) (layer-toggle number) $chord-time first-release ()
+
+  (a lmet) (layer-toggle apps) $chord-time first-release ()
+  (s lmet) (layer-toggle sesionLayer) $chord-time first-release ()
+  (d lmet) (layer-toggle SpaceLayer) $chord-time first-release ()
+  (f lmet) (layer-toggle TabLayer) $chord-time first-release ()
+
+
+  (k rmet) (layer-toggle TerminalPaneLayer) $chord-time first-release ()
+  (l rmet) (layer-toggle WindowsLayer) $chord-time first-release ()
+  (j rmet) (layer-toggle TerminalLayer) $chord-time first-release ()
+
+
+)
+
 (defalias
 
-  ;; ' (multi f23 (tap-hold-release-keys $tap-time $hold-time ' (layer-toggle MetaLayer) (lctl rctl)))
+   spa_slyr (layer-toggle SpaceSubLayer)
+   win_slyr (layer-toggle WindowsSubLayer)
+   apps_lyr (layer-toggle apps)
+   sesn_lyr (layer-toggle sesionLayer)
+   tabs_lyr (layer-toggle TabLayer)
+   tPanelyr (layer-toggle TerminalPaneLayer)
+   winOSlyr (layer-toggle WindowsLayer)
+   termnLyr (layer-toggle TerminalLayer)
 
-  ' (multi f23 (tap-hold $tap-time $hold-time ' ralt))
-  'mod (multi f23 (tap-hold-press $tap-time $hold-time ralt ralt))
-  , (multi f24 (tap-hold $tap-time $hold-time , lctl))
-  ,mod (multi f24 (tap-hold-press $tap-time $hold-time lctl lctl))
-  . (multi f24 (tap-hold $tap-time $hold-time . lsft))
-  .mod (multi f24 (tap-hold-press $tap-time $hold-time lsft lsft))
-  p (multi f24 (tap-hold $tap-time $hold-time p lmet))
-  pmod (multi f24 (tap-hold-press $tap-time $hold-time lmet lmet))
 
-  g (multi f24 (tap-hold $tap-time $hold-time g rmet))
-  gmod (multi f24 (tap-hold-press $tap-time $hold-time rmet rmet))
-  c (multi f24 (tap-hold $tap-time $hold-time c rsft))
-  cmod (multi f24 (tap-hold-press $tap-time $hold-time rsft rsft))
-  r (multi f24 (tap-hold $tap-time $hold-time r lctl))
-  rmod (multi f24 (tap-hold-press $tap-time $hold-time lctl lctl))
-  l (multi f24 (tap-hold $tap-time $hold-time l ralt))
-  lmod (multi f24 (tap-hold-press $tap-time $hold-time ralt ralt))
-  
-   ;; Si lo que quieres es que apenas pulsando otra tecla se accione el layer una -press
-   ;; Rsft_lyr (tap-hold-press  150 10 @hrow_sc (layer-toggle shift))
-   Rsft_lyr (tap-hold-press  $tap-time $hold-time ret (layer-toggle MainLayer))
-   MRsft_lyr (tap-hold-press  $tap-time $hold-time rsft (layer-toggle RightShift))
-   Lsft_lyr (tap-hold-press  $tap-time $hold-time bspc (layer-toggle MainLayer))
-   MLsft_lyr (tap-hold-press  $tap-time $hold-time lsft (layer-toggle LeftShift))
-   ;; test_lyr (tap-hold-press-timeout  $tap-time $hold-time e (layer-toggle LeftShift) a )
 
-  ;; Sublayerrrrr #################################################################
-   ;;msubl (tap-hold-press $subl-time $subl-time XX (layer-while-held sublayers))
+
+
+
+   Rsft_lyr (tap-hold-press  $tap-time $hold-time XX (multi lmet lctl lsft ralt))
+   MRsft_lyr (tap-hold-press  $tap-time $hold-time XX (layer-toggle RightShift))
+   Lsft_lyr (tap-hold-press  $tap-time $hold-time XX (multi lmet lctl lsft ralt))
+   MLsft_lyr (tap-hold-press  $tap-time $hold-time XX (layer-toggle LeftShift))
 
    nav_lyr (layer-toggle navigationLayer)
-   s (tap-hold-release-keys $tap-time $hold-time s (layer-toggle navigationLayer) (lctl rctl))
-   x (tap-hold-tap-keys $tap-time $hold-time o d (f12 rmet))
-
-   lnch_lyr (layer-toggle apps)
-   a (tap-hold-release-keys $tap-time $hold-time a (layer-toggle apps) (lctl rctl))
-
 
    num_lyr (tap-hold $tap-time $hold-time spc (layer-toggle number))
-   ray_lyr (tap-hold $tap-time $hold-time h (layer-toggle raycastUtilyExtension))
 
-   spa_lyr (layer-toggle SpaceLayer)
-   o (tap-hold-release-keys $tap-time $hold-time o (layer-toggle SpaceLayer) (lctl rctl))
-   spa_slyr (layer-toggle SpaceSubLayer)
 
-   win_lyr (layer-toggle WindowsLayer)
-   n (tap-hold-release-keys $tap-time $hold-time n (layer-toggle WindowsLayer) (lctl rctl))
-   win_slyr (layer-toggle WindowsSubLayer)
 
-   ter_lyr (layer-toggle TerminalPaneLayer)
-   t (tap-hold-release-keys $tap-time $hold-time t (layer-toggle TerminalPaneLayer) (lctl rctl))
 
-   ses_lyr (layer-toggle sesionLayer)
-   e (tap-hold-release-keys $tap-time $hold-time e (layer-toggle sesionLayer) (lctl rctl))
-
-   sys_lyr (layer-toggle systemLayer)
-   z (tap-hold-release-keys $tap-time $hold-time z (layer-toggle systemLayer) (lctl rctl))
+  sys_lyr (tap-hold $tap-time $hold-time z (layer-toggle systemLayer)) ;; trickster
 
    scr_lyr (tap-hold $tap-time $hold-time @{ (layer-toggle ScreenShotLayer))
 
-   tab_lyr (tap-hold $tap-time $hold-time i (layer-toggle TabsLayer))
 )
 
 (defalias 
@@ -317,23 +317,23 @@
 
 (deflayer base
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  XX  @+ @~ @[    @scr_lyr    @pl   @%_1pass     @$    @pr   @}     @]    @!    @#    XX
-  tab @'    @,    @.    @p    y    f    @g    @c @r @l    @/    @@_1fill    caps
-  esc @a    @o   @e   u     @tab_lyr    @d_dicti    @ray_lyr    @t    @n  @s -    \
-  @MLsft_lyr @MLsft_lyr    @;       q    j    k       x        b    m    w    v    @z    @MRsft_lyr
+  caps  @~ @[ @scr_lyr     @pl   @%_1pass   @$     @pr    @}   @]     @+    @`    @#    bspc
+  tab '    ,    .    p    y    f    g    c r l    @/    @@_1fill    ret
+  esc a    o   e   u     i    @d_dicti    h    t    n  s -    \
+  @MLsft_lyr @MLsft_lyr    @;       q    j    k       x        b    m    w    v    @sys_lyr    @MRsft_lyr
   fn lctl lmet    @Lsft_lyr           @num_lyr           @Rsft_lyr    XX left down up   rght
 )
 
+(deflayer mainLayer
 
- (deflayer MainLayer
+   esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+   tab       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+     esc   @apps_lyr @sesn_lyr @tabs_lyr @spa_slyr    XX       XX       XX       XX       XX       XX       XX       XX
+  lsft    XX     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
+   fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+ )
 
-    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
- 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-    tab       @'mod       @,mod       @.mod       @pmod       XX       XX       @gmod       @cmod       @rmod       @lmod       XX       XX  XX
-      esc      @lnch_lyr       @ses_lyr       @spa_lyr       XX       XX       XX       @ray_lyr       @ter_lyr       @win_slyr       @nav_lyr       XX       XX
-   lsft    caps     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
-    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
-  )
 
 
  (deflayer sublayers
@@ -375,24 +375,58 @@
   g4Obsid (macro C-M-4)
   c5FileE (macro C-M-5)
   r6dotfi (macro C-M-6)
+  r9testt (macro C-M-9)
 
-
+  closeSe (macro C-M-w)
 )
 
  (deflayer sesionLayer
 
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
- 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+ 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       @r9testt       XX       XX       XX
     tab       XX       XX       XX       XX       XX       XX    @g4Obsid @c5FileE @r6dotfi    XX       XX       XX       XX
       esc      XX       XX       XX       XX       XX       XX    @h1term_ @t2logts @n3nvim_    XX       XX       XX
-   lsft    caps     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
+   lsft    caps     XX       XX       XX       XX       XX       XX       XX       @closeSe       XX       XX       rsft
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
 
+(defalias
+  goTab1_ (macro M-1)
+  goTab2_ (macro M-2)
+  goTab3_ (macro M-3)
+  goTab4_ (macro M-4)
+  goTab5_ (macro M-5)
+  goTab6_ (macro M-6)
+  goTab7_ (macro M-7)
+  goTab8_ (macro M-8)
+  goTab9_ (macro M-9)
+
+  newTab_ (macro M-t)
+  clseTab (macro M-w)
+
+  nextTab (macro C-tab)
+  prvTab_ (macro S-C-tab)
+
+  backHis (macro M-[)
+  ForwHis (macro M-])
+
+
+)
+ (deflayer TabLayer
+
+    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX    @goTab7_ @goTab8_ @goTab9_ XX    XX       XX       XX
+    tab       XX       XX       XX       XX       XX    @prvTab_ @goTab4_ @goTab5_ @goTab6_    XX       XX       XX       XX
+      esc      XX       XX       XX       XX       XX    @nextTab @goTab1_ @goTab2_ @goTab3_    XX       XX       XX
+   lsft    caps     XX       XX       XX       XX       XX    @backHis @ForwHis @clseTab @newTab_    XX       rsft
+    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+  )
+
+
 (deflayer number
   esc  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX  XX  XX
-  XX  XX    XX    XX    XX    XX    XX    @*   7    8    9    XX    XX    bspc
-  tab @'    @,    @.    @p    XX    XX    4    5    6    @+    @/    XX    ret
+  XX  XX    XX    XX    XX    XX    @*    7   8    9   XX    XX    XX    bspc
+  tab  ralt   lctl    lsft    lmet    XX    XX    4    5    6    @+    @/    XX    ret
   esc XX    XX    XX    XX    XX    XX    1    2    3    XX    @-    XX
   lsft caps @:    @Q    j    k    XX    ,    0   0   .    XX    rsft
   fn lctl lmet @hrow_cl        spc        rsft ralt left down up   rght
@@ -412,7 +446,7 @@
 
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       bspc
-    tab       @'       @,       @.       @p       XX       XX       @g       @c       @r       @l       XX       XX       ret
+    tab       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       ret
       esc      XX    @o_leftC @e_leftO @u_rgthO @i_rgthC    XX       XX       XX       XX       XX       XX       XX
    lsft    caps     XX    @q_leftA @j_bttnA @k_upppA @x_rgthA    XX       XX       XX       XX       XX       rsft
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
@@ -420,7 +454,7 @@
 
  (deflayer SpaceLayer
     esc       f1       f2       f3       f4       f5       f      f7       f8       f9       f10       f11       f12
- 102d     XX      XX       XX       XX       XX       XX       XX   @7_spac7 @8_spac8 @9_spac9 XX       XX       XX
+ 102d     XX      XX       XX       XX       XX       XX       @7_spac7   @8_spac8 @9_spac9 XX XX       XX       XX
     tab       XX       XX       XX       XX       XX       XX    @g_spac4 @c_spac5 @r_spac6    XX       XX       XX       XX
       @spa_slyr      XX       XX       XX       XX       XX       XX    @h_spac1 @t_spac2 @n_spac3    XX       XX       XX
    lsft    caps     XX       XX       XX       XX       XX       XX       XX    @w_destr @v_creat    XX       rsft
@@ -444,7 +478,7 @@
  (deflayer SpaceSubLayer
 
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
- 102d     XX      XX       XX       XX       XX       XX       XX    @7_sndW7 @8_sndW8 @9_sndW9        XX       XX       XX
+ 102d     XX      XX       XX       XX       XX       XX       @7_sndW7    @8_sndW8 @9_sndW9 XX        XX       XX       XX
     tab       XX       XX       XX       XX       XX       XX    @g_sndW4 @c_sndW5 @r_sndW6    XX       XX       XX       XX
       esc      XX       XX       XX       XX       XX       XX    @h_sndW1 @t_sndW2 @n_sndW3    XX       XX       XX
    lsft    caps     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
@@ -482,11 +516,10 @@
   )
 
 (defalias
-;; I use C-b to get out from terminal-mode in Nvim. (I use my terminal in Nvim). After that, we'll join to Insert-mode (i)
-bttmPane  (macro C-b C-j)
-topPane_  (macro C-b C-k)
-leftPane  (macro C-b C-q)
-rightPane (macro C-b C-x)
+bttmPane  (macro C-j)
+topPane_  (macro C-k)
+leftPane  (macro C-q)
+rightPane (macro C-x)
 
 gridLyt__ (macro C-A-M-y)
 stackLyt_ (macro C-A-M-o)
@@ -509,6 +542,27 @@ deletPane (macro C-A-M-x)
    lsft    caps     XX    @leftPane @bttmPane @topPane_ @rightPane    XX       XX       XX       XX       XX       rsft
     fn    lctl lalt @deletPane                 spc                     rmet    ralt         left down up  rght
   )
+
+(defalias
+reloadCn (macro C-M-,)
+nvimNavi (macro M-A-h)
+prvPrmpt (macro C-S-z)
+nxtPrmpt (macro C-S-x)
+LineUP__    (macro-repeat C-S-k) 
+LineDown  (macro-repeat C-A-S-j) 
+
+
+)
+ (deflayer TerminalLayer
+
+    @reloadCn       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+    tab       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+      esc      XX       XX    @nxtPrmpt    @prvPrmpt       @nvimNavi       XX       XX       @LineDown       XX       XX       XX       XX
+   lsft    lsft     XX    XX @LineDown @LineUP__    XX    XX       XX       XX       XX       XX       rsft
+    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+  )
+
 
 (defalias
  b_prviw (macro C-x $tmux-delay w) ;; -> Preview list of windows(tabs) and sessions
@@ -551,7 +605,7 @@ deletPane (macro C-A-M-x)
 
 (deflayer LeftShift
   esc   f1   f2  f3   f4   f5   f6   f7   f8   f9  f10   f11   f12
-  XX  XX    XX    @=    @fullSS   @virgu    @&    @*    @+    @act_acc    @¿    @¡    @`    bspc
+  XX  XX    @=    XX    @fullSS   @virgu    @&    @*    @act_acc    @!    @¿    @¡    XX    bspc
   @swtApp2 @''    @<    @>    @P    @Y    @F    @G    @C    @R    @L    @?    @^    ret
   esc @A    @O    @E    @U    @I    @D    @H    @T    @N    @S    @_    @|
   lsft caps @:    @Q    @J    @K    @X    @B    @M    @W    @V    @Z    @prvFcus
@@ -560,7 +614,7 @@ deletPane (macro C-A-M-x)
 
 (deflayer RightShift
   esc   f1   f2  f3   f4   f5   f6   f7   f8   f9  f10   f11   f12
-  XX  XX    XX    @=    @grv_acc    @virgu    @&    @*    @+    @act_acc    @¿    @¡    @`    bspc
+  XX  XX    @=    XX    @fullSS   @virgu    @&    @*    @act_acc    @!    @¿    @¡    XX    bspc
   @swtApp2 @''    @<    @>    @P    @Y    @F    @G    @C    @R    @L    @?    @^    ret
   esc @A    @O    @E    @U    @I    @D    @H    @T    @N    @S    @_    @|
   lsft caps @:    @Q    @J    @K    @X    @B    @M    @W    @V    @Z    rsft
@@ -664,7 +718,7 @@ deletPane (macro C-A-M-x)
 ;; 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
 ;;    tab       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
 ;;      esc      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-;;   lsft    caps     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
+;;   lsft    XX     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
 ;;    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
 ;;  )
 
