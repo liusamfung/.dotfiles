@@ -551,6 +551,8 @@ nxtPrmpt (macro C-S-x)
 LineUP__    (macro-repeat C-S-k) 
 LineDown  (macro-repeat C-A-S-j) 
 
+quickTerm  (macro-repeat C-A-S-spc) 
+
 
 )
  (deflayer TerminalLayer
@@ -560,7 +562,7 @@ LineDown  (macro-repeat C-A-S-j)
     tab       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
       esc      XX       XX    @nxtPrmpt    @prvPrmpt       @nvimNavi       XX       XX       @LineDown       XX       XX       XX       XX
    lsft    lsft     XX    XX @LineDown @LineUP__    XX    XX       XX       XX       XX       XX       rsft
-    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+    fn    lctl lalt lmet                 @quickTerm                     rmet    ralt         left down up  rght
   )
 
 

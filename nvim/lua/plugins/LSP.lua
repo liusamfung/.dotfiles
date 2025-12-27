@@ -212,6 +212,7 @@ return {
 				bashls = {},
 				cssls = {},
 				jdtls = {},
+				kotlin_language_server = {},
 				-- marksman = {},
 				-- -- gopls = {},
 				-- pyright = {},

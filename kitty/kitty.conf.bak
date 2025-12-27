@@ -468,6 +468,6 @@ map cmd+t new_tab_with_cwd
 
 
 # BEGIN_KITTY_THEME
-# Solarized Dark Higher Contrast
+# YsDark
 include current-theme.conf
 # END_KITTY_THEME
