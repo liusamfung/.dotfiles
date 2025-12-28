@@ -1,4 +1,5 @@
 -- require("no-status"):setup() -- https://github.com/yazi-rs/plugins/tree/main/no-status.yazi
+local home_path = os.getenv("HOME") -- "Users/liusam" in my case
 require("easyjump"):setup() -- https://github.com/mikavilpas/easyjump.yazi
 require("starship"):setup() -- https://github.com/Rolv-Apneseth/starship.yazi
 require("duckdb"):setup() -- https://github.com/wylie102/duckdb.yazi
@@ -8,7 +9,7 @@ require("restore"):setup({ -- https://github.com/boydaihungst/restore.yazi
 	show_confirm = true,
 })
 require("recycle-bin"):setup({ -- https://github.com/uhs-robert/recycle-bin.yazi
-	trash_dir = "/Users/liusam/.local/share/Trash/files", -- Uncomment to use specific directory
+	trash_dir = home_path .. "/.local/share/Trash/files", -- Uncomment to use specific directory
 }) -- https://github.com/uhs-robert/recycle-bin.yazi
 -- https://yazi-rs.github.io/docs/tips/#user-group-in-status
 Status:children_add(function()
@@ -27,7 +28,7 @@ end, 500, Status.RIGHT)
 Status:children_add(function(self)
 	local current_dir_url = cx.active.current.cwd
 	local current_dir_path = tostring(current_dir_url)
-	local home_path = "/Users/liusam"
+	-- local home_path = "/Users/liusam"
 	local display_path
 	if string.sub(current_dir_path, 1, #home_path) == home_path then
 		display_path = string.gsub(current_dir_path, "^" .. home_path, "~", 1)
