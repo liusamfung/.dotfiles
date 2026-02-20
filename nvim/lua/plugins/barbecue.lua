@@ -9,7 +9,8 @@ return {
 			"nvim-tree/nvim-web-devicons",
 		},
 		opts = {
-			-- attach_navic = true, --Don't show in where I am. I use treesitter-contex.nvim
+			-- attach_navic = true, --Don't show in where line I am.
+			-- I use treesitter-contex.nvim
 			show_navic = false,
 			show_modified = true,
 			-- Funcion para que aparezcan los los diagnostic en la barra superior derecha
@@ -31,24 +32,22 @@ return {
 			-- 	return label
 			-- end,
 			exclude_filetypes = {
-				"netrw",
-				"toggleterm",
-				"NvimTree",
+				-- "netrw",
+				-- "toggleterm",
+				-- "NvimTree",
 				"Diff",
-				"help",
+				-- "help",
 				"dashboard",
-				"fugitive",
+				-- "fugitive",
 				"diffview",
-				" ",
-				"",
-				"startify",
-				"dashboard",
-				"packer",
-				"neogitstatus",
-				"Trouble",
-				"alpha",
-				"lir",
-				"toggleterm",
+				-- " ",
+				-- "",
+				-- "startify",
+				-- "packer",
+				-- "neogitstatus",
+				-- "Trouble",
+				-- "alpha",
+				-- "lir",
 			},
 			show_dirname = true,
 			show_basename = true,

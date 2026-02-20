@@ -1,8 +1,11 @@
+new_tab btop
+  cd ~/dotfiles/
+    launch  --hold /bin/zsh 
+
 new_tab GenericTerm
   layout tall
   cd ~
     launch --title "TERMINAL"
-
 # When you open many session in diferents OS windows, focus the window that it
 # has already open the session and no create another same session in that OS Window. (Duplicate session)
 focus

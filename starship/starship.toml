@@ -1,13 +1,21 @@
-# add_newline = false
-add_newline = true
-command_timeout = 1000
+add_newline = false # Add blankline after each prompt
+# command_timeout = 1000
+
 
 # format = '${custom.my_directory}$all'
 
-# test commit
+format = """
+$fill
+$all"""
 
+[fill] 
+symbol = ""
+# symbol = "┄"
+style = "#003e3e"
+
+# test commit
 [line_break]
-disabled = true
+disabled = false #New line to write command
 
 [character]
 success_symbol = "[](green)"
@@ -16,10 +24,10 @@ success_symbol = "[](green)"
 error_symbol = "[✗](red)"
 vicmd_symbol = "[](green)"
 
-[cmd_duration]
-min_time = 1_000  # Show command duration over 10,000 milliseconds (=10 sec)
-style = "yellow"
-format = "took [$duration]($style) "
+# [cmd_duration]
+# min_time = 1_000  # Show command duration over 10,000 milliseconds (=10 sec)
+# style = "yellow"
+# format = "took [$duration]($style) "
 
 [c]
 style = "blue"
@@ -49,10 +57,8 @@ style = "#F2CDCD"
 disabled = false
 
 [directory]
-truncation_length = 2
+truncation_length = 40 ## if you want to see the complete path (default: 3)
 truncate_to_repo = false
-disabled = false
-read_only = " 🔒"
 style = "cyan"
 
 [docker_context]

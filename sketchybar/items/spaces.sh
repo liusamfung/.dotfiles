@@ -12,20 +12,20 @@ do
   sid=$(($i+1))
 
   space=(
-    space=$sid
+    space="$sid"
     icon="${SPACE_ICONS[i]}"
     icon.padding_left=10
     icon.padding_right=10
     padding_left=2
     padding_right=2
     label.padding_right=20
-    icon.highlight_color=$RED
-    label.color=$GREY
-    label.highlight_color=$WHITE
+    icon.highlight_color="$RED"
+    label.color="$GREY"
+    label.highlight_color="$WHITE"
     label.font="sketchybar-app-font:Regular:16.0"
     label.y_offset=-1
-    background.color=$BACKGROUND_1
-    background.border_color=$BACKGROUND_2
+    background.color="$BACKGROUND_1"
+    background.border_color="$BACKGROUND_2"
     script="$PLUGIN_DIR/space.sh"
   )
 
@@ -43,7 +43,7 @@ space_creator=(
   display=active
   click_script='yabai -m space --create'
   script="$PLUGIN_DIR/space_windows.sh"
-  icon.color=$WHITE
+  icon.color="$WHITE"
 )
 
 sketchybar --add item space_creator left               \

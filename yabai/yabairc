@@ -3,13 +3,30 @@
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
 
-# Load all the variables I need from the yabai_env.sh file
-# source "/Users/liusam/.config/yabai/yabai_env.sh"
-
+# When I use Skitty default windows like "Shttr" en pin screeshot, autofocus 
+# doens't work. Otherwise, autoraise yes.
+# DOENS'T WOOOOOORK
+# yabai -m config focus_follows_mouse autoraise
+yabai -m config focus_follows_mouse autofocus
 # yabai -m config window_placement second_child
-# yabai -m config mouse_modifier fn
 
 
+yabai -m config top_padding 3
+yabai -m config bottom_padding 40
+yabai -m config left_padding 3
+yabai -m config right_padding 3
+yabai -m config window_gap 10 #Space between windows
+
+yabai -m config layout stack #General 
+yabai -m space 1 --layout stack
+yabai -m space 2 --layout bsp
+yabai -m space 3 --layout stack
+yabai -m space 4 --layout stack
+yabai -m space 5 --layout stack
+yabai -m space 6 --layout stack
+yabai -m space 7 --layout stack
+yabai -m space 8 --layout stack
+yabai -m space 9 --layout stack
 
 # Enfocar automáticamente cualquier ventana nueva al crearse
 # El problema es que las reglas (rules) de Yabai mueven la ventana antes de que el sistema operativo termine de asignarle el foco, o el cambio de espacio interrumpe la solicitud de foco.
@@ -25,37 +42,37 @@ yabai -m signal --add event=window_minimized action="yabai -m query --windows --
 yabai -m signal --add event=application_hidden action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 
-# yabai -m rule --add app="^.*$" manage=on sticker=off  space=^2
 
 
 
+# yabai -m query --windows | grep app
 apps_terminal="(kitty)"
-apps_testing="(Google Chrome)" # I test web development stuff with Google Chrome
+apps_testing="(Google Chrome|Bruno|Postman)" # I test web development stuff with Google Chrome
 apps_organization="(Fantastical|Reminders|Notion|Obsidian)"
 apps_workspace="(Canva|Microsoft Excel|Microsoft Word|Microsoft PowerPoint)"
-apps_media="(Firefox|Preview|IINA|Microsoft Teams|zoom.us|Photos|YouTube Music|Brave Browser|Spotify)" #Generalmente solo usas una de estas apps a la vez
-apps_msg="(Microsoft Outlook|net.whatsapp.WhatsApp|Slack)" 
+apps_media="(Firefox|Preview|Microsoft Teams|zoom.us|Photos|YouTube Music|Brave Browser|Spotify)" #Generalmente solo usas una de estas apps a la vez
+# apps_msg="(net.whatsapp.WhatsApp)" 
+  apps_msg="(Microsoft Outlook|WhatsApp|Slack)" 
+apps_msg="(Microsoft Outlook|Slack)" 
 apps_browsing="(Zen)" # 
+apps_record="(OBS Studio)" # 
 
-apps_mgoff_normal="(Clock|Quick Camera|Photo Booth|QuickTime Player|System Preferences|System Settings|Terminal|Godot|Shottr)" #Apps no administradas por yabai(Por defecto, flat)
+apps_mgoff_normal="(Clock|Quick Camera|Photo Booth|QuickTime Player|System Preferences|System Settings|Terminal|Godot|Shottr|Notes|IINA)" #Apps no administradas por yabai(Por defecto, flat)
 
-yabai -m config layout stack #General 
-yabai -m space 1 --layout bsp
-yabai -m space 2 --layout bsp
-yabai -m space 8 --layout bsp
+apps_known="${apps_terminal}|${apps_testing}|${apps_organization}|${apps_workspace}|${apps_media}|${apps_msg}|${apps_browsing}|${apps_record}|${apps_mgoff_normal}"
 
-
-# Cualquier otra apliacion, que se 
 
 yabai -m rule --add app="^${apps_terminal}$"  space=^1 # Terminal 
 yabai -m rule --add app="^${apps_testing}$"  space=^2 # Workspace to testing 
 yabai -m rule --add app="^${apps_workspace}$"  space=^3 # Worktyping or others (Canva, Word, Excel)
 yabai -m rule --add app="^${apps_organization}$"  space=^4 # Organización (Fantastical, Reminders, Notion, etc)
 yabai -m rule --add app="^${apps_media}$"  space=^5 # Media (Watch, pdf, videos, images, etc)
-yabai -m rule --add app="^Shottr$"  space=^5 #Forzar que se habra en el espcio 5, pero Yabai no va a manejarlo.
+# yabai -m rule --add app="^Shottr$"  space=^5 #Forzar que se habra en el espcio 5, pero Yabai no va a manejarlo.
 yabai -m rule --add app="^${apps_browsing}$"  space=^6 
+# Esta regla dice: Si la app NO coincide con nada en $apps_known, muévela al espacio 7.
+# yabai -m rule --add app="^(?!(${apps_known})$).*$" space=^7
 yabai -m rule --add app="^${apps_msg}$"  space=^8
-yabai -m rule --add app="net.whatsapp.WhatsApp"  space=^8
+yabai -m rule --add app="^${apps_record}$"  space=^9
 
 yabai -m rule --add app="^${apps_mgoff_normal}$" manage=off
 
@@ -63,19 +80,6 @@ yabai -m rule --add app="^${apps_mgoff_normal}$" manage=off
 # Regla Final (La más segura): Ignorar cualquier ventana de Outlook que NO sea una ventana estándar (p.ej., pop-ups de calendario, alertas, etc.)
 # Aunque tus ejemplos son AXStandardWindow, esto es buena práctica:
 # yabai -m rule --add app="^Microsoft Outlook$" subrole!="AXStandardWindow" manage=off
-
-
-
-
-yabai -m config top_padding 3
-yabai -m config bottom_padding 40
-yabai -m config left_padding 3
-yabai -m config right_padding 3
-
-
-yabai -m config window_gap 10 #Space between windows
-
-
 ##################################Especific rules (OUTLOOK)#######################################################################
 # https://github.com/asmvik/yabai/blob/master/doc/yabai.asciidoc#rule
 # Hacemos que cualquier ventana de Outlook cuyo título NO sea exactamente el del buzón (es decir, un correo individual) FLOTE.
@@ -96,15 +100,8 @@ yabai -m rule --add app="^Microsoft Outlook$" \
 ##################################Especific rules ()#######################################################################
 
 
-# yabai -m query --windows | grep app
-
-# CONTROL DE BORDES (JankyBorders)
-# Dispara el control de bordes cuando se cambia a un nuevo espacio.
-# yabai -m config external_bar all:$(sketchybar --query bar | jq .height):35 #https://github.com/FelixKratz/SketchyBar
 
 # Hyperland blue color 
 # borders active_color=0xff06B6D4 inactive_color=0xff494d64 width=7.0 &  #https://github.com/FelixKratz/JankyBorders
 # Lightred smooth
-borders active_color=0xFFA0876C inactive_color=0xff494d64 width=7.0 &  #https://github.com/FelixKratz/JankyBorders
-
-
+# borders active_color=0xFFA0876C inactive_color=0xff494d64 width=7.0 &  #https://github.com/FelixKratz/JankyBorders

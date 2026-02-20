@@ -11,7 +11,7 @@
   hold-time  200
   subl-time 200
  tmux-delay 40
- chord-time 500
+ chord-time 250
 )
 (defalias
  ;;Raycast variables
@@ -28,8 +28,6 @@
 )
 
 (defalias
-  nxtFcus (cmd sudo -u liusam yabai -m window --focus stack.next)
-  prvFcus (cmd sudo -u liusam yabai -m window --focus stack.prev)
 
 ;; Nota importante. Debido a que El root no puede acceder a algunos archivos del los usuarios 
 ;; En este caso (usuario: liusam) y mi archivo '/tmp/yabai_liusam.socket', Kanata no puede hacer 
@@ -49,6 +47,7 @@
   7_spac7 (cmd sudo -u liusam yabai -m space --focus 7)
   8_spac8 (cmd sudo -u liusam yabai -m space --focus 8)
   9_spac9 (cmd sudo -u liusam yabai -m space --focus 9)
+  lastSpc (cmd sudo -u liusam yabai -m space --focus recent)
   )
 
 (defalias
@@ -86,8 +85,6 @@
   cls M-w
   ndo M-z
   cut M-x
-  cpy M-c
-  pst M-v
 
 
   0 0
@@ -193,15 +190,13 @@
 )
 
 (defalias
- ;; Utilitys 
- raycastPrompt S-C-A-M-r
- hrow_sc S-C-A-M-2
- hrow_cl S-C-A-M-7
- hrow_sl S-C-A-M-3
- shrtcat S-C-A-M-6
- fullSS C-A-M-f
- slctSS C-A-M-x
+  ;; Utilitys 
 
+  raycastPrompt S-C-A-M-spc
+  hrow_sc S-C-A-M-2
+  hrow_cl S-C-A-M-7
+  hrow_sl S-C-A-M-3
+  shrtcat S-C-A-M-6
  q_lockS C-M-q
  z_dndDi S-C-A-.
  bsc_FrcQ A-M-esc
@@ -252,9 +247,9 @@
   (spc tab) (layer-toggle number) $chord-time first-release ()
 
   (a lmet) (layer-toggle apps) $chord-time first-release ()
-  (s lmet) (layer-toggle sesionLayer) $chord-time first-release ()
+  (f lmet) (layer-toggle sesionLayer) $chord-time first-release ()
   (d lmet) (layer-toggle SpaceLayer) $chord-time first-release ()
-  (f lmet) (layer-toggle TabLayer) $chord-time first-release ()
+  (s lmet) (layer-toggle TabLayer) $chord-time first-release ()
 
 
   (k rmet) (layer-toggle TerminalPaneLayer) $chord-time first-release ()
@@ -280,10 +275,13 @@
 
 
 
-   Rsft_lyr (tap-hold-press  $tap-time $hold-time XX (multi lmet lctl lsft ralt))
+   Lhypr_lyr (tap-hold-press  $tap-time $hold-time @hrow_sc (layer-toggle HyperKeyLayer))
    MRsft_lyr (tap-hold-press  $tap-time $hold-time XX (layer-toggle RightShift))
-   Lsft_lyr (tap-hold-press  $tap-time $hold-time XX (multi lmet lctl lsft ralt))
+   Rhypr_lyr (tap-hold-press  $tap-time $hold-time @hrow_cl (layer-toggle HyperKeyLayer))
    MLsft_lyr (tap-hold-press  $tap-time $hold-time XX (layer-toggle LeftShift))
+
+
+   Cntrl_lyr (tap-hold-press  $tap-time $hold-time XX (layer-toggle ControlLayer))
 
    nav_lyr (layer-toggle navigationLayer)
 
@@ -303,7 +301,7 @@
   @_1fill (tap-hold $tap-time $hold-time @@ C-A-M-p) ;; trickster
   %_1pass (tap-hold $tap-time $hold-time @% S-C-A-M-p) ;; trickster
   {_zappy (tap-hold $tap-time $hold-time @{ C-A-M-z) ;; trickster
-  d_dicti (tap-hold $tap-time $hold-time d S-C-A-M-d) ;; easydictionary (https://github.com/tisfeng/Easydict)
+  cpy (tap-hold $tap-time $hold-time M-v M-c) ;;Copy paste
 )
 
 (defsrc
@@ -316,12 +314,12 @@
 )
 
 (deflayer base
-  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  @cpy  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
   caps  @~ @[ @scr_lyr     @pl   @%_1pass   @$     @pr    @}   @]     @+    @`    @#    bspc
   tab '    ,    .    p    y    f    g    c r l    @/    @@_1fill    ret
-  esc a    o   e   u     i    @d_dicti    h    t    n  s -    \
+  esc a    o   e   u     i    d    h    t    n  s -    \
   @MLsft_lyr @MLsft_lyr    @;       q    j    k       x        b    m    w    v    @sys_lyr    @MRsft_lyr
-  fn lctl lmet    @Lsft_lyr           @num_lyr           @Rsft_lyr    XX left down up   rght
+  lmet XX @Lhypr_lyr    @Cntrl_lyr           @num_lyr           rctl    @Rhypr_lyr left down up   rght
 )
 
 (deflayer mainLayer
@@ -356,13 +354,14 @@
   textSS_ (macro C-A-M-t)
   ;; scrllSS (macro C-A-M-s)
   scrllSS (cmd sudo -u liusam open -a "ScrollSnap")
+  gif__SS (macro C-A-M-g)
 )
 
  (deflayer ScreenShotLayer
 
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-    tab       XX      XX       XX       XX       XX    @fullSS_    XX       XX    @repeatA    XX       XX       XX       XX
+    tab       XX      XX       XX       XX       XX    @fullSS_ @gif__SS    XX    @repeatA    XX       XX       XX       XX
       esc   @areaSS_    XX       XX       XX       XX       XX       XX    @textSS_    XX    @scrllSS    XX       XX
    lsft    caps     XX       XX       XX       XX       XX       XX       XX    @windwSS    XX       XX       rsft
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
@@ -404,11 +403,12 @@
   newTab_ (macro M-t)
   clseTab (macro M-w)
 
-  nextTab (macro C-tab)
-  prvTab_ (macro S-C-tab)
+  nextTab (macro M-S-])
+  prvTab_ (macro M-S-[)
 
   backHis (macro M-[)
   ForwHis (macro M-])
+  goLastT (macro C-tab)
 
 
 )
@@ -416,21 +416,11 @@
 
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX    @goTab7_ @goTab8_ @goTab9_ XX    XX       XX       XX
-    tab       XX       XX       XX       XX       XX    @prvTab_ @goTab4_ @goTab5_ @goTab6_    XX       XX       XX       XX
-      esc      XX       XX       XX       XX       XX    @nextTab @goTab1_ @goTab2_ @goTab3_    XX       XX       XX
+    tab       XX    XX @backHis @ForwHis    XX    @prvTab_ @goTab4_ @goTab5_ @goTab6_ @goLastT    XX       XX       XX
+      esc      XX    XX @nextTab @prvTab_    XX    @nextTab @goTab1_ @goTab2_ @goTab3_    XX       XX       XX
    lsft    caps     XX       XX       XX       XX       XX    @backHis @ForwHis @clseTab @newTab_    XX       rsft
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
-
-
-(deflayer number
-  esc  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX  XX  XX
-  XX  XX    XX    XX    XX    XX    @*    7   8    9   XX    XX    XX    bspc
-  tab  ralt   lctl    lsft    lmet    XX    XX    4    5    6    @+    @/    XX    ret
-  esc XX    XX    XX    XX    XX    XX    1    2    3    XX    @-    XX
-  lsft caps @:    @Q    j    k    XX    ,    0   0   .    XX    rsft
-  fn lctl lmet @hrow_cl        spc        rsft ralt left down up   rght
-)
 
 (defalias
   q_leftA left
@@ -452,10 +442,20 @@
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
 
+(deflayer number
+  esc  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX  XX  XX
+  XX  XX    XX    XX    XX    XX    @*    7   8    9   XX    XX    XX    bspc
+  tab  ralt   lctl    lsft    lmet    XX    XX    4    5    6    @+    @/    XX    ret
+  esc XX    @o_leftC @e_leftO @u_rgthO @i_rgthC XX    1    2    3    XX    @-    XX
+  lsft caps @:    left  down  up  rght   ,    0   0   .    XX    rsft
+  fn lctl lmet @hrow_cl        spc        rsft ralt left down up   rght
+)
+
+
  (deflayer SpaceLayer
     esc       f1       f2       f3       f4       f5       f      f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       @7_spac7   @8_spac8 @9_spac9 XX XX       XX       XX
-    tab       XX       XX       XX       XX       XX       XX    @g_spac4 @c_spac5 @r_spac6    XX       XX       XX       XX
+    tab       XX       XX       XX       XX       XX       XX    @g_spac4 @c_spac5 @r_spac6 XX    XX       XX       XX
       @spa_slyr      XX       XX       XX       XX       XX       XX    @h_spac1 @t_spac2 @n_spac3    XX       XX       XX
    lsft    caps     XX       XX       XX       XX       XX       XX       XX    @w_destr @v_creat    XX       rsft
     fn    lctl lalt lmet                 @spa_slyr                     rmet    ralt         left down up  rght
@@ -473,6 +473,7 @@
   8_sndW8 (cmd sudo -u liusam yabai -m window --space 8 --focus)
   9_sndW9 (cmd sudo -u liusam yabai -m window --space 9 --focus)
 
+
 )
 
  (deflayer SpaceSubLayer
@@ -485,9 +486,17 @@
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
 
+  (defalias
+  defaultPr (cmd sudo -u liusam zsh -lc "~/dotfiles/yabai/profiles/default_config.sh")
+  just_term (cmd sudo -u liusam zsh -lc "~/dotfiles/yabai/profiles/only_term.sh")
+
+
+
+  )
+
 
  (deflayer WindowsLayer
-    @r_resta       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+    @r_resta    @just_term    @defaultPr    f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX    @7_flipX @8_flipY @9_rot90    XX       XX       XX       XX       XX       XX       XX       XX
     tab    @i_stick @e_bsppp @z_fulls @u_stack @o_float   XX       XX       XX    XX    XX       XX       XX       XX
       esc   @s_split    XX       XX       XX       XX       XX       XX       XX       XX    XX    XX       XX
@@ -604,24 +613,39 @@ quickTerm  (macro-repeat C-A-S-spc)
     fn    lctl lalt @bsc_FrcQ                 XX                     rmet    ralt         left down up  rght
   )
 
+(defalias
+  nextWin (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/cycle_stack.sh")
+  ;; nextWin (cmd sudo -u yabai -m window --focus stack.next || yabai -m window --focus stack.prev)
+  nxtFcus (cmd sudo -u liusam yabai -m window --focus stack.next)
+  prvFcus (cmd sudo -u liusam yabai -m window --focus stack.prev)
+)
+
+(deflayer ControlLayer 
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  @nextWin  @~ @[ @scr_lyr     @pl   @%_1pass   @$     @pr    @}   @]     @+    @`    @#    bspc
+  C-tab C-'  C-,  C-.  C-p  C-y  C-f  C-g  C-c  C-r   C-l  C-/  @@_1fill    C-ret
+  F3 C-a  C-o C-e C-u   C-i  C-d  C-h  C-t  C-n  C-s -    \
+  @lastSpc @lastSpc    @;       C-q   C-j   C-k     C-x      C-b  C-m  C-w  C-v  C-z  @MRsft_lyr
+  lmet @cpy @Lhypr_lyr    lctl           @num_lyr           rctl    @Rhypr_lyr left down up   rght
+)
 
 (deflayer LeftShift
   esc   f1   f2  f3   f4   f5   f6   f7   f8   f9  f10   f11   f12
   XX  XX    @=    XX    @fullSS   @virgu    @&    @*    @act_acc    @!    @¿    @¡    XX    bspc
   @swtApp2 @''    @<    @>    @P    @Y    @F    @G    @C    @R    @L    @?    @^    ret
   esc @A    @O    @E    @U    @I    @D    @H    @T    @N    @S    @_    @|
-  lsft caps @:    @Q    @J    @K    @X    @B    @M    @W    @V    @Z    @prvFcus
-  fn lctl lmet lsft        @hrow_cl        @hrow_sl ralt left down up   rght
+  lsft caps @:    @Q    @J    @K    @X    @B    @M    @W    @V    @Z    @nextWin
+  fn lctl lmet lsft        @raycastPrompt        @hrow_sl ralt @prvFcus down up   @nxtFcus
 )
-
 (deflayer RightShift
   esc   f1   f2  f3   f4   f5   f6   f7   f8   f9  f10   f11   f12
-  XX  XX    @=    XX    @fullSS   @virgu    @&    @*    @act_acc    @!    @¿    @¡    XX    bspc
+  XX  XX    @=    @fullSS    @grv_acc   @virgu    @&    @*    @act_acc    @!    @¿    @¡    XX    bspc
   @swtApp2 @''    @<    @>    @P    @Y    @F    @G    @C    @R    @L    @?    @^    ret
   esc @A    @O    @E    @U    @I    @D    @H    @T    @N    @S    @_    @|
-  lsft caps @:    @Q    @J    @K    @X    @B    @M    @W    @V    @Z    rsft
+  lsft @prvFcus @:    @Q    @J    @K    @X    @B    @M    @W    @V    @Z    @nxtFcus
   fn lctl lmet @raycastPrompt        @hrow_sc        rsft ralt left down up   rght
 )
+
 
  (deflayer EspecificAppsLayer
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
@@ -693,8 +717,40 @@ quickTerm  (macro-repeat C-A-S-spc)
   )
 
 
+(defalias
+  fullSS C-A-M-f
+  slctSS C-A-M-x
+  d_dicti S-C-A-M-d ;; easydictionary (https://github.com/tisfeng/Easydict)
+  quickT S-C-A-M-t
+  quickN (cmd sudo -u liusam zsh -lc "~/dotfiles/yabai/scripts/toggle_notes.sh") ;; QuickNotes (Popup)
+  quickCal S-C-A-M-c
+  quickHis S-C-A-M-h ;; History clipboard
+  RainBook A-M-b
+  h_f1 S-C-A-M-f1
+  h_f2 (cmd sudo -u liusam yabai -m space --focus recent)
+  h_f3 C-tab
+  h_f4 S-C-A-M-f4
+  h_f5 S-C-A-M-f5
+  h_f6 S-C-A-M-f6
+  h_f7 S-C-A-M-f7
+  h_f8 S-C-A-M-f8
+  h_f9 S-C-A-M-f9
+  h_f10 S-C-A-M-f10
+  h_f11 S-C-A-M-f11
+  h_f12 S-C-A-M-f12
 
+)
 
+ 
+ (deflayer HyperKeyLayer
+
+    esc      @h_f1     @h_f2     @h_f3     @h_f4     @h_f5     @h_f6     @h_f7     @h_f8     @h_f9    @h_f10     @h_f11     @h_f12
+ 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+    @nextWin       XX       XX       XX       XX       XX       XX       XX    @quickCal    XX       XX       XX       XX       XX
+      F3      XX       XX       XX       XX       XX    @d_dicti    @quickHis    @quickT  @quickN     XX       XX       XX
+   @lastSpc    XX     XX       XX       XX       XX       XX       @b_raind       XX       XX       XX       XX       rsft
+    fn    lctl lalt XX              @raycastPrompt                  rmet    ralt         left down up  rght
+  )
 
 
 

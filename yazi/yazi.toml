@@ -27,11 +27,15 @@ prepend_rules = [
   { name = "*.tiff", use = "imagen" },
 
   { name = "*.pdf", use = "docs" },
+
 	# # Multiple openers for a single rule
 	# { name = "*.html", use = [ "open", "edit" ] },
 ]
 
 [opener]
+video_all = [
+    { run = 'open -a "IINA" "$@"', block = true, for = "unix" },
+]
 
 docs = [
     { run = 'open -a "Firefox" "$@"', block = true, for = "unix" },
@@ -43,7 +47,8 @@ edit = [
     { run = 'nvim "$@"', block = true, for = "unix" },
 ]
 play = [
-    { run = 'open -a "QuickTime Player" "$@"', block = true, for = "macos" },
+    { run = 'open -a "IINA" "$@"', block = true, for = "macos" },
+    # { run = 'open -a "QuickTime Player" "$@"', block = true, for = "macos" },
 ]
 extract = [
 	{ run = 'ouch d -y %*', desc = "Extract here with ouch", for = "windows" },

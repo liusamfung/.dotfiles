@@ -1,19 +1,23 @@
-new_tab Term
-  cd ~/dev/
-    launch  --title  "term-pane" zsh
-
-
-new_tab Test-log
+new_tab Term-Log
   layout fat
-    launch --hold ov --multi-color "ERROR,WARN,INFO,DEBUG,not,^.{24}" /Users/liusam/.local/state/nvim/lsp.log
+#    launch --hold ov --multi-color "ERROR,WARN,INFO,DEBUG,not,^.{24}" /Users/liusam/.local/state/nvim/lsp.log
+  cd ~/Dev/
+    launch  --title  "MainTerm" zsh
       focus # Con esta linea estoy volviendo el pane actual en el enfocado después de crear los demás panes(Windows)
   cd ~/Dev/
     launch  --title  "pane2" zsh
   cd ~/Dev/
     launch  --title  "pane3" zsh
+  cd ~/Dev/
+    launch  --title  "pane4" zsh
 # launch --cwd=current --title  "Currennt" zsh
 
-new_tab Neovim
+new_tab Term
+  cd ~/Dev/
+    launch  --hold /bin/zsh 
+
+
+new_tab NEOVIM
 layout tall
 cd ~/Dev/
     launch  --hold /bin/zsh -c nvim

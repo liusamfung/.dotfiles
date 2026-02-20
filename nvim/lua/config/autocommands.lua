@@ -30,11 +30,39 @@ vim.api.nvim_create_autocmd("FileType", {
 	group = group,
 	desc = "Enable treesitter highlighting and indentation (non-blocking)",
 	callback = function(event)
+		local ts = require("nvim-treesitter")
+		-- Obtenemos el lenguaje real o el match del evento
 		local lang = vim.treesitter.language.get_lang(event.match) or event.match
-		-- Auto-install missing parsers (async, no-op if already installed)
-		ts.install({ lang })
+
+		-- Verificamos si el lenguaje es instalable (está disponible en los tiers de TS)
+		-- 'get_available()' devuelve una lista de strings con los lenguajes soportados.
+		local available_langs = ts.get_available()
+
+		local is_supported = false
+		for _, supported_lang in ipairs(available_langs) do
+			if supported_lang == lang then
+				is_supported = true
+				break
+			end
+		end
+
+		if is_supported then
+			-- Intentamos instalar. Según tu doc, es un "no-op" si ya está instalado.
+			ts.install({ lang })
+		end
 	end,
 })
+
+-- vim.api.nvim_create_autocmd("FileType", {
+-- 	group = group,
+-- 	desc = "Enable treesitter highlighting and indentation (non-blocking)",
+-- 	callback = function(event)
+-- 		local lang = vim.treesitter.language.get_lang(event.match) or event.match
+-- 		-- Auto-install missing parsers (async, no-op if already installed)
+-- 		local ts = require("nvim-treesitter") --Alias
+-- 		ts.install({ lang })
+-- 	end,
+-- })
 -- Treesitter autostart
 vim.api.nvim_create_autocmd("FileType", {
 	group = vim.api.nvim_create_augroup("ts_auto_start", { clear = true }), -- augroup: Es buena práctica envolver tus autocomandos en grupos con { clear = true }. Si recargas tu configuración mientras Neovim está abierto, esto evita que el autocomando se duplique infinitamente en memoria.

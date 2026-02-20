@@ -54,7 +54,7 @@ return {
 				list = {
 					selection = {
 						preselect = true,
-						auto_insert = true,
+						auto_insert = false,
 					},
 				}, -- Si no quieres que te auto seleccione la primera opción.
 				--auto_insert = cuando scrolee entre las opciones, se insertará el texto ene buffer y cambiará segun la opción.

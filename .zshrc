@@ -34,7 +34,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # zstyle ':omz:update' frequency 13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
+DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -73,11 +73,11 @@ export ZSH="$HOME/.oh-my-zsh"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=( git z )
+source $ZSH/oh-my-zsh.sh
 
 #plugins desde hombebrew
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-source $ZSH/oh-my-zsh.sh
 
 
 alias ll='eza -lg --group-directories-first --icons' ##Lista sin mostrar carpetas ocultas
@@ -154,3 +154,34 @@ export PATH="/opt/homebrew/lib/ruby/gems/3.4.0/bin:$PATH"
 export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
 
 export PATH="/opt/homebrew/opt/trash-cli/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+nvm() {
+    unset -f nvm node npm
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    nvm "$@"
+}
+
+node() {
+    unset -f nvm node npm
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    node "$@"
+}
+
+npm() {
+    unset -f nvm node npm
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    npm "$@"
+}
+
+# Lazy load para el autocompletado de Angular
+ng() {
+    # Elimina esta función para que no se repita
+    unset -f ng
+    # Carga el autocompletado original
+    source <(command ng completion script)
+    # Ejecuta el comando ng con los argumentos originales
+    command ng "$@"
+}

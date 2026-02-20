@@ -19,8 +19,8 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", opts)
 vim.keymap.set("n", "J", "mzJ`z")
 
 --When you navigate with <C-d/u>, keep the cursor en the middle. Very useful for not getting disoriented.
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
+-- vim.keymap.set("n", "<C-d>", "<C-d>zz")
+-- vim.keymap.set("n", "<C-u>", "<C-u>zz")
 -- When you search ('/'), keep the cursor en the middle.
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
@@ -105,6 +105,10 @@ vim.keymap.set({ "n" }, "<leader>f.", function()
 	})
 end, opts)
 
+vim.keymap.set("n", "<leader>ue", function()
+	require("snacks").explorer()
+end, { noremap = true, silent = true, desc = "Snacks Explorer" }) -- TOOD: En que se diferencia con el de arriba
+
 --Snacks.Find
 vim.keymap.set("n", "<leader>fo", function()
 	require("telescope.builtin").oldfiles()
@@ -124,7 +128,7 @@ end, opts)
 --LSP -------------------------------------------------------
 
 vim.keymap.set("n", "<leader>cR", function()
-	require("snacks").rename.renama_file()
+	require("snacks").rename.rename_file()
 end, { noremap = true, silent = true, desc = "Rename File(Snacks)" }) -- vim.notify
 
 vim.keymap.set("n", "<leader>sd", function()
@@ -355,14 +359,37 @@ vim.keymap.set("n", "<leader>un", function()
 	require("snacks").notifier.hide()
 end, { noremap = true, silent = true, desc = "Dismiss all notifications" })
 
+vim.keymap.set("n", "<leader>.", function()
+	require("snacks").scratch()
+end, { noremap = true, silent = true, desc = "Scratch" })
+
+vim.keymap.set("n", "]]", function()
+	require("snacks").words.jump(1, false) -- Cycle "false"
+end, { noremap = true, silent = true, desc = "Go next highlighted word" })
+
+vim.keymap.set("n", "[[", function()
+	require("snacks").words.jump(-1, false)
+end, { noremap = true, silent = true, desc = "Go prev highlighted word" })
+
 -- vim.keymap.set('n', '<leader>e', function()
 --   require("snacks").picker.explorer()
 -- end, { desc = 'File Explorer (Snacks)' }) -- vim.notify
 
 --TODO:
 --{ "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
--- { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
--- { "<c-/>",      function() Snacks.terminal() end, desc = "Toggle Terminal" },
--- { "<c-_>",      function() Snacks.terminal() end, desc = "which_key_ignore" },
--- { "]]",         function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
 -- { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
+
+-- load the session for the current directory
+vim.keymap.set("n", "<leader>qS", function()
+	require("persistence").load()
+end, { noremap = true, silent = true, desc = "Dismiss all notifications" })
+
+-- select a session to load
+vim.keymap.set("n", "<leader>qs", function()
+	require("persistence").select()
+end)
+
+-- load the last session
+vim.keymap.set("n", "<leader>ql", function()
+	require("persistence").load({ last = true })
+end)
