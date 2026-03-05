@@ -8,6 +8,8 @@ vim.g.mapleader = " "
 -- vim.keymap.set("n", "<leader>e", vim.cmd.Ex, opts)
 vim.keymap.set("n", "<leader>l", vim.cmd.Lazy, opts)
 
+vim.keymap.set("n", "<leader>bb", "<cmd>b#<cr>", { desc = "Toggle previous buffer" })
+
 -- Use space+p to paste your current yank line without copy-override your clipboard
 -- Sometime we don't copy, just paste paste paste paste
 vim.keymap.set("x", "<leader>p", '"_dP', opts)
@@ -380,9 +382,9 @@ end, { noremap = true, silent = true, desc = "Go prev highlighted word" })
 -- { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
 
 -- load the session for the current directory
-vim.keymap.set("n", "<leader>qS", function()
+vim.keymap.set("n", "<leader>qb", function()
 	require("persistence").load()
-end, { noremap = true, silent = true, desc = "Dismiss all notifications" })
+end, { noremap = true, silent = true, desc = "load session belongs to current workdir" })
 
 -- select a session to load
 vim.keymap.set("n", "<leader>qs", function()

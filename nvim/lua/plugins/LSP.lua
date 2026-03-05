@@ -167,14 +167,15 @@ return {
 				severity_sort = true,
 				float = { border = "rounded", source = "if_many" },
 				underline = { severity = vim.diagnostic.severity.ERROR },
-				signs = vim.g.have_nerd_font and {
+				signs = {
 					text = {
-						[vim.diagnostic.severity.ERROR] = "󰅚 ",
-						[vim.diagnostic.severity.WARN] = "󰀪 ",
-						[vim.diagnostic.severity.INFO] = "󰋽 ",
-						[vim.diagnostic.severity.HINT] = "󰌶 ",
+						-- 󰚌
+						[vim.diagnostic.severity.ERROR] = "󰯆",
+						[vim.diagnostic.severity.WARN] = "󰀦",
+						[vim.diagnostic.severity.INFO] = "󰙎",
+						[vim.diagnostic.severity.HINT] = "󰛨",
 					},
-				} or {},
+				},
 				virtual_text = {
 					source = "if_many",
 					spacing = 2,
@@ -206,7 +207,24 @@ return {
 			--  - settings (table): Override the default settings passed when initializing the server.
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 			local servers = {
-				-- apex_language_server = {},
+				-- Extra, resources
+				lemminx = {
+					capabilities = capabilities,
+					settings = {
+						xml = {
+							validation = {
+								enabled = true,
+							},
+							schemas = {
+								{
+									uri = "/Users/liusam/Downloads/metadata.xsd",
+									fileMatch = { "*-meta.xml" },
+								},
+							},
+						},
+					},
+				},
+				jsonls = {},
 				clangd = {},
 				ts_ls = {},
 				html = {},
@@ -214,6 +232,7 @@ return {
 				cssls = {},
 				jdtls = {},
 				kotlin_language_server = {},
+				prettier = {},
 				-- marksman = {},
 				-- -- gopls = {},
 				-- pyright = {},
@@ -272,9 +291,10 @@ return {
 				"java-test", --Java testing
 
 				--Formater
+				"xmlformatter", -- xmlformatter (There's no other)
 				"google-java-format", -- Formateador Java desarrollado por google
 				"stylua", -- Used to format Lua code
-				"prettierd",
+				-- "prettierd",
 				"clang-format", --c, c++
 				"ktfmt",
 			})
@@ -285,6 +305,7 @@ return {
 				automatic_installation = false,
 				automatic_enable = {
 					exclude = {
+						"apex_ls",
 						"jdtls",
 					},
 				},

@@ -39,7 +39,8 @@
     { on   = [ "g", "c" ], run  = "plugin git-files", desc = "Show Git file changes" },
     # https://github.com/orhnk/system-clipboard.yazi?tab=readme-ov-file
     # use 'ya pkg add orhnk/system-clipboard' to install it
-    { on = "<A-y>", run = ["plugin system-clipboard"], desc = "Copy file as File/photo, etc" },
+    { on = "<C-y>", run = ["plugin system-clipboard"], desc = "Copy file as File/photo, etc" },
+    # "<A-y>", with Alt(Option in MacOS) 
     #NOTE: Install `trahs-cli` https://formulae.brew.sh/formula/trash-cli
     { on = [ "d", "d" ], run = [ "escape --visual", ''' shell --confirm 'trash-put "$@"' ''' ] ,desc = "Mover archivos a la papelera (trash-cli)" } ,
 

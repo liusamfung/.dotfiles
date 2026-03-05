@@ -185,3 +185,5 @@ ng() {
     # Ejecuta el comando ng con los argumentos originales
     command ng "$@"
 }
+
+SF_AC_ZSH_SETUP_PATH=/Users/liusam/Library/Caches/sf/autocomplete/zsh_setup && test -f $SF_AC_ZSH_SETUP_PATH && source $SF_AC_ZSH_SETUP_PATH; # sf autocomplete setup

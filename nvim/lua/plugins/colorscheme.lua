@@ -16,6 +16,7 @@ return {
 			require("solarized-osaka").setup({
 				transparent = true,
 				styles = {
+					-- You need a compatible Nertfont
 					comments = { italic = true }, -- Enable italics in comments
 					functions = { italic = true, bold = true },
 					keywords = { bold = true }, -- Anotaciones, palabras reservadas, etc

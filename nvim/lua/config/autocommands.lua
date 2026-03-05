@@ -84,3 +84,22 @@ vim.api.nvim_create_autocmd("FileType", {
 -- 		vim.diagnostic.show() -- Asegura que la capa de visualización esté activa
 -- 	end,
 -- })
+
+vim.filetype.add({
+	pattern = {
+		[".*/*.cls"] = "apex",
+	},
+})
+
+vim.filetype.add({
+	extension = {
+		["code-workspace"] = "jsonc", -- jsonc porque VS Code permite comentarios en estos archivos
+		cls = "apex",
+		trigger = "apex",
+		apex = "apex",
+		soql = "soql", -- El plugin sf.nvim lo asigna por mi. Pero de todas formas lo hago aqui.
+		sosl = "sosl", -- El plugin sf.nvim lo asigna por mi. Pero de todas formas lo hago aqui.
+		xsl = "xsl",
+		xslt = "xslt",
+	},
+})

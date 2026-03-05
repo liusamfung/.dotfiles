@@ -50,14 +50,14 @@ apps_terminal="(kitty)"
 apps_testing="(Google Chrome|Bruno|Postman)" # I test web development stuff with Google Chrome
 apps_organization="(Fantastical|Reminders|Notion|Obsidian)"
 apps_workspace="(Canva|Microsoft Excel|Microsoft Word|Microsoft PowerPoint)"
-apps_media="(Firefox|Preview|Microsoft Teams|zoom.us|Photos|YouTube Music|Brave Browser|Spotify)" #Generalmente solo usas una de estas apps a la vez
+apps_media="(Firefox|Preview|IINA|Microsoft Teams|zoom.us|Photos|YouTube Music|Brave Browser|Spotify)" #Generalmente solo usas una de estas apps a la vez
 # apps_msg="(net.whatsapp.WhatsApp)" 
   apps_msg="(Microsoft Outlook|WhatsApp|Slack)" 
 apps_msg="(Microsoft Outlook|Slack)" 
 apps_browsing="(Zen)" # 
 apps_record="(OBS Studio)" # 
 
-apps_mgoff_normal="(Clock|Quick Camera|Photo Booth|QuickTime Player|System Preferences|System Settings|Terminal|Godot|Shottr|Notes|IINA)" #Apps no administradas por yabai(Por defecto, flat)
+apps_mgoff_normal="(Clock|Quick Camera|Photo Booth|QuickTime Player|System Preferences|System Settings|Terminal|Godot|Shottr|Notes)" #Apps no administradas por yabai(Por defecto, flat)
 
 apps_known="${apps_terminal}|${apps_testing}|${apps_organization}|${apps_workspace}|${apps_media}|${apps_msg}|${apps_browsing}|${apps_record}|${apps_mgoff_normal}"
 

@@ -11,7 +11,8 @@ return {
 				component_separators = "",
 				section_separators = "",
 				disabled_filetypes = {
-					statusline = {},
+					-- statusline = {},
+					statusline = { "dashboard", "alpha", "snacks_dashboard" },
 					winbar = {},
 				},
 				ignore_focus = {},
@@ -39,15 +40,48 @@ return {
 			},
 			sections = {
 				lualine_a = { "mode" },
-				lualine_b = { "branch", "diff", "diagnostics" },
-				lualine_c = {},
-				lualine_x = { "encoding", "fileformat" },
+				lualine_b = {
+					"branch",
+					{
+						"diff",
+						symbols = {
+							added = "󰐕",
+							modified = "󰏫 ",
+							removed = "󰍵",
+						},
+					},
+				},
+				lualine_c = {
+					{
+						"diagnostics",
+						symbols = {
+							error = "󰀦 ",
+							warn = "󰙎",
+							info = "󰋽 ",
+							hint = "󰛨 ",
+						},
+					},
+				},
+				lualine_x = {
+					{
+						function()
+							return "󰅣 " .. require("sf").get_target_org()
+							-- return "󰅟 " .. require("sf").get_target_org()
+						end,
+					},
+				},
 				lualine_y = { "progress" },
-				lualine_z = { "location" },
+				lualine_z = {
+					{
+						function()
+							return " " .. os.date("%R")
+						end,
+					},
+				},
 			},
 			inactive_sections = {
 				lualine_a = {},
-				lualine_b = {},
+				lualine_b = { "encoding", "fileformat" },
 				lualine_c = { "filename" },
 				lualine_x = { "location" },
 				lualine_y = {},

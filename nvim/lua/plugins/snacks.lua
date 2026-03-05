@@ -12,7 +12,7 @@ return {
 			animate = {}, -- TODO: QUE HACE?
 			scroll = {
 				animate = {
-					duration = { step = 20, total = 100 },
+					duration = { step = 60, total = 100 },
 					easing = "linear",
 				},
 			},
@@ -74,6 +74,16 @@ return {
 			dashboard = {
 				enabled = true,
 				preset = {
+					keys = {
+						{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+						{
+							icon = " ",
+							key = "r",
+							desc = "Recent Files",
+							action = ":lua Snacks.dashboard.pick('oldfiles')",
+						},
+						{ icon = " ", key = "s", desc = "Restore Session", section = "session" },
+					},
 					-- https://patorjk.com/software/taag/#p=display&f=Univers&t=Insano&x=none&v=4&h=4&w=80&we=false
 					-- 88
 					-- 88
@@ -92,6 +102,26 @@ return {
 ███████╗██║██║ ╚═╝ ██║██║  ██║   ██║   ╚██████╔╝██║  ██║██║  ██╗
 ╚══════╝╚═╝╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
    ]],
+				},
+				sections = {
+					-- { section = "header" },
+					{
+						pane = 2,
+						icon = " ",
+						title = "Git Status",
+						section = "terminal",
+						enabled = function()
+							return Snacks.git.get_root() ~= nil
+						end,
+						cmd = "git status --short --branch --renames",
+						height = 10,
+						padding = 1,
+						ttl = 5 * 60,
+						indent = 3,
+					},
+					{ pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+					{ section = "keys", gap = 1, padding = 1 },
+					-- { section = "startup" },
 				},
 			},
 		},
