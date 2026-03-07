@@ -85,6 +85,31 @@ vim.api.nvim_create_autocmd("FileType", {
 -- 	end,
 -- })
 
+--Usa la identación de Java para  archivos Apex (Tresitter no proporciona
+--identación ofical en us paquete de Apex)
+-- run ":checkhealth nvim-treesitter" to see which lenguaje
+--Installed languages    H L F I J ~
+-- apex                  ✓ ✓ ✓ . ✓
+-- java                  ✓ ✓ ✓ ✓ ✓
+-- soql                  ✓ . . . .
+-- sosl                  ✓ . . . .
+
+--Usamos la identación de Java para archivos de tipo apex
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "apex",
+	callback = function()
+		vim.cmd("runtime! indent/java.vim")
+	end,
+})
+--Usamos la identación de sql para archivos soql
+vim.api.nvim_create_autocmd("FileType", {
+	-- pattern = { "soql", "sosl" },
+	pattern = "soql",
+	callback = function()
+		vim.cmd("runtime! indent/sql.vim")
+	end,
+})
+
 vim.filetype.add({
 	pattern = {
 		[".*/*.cls"] = "apex",

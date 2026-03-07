@@ -1,3 +1,11 @@
 [flavor]
 # dark = "ayu-dark"
 # dark = "catppuccin-frappe"  #1
+[filetype]
+rules = [
+  # { mime = "text/*", name = "*.cls", icon = "", color = "#00A1E0" },
+  # { mime = "text/*", name = "*.trigger", icon = "", color = "#00A1E0" },
+  # { mime = "text/*", name = "*.apex", icon = "", color = "#00A1E0" },
+  # { mime = "text/*", name = "*.soql", icon = "", color = "#F4A261" },
+  # { mime = "text/*", name = "*.sosl", icon = "", color = "#F4A261" }
+]

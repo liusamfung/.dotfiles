@@ -11,6 +11,7 @@ return {
 		opts = {
 			animate = {}, -- TODO: QUE HACE?
 			scroll = {
+				enabled = true,
 				animate = {
 					duration = { step = 60, total = 100 },
 					easing = "linear",

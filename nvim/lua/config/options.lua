@@ -13,11 +13,11 @@ vim.opt.scrolloff = 2 -- Minimal number of screen lines to keep above and below 
 vim.opt.showmode = true -- Don't show mode(Insert, normal, etc) in command line(The last line on this window). If you have Statusline/bar. You don't enable this obviously.
 
 vim.opt.expandtab = true --"True" for convert tabcharater to spacecharactecr (for tabstop, no indenttab)Espacios):Esta es la norma en el desarrollo moderno (JavaScript, Python, Lua, etc.), porque garantiza que el código se vea igual en todas las computadoras del mundo.
-vim.opt.shiftwidth = 2 --number of character inserted for each indentation level
-vim.opt.tabstop = 2 --number of spaces(Charter/column) inserted for tab character ( After typing any word in single line: word word (tab) word)
-vim.opt.smartindent = false -- Neovim moderno, lo ideal es tenerlo en false para evitar confictos con el LSP o Treesitter. Era un truco antiguo para adivinar la identacion
-vim.opt.softtabstop = 2 --number of charactecr inserted for <Tab> key or <Backspace>. For example, if your have assiged `tabstop = 2` and softtabstop = 5. Neovim will insert <tab><tab><space> = (5 columns/characters)
-
+vim.opt.shiftwidth = 3 --number of character inserted for each indentation level
+vim.opt.tabstop = 3 --number of spaces(Charter/column) inserted for tab character ( After typing any word in single line: word word (tab) word)
+vim.opt.smartindent = true -- Sirve para adivinar donde debe ir la siguient linea. Muchas veces no queremos seguir la identación, sino, avanzar un tab mas. Para eso sirve esta opción.-------------------------------------Neovim moderno, lo ideal es tenerlo en false para evitar confictos con el LSP o Treesitter. Era un truco antiguo para adivinar la identacion
+vim.opt.autoindent = true -- (Por defecto esta activado) Es par copiar la identación de la siguiente linea de la actual(Basicamente seguir un parrafo desde dondo empezó el anteior)
+vim.opt.softtabstop = 3 --number of charactecr inserted for <Tab> key or <Backspace>. For example, if your have assiged `tabstop = 2` and softtabstop = 5. Neovim will insert <tab><tab><space> = (5 columns/characters)
 vim.opt.spelllang = { "en", "es" } -- Agregamos el dueouiccionario para ingles(en) y español(es)
 vim.opt.spell = false --Disable por defecto el spell language.
 

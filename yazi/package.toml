@@ -68,6 +68,11 @@ use = "orhnk/system-clipboard"
 rev = "888026c"
 hash = "9f82a544335a53d79e87ea315746caaa"
 
+[[plugin.deps]]
+use = "lpnh/frank"
+rev = "1c101b1"
+hash = "b8171400c4582ef7e2c5098cde089126"
+
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-mocha"
 rev = "02f3fc6"

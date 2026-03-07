@@ -27,6 +27,34 @@ return {
 				--Python
 				"python",
 			})
+			-- Autocomando para iniciar el identado de treesittter si encuentra un archivo
+			-- 	disponible con identado. En caso de que no, no hace nada
+			vim.api.nvim_create_autocmd("FileType", {
+				callback = function()
+					local ft = vim.bo.filetype
+
+					-- Si no hay filetype, no hacemos nada
+					if not ft or ft == "" then
+						return
+					end
+
+					-- Verificamos si existe un parser para el filetype actual
+					-- Nota: get_lang devuelve el nombre del lenguaje si existe el parser
+					local has_parser, _ = pcall(vim.treesitter.language.get_lang, ft)
+
+					if has_parser and vim.treesitter.language.get_lang(ft) then
+						-- Intentamos iniciar Treesitter de forma segura
+						local ok, err = pcall(vim.treesitter.start)
+
+						if ok then
+							-- Si inició correctamente, aplicamos las configuraciones
+							vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+							-- vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+							-- vim.wo.foldmethod = "expr"
+						end
+					end
+				end,
+			})
 		end,
 	},
 
@@ -61,5 +89,9 @@ return {
 	{
 		"windwp/nvim-ts-autotag",
 		opts = {},
+	},
+
+	{
+		"hiphish/rainbow-delimiters.nvim",
 	},
 }

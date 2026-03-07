@@ -1,7 +1,9 @@
 return {
 	{
 		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+		},
 		opts = {
 			options = {
 				icons_enabled = true,
@@ -65,9 +67,15 @@ return {
 				lualine_x = {
 					{
 						function()
-							return "󰅣 " .. require("sf").get_target_org()
-							-- return "󰅟 " .. require("sf").get_target_org()
+							-- Si quieres llamar directamente al web-devicons
+							-- local devicons = require("nvim-web-devicons")
+							-- local icon, hl = devicons.get_icon("ApexFile", "cls", { default = true })
+							-- return icon .. " " .. require("sf").get_target_org()
+
+							-- return "󰅣 " .. require("sf").get_target_org()
+							return "󰅟 " .. require("sf").get_target_org()
 						end,
+						color = { fg = "#00A1E0" },
 					},
 				},
 				lualine_y = { "progress" },
