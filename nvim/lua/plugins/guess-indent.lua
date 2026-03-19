@@ -4,6 +4,7 @@ return {
 	-- And you don't want to create a .editorconfig every time. So this is a simple
 	-- and quickly solution.
 	{
+		-- Really good.
 		"NMAC427/guess-indent.nvim",
 		event = { "BufReadPost", "BufNewFile" },
 		opts = {},
