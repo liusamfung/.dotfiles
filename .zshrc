@@ -101,6 +101,15 @@ alias nvim-kickstart='NVIM_APPNAME="nvim-kickstart" nvim'
 alias nvim-ju='NVIM_APPNAME=nvim-jugarpeupv nvim'
 alias nvim-anti='NVIM_APPNAME=nvim-anti nvim'
 
+#  Modo interactivo (preguntará "rm ...?" antes de borrar)
+#  Cuando abres en un mismo proyecto neovim(Usando apexls de mason.nvim) y 
+#  vscode (Que usa el apexls descargado de las extensiones, los 2 quieres usar el mismo
+#  .db. Y entre ellos corrompen el archivo. Es necesario elimnarlo para que se
+#  cree uno nuevo automáticamente).
+alias fixapex='find .sfdx/tools -name "apex.db" -exec rm -i {} \;'
+# [S]alesforce [C]ode [A]anlyzer 
+alias sca='sf code-analyzer run | less -S'
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
