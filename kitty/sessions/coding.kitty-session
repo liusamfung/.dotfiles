@@ -3,7 +3,7 @@ new_tab Term-Log
 #    launch --hold ov --multi-color "ERROR,WARN,INFO,DEBUG,not,^.{24}" /Users/liusam/.local/state/nvim/lsp.log
   cd ~/Dev/
     launch  --title  "MainTerm" zsh
-      focus # Con esta linea estoy volviendo el pane actual en el enfocado después de crear los demás panes(Windows)
+      # focus # Con esta linea estoy volviendo el pane actual en el enfocado después de crear los demás panes(Windows)
   cd ~/Dev/
     launch  --title  "pane2" zsh
   cd ~/Dev/
@@ -21,5 +21,6 @@ new_tab NEOVIM
 layout tall
 cd ~/Dev/
     launch  --hold /bin/zsh -c nvim
+      focus # Con esta linea estoy volviendo el pane actual en el enfocado después de crear los demás panes(Windows)
 
 focus_os_window

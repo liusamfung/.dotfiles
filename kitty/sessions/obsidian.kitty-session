@@ -1,15 +1,15 @@
-new_tab btop
-  cd ~/dotfiles/
-    launch  --hold /bin/zsh 
-
 new_tab OBSIDIAN
   layout tall
 # Set the working directory for windows in the current tab
 #PersonalKnowledge es un symlink de mi vault de Obsidian
   cd ~/PersonalKnowledge
     launch --title "Obsidian-pane" /bin/zsh -i -c 'nvim'
+  focus
+
+new_tab btop
+  cd ~/dotfiles/
+    launch  --hold /bin/zsh 
 
 # When you open many session in diferents OS windows, focus the window that it
 # has already open the session and no create another same session in that OS Window. (Duplicate session)
-focus
 focus_os_window

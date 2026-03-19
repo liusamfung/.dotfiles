@@ -1,7 +1,3 @@
-new_tab btop
-  cd ~/dotfiles/
-    launch  --hold /bin/zsh 
-
 new_tab TEST-LOG
 # Set the layout for the current tab
   layout fat
@@ -11,6 +7,11 @@ new_tab TEST-LOG
     focus
     launch --title "pane2" 
     launch --title "pane3"
+
+new_tab btop
+  cd ~/dotfiles/
+    launch  --hold /bin/zsh 
+
 
 # # Create the "main" window and run an editor in it to edit the project files
 # # 'nt' es mi alias para abrir neovim y  la ves lanzar la terminal

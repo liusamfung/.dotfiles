@@ -5,6 +5,7 @@ layout tall
 cd ~/dotfiles
 # Create the "main" window and run an editor in it to edit the project files
   launch --title "Dotfiles" /bin/zsh -i -c nvim
+    focus # Con esta linea estoy volviendo el pane actual en el enfocado después de crear los demás panes(Windows)
 
 
 new_tab Test-log
@@ -13,7 +14,6 @@ new_tab Test-log
 # launch ov --multi-color "ERROR,WARN,INFO,DEBUG,not,^.{24}" /Users/liusam/.local/state/nvim/lsp.log
 # Si lo que quieres es crear una ventana, luego correr el programa apenas la abras hazlo siguiente. (De esta forma si lo cierras de casualidad, no vas a cerrar la ventana(pane))
     launch --hold ov --multi-color "ERROR,WARN,INFO,DEBUG,not,^.{24}" /Users/liusam/.local/state/nvim/lsp.log
-    focus # Con esta linea estoy volviendo el pane actual en el enfocado después de crear los demás panes(Windows)
   cd ~/Dev/AcademicProjects/
     launch  --title  "traductor" zsh
   cd ~/Dev/

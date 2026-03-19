@@ -1,9 +1,3 @@
-# PATH=$PATH:/opt/sysadmin/scripts
-new_tab Term
-  cd ~/dev/
-    launch --cwd ~/dev/AcademicProjects/ --title  "Currennt" zsh
-
-
 new_tab Test-log
   layout fat
     launch --hold ov --multi-color "ERROR,WARN,INFO,DEBUG,not,^.{24}" /Users/liusam/.local/state/nvim/lsp.log
@@ -12,6 +6,11 @@ new_tab Test-log
     launch --cwd ~/dev/AcademicProjects/ --title  "Currennt" zsh
   # cd ~/Dev/
     launch --cwd ~/dev/iso/ --title  "Currennt" zsh
+
+# PATH=$PATH:/opt/sysadmin/scripts
+new_tab Term
+  cd ~/dev/
+    launch --cwd ~/dev/AcademicProjects/ --title  "Currennt" zsh
 
 new_tab <ProjectName>
 layout tall

@@ -1,9 +1,14 @@
+new_tab DOTFILES
+layout tall
+cd ~/dotfiles/
+    launch  --hold /bin/zsh -c nvim
+      focus # Con esta linea estoy volviendo el pane actual en el enfocado después de crear los demás panes(Windows)
+
 new_tab Term-Log
   layout fat
 #    launch --hold ov --multi-color "ERROR,WARN,INFO,DEBUG,not,^.{24}" /Users/liusam/.local/state/nvim/lsp.log
   cd ~/dotfiles/
     launch  --title  "MainTerm" zsh
-      focus # Con esta linea estoy volviendo el pane actual en el enfocado después de crear los demás panes(Windows)
   cd ~/dotfiles/
     launch  --title  "pane2" zsh
   cd ~/dotfiles/
@@ -17,9 +22,9 @@ new_tab btop
     launch  --hold /bin/zsh 
 
 
-new_tab DOTFILES
-layout tall
-cd ~/dotfiles/
-    launch  --hold /bin/zsh -c nvim
+# new_tab DOTFILES
+# layout tall
+# cd ~/dotfiles/
+#     launch  --hold /bin/zsh -c nvim
 
 focus_os_window

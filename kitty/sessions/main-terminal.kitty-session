@@ -1,12 +1,13 @@
-new_tab btop
-  cd ~/dotfiles/
-    launch  --hold /bin/zsh 
-
 new_tab GenericTerm
   layout tall
   cd ~
     launch --title "TERMINAL"
+    focus # Con esta linea estoy volviendo el pane actual en el enfocado después de crear los demás panes(Windows)
+
+new_tab btop
+  cd ~/dotfiles/
+    launch  --hold /bin/zsh 
+
 # When you open many session in diferents OS windows, focus the window that it
 # has already open the session and no create another same session in that OS Window. (Duplicate session)
-focus
 focus_os_window
