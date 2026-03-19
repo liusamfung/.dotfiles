@@ -76,6 +76,7 @@ symbol = " "
 # symbol = " "
 
 [git_status]
+ignore_submodules = true
 style = "#B4BEFE"
 deleted = "✗"
 
