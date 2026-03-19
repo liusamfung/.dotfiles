@@ -66,7 +66,7 @@ return {
 				}, --NOTE:Colorea las opciones de autocompletados con apoyo de treesitter
 				-- By default, you may press `<c-space>` to show the documentation.
 				-- Optionally, set `auto_show = true` to show the documentation after a delay.
-				documentation = { auto_show = true, auto_show_delay_ms = 0 }, --Muestra una ventana emergente con informacion(Documentacion que hace la función o de donde viene la variable).
+				documentation = { auto_show = false, auto_show_delay_ms = 5000 }, --Muestra una ventana emergente con informacion(Documentacion que hace la función o de donde viene la variable).
 				ghost_text = { enabled = true }, -- Display a preview of the selected item on the current line
 			},
 
@@ -82,7 +82,7 @@ return {
 			fuzzy = { implementation = "lua" },
 
 			-- Shows a signature help window while you type arguments for a function
-			signature = { enabled = true }, --NOTE:Obviously you've to enable this option in your lspconfig also
+			signature = { enabled = false }, --NOTE:Obviously you've to enable this option in your lspconfig also
 
 			cmdline = {
 				enabled = true,
@@ -102,7 +102,8 @@ return {
 				},
 			},
 			keymap = {
-				preset = "super-tab",
+				-- The default keymap to accept the suggenstion is "<C-y>"
+				-- preset = "super-tab",
 			},
 		},
 	},
