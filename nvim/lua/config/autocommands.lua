@@ -98,7 +98,14 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "apex",
 	callback = function()
-		vim.cmd("runtime! indent/java.vim")
+		vim.cmd("runtime! indent/java.vim") -- este motor activa identados de 4. y el prettierrc de salesforce marca 2
+		-- Por eso debes descargarte este plugin  NMAC427/guess-indent.nvim para que adivine el identado en tiempo
+		-- real y este sobre escriba tu configuración dependiendo del archivo
+		-- por eso debemos usar otro método.
+
+		-- Desactiva el motor de identado de Treesitter para este buffer.
+		-- vim.bo.indentexpr = ""
+		-- vim.opt.smartindent = true -- una opción "tonta" y mecánica. Es muy tonta
 	end,
 })
 --Usamos la identación de sql para archivos soql
@@ -126,5 +133,6 @@ vim.filetype.add({
 		sosl = "sosl", -- El plugin sf.nvim lo asigna por mi. Pero de todas formas lo hago aqui.
 		xsl = "xsl",
 		xslt = "xslt",
+		kbd = "kanata",
 	},
 })

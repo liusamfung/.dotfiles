@@ -15,7 +15,7 @@ vim.opt.showmode = true -- Don't show mode(Insert, normal, etc) in command line(
 vim.opt.expandtab = true --"True" for convert tabcharater to spacecharactecr (for tabstop, no indenttab)Espacios):Esta es la norma en el desarrollo moderno (JavaScript, Python, Lua, etc.), porque garantiza que el código se vea igual en todas las computadoras del mundo.
 vim.opt.shiftwidth = 3 --number of character inserted for each indentation level
 vim.opt.tabstop = 3 --number of spaces(Charter/column) inserted for tab character ( After typing any word in single line: word word (tab) word)
-vim.opt.smartindent = true -- Sirve para adivinar donde debe ir la siguient linea. Muchas veces no queremos seguir la identación, sino, avanzar un tab mas. Para eso sirve esta opción.-------------------------------------Neovim moderno, lo ideal es tenerlo en false para evitar confictos con el LSP o Treesitter. Era un truco antiguo para adivinar la identacion
+vim.opt.smartindent = false -- Sirve para adivinar donde debe ir la siguient linea. Neovim moderno, lo ideal es tenerlo en false para evitar confictos con el LSP o Treesitter. Era un truco antiguo para adivinar la identacion
 vim.opt.autoindent = true -- (Por defecto esta activado) Es par copiar la identación de la siguiente linea de la actual(Basicamente seguir un parrafo desde dondo empezó el anteior)
 vim.opt.softtabstop = 3 --number of charactecr inserted for <Tab> key or <Backspace>. For example, if your have assiged `tabstop = 2` and softtabstop = 5. Neovim will insert <tab><tab><space> = (5 columns/characters)
 vim.opt.spelllang = { "en", "es" } -- Agregamos el dueouiccionario para ingles(en) y español(es)
@@ -55,7 +55,8 @@ vim.opt.listchars = { --if you want to pass a table, you must to use 'opt'
 	eol = "↲", -- Muestra el final de la línea (Enter)
 	extends = "»", -- Símbolo si la línea sigue fuera de la pantalla (derecha)
 	-- precedes = '«', -- Símbolo si hay texto oculto a la izquierda
-	-- space = '⋅',    -- Muestra cada espacio (puede ser muy ruidoso)
+	precedes = "←",
+	space = "⋅", -- Muestra cada espacio (puede ser muy ruidoso)
 }
 
 -- vim.o.cursorline = true -- Show which line your cursor is

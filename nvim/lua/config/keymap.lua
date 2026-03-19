@@ -13,7 +13,8 @@ vim.keymap.set("n", "<leader>bb", "<cmd>b#<cr>", { desc = "Toggle previous buffe
 -- Use space+p to paste your current yank line without copy-override your clipboard
 -- Sometime we don't copy, just paste paste paste paste
 vim.keymap.set("x", "<leader>p", '"_dP', opts)
-
+-- Agrega esto a tus keymaps (ej. en init.lua)
+vim.keymap.set("n", "<leader>xx", vim.diagnostic.open_float, { desc = "Mostrar diagnóstico en ventana flotante" })
 -- Clear highlights on search when pressing <Esc> in normal mode
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", opts)
 
