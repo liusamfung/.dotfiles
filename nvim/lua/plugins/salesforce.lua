@@ -52,6 +52,20 @@ return {
 			vim.keymap.set("n", "<leader>tca", ":SF create apex<cr>", { desc = "Create Apex" })
 			vim.keymap.set("n", "<leader>tcc", ":SF create ctags<cr>", { desc = "Create ctags" })
 
+			vim.keymap.set(
+				"n",
+				"<leader>tR",
+				Sf.rename_apex_class_remote_and_local,
+				{ desc = "Rename apex remote y local" }
+			)
+			-- nmap("<leader>sR", Sf., "rename current apex from org and local")
+			vim.keymap.set(
+				"n",
+				"<leader>tX",
+				Sf.delete_current_apex_remote_and_local,
+				{ desc = "Delete remote y local" }
+			)
+
 			vim.keymap.set("n", "<C-/>", ":SF term toggle<cr>", { desc = "Create ctags and List" })
 
 			vim.keymap.set("n", "<leader>tp", ":SF currentFile push<cr>", { desc = "Create ctags and List" })
@@ -66,8 +80,25 @@ return {
 				Sf.run_all_tests_in_this_file,
 				{ desc = "run all Apex tests in current file" }
 			)
+			vim.keymap.set(
+				"n",
+				"<leader>ttA",
+				Sf.run_all_tests_in_this_file_with_coverage,
+				{ desc = "Test all with coverage info" }
+			)
+
 			vim.keymap.set("n", "<leader>ttc", Sf.run_current_test, { desc = "run Apex tests in under cursor " })
+			vim.keymap.set(
+				"n",
+				"<leader>ttC",
+				Sf.run_current_test_with_coverage,
+				{ desc = "run  tests in under cursor with coverage" }
+			)
 			vim.keymap.set("n", "<leader>tts", Sf.open_test_select, { desc = "Select Apex tests current File " })
+			vim.keymap.set("n", "<leader>ttl", Sf.repeat_last_tests, { desc = "Repeat the last test" })
+			vim.keymap.set("n", "<leader>t/", Sf.toggle_sign, { desc = "Toggel signs for code coverage" })
+
+			-- nmap("\\s", Sf.toggle_sign, "toggle signs for code coverage")
 
 			vim.keymap.set("n", "<leader>tqc", Sf.run_highlighted_soql, { desc = "run_highlighted_soql unde cursor" })
 

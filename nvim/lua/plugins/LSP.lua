@@ -2,6 +2,7 @@ return {
 	{
 		-- Main LSP Configuration
 		"neovim/nvim-lspconfig",
+		event = { "BufReadPost", "BufNewFile", "BufReadPre" },
 		dependencies = {
 			-- Automatically install LSPs and related tools to stdpath for Neovim
 			-- Mason must be loaded before its dependents so we need to set it up here.
@@ -12,7 +13,6 @@ return {
 
 			-- Useful status updates for LSP. (Visualizador de estado de lsp server abajo a la derecha)
 			{ "j-hui/fidget.nvim", opts = {} },
-
 			-- Allows extra capabilities provided by blink.cmp
 			"saghen/blink.cmp",
 		},
@@ -301,10 +301,15 @@ return {
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 			require("mason-lspconfig").setup({
-				ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+				ensure_installed = {
+					"cspell_ls", --LSP generalista para escribir bien las variables etc
+					"yamlls",
+					"lwc_ls",
+				}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
 				automatic_installation = false,
 				automatic_enable = {
 					exclude = {
+						"cspell_ls", -- TODO::ueno, pero requiere de mucha configuración por ahora. Iventigar como configuralo con after/lsp si lo requere o añadir un keymap para agregar palabras al diccionario de forma rápida.
 						"apex_ls",
 						"jdtls",
 					},
@@ -342,5 +347,6 @@ return {
 	},
 	{
 		"mfussenegger/nvim-jdtls",
+		event = { "BufReadPost", "BufNewFile", "BufReadPre" },
 	},
 }
