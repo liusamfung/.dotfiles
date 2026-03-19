@@ -23,7 +23,7 @@ return {
 					name = "ApexFile",
 				},
 				["trigger"] = {
-					icon = "",
+					icon = "󰅣",
 					color = "#00A1E0",
 					name = "ApexFile",
 				},

@@ -18,6 +18,12 @@ return {
 
 	{
 		"knubie/vim-kitty-navigator",
+		-- cmd = {
+		-- 	"KittyNavigateLeft",
+		-- 	"KittyNavigateDown",
+		-- 	"KittyNavigateUp",
+		-- 	"KittyNavigateRight",
+		-- },
 		build = "cp ./*.py ~/.config/kitty/",
 		-- Yo no uso el teclado QWERTY, uso dvrk. Por ello me es mas comodo rempearlo
 		-- de esta forma para que todo los motions esten en una sola mano.bb

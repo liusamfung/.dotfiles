@@ -9,9 +9,10 @@ return {
 		lazy = false,
 		---@type snacks.Config
 		opts = {
+			image = { enabled = true },
 			animate = {}, -- TODO: QUE HACE?
 			scroll = {
-				enabled = true,
+				enabled = false,
 				animate = {
 					duration = { step = 60, total = 100 },
 					easing = "linear",
@@ -24,8 +25,8 @@ return {
 					["<C-q>"] = false,
 				},
 			},
-			indent = { enabled = true }, -- Line the scopes
-			input = { enabled = false }, -- Light version of 'folke/noice'. Don't need it
+			indent = { enabled = false }, -- Line the scopes
+			input = { enabled = true }, -- Light version of 'folke/noice'. Don't need it
 			notifier = { enabled = true }, -- Windows corner top-right notifications `vim.notify`
 			quickfile = { enabled = true }, -- When doing nvim somefile.txt, it will render the file as quickly as possible, before loading your plugins.
 			scope = { enabled = false }, --TODO:
@@ -122,7 +123,7 @@ return {
 					},
 					{ pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
 					{ section = "keys", gap = 1, padding = 1 },
-					-- { section = "startup" },
+					{ section = "startup" },
 				},
 			},
 		},

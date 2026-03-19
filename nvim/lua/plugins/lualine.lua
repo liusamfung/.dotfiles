@@ -1,9 +1,19 @@
 return {
 	{
 		"nvim-lualine/lualine.nvim",
+		event = { "BufReadPost", "BufNewFile", "VeryLazy" },
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",
 		},
+
+		-- init = function()
+		-- 	local recording_register = vim.fn.reg_recording()
+		-- 	if recording_register == "" then
+		-- 		return ""
+		-- 	else
+		-- 		return "󰑋  Recording @" .. recording_register
+		-- 	end
+		-- end,
 		opts = {
 			options = {
 				icons_enabled = true,
@@ -51,6 +61,16 @@ return {
 							modified = "󰏫 ",
 							removed = "󰍵",
 						},
+					},
+					{
+						function()
+							local recording_register = vim.fn.reg_recording()
+							if recording_register == "" then
+								return ""
+							else
+								return "Recording @" .. recording_register
+							end
+						end,
 					},
 				},
 				lualine_c = {
