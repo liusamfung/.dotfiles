@@ -60,7 +60,9 @@ return {
 					},
 				},
 				layout = {
-					preset = "ivy",
+					preset = "ivy_split",
+					-- preset = "sidebar", --Good, all page like ff choose "right" to obten de 'sidebar' style on right hand
+					-- preset = "vertical", -- S
 				},
 				sources = {
 					explorer = {
