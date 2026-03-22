@@ -243,9 +243,13 @@ vim.keymap.set("n", "<leader>gS", function()
 	Snacks.picker.git_stash()
 end, { noremap = true, silent = true, desc = "Git Stash" })
 
-vim.keymap.set("n", "<leader>gdttt", function()
+vim.keymap.set("n", "<leader>gd", function()
 	Snacks.picker.git_diff()
 end, { noremap = true, silent = true, desc = "Git diff (Hunks)" })
+
+vim.keymap.set("n", "<leader>gD", function()
+	Snacks.picker.git_diff({ cmd = { "git", "diff", "origin/main" } })
+end, { noremap = true, silent = true, desc = "Git Diff (origin)" })
 
 vim.keymap.set("n", "<leader>gf", function()
 	Snacks.picker.git_log_file()
