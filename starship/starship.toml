@@ -1,4 +1,4 @@
-add_newline = false # Add blankline after each prompt
+add_newline = true # Add blankline after each prompt
 
 format = """
 $fill
