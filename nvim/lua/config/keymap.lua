@@ -195,9 +195,13 @@ vim.keymap.set("n", "<leader>:", function()
 	require("snacks").picker.command_history()
 end, { noremap = true, silent = true, desc = "Command History" })
 
-vim.keymap.set("n", "<leader>n", function()
-	require("snacks").picker.notifications()
-end, { noremap = true, silent = true, desc = "Notification History" }) -- vim.notify
+vim.keymap.set(
+	"n",
+	"<leader>n",
+	":NoiceSnacks<cr>",
+	{ noremap = true, silent = true, desc = "Notification History with Snacks config" }
+) -- vim.notify
+-- vim.keymap.set("n", "<leader>tcl", ":SF create lwc<cr>", { desc = "Create LWC" })
 -- find---------------------------------------
 vim.keymap.set("n", "<leader>fb", function()
 	require("snacks").picker.buffers()
@@ -362,9 +366,12 @@ vim.keymap.set("n", "<leader>bd", function()
 	require("snacks").bufdelete()
 end, { noremap = true, silent = true, desc = "delete  Buffer" })
 
-vim.keymap.set("n", "<leader>un", function()
-	require("snacks").notifier.hide()
-end, { noremap = true, silent = true, desc = "Dismiss all notifications" })
+vim.keymap.set(
+	"n",
+	"<leader>un",
+	":NoiceDismiss<cr>",
+	{ noremap = true, silent = true, desc = "Dismiss all notifications" }
+)
 
 vim.keymap.set("n", "<leader>.", function()
 	require("snacks").scratch()

@@ -10,11 +10,20 @@ return {
 		---@type snacks.Config
 		opts = {
 			image = { enabled = true },
-			animate = {}, -- TODO: QUE HACE?
+			animate = {
+				enabled = true, -- Asegúrate de que esté activo
+				duration = 10, -- ms per step
+				easing = "linear",
+				fps = 120, -- frames per second. Global setting for all animations
+			},
 			scroll = {
-				enabled = false,
+				enabled = true,
 				animate = {
-					duration = { step = 60, total = 100 },
+					duration = {
+						step = 10, --  pAl reducir el tiempo por paso, la animación tiene más "muestras" por segundo. Esto hace que el movimiento sea más "sedoso", especialmente si tienes un monitor de muchos Hz.
+						total = 100, -- und: milisegudos
+					}, --animacion para scroll?
+					-- easing = "linear",
 					easing = "linear",
 				},
 			},
@@ -25,9 +34,9 @@ return {
 					["<C-q>"] = false,
 				},
 			},
-			indent = { enabled = false }, -- Line the scopes
-			input = { enabled = true }, -- Light version of 'folke/noice'. Don't need it
-			notifier = { enabled = true }, -- Windows corner top-right notifications `vim.notify`
+			indent = { enabled = true }, -- Line the scopes
+			input = { enabled = false }, -- Better vim.ui.input.(La version light the noice.nvim, desactivalo para que `noice` pueda trabajar)
+			notifier = { enabled = false }, -- Windows corner top-right notifications `vim.notify` (La version light the noice.nvim desactivalo para que `noice` pueda trabajar)
 			quickfile = { enabled = true }, -- When doing nvim somefile.txt, it will render the file as quickly as possible, before loading your plugins.
 			scope = { enabled = false }, --TODO:
 			statuscolumn = { enabled = true }, -- View your marks, LSP Icons, Folds, better relative numbers(Current line, in linexD), etc.
@@ -37,9 +46,6 @@ return {
 
 			picker = {
 				enabled = true,
-				opts = {
-					hidden = false,
-				},
 				win = {
 					-- 1. Desactivamos en la ventana de entrada (donde escribes)
 					input = {
@@ -61,16 +67,28 @@ return {
 				},
 				layout = {
 					preset = "ivy_split",
+					-- preset = "right", --Good, all page like ff choose "right" to obten de 'sidebar' style on right hand
 					-- preset = "sidebar", --Good, all page like ff choose "right" to obten de 'sidebar' style on right hand
 					-- preset = "vertical", -- S
 				},
 				sources = {
 					explorer = {
+						-- focus = "",
+						matcher = { sort_empty = true, fuzzy = true },
+						jump = { close = true }, --autoclose when you choose a file
+						-- sidebar
 						layout = {
+							-- preset = "vertical",
+							preview = false,
 							layout = {
 								position = "right",
 							},
 						},
+					},
+					files = {
+						-- finder = "explorer", puedes convertir el buscar en un explorer con esta linea
+						hidden = true,
+						ignored = true,
 					},
 				},
 			},

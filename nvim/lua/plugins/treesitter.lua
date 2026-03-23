@@ -26,6 +26,13 @@ return {
 
 				--Python
 				"python",
+
+				-- folke/snacks dependecies (review :checkheath snacks)
+				"latex",
+				-- "norg", -- don't work
+				"svelte",
+				"typst",
+				"vue",
 			})
 			-- Autocomando para iniciar el identado de treesittter si encuentra un archivo
 			-- 	disponible con identado. En caso de que no, no hace nada
