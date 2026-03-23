@@ -211,9 +211,26 @@ vim.keymap.set("n", "<leader>fc", function()
 	Snacks.picker.files({ cwd = "~/dotfiles/" })
 end, { noremap = true, silent = true, desc = "Find Config File" }) -- vim.notify
 
+-- A. Buscador de archivos de Salesforce (Solo Apex y LWC)
+-- vim.keymap.set("n", "<leader>fs", function()
+--     Snacks.picker.files({
+--         title = "Salesforce Files",
+--         -- Filtramos por extensiones comunes en SF
+--         ft = { "cls", "trigger", "js", "html", "xml" },
+--         -- Buscamos solo en la carpeta de fuerza de ventas si usas SFDX
+--         dirs = { "force-app" },
+--     })
+-- end, { desc = "Buscador Salesforce" })
+
 vim.keymap.set("n", "<leader>ff", function()
+	Snacks.picker.files({
+		exclude = { "node_modules", ".git", ".sfdx", ".sf" },
+	})
+end, { noremap = true, silent = true, desc = "Find File (modificado)" }) -- find files
+
+vim.keymap.set("n", "<leader>fF", function()
 	Snacks.picker.files()
-end, { noremap = true, silent = true, desc = "Find Files" }) -- find files
+end, { noremap = true, silent = true, desc = "Find Files (all, without filters)" }) -- find files
 
 vim.keymap.set("n", "<leader>fg", function()
 	Snacks.picker.git_files()
