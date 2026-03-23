@@ -275,7 +275,7 @@
 
 
 
-   Lhypr_lyr (tap-hold-press  $tap-time $hold-time @hrow_cl (layer-toggle HyperKeyLayer))
+   Lhypr_lyr (tap-hold-press  $tap-time $hold-time @shrtcat (layer-toggle HyperKeyLayer))
    MRsft_lyr (tap-hold-press  $tap-time $hold-time XX (layer-toggle RightShift))
    Rhypr_lyr (tap-hold-press  $tap-time $hold-time @hrow_sc (layer-toggle HyperKeyLayer))
    MLsft_lyr (tap-hold-press  $tap-time $hold-time XX (layer-toggle LeftShift))
