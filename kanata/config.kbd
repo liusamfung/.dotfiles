@@ -448,7 +448,7 @@
   tab  ralt   lctl    lsft    lmet    XX    XX    4    5    6    @+    @/    XX    ret
   esc XX    @o_leftC @e_leftO @u_rgthO @i_rgthC XX    1    2    3    XX    @-    XX
   lsft caps @:    left  down  up  rght   ,    0   0   .    XX    rsft
-  fn lctl lmet @hrow_cl        spc        rsft ralt left down up   rght
+  lmet lctl lalt @hrow_cl        spc        rsft ralt left down up   rght
 )
 
 
