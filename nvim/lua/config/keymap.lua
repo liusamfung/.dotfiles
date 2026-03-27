@@ -19,7 +19,8 @@ vim.keymap.set("n", "<leader>xx", vim.diagnostic.open_float, { desc = "Mostrar d
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", opts)
 
 -- When you using "J" to stack lines. Don't move the cursor the end line. Very useful for know `What the fuck line` I will move.
-vim.keymap.set("n", "J", "mzJ`z")
+-- vim.keymap.set("n", "J", "mzJ`z")
+vim.keymap.set("n", "J", "J_")
 
 --When you navigate with <C-d/u>, keep the cursor en the middle. Very useful for not getting disoriented.
 -- vim.keymap.set("n", "<C-d>", "<C-d>zz")
