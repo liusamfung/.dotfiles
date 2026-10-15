@@ -16,7 +16,7 @@ return {
 			require("solarized-osaka").setup({
 				transparent = true,
 				styles = {
-					-- You need a compatible Nertfont
+					-- You need a compatibleNertfont
 					comments = { italic = true }, -- Enable italics in comments
 					functions = { italic = true, bold = true },
 					keywords = { bold = true }, -- Anotaciones, palabras reservadas, etc
@@ -29,6 +29,17 @@ return {
 			vim.cmd.colorscheme("solarized-osaka")
 		end,
 	},
+
+	-- {
+	-- 	"2nthony/vitesse.nvim",
+	-- 	dependencies = {
+	-- 		"tjdevries/colorbuddy.nvim",
+	-- 	},
+	-- 	config = function()
+	-- 		vim.cmd.colorscheme("vitesse")
+	-- 		enable_transparency()
+	-- 	end,
+	-- },
 
 	-- {
 	-- 	"cpea2506/one_monokai.nvim",

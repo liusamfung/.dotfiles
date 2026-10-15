@@ -17,7 +17,7 @@ return {
 				fps = 120, -- frames per second. Global setting for all animations
 			},
 			scroll = {
-				enabled = true,
+				enabled = false,
 				animate = {
 					duration = {
 						step = 10, --  pAl reducir el tiempo por paso, la animación tiene más "muestras" por segundo. Esto hace que el movimiento sea más "sedoso", especialmente si tienes un monitor de muchos Hz.
@@ -74,7 +74,6 @@ return {
 				sources = {
 					explorer = {
 						-- focus = "",
-						matcher = { sort_empty = true, fuzzy = true },
 						jump = { close = true }, --autoclose when you choose a file
 						-- sidebar
 						layout = {
@@ -141,7 +140,7 @@ return {
 						ttl = 5 * 60,
 						indent = 3,
 					},
-					{ pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+					-- { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
 					{ section = "keys", gap = 1, padding = 1 },
 					{ section = "startup" },
 				},

@@ -103,7 +103,7 @@ return {
 			},
 			keymap = {
 				-- The default keymap to accept the suggenstion is "<C-y>"
-				-- preset = "super-tab",
+				preset = "super-tab",
 			},
 		},
 	},

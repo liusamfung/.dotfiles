@@ -1,10 +1,4 @@
 return {
-	-- {
-	-- 	"jonathanmorris180/salesforce.nvim",
-	-- 	dependencies = {
-	-- 		"nvim-lua/plenary.nvim",
-	-- 	},
-	-- },
 
 	{
 		"xixiaofinland/sf.nvim",
@@ -73,6 +67,10 @@ return {
 
 			vim.keymap.set("n", "<leader>tot", ":SF org setTarget<cr>", { desc = "Select Org Target" })
 			vim.keymap.set("n", "<leader>tog", ":SF org setGlobalTarget<cr>", { desc = "Select GlobalOrg Target" })
+			vim.keymap.set("n", "<leader>tof", ":SF org fetchList<cr>", { desc = "Fetch org list" })
+			vim.keymap.set("n", "<leader>too", Sf.org_open, { desc = "open target_org" })
+
+			vim.keymap.set("n", "<leader>tx", Sf.org_open_current_file, { desc = "open file in target_org" })
 
 			vim.keymap.set(
 				"n",
