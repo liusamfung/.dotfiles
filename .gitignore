@@ -2,3 +2,7 @@
 .DS_Store           
 # Windows (archivos de miniaturas)
 Thumbs.db           
+
+# Editor / backups
+.vscode/
+*.bak
