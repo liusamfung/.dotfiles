@@ -6,15 +6,16 @@
 
 
 (defvar
-  tap-time 10 ;; Deshabilitamos el tapcontinous porque interfiere con mi num_lyr
+  tap-time 20 ;; Deshabilitamos el tapcontinous porque interfiere con mi num_lyr
 
-  hold-time  200
+  hold-time  150
   subl-time 200
  tmux-delay 40
  chord-time 250
 )
 (defalias
  ;;Raycast variables
+
 
  c_clipb (cmd open raycast://extensions/raycast/clipboard-history/clipboard-history)
  k_killp (cmd open raycast://extensions/rolandleth/kill-process/index) ;;It's similar to Activity Monitor
@@ -38,31 +39,48 @@
   v_creat (cmd sudo -u liusam yabai -m space --create)
   w_destr (cmd sudo -u liusam yabai -m space --destroy)
 
-  h_spac1 (cmd sudo -u liusam yabai -m space --focus 1)
-  t_spac2 (cmd sudo -u liusam yabai -m space --focus 2)
-  n_spac3 (cmd sudo -u liusam yabai -m space --focus 3)
-  g_spac4 (cmd sudo -u liusam yabai -m space --focus 4)
-  c_spac5 (cmd sudo -u liusam yabai -m space --focus 5)
-  r_spac6 (cmd sudo -u liusam yabai -m space --focus 6)
-  7_spac7 (cmd sudo -u liusam yabai -m space --focus 7)
-  8_spac8 (cmd sudo -u liusam yabai -m space --focus 8)
-  9_spac9 (cmd sudo -u liusam yabai -m space --focus 9)
-  lastSpc (cmd sudo -u liusam yabai -m space --focus recent)
+;; Recuerda que si kanata ahora se abre como domnio. Eso hace que no reconozca 
+ ;; las variables que vivien en la shell 'zsh', por lo tanto. solo poner "yabai" 
+;; como comando no lo reconoce, sinembargo la shell si. Por ello lo que se debe hacer
+;; es entregar path completo. 
+ ;; otra solución también es entregar el path en la intanciación del demonio (Cosa
+;; que ya hice. Para que este pueda leer las variables que tiene ahora todos las
+;; formulas que descargó homebrew. Es por ello que las demás lineas puedo dejarlas como esta)
+  ;; h_spac1 (cmd sudo -u liusam /opt/homebrew/bin/yabai -m space --focus 1)
+
+  h_spac1 (cmd sudo -u liusam omniwmctl command switch-workspace 1)
+  t_spac2 (cmd sudo -u liusam omniwmctl command switch-workspace 2)
+  n_spac3 (cmd sudo -u liusam omniwmctl command switch-workspace 3)
+  g_spac4 (cmd sudo -u liusam omniwmctl command switch-workspace 4)
+  c_spac5 (cmd sudo -u liusam omniwmctl command switch-workspace 5)
+  r_spac6 (cmd sudo -u liusam omniwmctl command switch-workspace 6)
+  7_spac7 (cmd sudo -u liusam omniwmctl command switch-workspace 7)
+  8_spac8 (cmd sudo -u liusam omniwmctl command switch-workspace 8)
+  9_spac9 (cmd sudo -u liusam omniwmctl command switch-workspace 9)
+
+  lastSpc (cmd sudo -u liusam omniwmctl command switch-workspace back-and-forth)
+    lastWin (cmd sudo -u liusam /Users/liusam/dotfiles/scripts/omniwm-cycle-right.sh)
+
   )
 
 (defalias
 
+  test_c (cmd sudo -u liusam yabai -m window --toggle float)
   r_resta (cmd "/Users/liusam/dotfiles/yabai/restartGUI.sh")
   s_split (cmd sudo -u liusam yabai -m window --toggle split)
-  x_close (cmd sudo -u liusam bash -c "yabai $(yabai -m window $(yabai -m query --windows --window | jq -re '.id') --close)")
-  m_minim (cmd sudo -u liusam yabai -m window --minimize)
-  b_remin (cmd sudo -u liusam yabai -m window --deminimize)
+  x_close (cmd sudo -u liusam omniwmctl command close-focused-window)
+  m_minim M-m
+  h_hideW M-h
 
-  h_westt (cmd sudo -u liusam yabai -m window --focus west)
-  t_south (cmd sudo -u liusam yabai -m window --focus south)
-  c_north (cmd sudo -u liusam yabai -m window --focus north)
-  n_eastt (cmd sudo -u liusam yabai -m window --focus east)
 
+
+  h_westt (cmd sudo -u liusam omniwmctl command focus left)
+  t_south (cmd sudo -u liusam omniwmctl command focus down)
+  c_north (cmd sudo -u liusam omniwmctl command focus up)
+  n_eastt (cmd sudo -u liusam omniwmctl command focus right)
+
+
+  x_maxWi (cmd sudo -u liusam yabai -m window --toggle native-fullscreen)
   z_fulls (cmd sudo -u liusam yabai -m window --toggle zoom-fullscreen)
   i_stick (cmd sudo -u liusam yabai -m window --toggle sticky)
 
@@ -208,6 +226,7 @@
  y_AppLy S-M-c
  p_AppLy S-A-d
  ret_App M-l
+toggleMic S-C-A-M-m
 
  swtApp2 M-tab
  swtApp3 (macro M-(tab 20 tab))
@@ -217,54 +236,12 @@
 
 )
 
-(defchordsv2
-
-  (r e lmet) (multi lmet lsft) $chord-time first-release () ;; Shift + Meta (Left-hand)
-  (u i rmet) (multi rmet rsft) $chord-time first-release () ;; Shift + Meta (Rigth-hand)
-
-  (w r lmet) (multi lsft lctl) $chord-time first-release () ;; Shift + Control (Left-hand)
-  (u o rmet) (multi lsft lctl) $chord-time first-release () ;; Shift + Control (Rigth-hand)
-
-  (w e lmet) (multi lmet lctl) $chord-time first-release () ;; Meta + Control (Left-hand)
-  (i o rmet) (multi rmet rctl) $chord-time first-release () ;; Meta + Control (Rigth-hand)
-
-  (q e lmet) (multi lmet ralt) $chord-time first-release () ;; Meta + alt (Left-hand)
-  (i p rmet) (multi rmet ralt) $chord-time first-release () ;; Meta + alt (Rigth-hand)
-
-  (q r lmet) (multi ralt lsft) $chord-time first-release () ;; Alt + Shift (left-hand)
-  (p u rmet) (multi ralt rsft) $chord-time first-release () ;; Alt + Shift (left-hand)
-
-  (q lmet) ralt $chord-time first-release ()
-  (w lmet) lctl $chord-time first-release ()
-  (e lmet) lmet $chord-time first-release ()
-  (r lmet) lsft $chord-time first-release ()
-
-  (u rmet) rsft $chord-time first-release ()
-  (i rmet) rmet $chord-time first-release ()
-  (o rmet) lctl $chord-time first-release ()
-  (p rmet) ralt $chord-time first-release ()
-
-  (spc tab) (layer-toggle number) $chord-time first-release ()
-
-  (a lmet) (layer-toggle apps) $chord-time first-release ()
-  (f lmet) (layer-toggle sesionLayer) $chord-time first-release ()
-  (d lmet) (layer-toggle SpaceLayer) $chord-time first-release ()
-  (s lmet) (layer-toggle TabLayer) $chord-time first-release ()
-
-
-  (k rmet) (layer-toggle TerminalPaneLayer) $chord-time first-release ()
-  (l rmet) (layer-toggle WindowsLayer) $chord-time first-release ()
-  (j rmet) (layer-toggle TerminalLayer) $chord-time first-release ()
-
-
-)
 
 (defalias
 
    spa_slyr (layer-toggle SpaceSubLayer)
    win_slyr (layer-toggle WindowsSubLayer)
-   apps_lyr (layer-toggle apps)
-   sesn_lyr (layer-toggle sesionLayer)
+   sesn_lyr (layer-toggle SesionLayer)
    tabs_lyr (layer-toggle TabLayer)
    tPanelyr (layer-toggle TerminalPaneLayer)
    winOSlyr (layer-toggle WindowsLayer)
@@ -275,9 +252,9 @@
 
 
 
-   Lhypr_lyr (tap-hold-press  $tap-time $hold-time @shrtcat (layer-toggle HyperKeyLayer))
+   Lhypr_lyr (tap-hold-press  $tap-time $hold-time @hrow_cl (layer-toggle QuickAppFloatLayer))
    MRsft_lyr (tap-hold-press  $tap-time $hold-time XX (layer-toggle RightShift))
-   Rhypr_lyr (tap-hold-press  $tap-time $hold-time @hrow_sc (layer-toggle HyperKeyLayer))
+   Rhypr_lyr (tap-hold-press  $tap-time $hold-time @hrow_sc (layer-toggle QuickAppFloatLayer))
    MLsft_lyr (tap-hold-press  $tap-time $hold-time XX (layer-toggle LeftShift))
 
 
@@ -292,14 +269,32 @@
 
   sys_lyr (tap-hold $tap-time $hold-time z (layer-toggle systemLayer)) ;; trickster
 
-   scr_lyr (tap-hold $tap-time $hold-time @{ (layer-toggle ScreenShotLayer))
+  scr_lyr (tap-hold $tap-time $hold-time @{ (layer-toggle ScreenShotLayer))
 
+  tab_ (tap-hold $tap-time $hold-time o (layer-toggle TabLayer))
+  spce_ (tap-hold $tap-time $hold-time e (layer-toggle SpaceLayer))
+  sesion_ (tap-hold $tap-time $hold-time u (layer-toggle SesionLayer))
+  qckApp (tap-hold $tap-time $hold-time a (layer-toggle QuickAppFloatLayer))
+
+  termPane_ (tap-hold $tap-time $hold-time t (layer-toggle TerminalPaneLayer))
+  term_ (tap-hold $tap-time $hold-time h (layer-toggle TerminalLayer))
+  windw_ (tap-hold $tap-time $hold-time n (layer-toggle WindowsLayer))
+
+  Ralt_ (tap-hold $tap-time $hold-time ' ralt)
+  Rcntrl_ (tap-hold $tap-time $hold-time , lctl)
+  Rmet (tap-hold $tap-time $hold-time . lmet)
+  Rshft_ (tap-hold $tap-time $hold-time p lsft)
+  
+  Lalt_ (tap-hold $tap-time $hold-time g rsft)
+  Lcntrl_ (tap-hold $tap-time $hold-time c rmet)
+  Lmet (tap-hold $tap-time $hold-time r lctl)
+  Lshft_ (tap-hold $tap-time $hold-time l ralt)
 )
 
 (defalias 
 
   @_1fill (tap-hold $tap-time $hold-time @@ C-A-M-p) ;; trickster
-  %_1pass (tap-hold $tap-time $hold-time @% S-C-A-M-p) ;; trickster
+  %_1pass (tap-hold $tap-time $hold-time @% C-A-M-p) ;; trickster
   {_zappy (tap-hold $tap-time $hold-time @{ C-A-M-z) ;; trickster
   cpy (tap-hold $tap-time $hold-time M-v M-c) ;;Copy paste
 )
@@ -313,13 +308,14 @@
   fn lctl lalt lmet           spc           rmet ralt left down up   rght
 )
 
+;; lrld reloads everything inside your layers — defsrc, deflayer, defalias, defchords, etc. It does not reload anything in the defcfg block related to which physical device kanata is attached to (things like macos-dev-names-include/exclude)
 (deflayer base
-  @cpy  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  caps  @~ @[ @scr_lyr     @pl   @%_1pass   @$     @pr    @}   @]     @+    @`    @#    XX
-  tab '    ,    .    p    y    f    g    c r l    @/    @@_1fill    XX
-  esc a    o   e   u     i    d    h    t    n  s -    \
+  lrld  f1   @toggleMic   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  caps  @~ @[ @scr_lyr     @pl   @%_1pass   @$     @pr    @}   @]     @+    @`    @#    rght
+  tab @Ralt_  @Rcntrl_  @Rmet  @Rshft_    y    f @Lalt_  @Lcntrl_ @Lmet @Lshft_    @/    @@_1fill    left
+  esc @qckApp  @tab_ @spce_ @sesion_     i    d  @term_  @termPane_  @windw_  s -    \
   @MLsft_lyr @MLsft_lyr    @;       q    j    k       x        b    m    w    v    @sys_lyr    @MRsft_lyr
-  lmet XX @Lhypr_lyr    @Cntrl_lyr           @num_lyr           @RiCntrl_lyr    @Rhypr_lyr left down up   rght
+  fn XX XX    @Cntrl_lyr           @num_lyr           @RiCntrl_lyr    XX left down up   rght
 )
 
 (deflayer mainLayer
@@ -327,7 +323,7 @@
    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
    tab       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-     esc   @apps_lyr @sesn_lyr @tabs_lyr @spa_slyr    XX       XX       XX       XX       XX       XX       XX       XX
+     esc   XX @sesn_lyr @tabs_lyr @spa_slyr    XX       XX       XX       XX       XX       XX       XX       XX
   lsft    XX     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
  )
@@ -348,12 +344,15 @@
   showSht (macro S-C-A-M-s)
 
   fullSS_ (macro C-A-M-f)
-  areaSS_ (macro C-A-M-a)
-  repeatA (macro C-A-M-r)
-  windwSS (macro C-A-M-w) ;; Seleccionar que ventana del espacio actual hacer screeeshot.
+  record_ (macro C-A-M-r)
+  viewHis (macro C-A-M-h)
   textSS_ (macro C-A-M-t)
-  ;; scrllSS (macro C-A-M-s)
-  scrllSS (cmd sudo -u liusam open -a "ScrollSnap")
+  areaSS_ (macro C-A-M-a)
+  scrllSS (macro C-A-M-s)
+  openSS_ (macro C-A-M-spc)
+  repeatA (macro C-A-M-l)
+  pinSS_ (macro C-A-p)
+
   gif__SS (macro C-A-M-g)
 )
 
@@ -361,10 +360,10 @@
 
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-    tab       XX      XX       XX       XX       XX    @fullSS_ @gif__SS    XX    @repeatA    XX       XX       XX       XX
-      esc   @areaSS_    XX       XX       XX       XX       XX       XX    @textSS_    XX    @scrllSS    XX       XX
-   lsft    caps     XX       XX       XX       XX       XX       XX       XX    @windwSS    XX       XX       rsft
-    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+    tab       XX      XX       XX    @pinSS_    XX    @fullSS_ @gif__SS    XX  @record_  @repeatA       XX       XX       XX
+      esc   @areaSS_    XX       XX       XX       XX       XX     @viewHis  @textSS_  XX    @scrllSS    XX       XX
+   lsft    caps     XX       XX       XX       XX       XX       XX       XX    XX    XX       XX       rsft
+    fn    lctl lalt lmet                 @openSS_                     rmet    ralt         left down up  rght
   )
 
 (defalias
@@ -379,7 +378,7 @@
   closeSe (macro C-M-w)
 )
 
- (deflayer sesionLayer
+ (deflayer SesionLayer
 
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       @r9testt       XX       XX       XX
@@ -443,12 +442,12 @@
   )
 
 (deflayer number
-  esc  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX  XX  XX
-  XX  XX    XX    XX    XX    XX    @*    7   8    9   XX    XX    XX    bspc
+  esc  XX   XX   XX   XX   XX   XX   @/   @*   @-   XX  XX  XX
+  XX  XX    XX    XX    XX    XX    XX    7   8    9   @+    XX    XX    bspc
   tab  ralt   lctl    lsft    lmet    XX    XX    4    5    6    @+    @/    XX    ret
-  esc XX    @o_leftC @e_leftO @u_rgthO @i_rgthC XX    1    2    3    XX    @-    XX
+  esc XX    @o_leftC @e_leftO @u_rgthO @i_rgthC XX    1    2    3    ret    XX    XX
   lsft caps @:    left  down  up  rght   ,    0   0   .    XX    rsft
-  lmet lctl lalt @hrow_cl        spc        rsft ralt left down up   rght
+  lmet lctl lalt bspc        spc        rsft ralt left down up   rght
 )
 
 
@@ -457,21 +456,21 @@
  102d     XX      XX       XX       XX       XX       XX       @7_spac7   @8_spac8 @9_spac9 XX XX       XX       XX
     tab       XX       XX       XX       XX       XX       XX    @g_spac4 @c_spac5 @r_spac6 XX    XX       XX       XX
       @spa_slyr      XX       XX       XX       XX       XX       XX    @h_spac1 @t_spac2 @n_spac3    XX       XX       XX
-   lsft    caps     XX       XX       XX       XX       XX       XX       XX    @w_destr @v_creat    XX       rsft
+   lsft    caps     XX       XX       XX       XX       XX       XX       XX    XX @v_creat    XX       rsft
     fn    lctl lalt lmet                 @spa_slyr                     rmet    ralt         left down up  rght
   )
 
 (defalias
 
-  h_sndW1 (cmd sudo -u liusam yabai -m window --space 1 --focus)
-  t_sndW2 (cmd sudo -u liusam yabai -m window --space 2 --focus)
-  n_sndW3 (cmd sudo -u liusam yabai -m window --space 3 --focus)
-  g_sndW4 (cmd sudo -u liusam yabai -m window --space 4 --focus)
-  c_sndW5 (cmd sudo -u liusam yabai -m window --space 5 --focus)
-  r_sndW6 (cmd sudo -u liusam yabai -m window --space 6 --focus)
-  7_sndW7 (cmd sudo -u liusam yabai -m window --space 7 --focus)
-  8_sndW8 (cmd sudo -u liusam yabai -m window --space 8 --focus)
-  9_sndW9 (cmd sudo -u liusam yabai -m window --space 9 --focus)
+  h_sndW1 (cmd sudo -u liusam omniwmctl command move-to-workspace slot 1)
+  t_sndW2 (cmd sudo -u liusam omniwmctl command move-to-workspace slot 2)
+  n_sndW3 (cmd sudo -u liusam omniwmctl command move-to-workspace slot 3)
+  g_sndW4 (cmd sudo -u liusam omniwmctl command move-to-workspace slot 4)
+  c_sndW5 (cmd sudo -u liusam omniwmctl command move-to-workspace slot 5)
+  r_sndW6 (cmd sudo -u liusam omniwmctl command move-to-workspace slot 6)
+  7_sndW7 (cmd sudo -u liusam omniwmctl command move-to-workspace slot 7)
+  8_sndW8 (cmd sudo -u liusam omniwmctl command move-to-workspace slot 8)
+  9_sndW9 (cmd sudo -u liusam omniwmctl command move-to-workspace slot 9)
 
 
 )
@@ -497,20 +496,20 @@
 
  (deflayer WindowsLayer
     @r_resta    @just_term    @defaultPr    f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
- 102d     XX      XX    @7_flipX @8_flipY @9_rot90    XX       XX       XX       XX       XX       XX       XX       XX
+ 102d     @test_c      XX    @7_flipX @8_flipY @9_rot90    XX       XX       XX       XX       XX       XX       XX       XX
     tab    @i_stick @e_bsppp @z_fulls @u_stack @o_float   XX       XX       XX    XX    XX       XX       XX       XX
-      esc   @s_split    XX       XX       XX       XX       XX       XX       XX       XX    XX    XX       XX
-   lsft    caps     XX    @h_westt @t_south @c_north @n_eastt @b_remin @m_minim    XX       XX    XX    rsft
-    fn    lctl lalt @x_close                 @win_slyr                     rmet    ralt         left down up  rght
+      esc   @s_split    XX       XX       XX       XX       XX       @h_hideW       XX       XX    XX    XX       XX
+   lsft    caps     XX    @h_westt @t_south @c_north @n_eastt XX @m_minim    @x_close      XX    @x_maxWi    rsft
+    fn    lctl lalt XX                 @win_slyr                     rmet    ralt         left down up  rght
   )
 
 
 (defalias
 
-  h_rLeft (cmd sudo -u liusam yabai -m window --resize right:-50:0; yabai -m window --resize left:-50:0)
-  t_rBttn (cmd sudo -u liusam yabai -m window --resize bottom:0:50; yabai -m window --resize top:0:50)
-  c_rTopp (cmd sudo -u liusam yabai -m window --resize top:0:-50; yabai -m window --resize bottom:0:-50)
-  n_rRgth (cmd sudo -u liusam yabai -m window --resize right:50:0; yabai -m window --resize left:50:0)
+  h_rLeft (cmd sudo -u liusam omniwmctl command move-column left)
+  t_rBttn (cmd sudo -u liusam omniwmctl command move-column down)
+  c_rTopp (cmd sudo -u liusam omniwmctl command move-column up)
+  n_rRgth (cmd sudo -u liusam omniwmctl command move-column right)
 
 )
 
@@ -555,8 +554,8 @@ deletPane (macro C-A-M-x)
 (defalias
 reloadCn (macro C-M-,)
 nvimNavi (macro M-A-h)
-prvPrmpt (macro C-S-z)
-nxtPrmpt (macro C-S-x)
+prvPrmpt (macro C-S-e)
+nxtPrmpt (macro C-S-u)
 LineUP__    (macro-repeat C-S-k) 
 LineDown  (macro-repeat C-A-S-j) 
 
@@ -614,45 +613,44 @@ quickTerm  (macro-repeat C-A-S-spc)
   )
 
 (defalias
-  nextWin (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/cycle_stack.sh")
-  ;; nextWin (cmd sudo -u yabai -m window --focus stack.next || yabai -m window --focus stack.prev)
   nxtFcus (cmd sudo -u liusam yabai -m window --focus stack.next)
   prvFcus (cmd sudo -u liusam yabai -m window --focus stack.prev)
 )
 
 (deflayer ControlLayer 
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  @nextWin  @~ @[ @scr_lyr     @pl   @%_1pass   @$     @pr    @}   @]     @+    @`    @#    bspc
+  XX  @~ @[ @scr_lyr     @pl   @%_1pass   @$     @pr    @}   @]     @+    @`    @#    bspc
   C-tab C-'  C-,  C-.  C-p  C-y  C-f  C-g  C-c  C-r   C-l  C-/  @@_1fill    C-ret
-  F3 C-a  C-o C-e C-u   C-i  C-d  C-h  C-t  C-n  C-s -    \
+  @lastWin C-a  C-o C-e C-u   C-i  C-d  C-h  C-t  C-n  C-s -    \
   @lastSpc @lastSpc    @;       C-q   C-j   C-k     C-x      C-b  C-m  C-w  C-v  C-z  @MRsft_lyr
-  lmet @cpy @Lhypr_lyr    lctl           @num_lyr           rctl    @Rhypr_lyr left down up   rght
+  F3 @cpy @Lhypr_lyr    XX           @hrow_cl           @hrow_sl    @Rhypr_lyr left down up   rght
 )
 
 (deflayer RightControlLayer 
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  @nextWin  @~ @[ @scr_lyr     @pl   @%_1pass   @$     @pr    @}   @]     @+    @`    @#    bspc
+  XX  @~ @[ @scr_lyr     @pl   @%_1pass   @$     @pr    @}   @]     @+    @`    @#    bspc
   C-tab C-'  C-,  C-.  C-p  C-y  C-f  C-g  C-c  C-r   C-l  C-/  @@_1fill    C-ret
   F3 C-a  C-o C-e C-u   C-i  C-d  C-h  C-t  C-n  C-s -    \
   @lastSpc @lastSpc    @;       C-q   C-j   C-k     C-x      C-b  C-m  C-w  C-v  C-z  @MRsft_lyr
-  lmet @cpy @Lhypr_lyr    lctl           @num_lyr           rctl    @Rhypr_lyr left down up   rght
+  lmet @cpy @Lhypr_lyr    XX           @hrow_sc           rctl    @Rhypr_lyr left down up   rght
 )
 
 (deflayer LeftShift
   esc   f1   f2  f3   f4   f5   f6   f7   f8   f9  f10   f11   f12
-  XX  XX    @=    XX    @fullSS   @virgu    @&    @*    @act_acc    @!    @¿    @¡    XX    bspc
+  XX  @!    @=    @act_acc    @fullSS   XX    @&    @*    @grv_acc    @virgu    @¿    @¡    XX    bspc
   @swtApp2 @''    @<    @>    @P    @Y    @F    @G    @C    @R    @L    @?    @^    ret
   esc @A    @O    @E    @U    @I    @D    @H    @T    @N    @S    @_    @|
-  lsft caps @:    @Q    @J    @K    @X    @B    @M    @W    @V    @Z    @nextWin
-  fn lctl lmet lsft        @raycastPrompt        @hrow_sl ralt @prvFcus down up   @nxtFcus
+  lsft caps @:    @Q    @J    @K    @X    @B    @M    @W    @V    @Z    XX
+  fn lctl lmet lsft        @raycastPrompt        @b_raind ralt @prvFcus down up   @nxtFcus
 )
+
 (deflayer RightShift
   esc   f1   f2  f3   f4   f5   f6   f7   f8   f9  f10   f11   f12
-  XX  XX    @=    @fullSS    @grv_acc   @virgu    @&    @*    @act_acc    @!    @¿    @¡    XX    bspc
-  @swtApp2 @''    @<    @>    @P    @Y    @F    @G    @C    @R    @L    @?    @^    ret
+  XX  @!    @=    @act_acc    @fullSS   XX    @&    @*    @grv_acc    @virgu    @¿    @¡    XX    bspc
+  S-tab @''    @<    @>    @P    @Y    @F    @G    @C    @R    @L    @?    @^    ret
   esc @A    @O    @E    @U    @I    @D    @H    @T    @N    @S    @_    @|
   lsft @prvFcus @:    @Q    @J    @K    @X    @B    @M    @W    @V    @Z    @nxtFcus
-  fn lctl lmet @raycastPrompt        @hrow_sc        rsft ralt left down up   rght
+  fn lctl lmet @raycastPrompt        XX        @hrow_sc ralt left down up   rght
 )
 
 
@@ -665,56 +663,8 @@ quickTerm  (macro-repeat C-A-S-spc)
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
 
-(defalias 
-
-;; yabai -m query --windows | grep app
-
-     a_QkCam (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Quick Camera'")
-     a_chrom (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Zen'")
-     a_excel (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Microsoft Excel'")
-     a_wordd (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Microsoft Word'")
-     a_outlk (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Microsoft Outlook'")
-     a_canva (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Canva'")
-
-     a_ntion (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Notion'")
-     a_obsin (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Obsidian'")
-
-     a_term (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'kitty'") ;;(T)terminal (This is my terminal emulator)
-     a_brwsr (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Zen'") ;;(B)rowser (This is my main browser) 
-
-     a_slack (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Slack'") 
-     a_whtsp (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'WhatsApp'") 
-     a_zoomm (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'zoom.us'") 
-     a_teams (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Microsoft Teams'") 
-     a_discd (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Discord'") 
-
-     a_1pssw (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh '1password'") 
-     a_remdr (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Reminders'") 
-
-     a_ytmsc (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'YouTube Music'") 
-     a_findr (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Finder'")
-     a_innaa (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'IINA'") 
-     a_prviw (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Preview'") 
-     a_fntcl (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'Fantastical'") 
-
-     a_sttng (cmd sudo -u liusam zsh -lc "~/dotfiles/kanata/500-switchApp.sh 'System Settings'") 
 
 
-            ;;5: app("DaVinci Resolve"), @linkarzu for video editing
-            ;;r: app("Recut"), Automatic recut space with silence @linkarzu
-            ;;7: app("Jitsi Meet"),Jitsi Meet is a fully encrypted, 100% open source video conferencing solution that you can use all day,
-            ;;o: app("OBS"),
-            ;;q: app("Setapp"),
-)
-
- (deflayer apps
-    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
- 102d     XX      XX       XX       XX       XX       XX       XX    @a_excel @a_outlk @a_wordd @a_canva    XX       XX
-    tab       XX    @a_sttng    XX    @a_1pssw @a_ytmsc @a_findr    XX    @a_fntcl @a_remdr XX @a_prviw    XX       XX
-      esc      XX @a_obsin XX       XX       XX    @a_discd    XX    @a_term @a_ntion @a_slack @a_innaa    ret
-   lsft    caps     XX       XX       XX       XX       XX    @a_chrom @a_whtsp    XX    @a_teams @a_zoomm    rsft
-    fn    lctl lalt lmet                 @a_QkCam                     rmet    ralt         left down up  rght
-  )
 
  (deflayer raycastUtilyExtension
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
@@ -730,8 +680,18 @@ quickTerm  (macro-repeat C-A-S-spc)
   fullSS C-A-M-f
   slctSS C-A-M-x
   d_dicti S-C-A-M-d ;; easydictionary (https://github.com/tisfeng/Easydict)
-  quickT S-C-A-M-t
-  quickN (cmd sudo -u liusam zsh -lc "~/dotfiles/yabai/scripts/toggle_notes.sh") ;; QuickNotes (Popup)
+  ;; quickT S-C-A-M-t ;; this is for kitty. But now i'm using OmniWM's quickterm
+  quickT A-102d ;; this is '`'
+ ;; quickN(cmd sudo -u liusam zsh -lc "~/dotfiles/yabai/scripts/toggle_notes.sh 'Notes'") ;; QuickNotes (Popup)
+;;  quickGem (cmd sudo -u liusam zsh -lc "~/dotfiles/yabai/scripts/toggle_notes.sh 'Gemini'") ;; Gemini (Popup)
+;; Definición de los atajos invocando el Scheme de Hammerspoon
+quickN (cmd open "hammerspoon://toggleapp?name=Notes")
+quickGem (cmd open "hammerspoon://toggleapp?name=Gemini")
+quickSim (cmd open "hammerspoon://toggleapp?name=Simulator")
+quickCam (cmd open "hammerspoon://toggleapp?name=Quick Camera")
+qk1passw S-C-A-M-p
+;;quickT (cmd open "hammerspoon://toggleApp?name=Ghostty")
+
   quickCal S-C-A-M-c
   quickHis S-C-A-M-h ;; History clipboard
   RainBook A-M-b
@@ -751,14 +711,14 @@ quickTerm  (macro-repeat C-A-S-spc)
 )
 
  
- (deflayer HyperKeyLayer
+ (deflayer QuickAppFloatLayer
 
     esc      @h_f1     @h_f2     @h_f3     @h_f4     @h_f5     @h_f6     @h_f7     @h_f8     @h_f9    @h_f10     @h_f11     @h_f12
  102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-    @nextWin       XX       XX       XX       XX       XX       XX       XX    @quickCal    XX       XX       XX       XX       XX
-      F3      XX       XX       XX       XX       XX    @d_dicti    @quickHis    @quickT  @quickN     XX       XX       XX
+    XX       XX       XX       XX       @qk1passw       XX       XX       @quickGem    @quickCal    XX       XX       XX       XX       XX
+      F3      XX       XX       XX       XX       XX    @d_dicti    @c_clipb    @quickT  @quickN     @quickSim       XX       XX
    @lastSpc    XX     XX       XX       XX       XX       XX       @b_raind       XX       XX       XX       XX       rsft
-    fn    lctl lalt XX              @raycastPrompt                  rmet    ralt         left down up  rght
+    fn    lctl lalt XX              @quickCam                  rmet    ralt         left down up  rght
   )
 
 
