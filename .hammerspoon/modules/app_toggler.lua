@@ -1,4 +1,4 @@
--- ~/.hammerspoon/app_toggler.lua
+-- ~/.hammerspoon/modules/app_toggler.lua
 
 local M = {}
 

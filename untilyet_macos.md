@@ -2,7 +2,7 @@
 
 brew "mas"
 brew "neovim"
-brew "koekeishiya/formulae/yabai"
+cask "omniwm"
 cask "1password"
 cask "firefox"
 cask "google-chrome"
