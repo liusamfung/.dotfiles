@@ -30,24 +30,6 @@
 
 (defalias
 
-;; Nota importante. Debido a que El root no puede acceder a algunos archivos del los usuarios 
-;; En este caso (usuario: liusam) y mi archivo '/tmp/yabai_liusam.socket', Kanata no puede hacer 
-;; contacto con el socket de yabai debido a que el comando con el que se inicia el servicio de Kanata 
-;; (sudo your/path/kanata -c your/file/config.kbd) entra como modo root. Por ello, es 
-;; necesario mediante este archivo.kbd indicarle que para ejecutar un command  de yabai 
-;; (Por ejemplo 'yabai -m space --destroy') lo haga como usuario donde actual (sudo -u liusam)
-  v_creat (cmd sudo -u liusam yabai -m space --create)
-  w_destr (cmd sudo -u liusam yabai -m space --destroy)
-
-;; Recuerda que si kanata ahora se abre como domnio. Eso hace que no reconozca 
- ;; las variables que vivien en la shell 'zsh', por lo tanto. solo poner "yabai" 
-;; como comando no lo reconoce, sinembargo la shell si. Por ello lo que se debe hacer
-;; es entregar path completo. 
- ;; otra solución también es entregar el path en la intanciación del demonio (Cosa
-;; que ya hice. Para que este pueda leer las variables que tiene ahora todos las
-;; formulas que descargó homebrew. Es por ello que las demás lineas puedo dejarlas como esta)
-  ;; h_spac1 (cmd sudo -u liusam /opt/homebrew/bin/yabai -m space --focus 1)
-
   h_spac1 (cmd sudo -u liusam omniwmctl command switch-workspace 1)
   t_spac2 (cmd sudo -u liusam omniwmctl command switch-workspace 2)
   n_spac3 (cmd sudo -u liusam omniwmctl command switch-workspace 3)
@@ -65,9 +47,8 @@
 
 (defalias
 
-  test_c (cmd sudo -u liusam yabai -m window --toggle float)
-  r_resta (cmd "/Users/liusam/dotfiles/yabai/restartGUI.sh")
-  s_split (cmd sudo -u liusam yabai -m window --toggle split)
+  test_c (cmd sudo -u liusam omniwmctl command toggle-focused-window-floating)
+  s_split (cmd sudo -u liusam omniwmctl command toggle-split)
   x_close (cmd sudo -u liusam omniwmctl command close-focused-window)
   m_minim M-m
   h_hideW M-h
@@ -80,18 +61,8 @@
   n_eastt (cmd sudo -u liusam omniwmctl command focus right)
 
 
-  x_maxWi (cmd sudo -u liusam yabai -m window --toggle native-fullscreen)
-  z_fulls (cmd sudo -u liusam yabai -m window --toggle zoom-fullscreen)
-  i_stick (cmd sudo -u liusam yabai -m window --toggle sticky)
-
-  9_rot90 (cmd sudo -u liusam yabai -m space --rotate 270) ;; 90 degrees for anti-clockwise
-                                                            ;;270 degrees to clocwise
-  8_flipY (cmd sudo -u liusam yabai -m space --mirror y-axis)
-  7_flipX (cmd sudo -u liusam yabai -m space --mirror x-axis)
-
-  e_bsppp (cmd sudo -u liusam yabai -m space --layout bsp)
-  o_float (cmd sudo -u liusam yabai -m space --layout float)
-  u_stack (cmd sudo -u liusam yabai -m space --layout stack)
+  x_maxWi (cmd sudo -u liusam omniwmctl command toggle-native-fullscreen)
+  z_fulls (cmd sudo -u liusam omniwmctl command toggle-fullscreen)
  ;;
   )
 
@@ -456,7 +427,7 @@ toggleMic S-C-A-M-m
  102d     XX      XX       XX       XX       XX       XX       @7_spac7   @8_spac8 @9_spac9 XX XX       XX       XX
     tab       XX       XX       XX       XX       XX       XX    @g_spac4 @c_spac5 @r_spac6 XX    XX       XX       XX
       @spa_slyr      XX       XX       XX       XX       XX       XX    @h_spac1 @t_spac2 @n_spac3    XX       XX       XX
-   lsft    caps     XX       XX       XX       XX       XX       XX       XX    XX @v_creat    XX       rsft
+   lsft    caps     XX       XX       XX       XX       XX       XX       XX    XX XX    XX       rsft
     fn    lctl lalt lmet                 @spa_slyr                     rmet    ralt         left down up  rght
   )
 
@@ -485,19 +456,12 @@ toggleMic S-C-A-M-m
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
 
-  (defalias
-  defaultPr (cmd sudo -u liusam zsh -lc "~/dotfiles/yabai/profiles/default_config.sh")
-  just_term (cmd sudo -u liusam zsh -lc "~/dotfiles/yabai/profiles/only_term.sh")
-
-
-
-  )
 
 
  (deflayer WindowsLayer
-    @r_resta    @just_term    @defaultPr    f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
- 102d     @test_c      XX    @7_flipX @8_flipY @9_rot90    XX       XX       XX       XX       XX       XX       XX       XX
-    tab    @i_stick @e_bsppp @z_fulls @u_stack @o_float   XX       XX       XX    XX    XX       XX       XX       XX
+    XX    XX    XX    f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     @test_c      XX    XX XX XX    XX       XX       XX       XX       XX       XX       XX       XX
+    tab    XX XX @z_fulls XX XX   XX       XX       XX    XX    XX       XX       XX       XX
       esc   @s_split    XX       XX       XX       XX       XX       @h_hideW       XX       XX    XX    XX       XX
    lsft    caps     XX    @h_westt @t_south @c_north @n_eastt XX @m_minim    @x_close      XX    @x_maxWi    rsft
     fn    lctl lalt XX                 @win_slyr                     rmet    ralt         left down up  rght
@@ -613,8 +577,8 @@ quickTerm  (macro-repeat C-A-S-spc)
   )
 
 (defalias
-  nxtFcus (cmd sudo -u liusam yabai -m window --focus stack.next)
-  prvFcus (cmd sudo -u liusam yabai -m window --focus stack.prev)
+  nxtFcus (cmd sudo -u liusam omniwmctl command focus-window down-or-top)
+  prvFcus (cmd sudo -u liusam omniwmctl command focus-window up-or-bottom)
 )
 
 (deflayer ControlLayer 
@@ -682,8 +646,6 @@ quickTerm  (macro-repeat C-A-S-spc)
   d_dicti S-C-A-M-d ;; easydictionary (https://github.com/tisfeng/Easydict)
   ;; quickT S-C-A-M-t ;; this is for kitty. But now i'm using OmniWM's quickterm
   quickT A-102d ;; this is '`'
- ;; quickN(cmd sudo -u liusam zsh -lc "~/dotfiles/yabai/scripts/toggle_notes.sh 'Notes'") ;; QuickNotes (Popup)
-;;  quickGem (cmd sudo -u liusam zsh -lc "~/dotfiles/yabai/scripts/toggle_notes.sh 'Gemini'") ;; Gemini (Popup)
 ;; Definición de los atajos invocando el Scheme de Hammerspoon
 quickN (cmd open "hammerspoon://toggleapp?name=Notes")
 quickGem (cmd open "hammerspoon://toggleapp?name=Gemini")
@@ -696,7 +658,7 @@ qk1passw S-C-A-M-p
   quickHis S-C-A-M-h ;; History clipboard
   RainBook A-M-b
   h_f1 S-C-A-M-f1
-  h_f2 (cmd sudo -u liusam yabai -m space --focus recent)
+  h_f2 (cmd sudo -u liusam omniwmctl command switch-workspace back-and-forth)
   h_f3 C-tab
   h_f4 S-C-A-M-f4
   h_f5 S-C-A-M-f5
