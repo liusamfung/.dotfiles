@@ -7,12 +7,19 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
--- --If you wanna view relotivenumber in 'terminalmode'
--- vim.api.nvim_create_autocmd('termopen', {
---   callback = function()
---     vim.opt_local.relativenumber = true
---     vim.opt_local.wrap = false
---   end,
+-- vim.api.nvim_create_autocmd({ "InsertEnter", "InsertLeave" }, {
+-- 	callback = function()
+-- 		vim.opt.guicursor =
+-- 			"n-v-c:block-blinkwait175-blinkoff150-blinkon175,i-ci-ve:ver25-blinkwait175-blinkoff150-blinkon175,r-cr:hor20,o:hor50"
+-- 	end,
+-- })
+
+-- --If you wanna view relativenumber in 'terminalmode'
+-- vim.api.nvim_create_autocmd("termopen", {
+-- 	callback = function()
+-- 		vim.opt_local.relativenumber = true
+-- 		vim.opt_local.wrap = false
+-- 	end,
 -- })
 --
 
@@ -134,5 +141,6 @@ vim.filetype.add({
 		xsl = "xsl",
 		xslt = "xslt",
 		kbd = "kanata",
+		["kitty-session"] = "conf",
 	},
 })

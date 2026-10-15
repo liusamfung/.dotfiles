@@ -4,6 +4,7 @@ local opts = {
 	silent = true, --TODO: Don't work?
 }
 
+-- vim.keymap.set("i", "<C-c>", "<Nop>")
 vim.g.mapleader = " "
 -- vim.keymap.set("n", "<leader>e", vim.cmd.Ex, opts)
 vim.keymap.set("n", "<leader>l", vim.cmd.Lazy, opts)
@@ -53,7 +54,7 @@ vim.keymap.set("n", "<leader>uw", function()
 	vim.o.wrap = not vim.o.wrap
 	local status = vim.o.wrap and "enable" or "disable"
 	local color = vim.o.wrap and "DiagnosticError" or "DiagnosticOk"
-	vim.api.nvim_echo({ { "Now wrap is " .. status, color } }, false, {})
+	-- vim.api.nvim_echo({ { "Now wrap is " .. status, color } }, false, {})
 end)
 
 vim.keymap.set("n", "<leader>uH", function()

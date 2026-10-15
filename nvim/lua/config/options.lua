@@ -1,3 +1,5 @@
+vim.opt.guicursor =
+	"n-v-c:block-blinkwait175-blinkoff150-blinkon175,i-ci-ve:ver25-blinkwait175-blinkoff150-blinkon175,r-cr:hor20,o:hor50"
 vim.opt.wrap = false -- Don't wrap default. (Teot fit in one  no matters how log it is)
 vim.opt.breakindent = true -- Cuando tenemos el modo Wrap activo y la linea es tan grande que no entra en la panatalla. Queremos que este continue la identacion de la linea actual. No queromos que se vaya hasta el principio de la linea (Columna 0) ttnuutuetuuntoehentuhtuhtoehu uoeu eou ue euoe uee uoe oeu oeu ou oe uoe  uuoeueuou
 
