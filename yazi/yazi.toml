@@ -14,56 +14,52 @@ max_height      = 1800
 
 [open]
 prepend_rules = [
-	{ name = "*.png", use = "imagen" },
-  { name = "*.jpg",  use = "imagen" },
-  { name = "*.jpeg", use = "imagen" },
-  # { name = "*.gif",  use = "imagen" },
-  { name = "*.webp", use = "imagen" },
-  { name = "*.svg",  use = "docs" },  # Abrirlo con Firefox.
-  { name = "*.ico",  use = "imagen" },
-  { name = "*.avif", use = "imagen" },
-  { name = "*.heic", use = "imagen" },
-  { name = "*.bmp",  use = "imagen" },
-  { name = "*.tiff", use = "imagen" },
+  # NOTE: Reglas por mime (no por extension): los archivos dentro de la papelera tienen mime
+  # "trash/*", asi que NO se ven afectados y siguen mostrando "Restore selected files" /
+  # "Empty trash bin" con Shift+O. Con `url = "*.png"` la regla tambien atrapaba la papelera.
+  { mime = "image/png",     use = [ "imagen", "edit_image" ] },
+  { mime = "image/svg+xml", use = [ "open", "reveal" ] },  # svg y gif: comportamiento default
+  { mime = "image/gif",     use = [ "open", "reveal" ] },
+  { mime = "image/*",       use = [ "imagen", "reveal" ] },
 
-  { name = "*.pdf", use = "docs" },
-
-	# # Multiple openers for a single rule
-	# { name = "*.html", use = [ "open", "edit" ] },
+  # { mime = "application/pdf", use = "docs" },
 ]
 
 [opener]
 video_all = [
-    { run = 'open -a "IINA" "$@"', block = true, for = "unix" },
+    { run = 'open -a "Preview" %s', block = true, for = "unix" },
 ]
 
 docs = [
-    { run = 'open -a "Firefox" "$@"', block = true, for = "unix" },
+    { run = 'open -a "Firefox" %s', block = true, for = "unix" },
 ]
 imagen = [
-    { run = 'open -a "Shottr" "$@"', block = true, for = "macos" },
+    { run = 'open -a "Phoenix Slides" %s', block = true, for = "macos" },
 ]
 edit = [
-    { run = 'nvim "$@"', block = true, for = "unix" },
+    { run = 'nvim %s', block = true, for = "unix" },
+]
+edit_image = [
+    { run = 'open -a "macshot" %s', block = true, for = "unix" },
 ]
 play = [
-    { run = 'open -a "IINA" "$@"', block = true, for = "macos" },
-    # { run = 'open -a "QuickTime Player" "$@"', block = true, for = "macos" },
+    { run = 'open -a "IINA" %s', block = true, for = "macos" },
+    # { run = 'open -a "QuickTime Player" %s', block = true, for = "macos" },
 ]
 extract = [
-	{ run = 'ouch d -y %*', desc = "Extract here with ouch", for = "windows" },
-	{ run = 'ouch d -y "$@"', desc = "Extract here with ouch", for = "unix" },
+	# { run = 'ouch d -y %*', desc = "Extract here with ouch", for = "windows" },
+	{ run = 'ouch d -y %s', desc = "Extract here with ouch", for = "unix" },
 ]
 
 
 [plugin]
 # https://github.com/boydaihungst/mediainfo.yazi
 
-  prepend_fetchers = [
-    # https://github.com/yazi-rs/plugins/tree/8f1d9711bcd0e48af1fcb4153c16d24da76e732d/git.yazi
-    { id = "git", name = "*", run = "git" },
-    { id = "git", name = "*/", run = "git" },
-  ]
+  # prepend_fetchers = [
+  #   # https://github.com/yazi-rs/plugins/tree/8f1d9711bcd0e48af1fcb4153c16d24da76e732d/git.yazi
+  #   { id = "git", name = "*", run = "git" },
+  #   { id = "git", name = "*/", run = "git" },
+  # ]
 
   prepend_preloaders = [
     # https://github.com/wylie102/duckdb.yazi
@@ -84,15 +80,15 @@ extract = [
   prepend_previewers = [
     
     # https://github.com/wylie102/duckdb.yazi
-    { name = "*.csv", run = "duckdb" },  
-    { name = "*.tsv", run = "duckdb" },  
-    { name = "*.json", run = "duckdb" },  
-    { name = "*.parquet", run = "duckdb" },  
-    { name = "*.txt", run = "duckdb" },  
-    { name = "*.xlsx", run = "duckdb" },  
-    { name = "*.db", run = "duckdb" },
-    { name = "*.duckdb", run = "duckdb" },
-
+    # { name = "*.csv", run = "duckdb" },  
+    # { name = "*.tsv", run = "duckdb" },  
+    # { name = "*.json", run = "duckdb" },  
+    # { name = "*.parquet", run = "duckdb" },  
+    # { name = "*.txt", run = "duckdb" },  
+    # { name = "*.xlsx", run = "duckdb" },  
+    # { name = "*.db", run = "duckdb" },
+    # { name = "*.duckdb", run = "duckdb" },
+    #
     # Replace magick, image, video with mediainfo
     { mime = "{audio,video,image}/*", run = "mediainfo"},
     { mime = "application/subrip", run = "mediainfo" },

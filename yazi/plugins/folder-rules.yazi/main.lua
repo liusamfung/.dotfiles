@@ -4,6 +4,8 @@ local function setup()
 		home .. "/Downloads", --concadenamos 'Users/liusam' con '/Downloads'
 		home .. "/.local/share/Trash/files",
 		home .. "/Pictures/Fototeca de Photo Booth/Pictures", --Only for MacOS
+		home .. "/Movies",
+		"/Users/liusam/.Trash",
 	}
 
 	ps.sub("cd", function()

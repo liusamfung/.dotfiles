@@ -88,10 +88,10 @@ on = ["T","r"]
 run = "plugin recycle-bin -- restore"
 desc = "Restore from Trash"
 
-[[mgr.prepend_keymap]]
-on = ["d","t"]
-run = "plugin recycle-bin -- delete"
-desc = "Delete from Trash"
+# [[mgr.prepend_keymap]]
+# on = ["d","t"]
+# run = "plugin recycle-bin -- delete"
+# desc = "Delete from Trash"
 
 [[mgr.prepend_keymap]]
 on = ["T","e","d"]
@@ -113,10 +113,10 @@ on = "<C-y>"
 run = "plugin system-clipboard"
 desc = "Copy file as File/photo, etc"
 
-[[mgr.prepend_keymap]]
-on = ["d","d"]
-run = ['escape --visual', 'shell --confirm "trash-put \"$@\""']
-desc = "Mover archivos a la papelera (trash-cli)"
+# [[mgr.prepend_keymap]]
+# on = ["d","d"]
+# run = ['escape --visual', 'shell --confirm "trash-put \"$@\""']
+# desc = "Mover archivos a la papelera (trash-cli)"
 
 ##################################### frank######################
 [[mgr.prepend_keymap]]
@@ -170,17 +170,17 @@ desc = "Go to PersonalProjects"
 
 [[mgr.prepend_keymap]]
 on = ["g","a"]
-run = "cd ~/Dev/AcademicProjects/2025-II"
+run = "cd ~/Dev/AcademicProjects/2026-I"
 desc = "Go to AcademicProjects"
 
 [[mgr.prepend_keymap]]
 on = ["g","i"]
-run = "cd '~/Library/Mobile Documents/com~apple~CloudDocs/Documents/'"
-desc = "Go to Personal iCloud"
+run = "cd '/Users/liusam/Google Drive/My Drive'"
+desc = "Go to Drive "
 
 [[mgr.prepend_keymap]]
 on = ["g","o"]
-run = "cd '~/Library/CloudStorage/OneDrive-UniversidadTecnologicadelPeru'"
+run = "cd '~/Library/CloudStorage/OneDrive-Personal'"
 desc = "Go to OneDrive"
 
 [[mgr.prepend_keymap]]
@@ -198,7 +198,12 @@ on = ["g","e"]
 run = "cd '~/Dev/EnterpriseProjects'"
 desc = "Go to EnterpriseProjejcts"
 
+# [[mgr.prepend_keymap]]
+# on = ["g","t"]
+# run = "cd '~/Dev/Tools'"
+# desc = "Go to Tools"
+
 [[mgr.prepend_keymap]]
-on = ["g","t"]
-run = "cd '~/Dev/Tools'"
+on = ["g","u"]
+run = "cd '~/Drive'"
 desc = "Go to Tools"
