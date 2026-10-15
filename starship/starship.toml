@@ -1,7 +1,9 @@
-add_newline = true # Add blankline after each prompt
+add_newline = false # Add blankline after each prompt
 
+# If you wanta a line that separtes prompt per prompt. Put this shit between 
+# format y sudo line
 format = """
-$fill
+$fill 
 $sudo\
 $username\
 $hostname\
