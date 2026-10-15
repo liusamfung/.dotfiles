@@ -2,8 +2,7 @@ new_tab OBSIDIAN
   layout tall
 # Set the working directory for windows in the current tab
 #PersonalKnowledge es un symlink de mi vault de Obsidian
-  cd ~/PersonalKnowledge
-    launch --title "Obsidian-pane" /bin/zsh -i -c 'nvim'
+    launch --cwd ~/PersonalKnowledge /bin/zsh -i -c "nvim; zsh"
   focus
 
 new_tab btop

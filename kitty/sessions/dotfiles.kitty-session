@@ -1,30 +1,22 @@
+
 new_tab DOTFILES
 layout tall
-cd ~/dotfiles/
-    launch  --hold /bin/zsh -c nvim
-      focus # Con esta linea estoy volviendo el pane actual en el enfocado después de crear los demás panes(Windows)
+enabled_layouts fat,grid,horizontal,splits,stack,tall,vertical
+set_layout_state {"main_bias": [0.5, 0.5], "biased_map": {}, "opts": {"full_size": 1, "bias": 50, "mirrored": "n"}, "class": "Tall", "all_windows": {"active_group_idx": 0, "active_group_history": [7], "window_groups": [{"id": 7, "window_ids": [7]}]}}
+cd ../..
 
-new_tab Term-Log
+launch 'kitty-unserialize-data={"id": 7}' /bin/zsh -i -c 'nvim; zsh'
+focus
+
+new_tab TEST-LOG
+# Set the layout for the current tab
   layout fat
-#    launch --hold ov --multi-color "ERROR,WARN,INFO,DEBUG,not,^.{24}" /Users/liusam/.local/state/nvim/lsp.log
-  cd ~/dotfiles/
-    launch  --title  "MainTerm" zsh
-  cd ~/dotfiles/
-    launch  --title  "pane2" zsh
-  cd ~/dotfiles/
-    launch  --title  "pane3" zsh
-  cd ~/dotfiles/
-    launch  --title  "pane4" zsh
-# launch --cwd=current --title  "Currennt" zsh
+# Set the working directory for windows in the current tab
+  cd ~/
+    launch --title "pane3"  --cwd ~/dotfiles/
+    
+    launch --title "pane2"  /bin/zsh -i -c "fswatch -o ~/dotfiles/kanata/config.kbd | xargs -n1 -I{} ~/Dev/Tools/kanata/target/release/kanata -c ~/dotfiles/kanata/config.kbd --check; zsh"
 
-new_tab btop
-  cd ~/dotfiles/
-    launch  --hold /bin/zsh 
+    # We need sudo privilages to watch the line below
+    # launch  /bin/zsh -i -c "tail -f /Library/Logs/Kanata/kanata.out.log" 
 
-
-# new_tab DOTFILES
-# layout tall
-# cd ~/dotfiles/
-#     launch  --hold /bin/zsh -c nvim
-
-focus_os_window

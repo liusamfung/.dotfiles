@@ -1,3 +1,8 @@
+new_tab NEOVIM
+layout tall
+    launch 
+      focus # Con esta linea estoy volviendo el pane actual en el enfocado después de crear los demás panes(Windows)
+
 new_tab Term-Log
   layout fat
 #    launch --hold ov --multi-color "ERROR,WARN,INFO,DEBUG,not,^.{24}" /Users/liusam/.local/state/nvim/lsp.log
@@ -11,16 +16,5 @@ new_tab Term-Log
   cd ~/Dev/
     launch  --title  "pane4" zsh
 # launch --cwd=current --title  "Currennt" zsh
-
-new_tab Term
-  cd ~/Dev/
-    launch  --hold /bin/zsh 
-
-
-new_tab NEOVIM
-layout tall
-cd ~/Dev/
-    launch  --hold /bin/zsh -c nvim
-      focus # Con esta linea estoy volviendo el pane actual en el enfocado después de crear los demás panes(Windows)
 
 focus_os_window
