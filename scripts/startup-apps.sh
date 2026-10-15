@@ -1,5 +1,5 @@
 #!/bin/zsh
-# ~/dotfiles/yabai/scripts/startup-apps.sh
+# ~/dotfiles/scripts/startup-apps.sh
 # Opens the apps you always want running after login.
 
 STARTUP_APPS=(

@@ -1,5 +1,5 @@
 #!/bin/zsh
-# ~/dotfiles/yabai/scripts/close-apps.sh
+# ~/dotfiles/scripts/close-apps.sh
 # Gracefully quit running apps to free up memory, keeping select apps open.
 # Usage: close-apps.sh [--force]
 

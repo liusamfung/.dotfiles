@@ -28,10 +28,10 @@ alias kanata-check="~/Dev/Tools/kanata/target/release/kanata -c ~/dotfiles/kanat
 # config/kanata: variable 'lrld' reloads everything inside your layers — defsrc, deflayer, defalias, defchords, etc. It does not reload anything in the defcfg block related to which physical device kanata is attached to (things like macos-dev-names-include/exclude)
 alias kanata-restart="~/Dev/Tools/kanata/target/release/kanata -c ~/dotfiles/kanata/config.kbd --check && sudo launchctl kickstart -k system/com.liusam.kanata"  
 
-alias safe-shutdown="/Users/liusam/dotfiles/yabai/scripts/safe-shutdown.sh"
-alias safe-reboot="/Users/liusam/dotfiles/yabai/scripts/safe-shutdown.sh reboot"
-alias close-apps="/Users/liusam/dotfiles/yabai/scripts/close-apps.sh"
-alias startup-apps="~/dotfiles/yabai/scripts/startup-apps.sh"
+alias safe-shutdown="$HOME/dotfiles/scripts/safe-shutdown.sh"
+alias safe-reboot="$HOME/dotfiles/scripts/safe-shutdown.sh reboot"
+alias close-apps="$HOME/dotfiles/scripts/close-apps.sh"
+alias startup-apps="$HOME/dotfiles/scripts/startup-apps.sh"
 # The argument `bootout` of launchctl only unloads it for the current boot session. If you restart the laptop, RunAtLoad=true in the plist means kanata would start right back up on its own. If, you want to keep it disable until you manually come back use `disable`
 alias kanata-pause="sudo launchctl disable system/com.liusam.kanata && sudo launchctl bootout system/com.liusam.kanata"
 alias kanata-resume="sudo launchctl enable system/com.liusam.kanata && sudo launchctl bootstrap system /Library/LaunchDaemons/com.liusam.kanata.plist"

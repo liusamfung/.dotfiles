@@ -1,5 +1,5 @@
 #!/bin/zsh
-# ~/dotfiles/yabai/scripts/safe-shutdown.sh
+# ~/dotfiles/scripts/safe-shutdown.sh
 # Usage: safe-shutdown.sh [shutdown|reboot] [--force]
 
 ACTION="${1:-shutdown}"
