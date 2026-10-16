@@ -8,6 +8,13 @@ customCommands:
     command: |-
       if git diff --staged --quiet; then echo "Nada en staging"; sleep 2; exit 0; fi
       f=$(mktemp)
-      git diff --staged | head -c 30000 | /opt/homebrew/bin/claude -p 'Write a git commit message for the staged diff on stdin. Follow the commit message rules in CLAUDE.md if it defines any (format, language, scopes, prefixes). If it defines none, default to English and Conventional Commits: type(scope): description, lowercase imperative subject up to 72 chars. Add a short body only if the change really needs it. Output ONLY the raw commit message: no markdown, no code fences, no backticks, no explanations.' --model haiku --output-format text --no-session-persistence --tools "" > "$f"
+      git diff --staged | head -c 30000 | /opt/homebrew/bin/claude -p 'Write a git commit message for the staged diff on stdin. 
+      Follow the commit message rules in CLAUDE.md if it defines any (format, language, scopes, prefixes). 
+      If it defines none, default to English and Conventional Commits: type(scope): description, lowercase imperative subject up to 72 chars. 
+      Add a short body if the change needs it because that touch more than several files.  
+      short bullets grouping the changes by purpose, not a list of files. 
+      Do not invent motivations or provenance that are not visible in the diff. 
+      Output ONLY the raw commit message: no markdown, no code fences, no backticks, no explanations.
+      ' --model haiku --output-format text --no-session-persistence --tools "" > "$f"
       if [ -s "$f" ]; then GIT_EDITOR=nvim git commit -e -F "$f"; else echo "Claude no devolvio mensaje"; sleep 2; fi
       rm -f "$f"
