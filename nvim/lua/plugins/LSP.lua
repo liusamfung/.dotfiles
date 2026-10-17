@@ -300,6 +300,8 @@ return {
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
+			vim.lsp.enable({ "apex_ls" })
+
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"cspell_ls", --LSP generalista para escribir bien las variables etc
