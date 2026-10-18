@@ -60,6 +60,130 @@ local function confirm_project(fn_name, verb)
 	end
 end
 
+---@param dir string
+---@return integer number of generated sObject stubs (*.cls) in a standardObjects/customObjects tree
+local function count_stubs(dir)
+	return #vim.fn.glob(dir .. "/*/*.cls", false, true)
+end
+
+--- <leader>tS: `:SF sobject refresh` with progress in the lualine (config/sf_status.lua).
+--- sf.nvim has no progress hook, so the percentage is estimated: stubs written so far in the staging folder
+--- divided by the stubs of the previous refresh (on the first refresh of a project only the count is shown).
+--- The end is detected from sf.nvim's own final message (see `intercept` below).
+local function refresh_sobjects()
+	local status = require("config.sf_status")
+	local ok, root = pcall(require("sf.util").get_sf_root)
+	if not ok then
+		-- outside a project sf.nvim explains why it cannot run
+		return require("sf").refresh_sobjects()
+	end
+	if status.running() then
+		return vim.notify("Another SF task is still running", vim.log.levels.WARN)
+	end
+	root = root:gsub("/$", "")
+
+	local staging = root .. "/.sfdx/tools/sobjects-refresh"
+	local previous = count_stubs(root .. "/.sfdx/tools/sobjects")
+	local started_at = os.time()
+	local settled = false
+
+	-- sf.nvim reports every outcome through these three functions of its util module (they are looked up at call
+	-- time), so they are wrapped for the duration of the refresh. vim.notify is NOT touched: Noice warns when
+	-- something replaces it.
+	local U = require("sf.util")
+	local originals = { show = U.show, show_err = U.show_err, show_warn = U.show_warn }
+
+	local function settle(success)
+		if settled then
+			return
+		end
+		settled = true
+		for name, fn in pairs(originals) do
+			U[name] = fn
+		end
+		status.finish(success, "sObjects")
+	end
+
+	local function intercept(name, is_success)
+		U[name] = function(msg, ...)
+			originals[name](msg, ...)
+			if type(msg) == "string" and not msg:match("^Refreshing sObject") then
+				settle(is_success(msg))
+			end
+		end
+	end
+	local function refreshed(msg)
+		return msg:find("refreshed (", 1, true) ~= nil
+	end
+	intercept("show", refreshed)
+	intercept("show_warn", refreshed) -- "refreshed (N objects); M could not be described ..." still counts as done
+	intercept("show_err", function()
+		return false
+	end)
+
+	status.start(function()
+		-- a staging folder older than this press is left over from an interrupted refresh: ignore it
+		local stat = vim.uv.fs_stat(staging)
+		local written = (stat and stat.mtime.sec >= started_at) and count_stubs(staging) or 0
+		if previous > 0 then
+			return ("sObjects %d%%"):format(math.min(99, math.floor(written * 100 / previous)))
+		end
+		return ("sObjects %d"):format(written)
+	end)
+	-- safety net: never leave the spinner on if sf.nvim's final message is missed
+	vim.defer_fn(function()
+		settle(false)
+	end, 10 * 60 * 1000)
+
+	require("sf").refresh_sobjects()
+end
+
+--- <leader>tv: dry-run validation of the current file (sf_compile linter in nvim-lint.lua), with a spinner and
+--- the elapsed seconds (the CLI gives no progress in --json mode) and a final check / cross in the lualine.
+local function validate_file()
+	local lint = require("lint")
+	local status = require("config.sf_status")
+	local buf = vim.api.nvim_get_current_buf()
+	if status.running() then
+		return vim.notify("Another SF task is still running", vim.log.levels.WARN)
+	end
+
+	status.compile_result = nil
+	status.start(function(elapsed)
+		return ("validating %ds"):format(elapsed)
+	end)
+	lint.try_lint("sf_compile")
+
+	local timer = vim.uv.new_timer()
+	timer:start(
+		300,
+		200,
+		vim.schedule_wrap(function()
+			if vim.tbl_contains(lint.get_running(buf), "sf_compile") then
+				return
+			end
+			timer:stop()
+			timer:close()
+
+			local result = status.compile_result
+			local ns = lint.get_namespace("sf_compile")
+			local shown = ns and #vim.diagnostic.get(buf, { namespace = ns }) or 0
+			if result and result.error then
+				vim.notify("sf validate: " .. result.error, vim.log.levels.WARN)
+				return status.finish(false, "validate failed")
+			end
+			local errors = math.max(shown, result and result.failures or 0)
+			if errors > 0 then
+				return status.finish(false, ("validate: %d error(s)"):format(errors))
+			end
+			if result and result.ok then
+				return status.finish(true, "validated")
+			end
+			status.finish(false, "validate: no result")
+		end)
+	)
+end
+
 return {
 	{
 		"xixiaofinland/sf.nvim",
@@ -121,7 +245,7 @@ return {
 			{ "<leader>tof", "<cmd>SF org fetchList<cr>", desc = "SF: refresh org list" },
 			{ "<leader>too", sf("org_open"), desc = "SF: open target org" },
 			{ "<leader>tl", sf("pull_log"), desc = "SF: pull latest debug log" },
-			{ "<leader>tS", "<cmd>SF sobject refresh<cr>", desc = "SF: refresh sObject definitions (apex_ls)" },
+			{ "<leader>tS", refresh_sobjects, desc = "SF: refresh sObject definitions (apex_ls)" },
 
 			-- Apex tests
 			{ "<leader>tta", sf("run_all_tests_in_this_file"), desc = "SF: Apex tests in this file" },
@@ -158,9 +282,7 @@ return {
 			-- Validate the current file against the org without saving anything there (see nvim-lint.lua)
 			{
 				"<leader>tv",
-				function()
-					require("lint").try_lint("sf_compile")
-				end,
+				validate_file,
 				desc = "SF: validate current file (dry-run)",
 			},
 

@@ -36,19 +36,28 @@ return {
 				stream = "stdout",
 				ignore_exitcode = true,
 				parser = function(output, bufnr)
+					-- <leader>tv reads this to tell "validated" from "the CLI failed" (see sf_status.lua)
+					local status = require("config.sf_status")
 					local ok, decoded = pcall(vim.json.decode, output)
 					if not ok or type(decoded) ~= "table" then
+						status.compile_result = { error = "sf returned no JSON" }
 						return {}
 					end
 
 					local failures = vim.tbl_get(decoded, "result", "details", "componentFailures")
 					if type(failures) ~= "table" then
+						if decoded.status == 0 then
+							status.compile_result = { ok = true, failures = 0 }
+						else
+							status.compile_result = { error = decoded.message or "validation failed" }
+						end
 						return {}
 					end
 					-- The CLI returns a single object, not a list, when there is only one failure.
 					if failures.fileName then
 						failures = { failures }
 					end
+					status.compile_result = { ok = false, failures = #failures }
 
 					local fname = vim.api.nvim_buf_get_name(bufnr)
 					local diagnostics = {}
