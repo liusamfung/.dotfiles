@@ -1,18 +1,22 @@
+-- Salesforce metadata schemas, vendored in nvim/schemas/salesforce (no VS Code needed).
+-- See nvim/schemas/salesforce/README.md for their origin and the local patches.
+local schemas = vim.fn.stdpath("config") .. "/schemas/salesforce"
+
 return {
 	settings = {
 		xml = {
-			catalogs = {
-				-- Version de vscode (Necesitas descargarte el editor de codigo y
-				-- descargar su pack de extensiones para que te arroje este archivo)
-				-- vim.fn.glob(
-				-- 	"~/.vscode/extensions/salesforce.salesforcedx-vscode-lwc*/resources/static/js-meta-home.xml"
-				-- ),
-				-- Pero también se puede obtener ese mismo archivo clonando el repositorio ofical de salesforce y obteniendo
-				-- Y solo tienes que hacer ´git pull' cada vez que quieras "actualizar" este archivo.
-				-- git clone https://github.com/forcedotcom/salesforcedx-vscode.git
-				vim.fn.glob(
-					"~/.vscode/extensions/salesforce.salesforcedx-vscode-lwc*/resources/static/js-meta-home.xml"
-				),
+			catalogs = { schemas .. "/metadata-catalog.xml" },
+			fileAssociations = {
+				-- LWC has its own, more precise schema
+				{ pattern = "**/*.js-meta.xml", systemId = schemas .. "/js-meta.xsd" },
+				-- every other *-meta.xml (Apex, objects, layouts...) and package.xml
+				{ pattern = "**/*-meta.xml", systemId = schemas .. "/salesforce_metadata_api_namespace1.xsd" },
+				{ pattern = "**/package.xml", systemId = schemas .. "/salesforce_metadata_api_namespace1.xsd" },
+			},
+			validation = {
+				-- the XSD is generated from the docs and rejects ~7% of real files:
+				-- use it for completion/hover only, not for red squiggles
+				schema = { enabled = "never" },
 			},
 		},
 	},
