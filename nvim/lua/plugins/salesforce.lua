@@ -42,6 +42,24 @@ local function sf(fn_name, ...)
 	end
 end
 
+--- Project-wide push/retrieve, behind a confirmation that names the target org. On orgs with source tracking
+--- (scratch, some sandboxes) they only move what changed; on the rest they move the whole package, so ask first.
+local function confirm_project(fn_name, verb)
+	return function()
+		local ok, org = pcall(function()
+			return require("sf").get_target_org()
+		end)
+		-- no target org: let sf.nvim show its own "Target_org empty!" error
+		if not ok or org == "" then
+			return require("sf")[fn_name]()
+		end
+		local msg = ("%s project changes with %s?"):format(verb, org)
+		if vim.fn.confirm(msg, "&Yes\n&No", 2) == 1 then
+			require("sf")[fn_name]()
+		end
+	end
+end
+
 return {
 	{
 		"xixiaofinland/sf.nvim",
@@ -68,14 +86,28 @@ return {
 			{ "<leader>ts", sf("toggle_term"), desc = "SF: toggle terminal" },
 			{ "<C-/>", "<cmd>SF term toggle<cr>", desc = "SF: toggle terminal" },
 
-			-- Current file
-			{ "<leader>tp", sf("save_and_push"), desc = "SF: save + push current file" },
+			-- Current file (lowercase)
+			{ "<leader>tp", sf("save_and_push"), desc = "SF: push current file (saves first)" },
 			{ "<leader>tr", sf("retrieve"), desc = "SF: retrieve current file" },
-			{ "<leader>td", sf("diff_in_target_org"), desc = "SF: diff vs target org" },
-			{ "<leader>tD", sf("diff_in_org"), desc = "SF: diff vs org..." },
-			{ "<leader>tx", sf("org_open_current_file"), desc = "SF: open file in org" },
-			{ "<leader>tR", sf("rename_apex_class_remote_and_local"), desc = "SF: rename Apex class (org + local)" },
-			{ "<leader>tX", sf("delete_current_apex_remote_and_local"), desc = "SF: delete Apex class (org + local)" },
+			{ "<leader>td", sf("diff_in_target_org"), desc = "SF: diff current file vs target org" },
+			{ "<leader>tD", sf("diff_in_org"), desc = "SF: diff current file vs org..." },
+			{ "<leader>tx", sf("org_open_current_file"), desc = "SF: open current file in org" },
+
+			-- Whole project (uppercase of the file keys above)
+			{ "<leader>tP", confirm_project("push_delta", "Push"), desc = "SF: push PROJECT changes" },
+			{ "<leader>tR", confirm_project("retrieve_delta", "Retrieve"), desc = "SF: retrieve PROJECT changes" },
+
+			-- Destructive: they change the org AND delete/rename local files
+			{
+				"<leader>tXr",
+				sf("rename_apex_class_remote_and_local"),
+				desc = "SF: rename Apex class (org + local)",
+			},
+			{
+				"<leader>tXd",
+				sf("delete_current_apex_remote_and_local"),
+				desc = "SF: delete Apex class (org + local)",
+			},
 
 			-- Create
 			{ "<leader>tcl", "<cmd>SF create lwc<cr>", desc = "SF: create LWC" },
@@ -102,6 +134,7 @@ return {
 			{ "<leader>ttC", sf("run_current_test_with_coverage"), desc = "SF: Apex test under cursor + coverage" },
 			{ "<leader>tts", sf("open_test_select"), desc = "SF: pick Apex tests" },
 			{ "<leader>ttl", sf("repeat_last_tests"), desc = "SF: repeat last Apex tests" },
+			{ "<leader>ttO", sf("run_local_tests"), desc = "SF: ALL local Apex tests in the org + coverage" },
 			{ "<leader>t/", sf("toggle_sign"), desc = "SF: toggle coverage signs" },
 			{ "]v", sf("uncovered_jump_forward"), desc = "SF: next uncovered hunk" },
 			{ "[v", sf("uncovered_jump_backward"), desc = "SF: previous uncovered hunk" },
@@ -161,6 +194,7 @@ return {
 					{ "<leader>ta", group = "anonymous Apex" },
 					{ "<leader>tt", group = "tests" },
 					{ "<leader>tq", group = "query" },
+					{ "<leader>tX", group = "destructive (org + local)" },
 				})
 			end
 		end,
