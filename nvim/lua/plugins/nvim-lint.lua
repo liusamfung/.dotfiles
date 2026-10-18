@@ -6,9 +6,7 @@ return {
 			local lint = require("lint")
 
 			lint.linters_by_ft = {
-				javascript = { "eslint_d" },
-				typescript = { "eslint_d" },
-				typescriptreact = { "eslint_d" },
+				-- JS/TS are linted by the eslint language server (the "eslint" server in plugins/LSP.lua), not by eslint_d here.
 			}
 
 			-- Compilation diagnostics from the org: validates (dry-run) ONLY the current file against the

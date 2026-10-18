@@ -131,6 +131,9 @@ return {
 					"lemminx",
 					"kotlin_language_server",
 					"yamlls",
+					"eslint", -- lint + "source.fixAll.eslint" on save (replaces eslint_d in nvim-lint)
+					"denols", -- only starts where there is a deno.json (Supabase Edge Functions); ts_ls steps aside there
+					"postgres_lsp", -- Supabase's Postgres LSP: SQL syntax errors in migrations
 					"jdtls", -- started by nvim-jdtls, not by automatic_enable
 					"cspell_ls", -- installed but kept OFF for now (see exclude below)
 
@@ -139,7 +142,6 @@ return {
 					"lwc_ls", -- Lightning Web Components
 
 					-- Linters
-					"eslint_d",
 					"shellcheck",
 					"sqlfluff",
 
@@ -150,6 +152,7 @@ return {
 					"google-java-format",
 					"ktfmt",
 					"xmlformatter",
+					"sql-formatter", -- manual only (<leader>cf): never on save
 
 					-- DAP
 					"java-debug-adapter",
