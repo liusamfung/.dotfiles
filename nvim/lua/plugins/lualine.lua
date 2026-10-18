@@ -93,7 +93,12 @@ return {
 							-- return icon .. " " .. require("sf").get_target_org()
 
 							-- return "󰅣 " .. require("sf").get_target_org()
-							return "󰅟 " .. require("sf").get_target_org()
+							-- get_target_org() raises an error while the org list is still loading (or outside
+							-- a project): show nothing instead of failing on every redraw.
+							local ok, org = pcall(function()
+								return require("sf").get_target_org()
+							end)
+							return ok and org and org ~= "" and ("󰅟 " .. org) or ""
 						end,
 						color = { fg = "#00A1E0" },
 					},

@@ -146,6 +146,12 @@ return {
 		config = function(_, opts)
 			require("sf").setup(opts)
 
+			-- sf.nvim fetches the org list (which gives the target org shown in lualine) from a VimEnter
+			-- autocmd. With VeryLazy the plugin loads after VimEnter, so that autocmd never fires: fetch here.
+			if vim.v.vim_did_enter == 1 and vim.fn.executable("sf") == 1 then
+				require("sf").fetch_org_list()
+			end
+
 			local ok, wk = pcall(require, "which-key")
 			if ok then
 				wk.add({
