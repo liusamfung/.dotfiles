@@ -389,6 +389,30 @@ return {
 				require("sf").fetch_org_list()
 			end
 
+			-- sf.nvim gives the focus back to the window you were in right after it opens its terminal, so the log
+			-- could only be scrolled after clicking into it. Once a command has FINISHED, move the focus to the
+			-- terminal. While it is still running the focus is left alone, so typing elsewhere is not hijacked.
+			vim.api.nvim_create_autocmd("BufWinEnter", {
+				group = vim.api.nvim_create_augroup("SfTermFocus", { clear = true }),
+				desc = "Focus sf.nvim's terminal when a command has finished",
+				callback = function(args)
+					if vim.bo[args.buf].filetype ~= "SFTerm" then
+						return
+					end
+					local job = vim.b[args.buf].terminal_job_id
+					if not job or vim.fn.jobwait({ job }, 0)[1] == -1 then
+						return
+					end
+					-- schedule: sf.nvim restores the previous window synchronously after opening the terminal
+					vim.schedule(function()
+						local win = vim.fn.bufwinid(args.buf)
+						if win ~= -1 then
+							vim.api.nvim_set_current_win(win)
+						end
+					end)
+				end,
+			})
+
 			local ok, wk = pcall(require, "which-key")
 			if ok then
 				wk.add({
