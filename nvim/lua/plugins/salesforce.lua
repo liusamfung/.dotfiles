@@ -184,87 +184,6 @@ local function validate_file()
 	)
 end
 
-local anonymous = { win = nil, cursor = nil }
-
---- <leader>te: toggle a floating "Execute Anonymous" window, like Developer Console's.
---- It edits a real file, <project>/.sfdx/anonymous.apex (git ignores .sfdx), so the snippet survives restarts and
---- apex_ls attaches to it: completion works, sObject fields included. <leader><CR> runs the buffer (or the selection
---- in Visual mode) through sf.nvim, whose floating terminal shows the log (the window hides itself on run so it does not cover
---- it); <leader>te or q hide it too.
---- A plain <CR> deliberately does nothing special: running code in the org must not happen by accident.
-local function toggle_anonymous()
-	if anonymous.win and vim.api.nvim_win_is_valid(anonymous.win) then
-		anonymous.cursor = vim.api.nvim_win_get_cursor(anonymous.win)
-		local buf = vim.api.nvim_win_get_buf(anonymous.win)
-		if vim.bo[buf].modified then
-			vim.api.nvim_buf_call(buf, function()
-				vim.cmd("silent noautocmd write") -- noautocmd: no prettier on a half-written snippet
-			end)
-		end
-		vim.api.nvim_win_close(anonymous.win, true)
-		anonymous.win = nil
-		return
-	end
-
-	local ok, root = pcall(require("sf.util").get_sf_root)
-	if not ok then
-		return vim.notify("Not inside a Salesforce project", vim.log.levels.WARN)
-	end
-	local path = root:gsub("/$", "") .. "/.sfdx/anonymous.apex"
-	if not vim.uv.fs_stat(path) then
-		vim.fn.mkdir(vim.fs.dirname(path), "p")
-		vim.fn.writefile({
-			"// Execute Anonymous. <leader><CR> runs the whole buffer (or the Visual selection). q hides this window.",
-			"System.debug('Hello');",
-		}, path)
-	end
-
-	local buf = vim.fn.bufadd(path)
-	vim.fn.bufload(buf)
-	vim.bo[buf].buflisted = false
-	vim.bo[buf].filetype = "apex"
-
-	local width = math.floor(vim.o.columns * 0.6)
-	local height = math.floor(vim.o.lines * 0.5)
-	anonymous.win = vim.api.nvim_open_win(buf, true, {
-		relative = "editor",
-		width = width,
-		height = height,
-		col = math.floor((vim.o.columns - width) / 2),
-		row = math.floor((vim.o.lines - height) / 2) - 1,
-		style = "minimal",
-		border = "rounded",
-		title = " Execute Anonymous ",
-		title_pos = "center",
-		footer = " <leader><CR> run   q / <leader>te hide ",
-		footer_pos = "center",
-	})
-	vim.wo[anonymous.win].number = true
-	vim.wo[anonymous.win].signcolumn = "no"
-	if anonymous.cursor then
-		pcall(vim.api.nvim_win_set_cursor, anonymous.win, anonymous.cursor)
-	end
-
-	local function map(modes, lhs, rhs, desc)
-		vim.keymap.set(modes, lhs, rhs, { buffer = buf, desc = "SF: " .. desc })
-	end
-	local function run(selection)
-		return function()
-			if not selection then
-				vim.api.nvim_buf_call(buf, function()
-					vim.cmd("silent noautocmd write")
-				end)
-			end
-			require("sf").run_anonymous_stdin(selection)
-			-- hide this window so it does not cover the log in sf.nvim's terminal
-			toggle_anonymous()
-		end
-	end
-	map("n", "<leader><CR>", run(false), "execute the whole snippet")
-	map("x", "<leader><CR>", run(true), "execute the selection")
-	map("n", "q", toggle_anonymous, "hide the Execute Anonymous window")
-end
-
 return {
 	{
 		"xixiaofinland/sf.nvim",
@@ -325,7 +244,20 @@ return {
 			{ "<leader>tog", "<cmd>SF org setGlobalTarget<cr>", desc = "SF: select global target org" },
 			{ "<leader>tof", "<cmd>SF org fetchList<cr>", desc = "SF: refresh org list" },
 			{ "<leader>too", sf("org_open"), desc = "SF: open target org" },
-			{ "<leader>tl", sf("pull_log"), desc = "SF: pull latest debug log" },
+			{
+				"<leader>tl",
+				function()
+					require("config.sf_anonymous").pick_history()
+				end,
+				desc = "SF: history of Execute Anonymous runs (local)",
+			},
+			{
+				"<leader>tL",
+				function()
+					require("config.sf_anonymous").pick_log()
+				end,
+				desc = "SF: debug logs saved in the org (local time)",
+			},
 			{ "<leader>tS", refresh_sobjects, desc = "SF: refresh sObject definitions (apex_ls)" },
 
 			-- Apex tests
@@ -377,7 +309,21 @@ return {
 			},
 			{ "<leader>tar", sf("run_anonymous_stdin", false), desc = "SF: run buffer as anonymous Apex" },
 			{ "<leader>taR", sf("run_anonymous"), desc = "SF: run file as anonymous Apex" },
-			{ "<leader>te", toggle_anonymous, desc = "SF: toggle Execute Anonymous window" },
+			-- Execute Anonymous window (see config/sf_anonymous.lua)
+			{
+				"<leader>te",
+				function()
+					require("config.sf_anonymous").toggle_editor()
+				end,
+				desc = "SF: toggle Execute Anonymous window",
+			},
+			{
+				"<leader>tE",
+				function()
+					require("config.sf_anonymous").toggle_output()
+				end,
+				desc = "SF: toggle the last Execute Anonymous output",
+			},
 		},
 
 		config = function(_, opts)
