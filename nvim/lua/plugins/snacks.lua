@@ -146,5 +146,29 @@ return {
 				},
 			},
 		},
+		config = function(_, opts)
+			require("snacks").setup(opts)
+
+			-- Guard: "jump" asserts when a picker item has neither .buf nor .file.
+			-- Instead of the red error, close the picker and report which one caused it.
+			local actions = require("snacks.picker.actions")
+			local confirm = actions.confirm -- same function as actions.jump
+			actions.confirm = function(picker, item, action)
+				for _, it in ipairs(picker:selected({ fallback = true })) do
+					if not it.buf and not it.file then
+						picker:close()
+						vim.notify(
+							("Snacks picker '%s': item without file/buf\n%s"):format(
+								picker.opts.source or "?",
+								vim.inspect(it, { depth = 1 })
+							),
+							vim.log.levels.WARN
+						)
+						return
+					end
+				end
+				return confirm(picker, item, action)
+			end
+		end,
 	},
 }
