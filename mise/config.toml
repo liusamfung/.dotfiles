@@ -1,0 +1,8 @@
+[settings]
+idiomatic_version_file_enable_tools = ["node"]
+
+[tools]
+node = "24.21.0"
+# The Salesforce CLI is installed by install.sh with `npm install -g` on this node (as it always was), NOT with
+# mise's "npm:@salesforce/cli" backend: that one rejects the release (trust downgrade of pino@9.14.0).
+# A new node version needs `npm install -g @salesforce/cli` again.

@@ -1,0 +1,43 @@
+# Everything else that was installed as a formula on the author's Mac when this file was generated (2026-10).
+# Opt-in: install.sh --extras. Prune what you do not need; some of these are heavy.
+# Check without installing:  brew bundle check --file Brewfile.extras
+
+brew "ant"
+brew "automake"
+brew "azure-cli"  # large
+brew "clamav"  # antivirus
+brew "clipboard"
+brew "cmatrix"
+brew "composer"
+brew "coreutils"
+brew "docker"  # CLI only, no daemon
+brew "duckdb"
+brew "fastfetch"
+brew "fisher"
+brew "gemini-cli"
+brew "git-gui"
+brew "glfw"
+brew "go"
+brew "gradle"
+brew "julia"  # large
+brew "kanata"  # keyboard remapper; .zshrc aliases use a build in ~/Dev/Tools/kanata (keyboard phase, later)
+brew "mas"
+brew "maven"
+brew "nmap"
+brew "openjdk@17"
+brew "pipx"
+brew "plantuml"  # needs java
+brew "pmd"
+brew "pnpm"
+brew "python-tk@3.14"
+brew "qemu"  # large
+brew "rpm"
+brew "ruby"
+brew "rustup"
+brew "sk"
+brew "spring-completion"
+brew "texlive"  # ~7 GB
+brew "tmux"
+brew "viu"
+brew "wget"
+brew "yarn"

@@ -1,12 +1,19 @@
-# Path to your Oh My Zsh installation.
+# Homebrew: .zprofile does this for login shells; this covers a shell that did not inherit it.
+if [[ -z "$HOMEBREW_PREFIX" ]]; then
+  for brew_bin in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+    [[ -x $brew_bin ]] && eval "$($brew_bin shellenv)" && break
+  done
+fi
+
+# Path to your Oh My Zsh installation (install.sh clones it).
 export ZSH="$HOME/.oh-my-zsh"
 DISABLE_MAGIC_FUNCTIONS="true"
 plugins=( git z )
-source $ZSH/oh-my-zsh.sh
+[[ -r $ZSH/oh-my-zsh.sh ]] && source $ZSH/oh-my-zsh.sh
 
 #plugins desde hombebrew
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+[[ -r $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+[[ -r $HOMEBREW_PREFIX/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]] && source $HOMEBREW_PREFIX/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
 
 alias ll='eza -lg --group-directories-first --icons' ##Lista sin mostrar carpetas ocultas
@@ -46,10 +53,10 @@ alias fixapex='find .sfdx/tools -name "apex.db" -exec rm -i {} \;'
 alias sca='sf code-analyzer run | less -S'
 
 
-bindkey '\C-@' autosuggest-accept
+(( $+widgets[autosuggest-accept] )) && bindkey '\C-@' autosuggest-accept
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-eval "$(starship init zsh)"
+(( $+commands[fzf] )) && source <(fzf --zsh)
+(( $+commands[starship] )) && eval "$(starship init zsh)"
 
 
 export LG_CONFIG_FILE="$HOME/dotfiles/lazygit/config.yml"
@@ -68,14 +75,14 @@ function y() {
 }
 
 function java17() {
-  export JAVA_HOME="/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home"
+  export JAVA_HOME="$HOMEBREW_PREFIX/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home"
   export PATH="$JAVA_HOME/bin:$PATH"
   echo "✅ PATH de Java cambiado a JDK 17"
   java -version
 }
 
 function java25() {
-  export JAVA_HOME="/opt/homebrew/opt/openjdk@25/libexec/openjdk.jdk/Contents/Home"
+  export JAVA_HOME="$HOMEBREW_PREFIX/opt/openjdk@25/libexec/openjdk.jdk/Contents/Home"
   export PATH="$JAVA_HOME/bin:$PATH"
   echo "✅ PATH de Java cambiado a JDK 25"
   java -version
@@ -84,17 +91,17 @@ function java25() {
 
 function java21() {
   # La primera exportación ya está en el .zshrc
-  export JAVA_HOME="/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"
-  export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
+  export JAVA_HOME="$HOMEBREW_PREFIX/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"
+  export PATH="$HOMEBREW_PREFIX/opt/openjdk@21/bin:$PATH"
   echo "✅ PATH de Java restaurado a JDK 21"
   java -version
 }
 
-export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
-export PATH="/opt/homebrew/lib/ruby/gems/3.4.0/bin:$PATH"
-export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
+export PATH="$HOMEBREW_PREFIX/opt/ruby/bin:$PATH"
+export PATH="$HOMEBREW_PREFIX/lib/ruby/gems/3.4.0/bin:$PATH"
+export PATH="$HOMEBREW_PREFIX/opt/openjdk@21/bin:$PATH"
 
-export PATH="/opt/homebrew/opt/trash-cli/bin:$PATH"
+export PATH="$HOMEBREW_PREFIX/opt/trash-cli/bin:$PATH"
 
 
 # Lazy load para el autocompletado de Angular
@@ -107,13 +114,15 @@ ng() {
     command ng "$@"
 }
 
-SF_AC_ZSH_SETUP_PATH=/Users/liusam/Library/Caches/sf/autocomplete/zsh_setup && test -f $SF_AC_ZSH_SETUP_PATH && source $SF_AC_ZSH_SETUP_PATH; # sf autocomplete setup
+SF_AC_ZSH_SETUP_PATH=$HOME/Library/Caches/sf/autocomplete/zsh_setup && test -f $SF_AC_ZSH_SETUP_PATH && source $SF_AC_ZSH_SETUP_PATH; # sf autocomplete setup
 
 # pnpm
-export PNPM_HOME="/Users/liusam/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME/bin:"*) ;;
   *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
 # pnpm end
-eval "$(~/.local/bin/mise activate zsh)"
+# mise (node, sf...). ~/.local/bin is where the curl installer puts it; brew's goes in the Homebrew PATH.
+[[ ":$PATH:" == *":$HOME/.local/bin:"* ]] || export PATH="$HOME/.local/bin:$PATH"
+(( $+commands[mise] )) && eval "$(mise activate zsh)"

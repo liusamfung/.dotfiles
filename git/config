@@ -1,0 +1,7 @@
+# Linked to ~/.config/git/config by install.sh. Git reads it next to ~/.gitconfig.
+# The identity (user.name / user.email) is NOT here, the repo is public: install.sh asks for it once and
+# writes it to ~/.gitconfig. The global ignore list is git/ignore (git's default location, no core.excludesFile).
+[init]
+	defaultBranch = main
+[gpg]
+	format = ssh
