@@ -1,0 +1,26 @@
+# Dependencies of the Neovim + Salesforce setup (nvim/). Install with: scripts/bootstrap.sh
+# (or by hand: brew bundle --file scripts/Brewfile)
+
+# Editor
+brew "neovim"          # >= 0.12: vim.lsp.config workspace_required, nvim-treesitter (main branch)
+brew "git"
+brew "ripgrep"         # telescope / snacks grep
+brew "fd"
+brew "fzf"             # fzf-lua (sf.nvim metadata pickers)
+brew "lazygit"
+brew "jq"
+
+# Compile tree-sitter parsers (apex, soql, sosl, sflog...). Needs a C compiler too: Xcode Command Line Tools.
+brew "tree-sitter-cli"
+
+# Runtimes
+brew "node"            # Mason npm tools (prettier, eslint_d, lwc-language-server...), LWC Jest
+brew "openjdk@21"      # apex-language-server, jdtls, google-java-format. Keg-only: .zshrc puts it on PATH
+
+# Salesforce
+brew "sf"              # Salesforce CLI (the @salesforce/cli package). The `salesforce-cli` cask is disabled
+brew "universal-ctags" # sf.nvim jump-to-definition. macOS' /usr/bin/ctags is BSD and does not work
+brew "watchman"        # makes Jest (sfdx-lwc-jest) fast on big projects; harmless otherwise
+
+# Icons used by lualine / which-key / diagnostics
+cask "font-jetbrains-mono-nerd-font"
