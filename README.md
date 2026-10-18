@@ -53,8 +53,22 @@ No pide nada más.
 | `--check` | Solo verifica; no cambia nada. |
 | `--dry-run` | Muestra lo que haría; no cambia nada. |
 | `--extras` | Instala también `Brewfile.extras`. |
+| `--mobile` | Instala también `Brewfile.mobile` y `eas-cli` (React Native, Expo, Supabase). |
 | `--skip-brew` | Salta Xcode, Homebrew y los paquetes. |
 | `--no-nvim` | Salta la descarga de Neovim (plugins, Mason, parsers). |
+
+## Desarrollo móvil (`--mobile`)
+
+Para proyectos React Native + Expo con Supabase (NeighborGood). Es opcional: no todos los Macs lo necesitan.
+
+- **`Brewfile.mobile`**: `supabase` (CLI) y `cocoapods` (solo para compilar iOS en local; EAS Build lo hace en la nube).
+- **Android**: no se configura aquí a propósito. EAS Build compila Android en la nube y devuelve un `.apk`; quien tenga
+  un teléfono Android prueba con él (las notificaciones push y el escáner QR necesitan un teléfono real).
+- **`eas-cli`**: `npm install -g eas-cli` sobre el node de mise (igual que `sf`; si cambias de versión de node, hay que
+  repetirlo).
+- **Neovim** ya trae lo necesario (se instala con Mason, sin `--mobile`): servidores `eslint`, `denols` (solo dentro de
+  `supabase/functions`) y `postgres_lsp` (SQL de las migraciones), y los esquemas de `app.json`, `eas.json`, `tsconfig.json`.
+- **A mano**: `eas login` y `supabase login`. Xcode completo (simulador de iOS) viene de la App Store.
 
 ## Al terminar (a mano)
 

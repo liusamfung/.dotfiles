@@ -45,7 +45,9 @@ check("filetype javascript", vim.bo[buf].filetype == "javascript")
 check("lwc_ls attaches", wait_for(function()
 	return vim.tbl_contains(client_names(buf), "lwc_ls")
 end, 40000), table.concat(client_names(buf), ","))
-check("eslint_d on PATH", vim.fn.executable("eslint_d") == 1)
+check("eslint attaches", wait_for(function()
+	return vim.tbl_contains(client_names(buf), "eslint")
+end, 40000), table.concat(client_names(buf), ","))
 
 -- Treesitter parsers (installed asynchronously on first start: give them time) -------------------------
 for _, lang in ipairs({ "apex", "soql", "sosl", "sflog", "html", "javascript", "xml" }) do

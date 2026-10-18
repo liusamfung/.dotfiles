@@ -1,0 +1,7 @@
+# Mobile development: React Native + Expo + Supabase (the NeighborGood project). Opt-in: install.sh --mobile
+# Check without installing:  brew bundle check --file Brewfile.mobile
+# eas-cli is NOT here: install.sh installs it with `npm install -g` on mise's node (same reason as the Salesforce CLI).
+# Not needed on purpose: deno (Neovim's Mason installs its own), expo (npx expo / the project's own dependency).
+
+brew "supabase"  # CLI: migrations, local stack, Edge Functions. One Go binary, no dependencies
+brew "cocoapods"  # ONLY for local iOS builds (npx expo run:ios); EAS Build compiles in the cloud. Pulls brew's ruby

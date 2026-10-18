@@ -8,6 +8,7 @@
 #   ./install.sh --check       only verify (changes nothing)
 #   ./install.sh --dry-run     print what install would do (changes nothing)
 #   ./install.sh --extras      also install Brewfile.extras (heavy, optional formulas)
+#   ./install.sh --mobile      also install Brewfile.mobile + eas-cli (React Native / Expo / Supabase)
 #   ./install.sh --skip-brew   skip Xcode CLT / Homebrew / brew bundle (testing, or brew already handled)
 #   ./install.sh --no-nvim     skip the Neovim plugin / Mason / parser download
 #
@@ -19,6 +20,7 @@ DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 MODE=install
 DRY=0
 EXTRAS=0
+MOBILE=0
 SKIP_BREW=0
 NVIM=1
 BACKUP_DIR=""
@@ -30,10 +32,11 @@ for arg in "$@"; do
 	--check) MODE=check ;;
 	--dry-run) DRY=1 ;;
 	--extras) EXTRAS=1 ;;
+	--mobile) MOBILE=1 ;;
 	--skip-brew) SKIP_BREW=1 ;;
 	--no-nvim) NVIM=0 ;;
 	-h | --help)
-		sed -n '2,17p' "$0" | sed 's/^# \{0,1\}//'
+		sed -n '2,18p' "$0" | sed 's/^# \{0,1\}//'
 		exit 0
 		;;
 	*)
@@ -155,6 +158,7 @@ step_packages() {
 	have brew || { [ "$DRY" -eq 1 ] && todo "[dry-run] brew bundle (brew not installed yet)"; return; }
 	local files=("$DOTFILES/Brewfile")
 	[ "$EXTRAS" -eq 1 ] && files+=("$DOTFILES/Brewfile.extras")
+	[ "$MOBILE" -eq 1 ] && files+=("$DOTFILES/Brewfile.mobile")
 	local f missing formulae casks name
 	formulae="$(brew list --formula 2>/dev/null)"
 	casks="$(brew list --cask 2>/dev/null)"
@@ -174,6 +178,7 @@ step_packages() {
 		fi
 	done
 	[ "$EXTRAS" -eq 0 ] && todo "Brewfile.extras is optional (--extras)"
+	[ "$MOBILE" -eq 0 ] && todo "Brewfile.mobile (React Native, Supabase) is optional (--mobile)"
 	refresh_path
 }
 
@@ -338,11 +343,40 @@ step_nvim() {
 		todo "[dry-run] Lazy! restore, MasonToolsInstallSync, nvim-treesitter install"
 	fi
 	local tool
-	for tool in lua-language-server typescript-language-server lemminx lwc-language-server prettier eslint_d stylua; do
+	for tool in lua-language-server typescript-language-server lemminx lwc-language-server prettier vscode-eslint-language-server deno postgres-language-server stylua; do
 		[ -e "$mason_bin/$tool" ] && pass "mason: $tool" || { [ "$DRY" -eq 1 ] || warn "mason: $tool not installed (open nvim and run :Mason)"; }
 	done
 	local jar="${XDG_DATA_HOME:-$HOME/.local/share}/nvim/mason/share/apex-language-server/apex-jorje-lsp.jar"
 	[ -e "$jar" ] && pass "mason: apex-jorje-lsp.jar" || { [ "$DRY" -eq 1 ] || warn "mason: apex-language-server not installed"; }
+}
+
+# React Native / Expo / Supabase (--mobile): eas-cli on mise's node, plus a check of what a build needs.
+step_mobile() {
+	[ "$MOBILE" -eq 1 ] || return 0
+	say "Mobile: eas-cli, Supabase CLI, iOS toolchain"
+	if [ "$DRY" -eq 1 ]; then
+		todo "[dry-run] npm install -g eas-cli (on mise's node)"
+	elif have mise && mise exec -- node -v >/dev/null 2>&1; then
+		if ! mise exec -- eas --version >/dev/null 2>&1 && [ "$MODE" = "install" ]; then
+			mise exec -- npm install -g eas-cli >/dev/null 2>&1 || warn "npm install -g eas-cli failed"
+			mise reshim >/dev/null 2>&1
+		fi
+		local eas_v
+		eas_v="$(mise exec -- eas --version 2>/dev/null | head -1)"
+		[ -n "$eas_v" ] && pass "eas-cli ${eas_v}" || fail "eas not available through mise's node"
+	else
+		fail "node not available through mise (eas-cli needs it)"
+	fi
+	have supabase && pass "supabase $(supabase --version 2>/dev/null | head -1)" || { [ "$DRY" -eq 1 ] || fail "supabase missing (Brewfile.mobile)"; }
+	# iOS: Xcode itself cannot be installed by a script (App Store); pods are only for local builds
+	if xcodebuild -version >/dev/null 2>&1; then
+		pass "$(xcodebuild -version 2>/dev/null | head -1)"
+	else
+		warn "full Xcode not found (needed for the iOS simulator and local iOS builds, not for EAS Build)"
+	fi
+	have pod && pass "cocoapods $(pod --version 2>/dev/null)" || { [ "$DRY" -eq 1 ] || warn "pod missing (only needed for local iOS builds)"; }
+	have watchman && pass "watchman" || warn "watchman missing (Metro file watching)"
+	# Android is not set up on purpose: EAS Build compiles it in the cloud (a teammate with an Android phone tests push/QR)
 }
 
 # What the author's interactive login shell sees: this is what actually matters.
@@ -430,6 +464,7 @@ fi
 step_links
 step_ohmyzsh
 step_mise
+step_mobile
 step_git
 step_kanata
 step_nvim
