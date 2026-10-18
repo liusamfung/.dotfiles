@@ -125,12 +125,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.filetype.add({
-	pattern = {
-		[".*/*.cls"] = "apex",
-	},
-})
-
-vim.filetype.add({
 	extension = {
 		["code-workspace"] = "jsonc", -- jsonc porque VS Code permite comentarios en estos archivos
 		cls = "apex",
@@ -138,9 +132,19 @@ vim.filetype.add({
 		apex = "apex",
 		soql = "soql", -- El plugin sf.nvim lo asigna por mi. Pero de todas formas lo hago aqui.
 		sosl = "sosl", -- El plugin sf.nvim lo asigna por mi. Pero de todas formas lo hago aqui.
+		-- Visualforce / Aura markup (nvim detects .page as "mallard" and ignores the rest)
+		page = "html",
+		component = "html",
+		cmp = "html",
+		app = "html",
+		evt = "html",
+		intf = "html",
 		xsl = "xsl",
 		xslt = "xslt",
 		kbd = "kanata",
 		["kitty-session"] = "conf",
+	},
+	filename = {
+		[".forceignore"] = "gitignore",
 	},
 })

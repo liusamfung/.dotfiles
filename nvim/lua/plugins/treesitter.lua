@@ -7,10 +7,11 @@ return {
 			local ts = require("nvim-treesitter") --Alias
 			ts.install({
 				-- Salesforce
-				-- "sflog",
+				-- sf.nvim requires these four (`:checkhealth sf`)
 				"apex",
-				-- "soql",
-				-- "sosl",
+				"soql",
+				"sosl",
+				"sflog",
 
 				"regex", -- Optional for Snacks.picker.
 				--ensure install (Anyways, we have Autoinstall)

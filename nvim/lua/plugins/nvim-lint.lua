@@ -11,7 +11,10 @@ return {
 				typescriptreact = { "eslint_d" },
 			}
 
-			-- Diagnóstico asíncrono con la CLI de Salesforce
+			-- Compilation diagnostics from the org: validates (dry-run) ONLY the current file against the
+			-- target org, without running tests and without saving anything in the org.
+			-- Manual (<leader>tv, see salesforce.lua): the previous version ran a dry-run deploy of the whole
+			-- project, tests included, on every save.
 			lint.linters.sf_compile = {
 				cmd = "sf",
 				stdin = false,
@@ -23,84 +26,60 @@ return {
 					"--dry-run",
 					"--json",
 					"--ignore-conflicts",
+					"--test-level",
+					"NoTestRun",
+					"--source-dir",
+					function()
+						return vim.api.nvim_buf_get_name(0)
+					end,
 				},
 				stream = "stdout",
 				ignore_exitcode = true,
 				parser = function(output, bufnr)
-					local decoded = vim.fn.json_decode(output)
+					local ok, decoded = pcall(vim.json.decode, output)
+					if not ok or type(decoded) ~= "table" then
+						return {}
+					end
+
+					local failures = vim.tbl_get(decoded, "result", "details", "componentFailures")
+					if type(failures) ~= "table" then
+						return {}
+					end
+					-- The CLI returns a single object, not a list, when there is only one failure.
+					if failures.fileName then
+						failures = { failures }
+					end
+
+					local fname = vim.api.nvim_buf_get_name(bufnr)
 					local diagnostics = {}
-
-					if
-						decoded
-						and decoded.result
-						and decoded.result.details
-						and decoded.result.details.componentFailures
-					then
-						local failures = decoded.result.details.componentFailures
-						if type(failures) ~= "table" then
-							failures = { failures }
-						end
-
-						for _, fail in ipairs(failures) do
-							local fname = vim.api.nvim_buf_get_name(bufnr)
-							if string.find(fname, fail.fileName) then
-								table.insert(diagnostics, {
-									source = "SF-Compiler",
-									lnum = tonumber(fail.lineNumber) - 1,
-									col = tonumber(fail.columnNumber) or 0,
-									end_lnum = tonumber(fail.lineNumber) - 1,
-									end_col = (tonumber(fail.columnNumber) or 0) + 1,
-									severity = vim.diagnostic.severity.ERROR,
-									message = fail.problem,
-								})
-							end
+					for _, fail in ipairs(failures) do
+						-- plain find: file names contain "-" and "." that are pattern characters
+						if fail.fileName and fname:find(fail.fileName, 1, true) then
+							local lnum = (tonumber(fail.lineNumber) or 1) - 1
+							local col = (tonumber(fail.columnNumber) or 1) - 1
+							table.insert(diagnostics, {
+								source = "SF-Compiler",
+								lnum = lnum,
+								col = col,
+								end_lnum = lnum,
+								end_col = col + 1,
+								severity = vim.diagnostic.severity.ERROR,
+								message = fail.problem,
+							})
 						end
 					end
 					return diagnostics
 				end,
 			}
 
-			-- Creamos el grupo de autocomandos primero para usarlo en ambos bloques
 			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
-			-- MODIFICACIÓN PRINCIPAL: Filtro de seguridad para la ejecución de sf_compile
-			vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave", "TextChanged" }, {
 				group = lint_augroup,
 				callback = function()
-					-- 1. Validar que el ejecutable 'sf' exista en el sistema externo
-					local binario_existe = vim.fn.executable("sf") == 1
-					-- 2. Validar que estemos operando dentro de la raíz de un proyecto de Salesforce
-					local es_proyecto_sf = vim.fn.filereadable(vim.fn.getcwd() .. "/sfdx-project.json") == 1
-
-					if binario_existe and es_proyecto_sf then
-						-- 3. Filtrar por tipos de archivos relevantes para evitar ejecuciones en archivos de configuración (.lua)
-						local ft = vim.bo.filetype
-						local fts_validos = {
-							apex = true,
-							cls = true,
-							trigger = true,
-							soql = true,
-							javascript = true,
-							html = true,
-						}
-
-						if fts_validos[ft] then
-							require("lint").try_lint("sf_compile")
-						end
-					end
-				end,
-			})
-
-			-- Autocomando general para linters estándar (eslint_d, etc.)
-			vim.api.nvim_create_autocmd({
-				"BufEnter",
-				"BufWritePost",
-				"InsertLeave",
-				"TextChanged",
-			}, {
-				group = lint_augroup,
-				callback = function()
-					lint.try_lint()
+					-- ignore_errors: on a fresh machine Mason may still be installing eslint_d; without
+					-- this, BufEnter raised "Error running eslint_d: ENOENT" and aborted `:edit`.
+					lint.try_lint(nil, { ignore_errors = true })
 				end,
 			})
 		end,
