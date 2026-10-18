@@ -170,7 +170,7 @@ desc = "Go to AcademicProjects"
 
 [[mgr.prepend_keymap]]
 on = ["g","i"]
-run = "cd '/Users/liusam/Google Drive/My Drive'"
+run = "cd '~/Google Drive/My Drive'"
 desc = "Go to Drive "
 
 [[mgr.prepend_keymap]]

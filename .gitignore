@@ -6,3 +6,6 @@ Thumbs.db
 # Editor / backups
 .vscode/
 *.bak
+
+# kanata: machine-specific values (generated from kanata/local.kbd.example)
+kanata/local.kbd

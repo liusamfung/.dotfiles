@@ -5,7 +5,7 @@ local function setup()
 		home .. "/.local/share/Trash/files",
 		home .. "/Pictures/Fototeca de Photo Booth/Pictures", --Only for MacOS
 		home .. "/Movies",
-		"/Users/liusam/.Trash",
+		home .. "/.Trash",
 	}
 
 	ps.sub("cd", function()

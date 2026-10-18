@@ -4,6 +4,13 @@
   concurrent-tap-hold yes
 )
 
+;; Machine-specific values ($user, $cycle-script). kanata/local.kbd is not tracked by git; install.sh writes it
+;; (copy local.kbd.example by hand otherwise). kanata silently ignores an include whose file is missing, so the
+;; alias below uses a number that only local.kbd defines: without the file `kanata --check` fails loudly
+;; instead of leaving every `sudo -u $user ...` key broken.
+(include local.kbd)
+(defalias _require-local-kbd (tap-hold $local-kbd-loaded 1 a a))
+
 
 (defvar
   tap-time 20 ;; Deshabilitamos el tapcontinous porque interfiere con mi num_lyr
@@ -30,39 +37,39 @@
 
 (defalias
 
-  h_spac1 (cmd sudo -u liusam omniwmctl command switch-workspace 1)
-  t_spac2 (cmd sudo -u liusam omniwmctl command switch-workspace 2)
-  n_spac3 (cmd sudo -u liusam omniwmctl command switch-workspace 3)
-  g_spac4 (cmd sudo -u liusam omniwmctl command switch-workspace 4)
-  c_spac5 (cmd sudo -u liusam omniwmctl command switch-workspace 5)
-  r_spac6 (cmd sudo -u liusam omniwmctl command switch-workspace 6)
-  7_spac7 (cmd sudo -u liusam omniwmctl command switch-workspace 7)
-  8_spac8 (cmd sudo -u liusam omniwmctl command switch-workspace 8)
-  9_spac9 (cmd sudo -u liusam omniwmctl command switch-workspace 9)
+  h_spac1 (cmd sudo -u $user omniwmctl command switch-workspace 1)
+  t_spac2 (cmd sudo -u $user omniwmctl command switch-workspace 2)
+  n_spac3 (cmd sudo -u $user omniwmctl command switch-workspace 3)
+  g_spac4 (cmd sudo -u $user omniwmctl command switch-workspace 4)
+  c_spac5 (cmd sudo -u $user omniwmctl command switch-workspace 5)
+  r_spac6 (cmd sudo -u $user omniwmctl command switch-workspace 6)
+  7_spac7 (cmd sudo -u $user omniwmctl command switch-workspace 7)
+  8_spac8 (cmd sudo -u $user omniwmctl command switch-workspace 8)
+  9_spac9 (cmd sudo -u $user omniwmctl command switch-workspace 9)
 
-  lastSpc (cmd sudo -u liusam omniwmctl command switch-workspace back-and-forth)
-    lastWin (cmd sudo -u liusam /Users/liusam/dotfiles/scripts/omniwm-cycle-right.sh)
+  lastSpc (cmd sudo -u $user omniwmctl command switch-workspace back-and-forth)
+    lastWin (cmd sudo -u $user $cycle-script)
 
   )
 
 (defalias
 
-  test_c (cmd sudo -u liusam omniwmctl command toggle-focused-window-floating)
-  s_split (cmd sudo -u liusam omniwmctl command toggle-split)
-  x_close (cmd sudo -u liusam omniwmctl command close-focused-window)
+  test_c (cmd sudo -u $user omniwmctl command toggle-focused-window-floating)
+  s_split (cmd sudo -u $user omniwmctl command toggle-split)
+  x_close (cmd sudo -u $user omniwmctl command close-focused-window)
   m_minim M-m
   h_hideW M-h
 
 
 
-  h_westt (cmd sudo -u liusam omniwmctl command focus left)
-  t_south (cmd sudo -u liusam omniwmctl command focus down)
-  c_north (cmd sudo -u liusam omniwmctl command focus up)
-  n_eastt (cmd sudo -u liusam omniwmctl command focus right)
+  h_westt (cmd sudo -u $user omniwmctl command focus left)
+  t_south (cmd sudo -u $user omniwmctl command focus down)
+  c_north (cmd sudo -u $user omniwmctl command focus up)
+  n_eastt (cmd sudo -u $user omniwmctl command focus right)
 
 
-  x_maxWi (cmd sudo -u liusam omniwmctl command toggle-native-fullscreen)
-  z_fulls (cmd sudo -u liusam omniwmctl command toggle-fullscreen)
+  x_maxWi (cmd sudo -u $user omniwmctl command toggle-native-fullscreen)
+  z_fulls (cmd sudo -u $user omniwmctl command toggle-fullscreen)
  ;;
   )
 
@@ -433,15 +440,15 @@ toggleMic S-C-A-M-m
 
 (defalias
 
-  h_sndW1 (cmd sudo -u liusam omniwmctl command move-to-workspace slot 1)
-  t_sndW2 (cmd sudo -u liusam omniwmctl command move-to-workspace slot 2)
-  n_sndW3 (cmd sudo -u liusam omniwmctl command move-to-workspace slot 3)
-  g_sndW4 (cmd sudo -u liusam omniwmctl command move-to-workspace slot 4)
-  c_sndW5 (cmd sudo -u liusam omniwmctl command move-to-workspace slot 5)
-  r_sndW6 (cmd sudo -u liusam omniwmctl command move-to-workspace slot 6)
-  7_sndW7 (cmd sudo -u liusam omniwmctl command move-to-workspace slot 7)
-  8_sndW8 (cmd sudo -u liusam omniwmctl command move-to-workspace slot 8)
-  9_sndW9 (cmd sudo -u liusam omniwmctl command move-to-workspace slot 9)
+  h_sndW1 (cmd sudo -u $user omniwmctl command move-to-workspace slot 1)
+  t_sndW2 (cmd sudo -u $user omniwmctl command move-to-workspace slot 2)
+  n_sndW3 (cmd sudo -u $user omniwmctl command move-to-workspace slot 3)
+  g_sndW4 (cmd sudo -u $user omniwmctl command move-to-workspace slot 4)
+  c_sndW5 (cmd sudo -u $user omniwmctl command move-to-workspace slot 5)
+  r_sndW6 (cmd sudo -u $user omniwmctl command move-to-workspace slot 6)
+  7_sndW7 (cmd sudo -u $user omniwmctl command move-to-workspace slot 7)
+  8_sndW8 (cmd sudo -u $user omniwmctl command move-to-workspace slot 8)
+  9_sndW9 (cmd sudo -u $user omniwmctl command move-to-workspace slot 9)
 
 
 )
@@ -470,10 +477,10 @@ toggleMic S-C-A-M-m
 
 (defalias
 
-  h_rLeft (cmd sudo -u liusam omniwmctl command move-column left)
-  t_rBttn (cmd sudo -u liusam omniwmctl command move-column down)
-  c_rTopp (cmd sudo -u liusam omniwmctl command move-column up)
-  n_rRgth (cmd sudo -u liusam omniwmctl command move-column right)
+  h_rLeft (cmd sudo -u $user omniwmctl command move-column left)
+  t_rBttn (cmd sudo -u $user omniwmctl command move-column down)
+  c_rTopp (cmd sudo -u $user omniwmctl command move-column up)
+  n_rRgth (cmd sudo -u $user omniwmctl command move-column right)
 
 )
 
@@ -577,8 +584,8 @@ quickTerm  (macro-repeat C-A-S-spc)
   )
 
 (defalias
-  nxtFcus (cmd sudo -u liusam omniwmctl command focus-window down-or-top)
-  prvFcus (cmd sudo -u liusam omniwmctl command focus-window up-or-bottom)
+  nxtFcus (cmd sudo -u $user omniwmctl command focus-window down-or-top)
+  prvFcus (cmd sudo -u $user omniwmctl command focus-window up-or-bottom)
 )
 
 (deflayer ControlLayer 
@@ -658,7 +665,7 @@ qk1passw S-C-A-M-p
   quickHis S-C-A-M-h ;; History clipboard
   RainBook A-M-b
   h_f1 S-C-A-M-f1
-  h_f2 (cmd sudo -u liusam omniwmctl command switch-workspace back-and-forth)
+  h_f2 (cmd sudo -u $user omniwmctl command switch-workspace back-and-forth)
   h_f3 C-tab
   h_f4 S-C-A-M-f4
   h_f5 S-C-A-M-f5

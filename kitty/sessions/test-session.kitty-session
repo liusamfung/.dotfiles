@@ -1,6 +1,6 @@
 new_tab Test-log
   layout fat
-    launch --hold ov --multi-color "ERROR,WARN,INFO,DEBUG,not,^.{24}" /Users/liusam/.local/state/nvim/lsp.log
+    launch --hold /bin/zsh -lc 'exec ov --multi-color "ERROR,WARN,INFO,DEBUG,not,^.{24}" "$HOME/.local/state/nvim/lsp.log"'
       focus # Con esta linea estoy volviendo el pane actual en el enfocado después de crear los demás panes(Windows)
   # cd ~/Dev/
     launch --cwd ~/dev/AcademicProjects/ --title  "Currennt" zsh

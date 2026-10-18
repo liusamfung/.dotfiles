@@ -1,0 +1,10 @@
+;; Copy to kanata/local.kbd and adjust (install.sh does this for you). local.kbd is not tracked by git.
+;;
+;; kanata runs as a root launch daemon, so it cannot know which user's window manager to talk to:
+;;   user          login name that owns the OmniWM session (`id -un`)
+;;   cycle-script  absolute path of scripts/omniwm-cycle-right.sh in this machine's clone
+(defvar
+  local-kbd-loaded 1 ;; sentinel, see the comment above `(include local.kbd)` in config.kbd
+  user YOUR_USER
+  cycle-script /Users/YOUR_USER/dotfiles/scripts/omniwm-cycle-right.sh
+)

@@ -11,9 +11,9 @@ cd ~/dotfiles
 new_tab Test-log
   layout fat
 # Si quieres correr un programa en una ventana (Lo que significaría que si cierras el programa por error, se borra también el window)
-# launch ov --multi-color "ERROR,WARN,INFO,DEBUG,not,^.{24}" /Users/liusam/.local/state/nvim/lsp.log
+# launch /bin/zsh -lc 'exec ov --multi-color "ERROR,WARN,INFO,DEBUG,not,^.{24}" "$HOME/.local/state/nvim/lsp.log"'
 # Si lo que quieres es crear una ventana, luego correr el programa apenas la abras hazlo siguiente. (De esta forma si lo cierras de casualidad, no vas a cerrar la ventana(pane))
-    launch --hold ov --multi-color "ERROR,WARN,INFO,DEBUG,not,^.{24}" /Users/liusam/.local/state/nvim/lsp.log
+    launch --hold /bin/zsh -lc 'exec ov --multi-color "ERROR,WARN,INFO,DEBUG,not,^.{24}" "$HOME/.local/state/nvim/lsp.log"'
   cd ~/Dev/AcademicProjects/
     launch  --title  "traductor" zsh
   cd ~/Dev/

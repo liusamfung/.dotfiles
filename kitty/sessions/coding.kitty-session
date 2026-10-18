@@ -5,7 +5,7 @@ layout tall
 
 new_tab Term-Log
   layout fat
-#    launch --hold ov --multi-color "ERROR,WARN,INFO,DEBUG,not,^.{24}" /Users/liusam/.local/state/nvim/lsp.log
+#    launch --hold /bin/zsh -lc 'exec ov --multi-color "ERROR,WARN,INFO,DEBUG,not,^.{24}" "$HOME/.local/state/nvim/lsp.log"'
   cd ~/Dev/
     launch  --title  "MainTerm" zsh
       # focus # Con esta linea estoy volviendo el pane actual en el enfocado después de crear los demás panes(Windows)
