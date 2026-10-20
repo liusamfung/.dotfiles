@@ -39,6 +39,7 @@ alias safe-shutdown="$HOME/dotfiles/scripts/safe-shutdown.sh"
 alias safe-reboot="$HOME/dotfiles/scripts/safe-shutdown.sh reboot"
 alias close-apps="$HOME/dotfiles/scripts/close-apps.sh"
 alias startup-apps="$HOME/dotfiles/scripts/startup-apps.sh"
+alias wa2memo="$HOME/dotfiles/scripts/wa2memo.sh"
 # The argument `bootout` of launchctl only unloads it for the current boot session. If you restart the laptop, RunAtLoad=true in the plist means kanata would start right back up on its own. If, you want to keep it disable until you manually come back use `disable`
 alias kanata-pause="sudo launchctl disable system/com.liusam.kanata && sudo launchctl bootout system/com.liusam.kanata"
 alias kanata-resume="sudo launchctl enable system/com.liusam.kanata && sudo launchctl bootstrap system /Library/LaunchDaemons/com.liusam.kanata.plist"
