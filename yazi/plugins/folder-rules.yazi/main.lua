@@ -21,6 +21,13 @@ local function setup()
 				break
 			end
 		end
+		-- 3.1 La papelera nativa (g+t) no es una ruta del disco sino una URL virtual "trash://...",
+		-- asi que nunca coincide con home .. "/.Trash". Se detecta por el esquema (incluye subcarpetas).
+		-- La papelera nativa de Yazi es un lugar virtual. trash://... no es una carpeta del disco, sino una dirección que Yazi inventó para poder hablar con la papelera.
+		-- ventaja: Yazi puede manejar la papelera igual en cualquier sistema
+		if not is_dated_path and current_path:find("^trash:") then
+			is_dated_path = true
+		end
 		if is_dated_path then
 			-- Aplica la regla  cualquier path en dated_paths
 			ya.emit("sort", { "mtime", reverse = true, dir_first = false })
