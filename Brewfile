@@ -32,6 +32,7 @@ brew "imagemagick"  # not a leaf on the author's Mac (a dependency there)
 brew "ghostscript"  # not a leaf on the author's Mac (a dependency there)
 brew "chafa"
 brew "media-info"
+brew "exiftool"  # yazi's "Show EXIF" entry in the Shift+O menu
 brew "ouch"
 
 # Neovim: editor, parsers, Mason (needs python3 for its pip packages), LuaSnip/telescope builds, sf.nvim

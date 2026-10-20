@@ -17,7 +17,7 @@ prepend_rules = [
   # NOTE: Reglas por mime (no por extension): los archivos dentro de la papelera tienen mime
   # "trash/*", asi que NO se ven afectados y siguen mostrando "Restore selected files" /
   # "Empty trash bin" con Shift+O. Con `url = "*.png"` la regla tambien atrapaba la papelera.
-  { mime = "image/png",     use = [ "imagen", "edit_image" ] },
+  { mime = "image/png",     use = [ "imagen", "edit_image", "reveal" ] },
   { mime = "image/svg+xml", use = [ "open", "reveal" ] },  # svg y gif: comportamiento default
   { mime = "image/gif",     use = [ "open", "reveal" ] },
   { mime = "image/*",       use = [ "imagen", "reveal" ] },
@@ -34,13 +34,13 @@ docs = [
     { run = 'open -a "Firefox" %s', block = true, for = "unix" },
 ]
 imagen = [
-    { run = 'open -a "Phoenix Slides" %s', block = true, for = "macos" },
+    { run = 'open -a "Phoenix Slides" %s', desc = "Abrir con Phoenix Slides", block = true, for = "macos" },
 ]
 edit = [
     { run = 'nvim %s', block = true, for = "unix" },
 ]
 edit_image = [
-    { run = 'open -a "macshot" %s', block = true, for = "unix" },
+    { run = 'open -a "macshot" %s', desc = "Editar con macshot", block = true, for = "unix" },
 ]
 play = [
     { run = 'open -a "IINA" %s', block = true, for = "macos" },
