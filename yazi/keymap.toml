@@ -68,6 +68,14 @@ on = ["T","s"]
 run = "cd '~/.Trash/'"
 desc = "System Trash (MacOS)"
 
+# NOTE: `dd` manda a la papelera SIN pedir confirmacion (se recupera con `u`). Como empieza con `d`
+# y va antes que los atajos de fabrica, un solo `d` ahora espera la segunda tecla. `D` (borrar
+# definitivo, con confirmacion) no cambia.
+[[mgr.prepend_keymap]]
+on = ["d","d"]
+run = "remove --force" # --force es para que no pregunte "yes" or "no" 
+desc = "Trash selected files without confirmation (restore with u)"
+
 [[mgr.prepend_keymap]]
 on = "F"
 run = "plugin smart-filter"
