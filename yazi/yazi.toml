@@ -23,6 +23,10 @@ prepend_rules = [
   { mime = "image/*",       use = [ "imagen", "reveal" ] },
 
   # { mime = "application/pdf", use = "docs" },
+
+  # NOTE: `o` siempre ejecuta el PRIMER opener de la lista (play = IINA) y Shift+O muestra el menu.
+  # "voicememo" va segundo para no cambiar lo que hace `o`.
+  { mime = "audio/*", use = [ "play", "voicememo", "reveal" ] },
 ]
 
 [opener]
@@ -45,6 +49,10 @@ edit_image = [
 play = [
     { run = 'open -a "IINA" %s', block = true, for = "macos" },
     # { run = 'open -a "QuickTime Player" %s', block = true, for = "macos" },
+]
+voicememo = [
+    # Convierte a m4a (Voice Memos no acepta .opus) y lo importa. Sin `block`: corre como tarea de fondo.
+    { run = '"$HOME/dotfiles/scripts/wa2memo.sh" %s', desc = "Enviar a Voice Memos", for = "macos" },
 ]
 extract = [
 	# { run = 'ouch d -y %*', desc = "Extract here with ouch", for = "windows" },
