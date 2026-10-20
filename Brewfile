@@ -23,7 +23,7 @@ brew "jq"
 brew "ripgrep"
 brew "fd"
 
-# yazi previews and plugins (images, pdf, svg, video, archives, mediainfo)
+# yazi previews and plugins (images, pdf, svg, video, archives)
 brew "ffmpeg"
 brew "sevenzip"
 brew "poppler"
@@ -31,7 +31,6 @@ brew "resvg"
 brew "imagemagick"  # not a leaf on the author's Mac (a dependency there)
 brew "ghostscript"  # not a leaf on the author's Mac (a dependency there)
 brew "chafa"
-brew "media-info"
 brew "exiftool"  # yazi's "Show EXIF" entry in the Shift+O menu
 brew "ouch"
 
