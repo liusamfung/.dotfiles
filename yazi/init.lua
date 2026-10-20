@@ -5,12 +5,6 @@ require("starship"):setup() -- https://github.com/Rolv-Apneseth/starship.yazi
 require("duckdb"):setup() -- https://github.com/wylie102/duckdb.yazi
 require("git"):setup() -- https://github.com/yazi-rs/plugins/tree/main/git.yazi
 require("folder-rules"):setup()
-require("restore"):setup({ -- https://github.com/boydaihungst/restore.yazi
-	show_confirm = true,
-})
-require("recycle-bin"):setup({ -- https://github.com/uhs-robert/recycle-bin.yazi
-	trash_dir = home_path .. "/.local/share/Trash/files", -- Uncomment to use specific directory
-}) -- https://github.com/uhs-robert/recycle-bin.yazi
 -- https://yazi-rs.github.io/docs/tips/#user-group-in-status
 Status:children_add(function()
 	local h = cx.active.current.hovered

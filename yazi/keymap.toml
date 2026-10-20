@@ -60,43 +60,13 @@ desc = "Maximize or restore the preview pane"
 
 [[mgr.prepend_keymap]]
 on = "u"
-run = "plugin restore"
-desc = "Restore last deleted files/folders"
-
-[[mgr.prepend_keymap]]
-on = "U"
-run = "plugin restore -- --interactive"
-desc = "Restore deleted files/folders Interactive"
-
-[[mgr.prepend_keymap]]
-on = ["T","o"]
-run = "plugin recycle-bin -- open"
-desc = "Open Trash (Freedesktop.org)"
+run = "plugin restore-last"
+desc = "Restore last deleted files/folders (native trash)"
 
 [[mgr.prepend_keymap]]
 on = ["T","s"]
 run = "cd '~/.Trash/'"
 desc = "System Trash (MacOS)"
-
-[[mgr.prepend_keymap]]
-on = ["T","e","a"]
-run = "plugin recycle-bin -- empty"
-desc = "Empty Trash all"
-
-[[mgr.prepend_keymap]]
-on = ["T","r"]
-run = "plugin recycle-bin -- restore"
-desc = "Restore from Trash"
-
-# [[mgr.prepend_keymap]]
-# on = ["d","t"]
-# run = "plugin recycle-bin -- delete"
-# desc = "Delete from Trash"
-
-[[mgr.prepend_keymap]]
-on = ["T","e","d"]
-run = "plugin recycle-bin -- emptyDays"
-desc = "Empty by days deleted"
 
 [[mgr.prepend_keymap]]
 on = "F"

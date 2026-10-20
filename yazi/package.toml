@@ -34,16 +34,6 @@ rev = "8f1d971"
 hash = "8a7c58225816a163a6e8730c0adafbc8"
 
 [[plugin.deps]]
-use = "boydaihungst/restore"
-rev = "2161735"
-hash = "901741afba1979739b4650324265162e"
-
-[[plugin.deps]]
-use = "uhs-robert/recycle-bin"
-rev = "8bb6286"
-hash = "f8d05a771c1d18c87f5558cbd4ae27fa"
-
-[[plugin.deps]]
 use = "yazi-rs/plugins:smart-filter"
 rev = "8f1d971"
 hash = "bcda8eeb3f4013bae156aecabfc745e8"
@@ -67,3 +57,6 @@ hash = "9f82a544335a53d79e87ea315746caaa"
 use = "lpnh/frank"
 rev = "1c101b1"
 hash = "b8171400c4582ef7e2c5098cde089126"
+
+[flavor]
+deps = []
