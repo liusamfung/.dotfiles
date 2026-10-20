@@ -102,8 +102,6 @@ export PATH="$HOMEBREW_PREFIX/opt/ruby/bin:$PATH"
 export PATH="$HOMEBREW_PREFIX/lib/ruby/gems/3.4.0/bin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/openjdk@21/bin:$PATH"
 
-export PATH="$HOMEBREW_PREFIX/opt/trash-cli/bin:$PATH"
-
 
 # Lazy load para el autocompletado de Angular
 ng() {

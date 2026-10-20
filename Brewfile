@@ -1,7 +1,7 @@
 # Core of the terminal flow. install.sh runs `brew bundle` on this file; Brewfile.extras is opt-in (--extras).
 # Check without installing:  brew bundle check --file Brewfile
 
-# Shell: plugins sourced by .zshrc, prompt, aliases (eza, trash)
+# Shell: plugins sourced by .zshrc, prompt, aliases (eza)
 brew "zsh-autosuggestions"
 brew "zsh-vi-mode"
 brew "starship"
@@ -9,7 +9,6 @@ brew "fzf"
 brew "eza"
 brew "zoxide"
 brew "bat"
-brew "trash-cli"
 
 # Terminal tools used by kitty sessions, lazygit and yazi
 brew "yazi"
