@@ -19,6 +19,66 @@ return {
 			{ "<leader>gvf", "<cmd>DiffviewFileHistory %<cr>", desc = "Diff: history of this file" },
 			{ "<leader>gvF", "<cmd>DiffviewFileHistory<cr>", desc = "Diff: repo history" },
 			{ "<leader>gvc", "<cmd>DiffviewClose<cr>", desc = "Diff: close everything" },
+
+			-- Snacks pickers whose Enter opens the commit in Diffview (snacks' default would `git checkout` it)
+			{
+				"<leader>gl",
+				function()
+					Snacks.picker.git_log({
+						confirm = function(picker, item)
+							picker:close()
+							if item and item.commit then
+								vim.cmd("DiffviewOpen " .. item.commit .. "^!")
+							end
+						end,
+					})
+				end,
+				desc = "Git Log (Enter = open diff)",
+			},
+			{
+				"<leader>gf",
+				function()
+					local file = vim.api.nvim_buf_get_name(0)
+					Snacks.picker.git_log_file({
+						confirm = function(picker, item)
+							picker:close()
+							if item and item.commit then
+								vim.cmd(("DiffviewOpen %s^! -- %s"):format(item.commit, vim.fn.fnameescape(file)))
+							end
+						end,
+					})
+				end,
+				desc = "Git Log File (Enter = open diff)",
+			},
+
+			-- Diffview of the checked-out PR against the branch it targets (not always main)
+			{
+				"<leader>gpv",
+				function()
+					vim.system(
+						{ "gh", "pr", "view", "--json", "baseRefName", "-q", ".baseRefName" },
+						{ text = true },
+						function(res)
+							vim.schedule(function()
+								local base = vim.trim(res.stdout or "")
+								if res.code ~= 0 or base == "" then
+									vim.notify(
+										"This branch has no PR (use <leader>gpc to check one out)",
+										vim.log.levels.WARN
+									)
+									return
+								end
+								vim.system({ "git", "fetch", "origin", base }, { text = true }, function()
+									vim.schedule(function()
+										vim.cmd("DiffviewOpen origin/" .. base .. "...HEAD")
+									end)
+								end)
+							end)
+						end
+					)
+				end,
+				desc = "PR: Diffview vs its base branch",
+			},
 		},
 		config = function()
 			local actions = require("diffview.actions")

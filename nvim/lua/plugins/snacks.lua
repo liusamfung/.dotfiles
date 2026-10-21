@@ -1,3 +1,15 @@
+-- pick("<lhs>", "<picker source>", "<desc>", { picker options }, { modes }) -> lazy.nvim `keys` entry
+local function pick(lhs, source, desc, opts, mode)
+	return {
+		lhs,
+		function()
+			Snacks.picker[source](opts)
+		end,
+		desc = desc,
+		mode = mode,
+	}
+end
+
 return {
 	-- "nvim-tree/nvim-web-devicons", -- optional dependency snacks usa este plugin como dependencia para los iconos
 	{
@@ -7,6 +19,168 @@ return {
 		},
 		priority = 1000,
 		lazy = false,
+		keys = {
+			-- Files / buffers ---------------------------------------------------------------------
+			pick("<leader><space>", "smart", "Picker smart"),
+			pick("<leader>,", "buffers", "Picker buffers"),
+			pick("<leader>fb", "buffers", "Find Buffers"),
+			pick("<leader>:", "command_history", "Command History"),
+			pick(
+				"<leader>ff",
+				"files",
+				"Find File (modificado)",
+				{ exclude = { "node_modules", ".git", ".sfdx", ".sf" } }
+			),
+			pick("<leader>fF", "files", "Find Files (all, without filters)"),
+			pick("<leader>fc", "files", "Find Config File", { cwd = "~/dotfiles/" }),
+			pick("<leader>fg", "git_files", "Find git files (Trackeados)"),
+			pick("<leader>fp", "projects", "Find Projects"), -- TODO: How detect projects
+			pick("<leader>fr", "recent", "Find Recent files"),
+			pick("<leader>fC", "colorschemes", "Find Colorschemes"),
+			{
+				"<leader>ue",
+				function()
+					Snacks.explorer()
+				end,
+				desc = "Snacks Explorer",
+			},
+			{
+				"<leader>bd",
+				function()
+					Snacks.bufdelete()
+				end,
+				desc = "Delete Buffer",
+			},
+			{
+				"<leader>cR",
+				function()
+					Snacks.rename.rename_file()
+				end,
+				desc = "Rename File (Snacks)",
+			},
+			{
+				"<leader>.",
+				function()
+					Snacks.scratch()
+				end,
+				desc = "Scratch",
+			},
+			{
+				"]]",
+				function()
+					Snacks.words.jump(1, false) -- Cycle "false"
+				end,
+				desc = "Go next highlighted word",
+			},
+			{
+				"[[",
+				function()
+					Snacks.words.jump(-1, false)
+				end,
+				desc = "Go prev highlighted word",
+			},
+
+			-- LSP ---------------------------------------------------------------------------------
+			pick("gd", "lsp_definitions", "LSP: Goto Definition"),
+			pick("gD", "lsp_declarations", "LSP: Goto Declaration"),
+			pick("gr", "lsp_references", "LSP: Goto References"),
+			pick("gI", "lsp_implementations", "LSP: Goto Implementation"),
+			pick("gy", "lsp_type_definitions", "LSP: Goto T[y]pe Definition"),
+			pick("gai", "lsp_incoming_calls", "LSP: C[a]lls Incoming"),
+			pick("gao", "lsp_outgoing_calls", "LSP: C[a]lls Outgoing"),
+			pick("<leader>ss", "lsp_symbols", "LSP: Symbols"),
+			pick("<leader>sS", "lsp_workspace_symbols", "LSP: Workspace Symbols"),
+			pick("<leader>sd", "diagnostics", "Search diagnostics"),
+			pick("<leader>sD", "diagnostics_buffer", "Search buffer diagnostics"),
+
+			-- Search ------------------------------------------------------------------------------
+			pick("<leader>/", "grep", "Grep"),
+			pick("<leader>sb", "lines", "Search current Buffer Lines (Grep)"),
+			pick("<leader>sB", "grep_buffers", "Search in Buffers (Grep)"),
+			pick("<leader>sw", "grep_word", "Search Visual selection or word", nil, { "n", "x" }),
+			pick("<leader>sc", "commands", "Search Commands"),
+			pick("<leader>sp", "lazy", "Search Plugins"),
+			pick("<leader>si", "icons", "Search Icons"),
+			pick("<leader>sj", "jumps", "Search Jumps"),
+			pick("<leader>s+", "registers", "Search Registers"),
+			pick("<leader>s/", "search_history", "Search History"),
+			pick("<leader>sa", "autocmds", "Search Autocmds"),
+			pick("<leader>sh", "help", "Search Help Pages"),
+			pick("<leader>sM", "man", "Man Pages"),
+			pick("<leader>sH", "highlights", "Search Highlights"),
+			pick("<leader>sk", "keymaps", "Search Keymaps"),
+			pick("<leader>sq", "qflist", "Search Quickfix"), -- TODO: Que hace el Quickfix
+			pick("<leader>sl", "loclist", "Search Location List"), -- TODO: que es esto
+			pick("<leader>s'", "marks", "Search Marks"),
+			pick("<leader>sR", "resume", "Search Resume"), -- TODO: que es esto
+			pick("<leader>su", "undo", "Search on Undo History"),
+
+			-- Git ---------------------------------------------------------------------------------
+			-- (<leader>gl and <leader>gf live in diffview.lua: Enter opens the commit in Diffview)
+			pick("<leader>gb", "git_branches", "Git Branches"),
+			pick("<leader>gL", "git_log_line", "Git Log Line"),
+			pick("<leader>gs", "git_status", "Git Status"),
+			pick("<leader>gS", "git_stash", "Git Stash"),
+			pick("<leader>gd", "git_diff", "Git diff (Hunks)"),
+			pick("<leader>gD", "git_diff", "Git Diff (vs origin/main)", { base = "origin/main" }),
+			{
+				"<leader>gB",
+				function()
+					Snacks.gitbrowse()
+				end,
+				desc = "Git Browse",
+				mode = { "n", "x" },
+			},
+			{
+				"<leader>gg",
+				function()
+					Snacks.lazygit()
+				end,
+				desc = "Lazygit",
+			},
+
+			-- GitHub: issues and pull requests ------------------------------------------------------
+			-- <leader>gp = "pull request". Review someone else's PR without leaving nvim:
+			--   gpp pick a PR -> <cr> menu (diff, checkout, comment, approve, request changes...), <a-d> straight to its diff
+			--   gpd diff of PR #n   gpc checkout PR #n   (gpv, Diffview of the PR vs its base, is in diffview.lua)
+			pick("<leader>gi", "gh_issue", "GitHub Issues (open)"),
+			pick("<leader>gI", "gh_issue", "GitHub Issues (all)", { state = "all" }),
+			pick("<leader>gpp", "gh_pr", "PR: list (open)"),
+			pick("<leader>gpa", "gh_pr", "PR: list (all)", { state = "all" }),
+			pick("<leader>gP", "gh_pr", "GitHub Pull Requests (All)", { state = "all" }),
+			{
+				"<leader>gpd",
+				function()
+					vim.ui.input({ prompt = "PR number: " }, function(n)
+						if n and tonumber(n) then
+							Snacks.picker.gh_diff({ pr = tonumber(n) })
+						end
+					end)
+				end,
+				desc = "PR: diff of #n (comment with `a`)",
+			},
+			{
+				"<leader>gpc",
+				function()
+					vim.ui.input({ prompt = "Checkout PR number: " }, function(n)
+						if not (n and tonumber(n)) then
+							return
+						end
+						vim.system({ "gh", "pr", "checkout", n }, { text = true }, function(res)
+							vim.schedule(function()
+								if res.code == 0 then
+									vim.cmd("checktime")
+									vim.notify("Checked out PR #" .. n)
+								else
+									vim.notify("gh pr checkout failed:\n" .. (res.stderr or ""), vim.log.levels.ERROR)
+								end
+							end)
+						end)
+					end)
+				end,
+				desc = "PR: checkout #n",
+			},
+		},
 		---@type snacks.Config
 		opts = {
 			image = { enabled = true },

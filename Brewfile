@@ -33,7 +33,7 @@ brew "chafa"
 brew "exiftool"  # yazi's "Show EXIF" entry in the Shift+O menu
 brew "ouch"
 
-# Neovim: editor, parsers, Mason (needs python3 for its pip packages), LuaSnip/telescope builds, sf.nvim
+# Neovim: editor, parsers, Mason (needs python3 for its pip packages), LuaSnip build, sf.nvim
 brew "neovim"
 brew "tree-sitter-cli"
 brew "luarocks"
