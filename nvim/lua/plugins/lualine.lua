@@ -1,3 +1,9 @@
+-- Salesforce status (plugins/salesforce/status.lua). pcall: if that folder is removed the component just disappears.
+local function sf_status()
+	local ok, status = pcall(require, "plugins.salesforce.status")
+	return ok and status or nil
+end
+
 return {
 	{
 		"nvim-lualine/lualine.nvim",
@@ -86,15 +92,18 @@ return {
 				},
 				lualine_x = {
 					{
-						-- Spinner / progress / check for <leader>tS and <leader>tv (config/sf_status.lua)
+						-- Spinner / progress / check for <leader>tS and <leader>tv (plugins/salesforce/status.lua)
 						function()
-							return require("config.sf_status").text()
+							local status = sf_status()
+							return status and status.text() or ""
 						end,
 						cond = function()
-							return require("config.sf_status").text() ~= ""
+							local status = sf_status()
+							return status ~= nil and status.text() ~= ""
 						end,
 						color = function()
-							return require("config.sf_status").color()
+							local status = sf_status()
+							return status and status.color() or nil
 						end,
 					},
 					{

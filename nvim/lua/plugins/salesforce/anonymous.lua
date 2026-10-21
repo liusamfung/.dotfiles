@@ -11,7 +11,7 @@
 -- scrolled right away. `d` switches the view, `q` closes it and brings the editor back.
 local M = {}
 
-local status = require("config.sf_status")
+local status = require("plugins.salesforce.status")
 
 local editor = { win = nil, cursor = nil }
 ---@type { win: integer?, buf: integer?, last: { ok: boolean, header: string, log: string?, from_run: boolean? }?, mode: "debug"|"full" }

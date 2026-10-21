@@ -11,7 +11,7 @@ return {
 
 			-- Compilation diagnostics from the org: validates (dry-run) ONLY the current file against the
 			-- target org, without running tests and without saving anything in the org.
-			-- Manual (<leader>tv, see salesforce.lua): the previous version ran a dry-run deploy of the whole
+			-- Manual (<leader>tv, see plugins/salesforce/init.lua): the previous version ran a dry-run deploy of the whole
 			-- project, tests included, on every save.
 			lint.linters.sf_compile = {
 				cmd = "sf",
@@ -34,8 +34,12 @@ return {
 				stream = "stdout",
 				ignore_exitcode = true,
 				parser = function(output, bufnr)
-					-- <leader>tv reads this to tell "validated" from "the CLI failed" (see sf_status.lua)
-					local status = require("config.sf_status")
+					-- <leader>tv reads this to tell "validated" from "the CLI failed" (see plugins/salesforce/status.lua).
+					-- pcall: without the Salesforce folder the result is just not recorded.
+					local has_status, status = pcall(require, "plugins.salesforce.status")
+					if not has_status then
+						status = {}
+					end
 					local ok, decoded = pcall(vim.json.decode, output)
 					if not ok or type(decoded) ~= "table" then
 						status.compile_result = { error = "sf returned no JSON" }

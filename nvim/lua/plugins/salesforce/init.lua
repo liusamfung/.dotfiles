@@ -1,3 +1,8 @@
+-- NOTA: en una subcarpeta de lua/plugins/ lazy.nvim SOLO carga init.lua (este archivo, que devuelve el spec).
+-- Los demás archivos (status.lua, anonymous.lua) no se ejecutan como specs: se cargan con
+-- require("plugins.salesforce.status") y require("plugins.salesforce.anonymous").
+-- Una subcarpeta sin init.lua se ignora entera.
+
 -- sf.nvim: wrapper around the `sf` CLI (push/retrieve, orgs, Apex tests, anonymous Apex, ...).
 -- sf.nvim detects the project itself (sfdx-project.json / .forceignore, searched upwards from the current
 -- file or cwd), so there is no `cond` here: with one, opening nvim from a subfolder of the project
@@ -66,12 +71,12 @@ local function count_stubs(dir)
 	return #vim.fn.glob(dir .. "/*/*.cls", false, true)
 end
 
---- <leader>tS: `:SF sobject refresh` with progress in the lualine (config/sf_status.lua).
+--- <leader>tS: `:SF sobject refresh` with progress in the lualine (plugins/salesforce/status.lua).
 --- sf.nvim has no progress hook, so the percentage is estimated: stubs written so far in the staging folder
 --- divided by the stubs of the previous refresh (on the first refresh of a project only the count is shown).
 --- The end is detected from sf.nvim's own final message (see `intercept` below).
 local function refresh_sobjects()
-	local status = require("config.sf_status")
+	local status = require("plugins.salesforce.status")
 	local ok, root = pcall(require("sf.util").get_sf_root)
 	if not ok then
 		-- outside a project sf.nvim explains why it cannot run
@@ -142,7 +147,7 @@ end
 --- the elapsed seconds (the CLI gives no progress in --json mode) and a final check / cross in the lualine.
 local function validate_file()
 	local lint = require("lint")
-	local status = require("config.sf_status")
+	local status = require("plugins.salesforce.status")
 	local buf = vim.api.nvim_get_current_buf()
 	if status.running() then
 		return vim.notify("Another SF task is still running", vim.log.levels.WARN)
@@ -247,14 +252,14 @@ return {
 			{
 				"<leader>tl",
 				function()
-					require("config.sf_anonymous").pick_history()
+					require("plugins.salesforce.anonymous").pick_history()
 				end,
 				desc = "SF: history of Execute Anonymous runs (local)",
 			},
 			{
 				"<leader>tL",
 				function()
-					require("config.sf_anonymous").pick_log()
+					require("plugins.salesforce.anonymous").pick_log()
 				end,
 				desc = "SF: debug logs saved in the org (local time)",
 			},
@@ -309,18 +314,18 @@ return {
 			},
 			{ "<leader>tar", sf("run_anonymous_stdin", false), desc = "SF: run buffer as anonymous Apex" },
 			{ "<leader>taR", sf("run_anonymous"), desc = "SF: run file as anonymous Apex" },
-			-- Execute Anonymous window (see config/sf_anonymous.lua)
+			-- Execute Anonymous window (see plugins/salesforce/anonymous.lua)
 			{
 				"<leader>te",
 				function()
-					require("config.sf_anonymous").toggle_editor()
+					require("plugins.salesforce.anonymous").toggle_editor()
 				end,
 				desc = "SF: toggle Execute Anonymous window",
 			},
 			{
 				"<leader>tE",
 				function()
-					require("config.sf_anonymous").toggle_output()
+					require("plugins.salesforce.anonymous").toggle_output()
 				end,
 				desc = "SF: toggle the last Execute Anonymous output",
 			},
