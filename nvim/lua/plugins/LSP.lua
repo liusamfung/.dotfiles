@@ -34,7 +34,8 @@ return {
 
 					-- WARN: This is not Goto Definition, this is Goto Declaration.
 					--  For example, in C this would take you to the header.
-					map("grD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+					--  is better use just 'gD' in normal mode that provides Snacks
+					-- map("grD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
 					-- Como moverte por el código (cursor sobre la palabra). `gd`, `gr`, `gI`, `gy`, `<leader>ss` y
 					-- `<leader>sS` son tuyos (lua/plugins/snacks.lua) y abren un picker de Snacks; los `gr*` y `gO`
