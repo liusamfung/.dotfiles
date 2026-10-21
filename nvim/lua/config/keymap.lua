@@ -250,9 +250,17 @@ vim.keymap.set("n", "<leader>gb", function()
 	Snacks.picker.git_branches()
 end, { noremap = true, silent = true, desc = "Git Branches" })
 
+-- Enter on a commit opens its diff in Diffview (snacks' default would `git checkout` that commit)
 vim.keymap.set("n", "<leader>gl", function()
-	Snacks.picker.git_log()
-end, { noremap = true, silent = true, desc = "Git Log" })
+	Snacks.picker.git_log({
+		confirm = function(picker, item)
+			picker:close()
+			if item and item.commit then
+				vim.cmd("DiffviewOpen " .. item.commit .. "^!")
+			end
+		end,
+	})
+end, { noremap = true, silent = true, desc = "Git Log (Enter = open diff)" })
 
 vim.keymap.set("n", "<leader>gL", function()
 	Snacks.picker.git_log_line()
@@ -271,12 +279,21 @@ vim.keymap.set("n", "<leader>gd", function()
 end, { noremap = true, silent = true, desc = "Git diff (Hunks)" })
 
 vim.keymap.set("n", "<leader>gD", function()
-	Snacks.picker.git_diff({ cmd = { "git", "diff", "origin/main" } })
-end, { noremap = true, silent = true, desc = "Git Diff (origin)" })
+	Snacks.picker.git_diff({ base = "origin/main" })
+end, { noremap = true, silent = true, desc = "Git Diff (vs origin/main)" })
 
+-- Enter on a commit opens that commit's diff for THIS file only (instead of `git checkout`)
 vim.keymap.set("n", "<leader>gf", function()
-	Snacks.picker.git_log_file()
-end, { noremap = true, silent = true, desc = "Git Log File" })
+	local file = vim.api.nvim_buf_get_name(0)
+	Snacks.picker.git_log_file({
+		confirm = function(picker, item)
+			picker:close()
+			if item and item.commit then
+				vim.cmd(("DiffviewOpen %s^! -- %s"):format(item.commit, vim.fn.fnameescape(file)))
+			end
+		end,
+	})
+end, { noremap = true, silent = true, desc = "Git Log File (Enter = open diff)" })
 
 vim.keymap.set("n", "<leader>gg", function()
 	Snacks.lazygit()
@@ -290,13 +307,64 @@ vim.keymap.set("n", "<leader>gI", function()
 	Snacks.picker.gh_issue({ state = "all" })
 end, { noremap = true, silent = true, desc = "GitHub Issues(all)" })
 
-vim.keymap.set("n", "<leader>gp", function()
+-- <leader>gp = "pull request". Review someone else's PR without leaving nvim:
+--   gpp pick a PR -> <cr> menu (diff, checkout, comment, approve, request changes...), <a-d> straight to its diff
+--   gpd diff of PR #n   gpv Diffview of the checked-out PR vs its base   gpc checkout PR #n
+vim.keymap.set("n", "<leader>gpp", function()
 	Snacks.picker.gh_pr()
-end, { noremap = true, silent = true, desc = "GitHub Pull Requests(open)" })
+end, { noremap = true, silent = true, desc = "PR: list (open)" })
+
+vim.keymap.set("n", "<leader>gpa", function()
+	Snacks.picker.gh_pr({ state = "all" })
+end, { noremap = true, silent = true, desc = "PR: list (all)" })
 
 vim.keymap.set("n", "<leader>gP", function()
 	Snacks.picker.gh_pr({ state = "all" })
 end, { noremap = true, silent = true, desc = "GitHub Pull Requests(All)" })
+
+vim.keymap.set("n", "<leader>gpd", function()
+	vim.ui.input({ prompt = "PR number: " }, function(n)
+		if n and tonumber(n) then
+			Snacks.picker.gh_diff({ pr = tonumber(n) })
+		end
+	end)
+end, { noremap = true, silent = true, desc = "PR: diff of #n (comment with `a`)" })
+
+vim.keymap.set("n", "<leader>gpc", function()
+	vim.ui.input({ prompt = "Checkout PR number: " }, function(n)
+		if not (n and tonumber(n)) then
+			return
+		end
+		vim.system({ "gh", "pr", "checkout", n }, { text = true }, function(res)
+			vim.schedule(function()
+				if res.code == 0 then
+					vim.cmd("checktime")
+					vim.notify("Checked out PR #" .. n)
+				else
+					vim.notify("gh pr checkout failed:\n" .. (res.stderr or ""), vim.log.levels.ERROR)
+				end
+			end)
+		end)
+	end)
+end, { noremap = true, silent = true, desc = "PR: checkout #n" })
+
+-- Diffview of the checked-out PR against the branch it targets (not always main)
+vim.keymap.set("n", "<leader>gpv", function()
+	vim.system({ "gh", "pr", "view", "--json", "baseRefName", "-q", ".baseRefName" }, { text = true }, function(res)
+		vim.schedule(function()
+			local base = vim.trim(res.stdout or "")
+			if res.code ~= 0 or base == "" then
+				vim.notify("This branch has no PR (use <leader>gpc to check one out)", vim.log.levels.WARN)
+				return
+			end
+			vim.system({ "git", "fetch", "origin", base }, { text = true }, function()
+				vim.schedule(function()
+					vim.cmd("DiffviewOpen origin/" .. base .. "...HEAD")
+				end)
+			end)
+		end)
+	end)
+end, { noremap = true, silent = true, desc = "PR: Diffview vs its base branch" })
 
 vim.keymap.set("n", "<leader>gB", function()
 	Snacks.picker.gitbrowse()

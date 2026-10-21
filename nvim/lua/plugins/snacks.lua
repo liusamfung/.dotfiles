@@ -72,6 +72,24 @@ return {
 					-- preset = "vertical", -- S
 				},
 				sources = {
+					gh_pr = {
+						actions = {
+							-- Close the PR list first, otherwise two ivy_split layouts stack and the preview collapses.
+							pr_diff = function(picker, item)
+								if not item then
+									return
+								end
+								picker:close()
+								vim.schedule(function()
+									Snacks.picker.gh_diff({ repo = item.repo, pr = item.number })
+								end)
+							end,
+						},
+						win = {
+							input = { keys = { ["<a-d>"] = { "pr_diff", mode = { "n", "i" } } } },
+							list = { keys = { ["d"] = "pr_diff" } },
+						},
+					},
 					explorer = {
 						-- focus = "",
 						jump = { close = true }, --autoclose when you choose a file
