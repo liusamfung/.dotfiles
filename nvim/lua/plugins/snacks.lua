@@ -317,7 +317,7 @@ return {
    ]],
 				},
 				sections = {
-					-- { section = "header" },
+					{ section = "header" },
 					-- {
 					-- 	pane = 2,
 					-- 	icon = " ",
