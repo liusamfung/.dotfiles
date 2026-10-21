@@ -1,4 +1,4 @@
--- NOTA: en una subcarpeta de lua/plugins/ lazy.nvim SOLO carga init.lua (este archivo, que devuelve el spec).
+-- NOTE: en una subcarpeta de lua/plugins/ lazy.nvim SOLO carga init.lua (este archivo, que devuelve el spec).
 -- Los demás archivos (status.lua, anonymous.lua) no se ejecutan como specs: se cargan con
 -- require("plugins.salesforce.status") y require("plugins.salesforce.anonymous").
 -- Una subcarpeta sin init.lua se ignora entera.

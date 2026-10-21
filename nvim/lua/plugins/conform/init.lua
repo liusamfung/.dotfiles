@@ -1,4 +1,4 @@
--- NOTA: en una subcarpeta de lua/plugins/ lazy.nvim SOLO carga init.lua (este archivo, que devuelve el spec).
+-- NOTE: en una subcarpeta de lua/plugins/ lazy.nvim SOLO carga init.lua (este archivo, que devuelve el spec).
 -- code_actions.lua no se ejecuta como spec: se carga con require("plugins.conform.code_actions").
 -- Una subcarpeta sin init.lua se ignora entera.
 return {

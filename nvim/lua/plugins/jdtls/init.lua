@@ -1,4 +1,4 @@
--- NOTA: en una subcarpeta de lua/plugins/ lazy.nvim SOLO carga init.lua (este archivo, que devuelve el spec).
+-- NOTE: en una subcarpeta de lua/plugins/ lazy.nvim SOLO carga init.lua (este archivo, que devuelve el spec).
 -- Los demás archivos (setup.lua) no se ejecutan como specs: se cargan con require("plugins.jdtls.setup").
 -- Una subcarpeta sin init.lua se ignora entera.
 return {
