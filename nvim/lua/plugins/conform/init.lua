@@ -1,3 +1,6 @@
+-- NOTA: en una subcarpeta de lua/plugins/ lazy.nvim SOLO carga init.lua (este archivo, que devuelve el spec).
+-- code_actions.lua no se ejecuta como spec: se carga con require("plugins.conform.code_actions").
+-- Una subcarpeta sin init.lua se ignora entera.
 return {
 	{
 		"stevearc/conform.nvim",
@@ -50,7 +53,7 @@ return {
 				if vim.bo[bufnr].filetype == "sql" then
 					return nil
 				end
-				require("config.code_actions").run(bufnr)
+				require("plugins.conform.code_actions").run(bufnr)
 				return {
 					lsp_format = "never", -- Si no encuentro un formateador configurado para este tipo de archivo en Conform, no quiero que use  el motor de formateo del propio LSP (No es tan bueno muchas veces).
 					timeout_ms = 3000, -- tiempo máximo (en milisegundos) que Neovim esperará a que el formateador externo (como stylua o google-java-format) termine su trabajo antes de cancelar la operación.

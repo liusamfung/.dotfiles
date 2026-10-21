@@ -1,5 +1,5 @@
 -- Runs LSP "source" code actions (organize imports, eslint --fix) synchronously, right before a save.
--- Called from conform's format_on_save (see plugins/conform.lua) so the order is always:
+-- Called from conform's format_on_save (see plugins/conform/init.lua) so the order is always:
 --   organize imports -> eslint fixes -> prettier.
 local M = {}
 
