@@ -36,7 +36,12 @@ return {
 			pick("<leader>fg", "git_files", "Find git files (Trackeados)"),
 			pick("<leader>fp", "projects", "Find Projects"), -- TODO: How detect projects
 			pick("<leader>fr", "recent", "Find Recent files"),
-			pick("<leader>fC", "colorschemes", "Find Colorschemes"),
+			pick("<leader>fC", "colorschemes", "Find Colorschemes (installed plugins)", {
+				-- hide the ~30 colorschemes that ship with Neovim; only the plugins of plugins/colorscheme.lua remain
+				transform = function(item)
+					return not vim.startswith(item.file, vim.env.VIMRUNTIME)
+				end,
+			}),
 			{
 				"<leader>ue",
 				function()

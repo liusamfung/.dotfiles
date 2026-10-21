@@ -1,10 +1,40 @@
-local function enable_transparency()
-	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-end
--- If any colorscheme plugin don't have transparancy as Option(Built-in)
--- Just call this fuction in `funcion()end` block
+-- Colorschemes. Every theme is installed but only the one in use is loaded: with `lazy = true`, lazy.nvim loads a
+-- theme the moment `:colorscheme <name>` runs. To try another one use <leader>fC (it lists only the themes below,
+-- with live preview). The last theme you chose is remembered between sessions.
+--
+-- To add a theme: add its spec below with `lazy = true`. To drop one: delete its spec.
 
--- enable_transparency()
+local default = "solarized-osaka"
+local state_file = vim.fn.stdpath("state") .. "/colorscheme"
+
+local function saved_colorscheme()
+	local ok, lines = pcall(vim.fn.readfile, state_file)
+	return ok and lines[1] ~= "" and lines[1] or default
+end
+
+local group = vim.api.nvim_create_augroup("colorscheme_settings", { clear = true })
+
+-- Remember the colorscheme, whether it was chosen with <leader>fC or with :colorscheme.
+-- Only after startup: before VimEnter the changes are not a choice of yours (the restore below, or the temporary
+-- "habamax" lazy.nvim applies while it installs missing plugins).
+vim.api.nvim_create_autocmd("ColorScheme", {
+	group = group,
+	desc = "Save the colorscheme to restore it on the next start",
+	callback = function(args)
+		if vim.v.vim_did_enter == 1 then
+			pcall(vim.fn.writefile, { args.match }, state_file)
+		end
+	end,
+})
+
+-- Transparent background for every theme (some have no option for it)
+vim.api.nvim_create_autocmd("ColorScheme", {
+	group = group,
+	desc = "Transparent background",
+	callback = function()
+		vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+	end,
+})
 
 return {
 	{
@@ -22,52 +52,20 @@ return {
 					keywords = { bold = true }, -- Anotaciones, palabras reservadas, etc
 				},
 			})
-			--     -- Load the colorscheme here.
-			--     -- Like many other themes, this one has different styles, and you could load
-			--     -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-			--     vim.cmd.colorscheme 'tokyonight-night'
-			vim.cmd.colorscheme("solarized-osaka")
+			-- The saved theme (or this one by default). If it was uninstalled, fall back to the default.
+			if not pcall(vim.cmd.colorscheme, saved_colorscheme()) then
+				vim.cmd.colorscheme(default)
+			end
 		end,
 	},
 
-	-- {
-	-- 	"2nthony/vitesse.nvim",
-	-- 	dependencies = {
-	-- 		"tjdevries/colorbuddy.nvim",
-	-- 	},
-	-- 	config = function()
-	-- 		vim.cmd.colorscheme("vitesse")
-	-- 		enable_transparency()
-	-- 	end,
-	-- },
+	{ "Mofiqul/dracula.nvim", lazy = true },
 
-	-- {
-	-- 	"cpea2506/one_monokai.nvim",
-	-- 	lazy = false,
-	-- 	priority = 1000,
-	-- 	config = function()
-	-- 		require("one_monokai").setup({
-	-- 			transparent = true,
-	-- 			colors = {},
-	-- 			highlights = function(colors)
-	-- 				return {}
-	-- 			end,
-	-- 			italics = true,
-	-- 		})
-	-- 		vim.cmd.colorscheme("one_monokai")
-	-- 	end,
-	-- },
-	--
+	{ "2nthony/vitesse.nvim", lazy = true, dependencies = { "tjdevries/colorbuddy.nvim" } },
 
-	-- {
-	-- 	--Shorted Github url
-	-- 	"Mofiqul/dracula.nvim",
-	-- 	lazy = false,
-	-- 	priority = 1000,
-	-- 	config = function()
-	-- 		vim.cmd.colorscheme("dracula")
-	-- 		enable_transparency()
-	-- 	end,
-	-- 	--De Aqui unicamente me gusta el color del los comentarios
-	-- },
+	{
+		"cpea2506/one_monokai.nvim",
+		lazy = true,
+		opts = { transparent = true, italics = true },
+	},
 }
