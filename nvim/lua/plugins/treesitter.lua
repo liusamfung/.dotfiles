@@ -35,31 +35,31 @@ return {
 				"typst",
 				"vue",
 			})
-			-- Autocomando para iniciar el identado de treesittter si encuentra un archivo
-			-- 	disponible con identado. En caso de que no, no hace nada
 			vim.api.nvim_create_autocmd("FileType", {
-				callback = function()
-					local ft = vim.bo.filetype
+				-- augroup con clear = true: al recargar la config no se duplica el autocomando
+				group = vim.api.nvim_create_augroup("treesitter_setup", { clear = true }),
+				desc = "Instala el parser si falta, arranca Treesitter y usa su identado",
+				callback = function(event)
+					local lang = vim.treesitter.language.get_lang(event.match)
 
-					-- Si no hay filetype, no hacemos nada
-					if not ft or ft == "" then
-						return
+					-- 1. Auto-instalar: si hay un parser disponible para este lenguaje, ts.install es un no-op cuando ya está
+					if vim.list_contains(ts.get_available(), lang or event.match) then
+						ts.install({ lang or event.match })
 					end
 
-					-- Verificamos si existe un parser para el filetype actual
-					-- Nota: get_lang devuelve el nombre del lenguaje si existe el parser
-					local has_parser, _ = pcall(vim.treesitter.language.get_lang, ft)
+					-- 2. Arrancar solo si Neovim reconoce el lenguaje. pcall: buffers raros (los de snacks) no deben dar errores
+					if lang and pcall(vim.treesitter.start, event.buf, lang) then
+						vim.bo[event.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+					end
 
-					if has_parser and vim.treesitter.language.get_lang(ft) then
-						-- Intentamos iniciar Treesitter de forma segura
-						local ok, err = pcall(vim.treesitter.start)
-
-						if ok then
-							-- Si inició correctamente, aplicamos las configuraciones
-							vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-							-- vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-							-- vim.wo.foldmethod = "expr"
-						end
+					-- 3. Apex no trae query de identado en nvim-treesitter (:checkhealth nvim-treesitter): se usa el script de Java.
+					-- Va DESPUÉS del paso 2 para que gane el de Java. did_indent: el script se salta si ya está definido.
+					-- (SOQL no lleva nada: el identado de SQL, el de Treesitter y ninguno dan exactamente el mismo resultado.)
+					if event.match == "apex" then
+						vim.api.nvim_buf_call(event.buf, function()
+							vim.b.did_indent = nil
+							vim.cmd("runtime! indent/java.vim")
+						end)
 					end
 				end,
 			})
