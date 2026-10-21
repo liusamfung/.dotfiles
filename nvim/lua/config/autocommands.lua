@@ -7,31 +7,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
--- vim.api.nvim_create_autocmd({ "InsertEnter", "InsertLeave" }, {
--- 	callback = function()
--- 		vim.opt.guicursor =
--- 			"n-v-c:block-blinkwait175-blinkoff150-blinkon175,i-ci-ve:ver25-blinkwait175-blinkoff150-blinkon175,r-cr:hor20,o:hor50"
--- 	end,
--- })
-
--- --If you wanna view relativenumber in 'terminalmode'
--- vim.api.nvim_create_autocmd("termopen", {
--- 	callback = function()
--- 		vim.opt_local.relativenumber = true
--- 		vim.opt_local.wrap = false
--- 	end,
--- })
---
-
--- vim.api.nvim_create_autocmd("FileType", {
--- 	callback = function(ev)
--- 		local lang = vim.treesitter.language.get_lang(ev.match)
--- 		if lang then
--- 			vim.treesitter.start()
--- 		end
--- 	end,
--- })
-
 -- Treesitter autocommands-----------------------------------------------------
 vim.api.nvim_create_autocmd("FileType", {
 	group = group,
@@ -60,16 +35,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
--- vim.api.nvim_create_autocmd("FileType", {
--- 	group = group,
--- 	desc = "Enable treesitter highlighting and indentation (non-blocking)",
--- 	callback = function(event)
--- 		local lang = vim.treesitter.language.get_lang(event.match) or event.match
--- 		-- Auto-install missing parsers (async, no-op if already installed)
--- 		local ts = require("nvim-treesitter") --Alias
--- 		ts.install({ lang })
--- 	end,
--- })
 -- Treesitter autostart
 vim.api.nvim_create_autocmd("FileType", {
 	group = vim.api.nvim_create_augroup("ts_auto_start", { clear = true }), -- augroup: Es buena práctica envolver tus autocomandos en grupos con { clear = true }. Si recargas tu configuración mientras Neovim está abierto, esto evita que el autocomando se duplique infinitamente en memoria.
@@ -83,14 +48,6 @@ vim.api.nvim_create_autocmd("FileType", {
 		end
 	end,
 })
-
--- vim.api.nvim_create_autocmd("BufEnter", {
--- 	group = vim.api.nvim_create_augroup("LspRefreshFix", { clear = true }),
--- 	callback = function()
--- 		-- Forzar a que el LSP piense que el contenido ha cambiado para que re-analice
--- 		vim.diagnostic.show() -- Asegura que la capa de visualización esté activa
--- 	end,
--- })
 
 --Usa la identación de Java para  archivos Apex (Tresitter no proporciona
 --identación ofical en us paquete de Apex)
