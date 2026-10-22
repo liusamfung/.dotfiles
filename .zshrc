@@ -35,8 +35,6 @@ alias kanata-check="~/Dev/Tools/kanata/target/release/kanata -c ~/dotfiles/kanat
 # config/kanata: variable 'lrld' reloads everything inside your layers — defsrc, deflayer, defalias, defchords, etc. It does not reload anything in the defcfg block related to which physical device kanata is attached to (things like macos-dev-names-include/exclude)
 alias kanata-restart="~/Dev/Tools/kanata/target/release/kanata -c ~/dotfiles/kanata/config.kbd --check && sudo launchctl kickstart -k system/com.liusam.kanata"  
 
-alias safe-shutdown="$HOME/dotfiles/scripts/safe-shutdown.sh"
-alias safe-reboot="$HOME/dotfiles/scripts/safe-shutdown.sh reboot"
 alias close-apps="$HOME/dotfiles/scripts/close-apps.sh"
 alias startup-apps="$HOME/dotfiles/scripts/startup-apps.sh"
 alias wa2memo="$HOME/dotfiles/scripts/wa2memo.sh"
