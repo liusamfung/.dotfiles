@@ -54,11 +54,6 @@ voicememo = [
     # Convierte a m4a (Voice Memos no acepta .opus) y lo importa. Sin `block`: corre como tarea de fondo.
     { run = '"$HOME/dotfiles/scripts/wa2memo.sh" %s', desc = "Enviar a Voice Memos", for = "macos" },
 ]
-extract = [
-	# { run = 'ouch d -y %*', desc = "Extract here with ouch", for = "windows" },
-	{ run = 'ouch d -y %s', desc = "Extract here with ouch", for = "unix" },
-]
-
 
 [plugin]
   # prepend_fetchers = [
