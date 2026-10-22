@@ -27,6 +27,10 @@ prepend_rules = [
   # NOTE: `o` siempre ejecuta el PRIMER opener de la lista (play = IINA) y Shift+O muestra el menu.
   # "voicememo" va segundo para no cambiar lo que hace `o`.
   { mime = "audio/*", use = [ "play", "voicememo", "reveal" ] },
+
+  # NOTE: 7zz (el extractor nativo de Yazi) no puede con los RAR de WinRAR 7 ni los cifrados, y no pide la
+  # contrasena. Los .rar usan el plugin rar-extract (ouch + cuadro de contrasena); `extract` queda 2da.
+  { mime = "application/{rar,x-rar,vnd.rar}", use = [ "rar", "extract", "reveal" ] },
 ]
 
 [opener]
@@ -49,6 +53,10 @@ edit_image = [
 play = [
     { run = 'open -a "IINA" %s', block = true, for = "macos" },
     # { run = 'open -a "QuickTime Player" %s', block = true, for = "macos" },
+]
+rar = [
+    # Publica el evento que atiende plugins/rar-extract.yazi (igual que el opener `extract` de fabrica).
+    { run = 'ya pub rar-extract --list %s', desc = "Extract RAR (ouch)", for = "unix" },
 ]
 voicememo = [
     # Convierte a m4a (Voice Memos no acepta .opus) y lo importa. Sin `block`: corre como tarea de fondo.

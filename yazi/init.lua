@@ -5,6 +5,7 @@ require("starship"):setup() -- https://github.com/Rolv-Apneseth/starship.yazi
 require("duckdb"):setup() -- https://github.com/wylie102/duckdb.yazi
 require("git"):setup() -- https://github.com/yazi-rs/plugins/tree/main/git.yazi
 require("folder-rules"):setup()
+require("rar-extract"):setup()
 -- https://yazi-rs.github.io/docs/tips/#user-group-in-status
 Status:children_add(function()
 	local h = cx.active.current.hovered
