@@ -1,22 +1,15 @@
 ;; Quick app launcher and floating apps (held from "a", and from the hyper keys on the control layers).
 
 (defalias
-  fullSS C-A-M-f
-  slctSS C-A-M-x
   d_dicti S-C-A-M-d ;; easydictionary (https://github.com/tisfeng/Easydict)
-  ;; quickT S-C-A-M-t ;; this is for kitty. But now i'm using OmniWM's quickterm
   quickT A-102d ;; this is '`'
-;; Definición de los atajos invocando el Scheme de Hammerspoon
+;; Hammerspoon toggles the app by name (modules/app_toggler.lua)
 quickN (cmd open "hammerspoon://toggleapp?name=Notes")
-quickGem (cmd open "hammerspoon://toggleapp?name=Gemini")
 quickSim (cmd open "hammerspoon://toggleapp?name=Simulator")
 quickCam (cmd open "hammerspoon://toggleapp?name=Quick Camera")
 qk1passw S-C-A-M-p
-;;quickT (cmd open "hammerspoon://toggleApp?name=Ghostty")
 
   quickCal S-C-A-M-c
-  quickHis S-C-A-M-h ;; History clipboard
-  RainBook A-M-b
   h_f1 S-C-A-M-f1
   h_f2 (cmd sudo -u $user omniwmctl command switch-workspace back-and-forth)
   h_f3 C-tab
@@ -36,7 +29,7 @@ qk1passw S-C-A-M-p
 
     esc      @h_f1     @h_f2     @h_f3     @h_f4     @h_f5     @h_f6     @h_f7     @h_f8     @h_f9    @h_f10     @h_f11     @h_f12
  102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-    XX       XX       XX       XX       @qk1passw       XX       XX       @quickGem    @quickCal    XX       XX       XX       XX       XX
+    XX       XX       XX       XX       @qk1passw       XX       XX       XX    @quickCal    XX       XX       XX       XX       XX
       F3      XX       XX       XX       XX       XX    @d_dicti    @c_clipb    @quickT  @quickN     @quickSim       XX       XX
    @lastSpc    XX     XX       XX       XX       XX       XX       @b_raind       XX       XX       XX       XX       rsft
     fn    lctl lalt XX              @quickCam                  rmet    ralt         left down up  rght

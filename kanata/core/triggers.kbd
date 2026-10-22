@@ -4,11 +4,6 @@
 
    spa_slyr (layer-toggle SpaceSubLayer)
    win_slyr (layer-toggle WindowsSubLayer)
-   sesn_lyr (layer-toggle SesionLayer)
-   tabs_lyr (layer-toggle TabLayer)
-   tPanelyr (layer-toggle TerminalPaneLayer)
-   winOSlyr (layer-toggle WindowsLayer)
-   termnLyr (layer-toggle TerminalLayer)
 
    Lhypr_lyr (tap-hold-press  $tap-time $hold-time @hrow_cl (layer-toggle QuickAppFloatLayer))
    MRsft_lyr (tap-hold-press  $tap-time $hold-time XX (layer-toggle RightShift))
@@ -17,7 +12,6 @@
 
    Cntrl_lyr (tap-hold-press  $tap-time $hold-time bspc (layer-toggle ControlLayer))
    RiCntrl_lyr (tap-hold-press  $tap-time $hold-time ret  (layer-toggle RightControlLayer))
-   nav_lyr (layer-toggle navigationLayer)
 
    num_lyr (tap-hold $tap-time $hold-time spc (layer-toggle number))
 
@@ -49,6 +43,5 @@
 
   @_1fill (tap-hold $tap-time $hold-time @@ C-A-M-p) ;; trickster
   %_1pass (tap-hold $tap-time $hold-time @% C-A-M-p) ;; trickster
-  {_zappy (tap-hold $tap-time $hold-time @{ C-A-M-z) ;; trickster
   cpy (tap-hold $tap-time $hold-time M-v M-c) ;;Copy paste
 )

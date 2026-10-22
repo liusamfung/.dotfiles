@@ -15,7 +15,6 @@
 
   x_maxWi (cmd sudo -u $user omniwmctl command toggle-native-fullscreen)
   z_fulls (cmd sudo -u $user omniwmctl command toggle-fullscreen)
- ;;
   )
 
  (deflayer WindowsLayer

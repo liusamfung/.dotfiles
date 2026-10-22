@@ -1,4 +1,11 @@
-;; Numpad layer held from space. Reuses the word-jump aliases defined in layers/navigation.kbd.
+;; Numpad layer held from space, with word / line jumps on the left hand.
+
+(defalias
+  e_leftO A-left
+  u_rgthO A-rght
+  o_leftC M-left
+  i_rgthC M-rght
+)
 
 (deflayer number
   esc  XX   XX   XX   XX   XX   XX   @/   @*   @-   XX  XX  XX

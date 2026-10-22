@@ -1,7 +1,7 @@
 ;; Screenshot / screen-recording tool (held from "{").
 
 (defalias
-  showSht (macro S-C-A-M-s)
+  fullSS C-A-M-f ;; raw key, used from the shift layers
 
   fullSS_ (macro C-A-M-f)
   record_ (macro C-A-M-r)

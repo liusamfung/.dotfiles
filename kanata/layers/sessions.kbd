@@ -2,7 +2,6 @@
 
 (defalias
   h1term_ (macro C-M-1)
-  t2logts (macro C-M-2)
   n3nvim_ (macro C-M-3)
   g4Obsid (macro C-M-4)
   c5FileE (macro C-M-5)
@@ -17,7 +16,7 @@
     esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
  102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       @r9testt       XX       XX       XX
     tab       XX       XX       XX       XX       XX       XX    @g4Obsid @c5FileE @r6dotfi    XX       XX       XX       XX
-      esc      XX       XX       XX       XX       XX       XX    @h1term_ @t2logts @n3nvim_    XX       XX       XX
+      esc      XX       XX       XX       XX       XX       XX    @h1term_ XX @n3nvim_    XX       XX       XX
    lsft    caps     XX       XX       XX       XX       XX       XX       XX       @closeSe       XX       XX       rsft
     fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
   )
