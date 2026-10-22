@@ -15,7 +15,7 @@ new_tab TEST-LOG
   cd ~/
     launch --title "pane3"  --cwd ~/dotfiles/
     
-    launch --title "pane2"  /bin/zsh -i -c "fswatch -o ~/dotfiles/kanata/config.kbd | xargs -n1 -I{} ~/Dev/Tools/kanata/target/release/kanata -c ~/dotfiles/kanata/config.kbd --check; zsh"
+    launch --title "pane2"  /bin/zsh -i -c "fswatch -o -r -e '.*' -i '\\.kbd$' ~/dotfiles/kanata | xargs -n1 -I{} ~/Dev/Tools/kanata/target/release/kanata -c ~/dotfiles/kanata/config.kbd --check; zsh"
 
     # We need sudo privilages to watch the line below
     # launch  /bin/zsh -i -c "tail -f /Library/Logs/Kanata/kanata.out.log" 

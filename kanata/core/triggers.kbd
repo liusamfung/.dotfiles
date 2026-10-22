@@ -1,0 +1,54 @@
+;; Tap-hold activators: hold = layer / modifier, tap = the key itself. Used by layers/base.kbd and layers/control.kbd.
+
+(defalias
+
+   spa_slyr (layer-toggle SpaceSubLayer)
+   win_slyr (layer-toggle WindowsSubLayer)
+   sesn_lyr (layer-toggle SesionLayer)
+   tabs_lyr (layer-toggle TabLayer)
+   tPanelyr (layer-toggle TerminalPaneLayer)
+   winOSlyr (layer-toggle WindowsLayer)
+   termnLyr (layer-toggle TerminalLayer)
+
+   Lhypr_lyr (tap-hold-press  $tap-time $hold-time @hrow_cl (layer-toggle QuickAppFloatLayer))
+   MRsft_lyr (tap-hold-press  $tap-time $hold-time XX (layer-toggle RightShift))
+   Rhypr_lyr (tap-hold-press  $tap-time $hold-time @hrow_sc (layer-toggle QuickAppFloatLayer))
+   MLsft_lyr (tap-hold-press  $tap-time $hold-time XX (layer-toggle LeftShift))
+
+   Cntrl_lyr (tap-hold-press  $tap-time $hold-time bspc (layer-toggle ControlLayer))
+   RiCntrl_lyr (tap-hold-press  $tap-time $hold-time ret  (layer-toggle RightControlLayer))
+   nav_lyr (layer-toggle navigationLayer)
+
+   num_lyr (tap-hold $tap-time $hold-time spc (layer-toggle number))
+
+  sys_lyr (tap-hold $tap-time $hold-time s (layer-toggle systemLayer)) ;; trickster
+
+  scr_lyr (tap-hold $tap-time $hold-time @{ (layer-toggle ScreenShotLayer))
+
+  tab_ (tap-hold $tap-time $hold-time o (layer-toggle TabLayer))
+  spce_ (tap-hold $tap-time $hold-time e (layer-toggle SpaceLayer))
+  sesion_ (tap-hold $tap-time $hold-time u (layer-toggle SesionLayer))
+  qckApp (tap-hold $tap-time $hold-time a (layer-toggle QuickAppFloatLayer))
+
+  termPane_ (tap-hold $tap-time $hold-time t (layer-toggle TerminalPaneLayer))
+  term_ (tap-hold $tap-time $hold-time h (layer-toggle TerminalLayer))
+  windw_ (tap-hold $tap-time $hold-time n (layer-toggle WindowsLayer))
+
+  Ralt_ (tap-hold $tap-time $hold-time ' ralt)
+  Rcntrl_ (tap-hold $tap-time $hold-time , lctl)
+  Rmet (tap-hold $tap-time $hold-time . lmet)
+  Rshft_ (tap-hold $tap-time $hold-time p lsft)
+
+  Lalt_ (tap-hold $tap-time $hold-time g rsft)
+  Lcntrl_ (tap-hold $tap-time $hold-time c rmet)
+  Lmet (tap-hold $tap-time $hold-time r lctl)
+  Lshft_ (tap-hold $tap-time $hold-time l ralt)
+)
+
+(defalias
+
+  @_1fill (tap-hold $tap-time $hold-time @@ C-A-M-p) ;; trickster
+  %_1pass (tap-hold $tap-time $hold-time @% C-A-M-p) ;; trickster
+  {_zappy (tap-hold $tap-time $hold-time @{ C-A-M-z) ;; trickster
+  cpy (tap-hold $tap-time $hold-time M-v M-c) ;;Copy paste
+)

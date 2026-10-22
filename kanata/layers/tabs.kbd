@@ -1,0 +1,33 @@
+;; Browser tabs (held from "o").
+
+(defalias
+  goTab1_ (macro M-1)
+  goTab2_ (macro M-2)
+  goTab3_ (macro M-3)
+  goTab4_ (macro M-4)
+  goTab5_ (macro M-5)
+  goTab6_ (macro M-6)
+  goTab7_ (macro M-7)
+  goTab8_ (macro M-8)
+  goTab9_ (macro M-9)
+
+  newTab_ (macro M-t)
+  clseTab (macro M-w)
+
+  nextTab (macro M-S-])
+  prvTab_ (macro M-S-[)
+
+  backHis (macro M-[)
+  ForwHis (macro M-])
+  goLastT (macro C-tab)
+
+)
+ (deflayer TabLayer
+
+    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX    @goTab7_ @goTab8_ @goTab9_ XX    XX       XX       XX
+    tab       XX    XX @backHis @ForwHis    XX    @prvTab_ @goTab4_ @goTab5_ @goTab6_ @goLastT    XX       XX       XX
+      esc      XX    XX @nextTab @prvTab_    XX    @nextTab @goTab1_ @goTab2_ @goTab3_    XX       XX       XX
+   lsft    caps     XX       XX       XX       XX       XX    @backHis @ForwHis @clseTab @newTab_    XX       rsft
+    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+  )

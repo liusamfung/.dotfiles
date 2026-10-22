@@ -1,0 +1,27 @@
+;; Screenshot / screen-recording tool (held from "{").
+
+(defalias
+  showSht (macro S-C-A-M-s)
+
+  fullSS_ (macro C-A-M-f)
+  record_ (macro C-A-M-r)
+  viewHis (macro C-A-M-h)
+  textSS_ (macro C-A-M-t)
+  areaSS_ (macro C-A-M-a)
+  scrllSS (macro C-A-M-s)
+  openSS_ (macro C-A-M-spc)
+  repeatA (macro C-A-M-l)
+  pinSS_ (macro C-A-p)
+
+  gif__SS (macro C-A-M-g)
+)
+
+ (deflayer ScreenShotLayer
+
+    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+    tab       XX      XX       XX    @pinSS_    XX    @fullSS_ @gif__SS    XX  @record_  @repeatA       XX       XX       XX
+      esc   @areaSS_    XX       XX       XX       XX       XX     @viewHis  @textSS_  XX    @scrllSS    XX       XX
+   lsft    caps     XX       XX       XX       XX       XX       XX       XX    XX    XX       XX       rsft
+    fn    lctl lalt lmet                 @openSS_                     rmet    ralt         left down up  rght
+  )

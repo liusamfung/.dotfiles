@@ -1,0 +1,21 @@
+;; Older layers that no activator references any more. Candidates for deletion.
+
+(deflayer mainLayer
+
+   esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+   tab       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+     esc   XX @sesn_lyr @tabs_lyr @spa_slyr    XX       XX       XX       XX       XX       XX       XX       XX
+  lsft    XX     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
+   fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+ )
+
+ (deflayer sublayers
+
+    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+    tab       XX       XX       XX       XX    @spa_slyr    XX       XX       XX       XX       XX       XX       XX       XX
+      esc      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+   lsft    caps     XX       XX       XX       XX    @win_slyr    XX       XX       XX       XX       XX       rsft
+    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+  )

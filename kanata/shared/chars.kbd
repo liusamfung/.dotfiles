@@ -1,0 +1,112 @@
+;; Characters reachable from several layers: symbols, number row, uppercase letters.
+
+;; Navigation layer
+(defalias
+
+  all M-a
+  sav M-s
+  cls M-w
+  ndo M-z
+  cut M-x
+
+  0 0
+  1 1
+  2 2
+  3 3
+  4 4
+  5 5
+  6 6
+  7 7
+  8 8
+  9 9
+)
+
+;; Symbols layer
+(defalias
+
+  ^  S-6
+  <  S-,
+  >  S-.
+  $  S-4
+  %  S-5
+  @  S-2
+  &  S-7
+  *  S-8
+  ;; `  `
+  ` 102d ;; Not conventional keyboard 🤷‍♂️
+
+  {  S-[
+  pl S-9
+  pr S-0
+  }  S-]
+  =  =
+  \  \
+  +  S-=
+  -  -
+  /  /
+  '' S-'
+
+  ~  S-102d ;; In my case 'shift + ` ' doesn't do ~
+  [  [
+  ]  ]
+  _  S--
+  #  S-3
+  |  S-\
+  !  S-1
+  ¡  A-1
+  ;  ;
+  :  S-;
+  ?  S-/
+  ¿  S-A-/
+)
+
+;; NumRow layer
+(defalias
+
+  s0 S-0
+  s1 S-1
+  s2 S-2
+  s3 S-3
+  s4 S-4
+  s5 S-5
+  s6 S-6
+  s7 S-7
+  s8 S-8
+  nbs spc ;; no narrow no-break space in Qwerty
+
+  dk1 XX
+  dk2 XX
+  dk3 XX
+  dk4 XX
+  dk5 XX
+)
+
+(defalias
+ A S-a
+ B S-b
+ C S-c
+ D S-d
+ E S-e
+ F S-f
+ G S-g
+ H S-h
+ I S-i
+ J S-j
+ K S-k
+ L S-l
+ M S-m
+ N S-n
+ ;; nñ
+ O S-o
+ P S-p
+ Q S-q
+ R S-r
+ S S-s
+ T S-t
+ U S-u
+ V S-v
+ W S-w
+ X S-x
+ Y S-y
+ Z S-z
+)

@@ -1,0 +1,11 @@
+;; Base layer: the first deflayer, so kanata starts on it.
+
+;; lrld reloads everything inside your layers — defsrc, deflayer, defalias, defchords, etc. It does not reload anything in the defcfg block related to which physical device kanata is attached to (things like macos-dev-names-include/exclude)
+(deflayer base
+  lrld  f1   @toggleMic   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  caps  @~ @[ @scr_lyr     @pl   @%_1pass   @$     @pr    @}   @]     @+    @`    @#    rght
+  tab @Ralt_  @Rcntrl_  @Rmet  @Rshft_    y    f @Lalt_  @Lcntrl_ @Lmet @Lshft_    @/    @@_1fill    left
+  esc @qckApp  @tab_ @spce_ @sesion_     i    d  @term_  @termPane_  @windw_  @sys_lyr -    \
+  @MLsft_lyr @MLsft_lyr    @;       q    j    k       x        b    m    w    v    z    @MRsft_lyr
+  fn XX XX    @Cntrl_lyr           @num_lyr           @RiCntrl_lyr    XX left down up   rght
+)

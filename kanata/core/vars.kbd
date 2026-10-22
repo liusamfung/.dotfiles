@@ -1,0 +1,10 @@
+;; Timing constants shared by every tap-hold, chord and macro.
+
+(defvar
+  tap-time 20 ;; Deshabilitamos el tapcontinous porque interfiere con mi num_lyr
+
+  hold-time  150
+  subl-time 200
+ tmux-delay 40
+ chord-time 250
+)

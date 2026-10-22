@@ -1,0 +1,6 @@
+;; Machine-specific values ($user, $cycle-script). kanata/local.kbd is not tracked by git; install.sh writes it
+;; (copy local.kbd.example by hand otherwise). kanata silently ignores an include whose file is missing, so the
+;; alias below uses a number that only local.kbd defines: without the file `kanata --check` fails loudly
+;; instead of leaving every `sudo -u $user ...` key broken.
+
+(defalias _require-local-kbd (tap-hold $local-kbd-loaded 1 a a))

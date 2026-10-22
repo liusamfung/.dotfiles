@@ -1,0 +1,10 @@
+;; System controls: media, brightness, volume, lock, zoom, notifications (held from "s").
+
+ (deflayer systemLayer
+    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX      XX         XX    XX
+    tab    @!_zoom- @#_zoom+ @@_zTogl    ▶⏸       XX       XX       XX       XX       XX       XX       XX          XX          XX
+      esc      XX       XX    🔅    🔆    XX       @z_dndDi       XX       XX    @s_DissN    XX       XX       XX
+   lsft    caps     XX   ◀◀    🔉    🔊    ▶▶       @b_notif       🔇       @q_lockS       XX       XX       rsft
+    fn    lctl lalt @bsc_FrcQ                 XX                     rmet    ralt         left down up  rght
+  )

@@ -1,0 +1,31 @@
+;; Hyper-key / macOS shortcuts shared by several layers.
+
+(defalias
+  ;; Utilitys
+
+ s_DissN (cmd open raycast://extensions/raycast/system-actions/dismiss-notifications)
+  raycastPrompt S-C-A-M-spc
+  hrow_sc S-C-A-M-2
+  hrow_cl S-C-A-M-7
+  hrow_sl S-C-A-M-3
+  shrtcat S-C-A-M-6
+ q_lockS C-M-q
+ z_dndDi S-C-A-.
+ bsc_FrcQ A-M-esc
+ b_notif  S-C-A-u
+ #_zoom+ A-M-'
+ !_zoom- A-M--
+ @_zTogl A-M-8
+
+ y_AppLy S-M-c
+ p_AppLy S-A-d
+ ret_App M-l
+toggleMic S-C-A-M-m
+
+ swtApp2 M-tab
+ swtApp3 (macro M-(tab 20 tab))
+   act_acc (macro A-n)
+   grv_acc (macro A-e)
+   virgu (macro A-u)
+
+)

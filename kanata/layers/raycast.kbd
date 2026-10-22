@@ -1,0 +1,24 @@
+;; Raycast extensions as direct aliases, plus a layer to reach them.
+
+(defalias
+ ;;Raycast variables
+
+ c_clipb (cmd open raycast://extensions/raycast/clipboard-history/clipboard-history)
+ k_killp (cmd open raycast://extensions/rolandleth/kill-process/index) ;;It's similar to Activity Monitor
+ b_raind (cmd open raycast://extensions/lardissone/raindrop-io/search) ;; Invoke 'raindrop.io search bookmarks'(Raycast's plugin). Plus, Raindrop.io is page for save all your bookmarks for use in anywhre
+ y_ytvid (cmd open raycast://extensions/tonka3000/youtube/search-videos?arguments=%7B%22query%22%3A%22%22%7D) ;;Invoke 'Youtube Search' (Plugin) find videos with autosuggestion anywhere and open direct
+ e_emoji (cmd open raycast://extensions/raycast/emoji-symbols/search-emoji-symbols) ;;Invoke 'emoji-symbols' (Native)
+ f_files (cmd open raycast://extensions/raycast/file-search/search-files)
+ g_googl (cmd open raycast://extensions/mblode/google-search/index) ;;Invoke 'Google Search' (Plugin) Search in google with autosuggestion anywhere and open direct in new tab
+ h_gihub (cmd open raycast://extensions/raycast/github/search-repositories) ;; Invoke 'Github search repositories'(Plugin)
+ d_dwnYT (cmd open raycast://extensions/vimtor/video-downloader/index) ;; Youtube video-downloader with  'yt-dlp'(github)
+)
+
+ (deflayer raycastUtilyExtension
+    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+    tab       XX       XX       XX       XX    @y_ytvid @f_files @g_googl @c_clipb    XX       XX       XX       XX       XX
+      esc      XX       XX    @e_emoji    XX       XX    @d_dwnYT @h_gihub    XX       XX       XX       XX       XX
+   lsft    caps     XX       XX       XX    @k_killp     XX    @b_raind    XX       XX       XX       XX       rsft
+    fn    lctl lalt lmet               XX                  rmet    ralt         left down up  rght
+  )

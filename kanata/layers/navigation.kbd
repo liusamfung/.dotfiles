@@ -1,0 +1,21 @@
+;; Arrow / word-jump navigation.
+
+(defalias
+  q_leftA left
+  j_bttnA down
+  k_upppA up
+  x_rgthA rght
+  e_leftO A-left
+  u_rgthO A-rght
+  o_leftC M-left
+  i_rgthC M-rght
+)
+ (deflayer navigationLayer
+
+    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
+ 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       bspc
+    tab       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       ret
+      esc      XX    @o_leftC @e_leftO @u_rgthO @i_rgthC    XX       XX       XX       XX       XX       XX       XX
+   lsft    caps     XX    @q_leftA @j_bttnA @k_upppA @x_rgthA    XX       XX       XX       XX       XX       rsft
+    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
+  )

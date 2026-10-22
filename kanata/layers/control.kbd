@@ -1,0 +1,19 @@
+;; Layers held from the Control keys (backspace / return on the base layer).
+
+(deflayer ControlLayer
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  XX  @~ @[ @scr_lyr     @pl   @%_1pass   @$     @pr    @}   @]     @+    @`    @#    bspc
+  C-tab C-'  C-,  C-.  C-p  C-y  C-f  C-g  C-c  C-r   C-l  C-/  @@_1fill    C-ret
+  @lastWin C-a  C-o C-e C-u   C-i  C-d  C-h  C-t  C-n  C-s -    \
+  @lastSpc @lastSpc    @;       C-q   C-j   C-k     C-x      C-b  C-m  C-w  C-v  C-z  @MRsft_lyr
+  F3 @cpy @Lhypr_lyr    XX           @hrow_cl           @hrow_sl    @Rhypr_lyr left down up   rght
+)
+
+(deflayer RightControlLayer
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  XX  @~ @[ @scr_lyr     @pl   @%_1pass   @$     @pr    @}   @]     @+    @`    @#    bspc
+  C-tab C-'  C-,  C-.  C-p  C-y  C-f  C-g  C-c  C-r   C-l  C-/  @@_1fill    C-ret
+  F3 C-a  C-o C-e C-u   C-i  C-d  C-h  C-t  C-n  C-s -    \
+  @lastSpc @lastSpc    @;       C-q   C-j   C-k     C-x      C-b  C-m  C-w  C-v  C-z  @MRsft_lyr
+  lmet @cpy @Lhypr_lyr    XX           @hrow_sc           rctl    @Rhypr_lyr left down up   rght
+)

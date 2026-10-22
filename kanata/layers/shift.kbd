@@ -1,0 +1,19 @@
+;; Layers held from the Shift keys: shifted symbols, uppercase, accents.
+
+(deflayer LeftShift
+  esc   f1   f2  f3   f4   f5   f6   f7   f8   f9  f10   f11   f12
+  XX  @!    @=    @act_acc    @fullSS   XX    @&    @*    @grv_acc    @virgu    @¿    @¡    XX    bspc
+  @swtApp2 @''    @<    @>    @P    @Y    @F    @G    @C    @R    @L    @?    @^    ret
+  esc @A    @O    @E    @U    @I    @D    @H    @T    @N    @S    @_    @|
+  lsft caps @:    @Q    @J    @K    @X    @B    @M    @W    @V    @Z    XX
+  fn lctl lmet lsft        @raycastPrompt        @b_raind ralt @prvFcus down up   @nxtFcus
+)
+
+(deflayer RightShift
+  esc   f1   f2  f3   f4   f5   f6   f7   f8   f9  f10   f11   f12
+  XX  @!    @=    @act_acc    @fullSS   XX    @&    @*    @grv_acc    @virgu    @¿    @¡    XX    bspc
+  S-tab @''    @<    @>    @P    @Y    @F    @G    @C    @R    @L    @?    @^    ret
+  esc @A    @O    @E    @U    @I    @D    @H    @T    @N    @S    @_    @|
+  lsft @prvFcus @:    @Q    @J    @K    @X    @B    @M    @W    @V    @Z    @nxtFcus
+  fn lctl lmet @raycastPrompt        XX        @hrow_sc ralt left down up   rght
+)
