@@ -1,10 +1,12 @@
 # kanata
 
 Mi teclado en macOS con [kanata](https://github.com/jtroo/kanata): capas que se activan manteniendo una letra de la
-fila central, home-row mods y atajos que lanzan Raycast, OmniWM, Hammerspoon, tmux, etc.
+fila central, home-row mods y atajos que lanzan Raycast, OmniWM, Hammerspoon, kitty, etc.
 
-**Es una config personal.** Si la copias, léela antes de usarla: la capa base es Dvorak sobre un teclado ISO, y los
-atajos asumen las apps de arriba. Usa esto como punto de partida y adapta las teclas.
+**Es una config personal y está escrita para macOS.** Si usas Linux, lee primero la sección
+[Si usas Linux](#si-usas-linux): la estructura, las reglas de kanata y el sistema de capas te sirven tal cual, pero
+casi todos los atajos apuntan a apps que solo existen en macOS. Las partes que solo valen para un sistema están
+marcadas con **[solo macOS]** o **[solo Linux]**.
 
 ## Estructura
 
@@ -16,11 +18,13 @@ kanata/
 ├── local.kbd             valores de TU máquina (no está en git, ver más abajo)
 ├── local.kbd.example     plantilla de local.kbd
 ├── core/
-│   ├── vars.kbd          tiempos (tap-time, hold-time, ...)
+│   ├── vars.kbd          tiempos (tap-time, hold-time)
 │   ├── defsrc.kbd        las teclas físicas que kanata intercepta
 │   ├── triggers.kbd      tap-holds que activan capas, home-row mods y teclas de doble función
 │   └── local-guard.kbd   hace fallar --check si falta local.kbd (ver más abajo)
-├── shared/               alias usados por más de una capa (símbolos, mayúsculas, atajos hyper)
+├── shared/               alias usados por más de una capa
+│   ├── chars.kbd         símbolos y mayúsculas
+│   └── shortcuts.kbd     atajos hyper y de macOS
 └── layers/               un archivo por función: sus alias + su deflayer
 ```
 
@@ -30,16 +34,15 @@ capas, va a `shared/`.
 
 ## Reglas de kanata que hay que conocer
 
-Son limitaciones del propio kanata. Si las ignoras, la config falla con errores poco claros o, peor, **no falla y una
-tecla deja de funcionar**.
+Valen en macOS y en Linux. Son limitaciones del propio kanata. Si las ignoras, la config falla con errores poco claros
+o, peor, **no falla y una tecla deja de funcionar**.
 
 1. **Los `include` solo pueden estar en `config.kbd`.** Un archivo incluido no puede incluir otro. Por eso la lista
    completa de módulos está en `config.kbd` y no hay jerarquía de includes.
 2. **Un `include` de un archivo que no existe se ignora en silencio.** Una errata en el nombre no da error de
    archivo: lo que verás es `Referenced unknown alias ...` o `unknown layer ...` en `--check`, porque el módulo nunca
    se cargó. Y si lo que falta es un módulo sin nada que lo referencie, simplemente desaparece sin avisar.
-3. **Las rutas del `include` son relativas a `config.kbd`**, no al directorio desde donde ejecutas kanata. El daemon
-   usa la ruta absoluta de `config.kbd`, así que funciona igual desde cualquier sitio.
+3. **Las rutas del `include` son relativas a `config.kbd`**, no al directorio desde donde ejecutas kanata.
 4. **El orden importa cuando un alias usa otro alias.** Si dentro de un `defalias` escribes `@otro`, `otro` tiene que
    estar declarado antes. Por eso en `config.kbd` el orden es `core/vars`, `core/defsrc`, `shared/*`,
    `core/triggers` y luego las capas: `triggers.kbd` usa alias de `shared/` (`@hrow_cl`, `@{`, ...). Dentro de un
@@ -49,7 +52,12 @@ tecla deja de funcionar**.
 6. **Todas las capas tienen que tener exactamente las mismas teclas que `defsrc`**, en el mismo orden. Si añades o
    quitas una tecla en `core/defsrc.kbd`, hay que tocar todas las capas.
 7. **`defcfg` no se recarga en caliente.** La tecla `lrld` (recargar) relee capas y alias, pero no `defcfg`. Si cambias
-   `defcfg`, reinicia el daemon.
+   `defcfg`, reinicia kanata.
+8. **Borrar una capa deja referencias colgando.** Un `(layer-toggle X)` hacia una capa que ya no existe es un error
+   (aunque ese alias no lo use nadie), y lo mismo un `@alias` que ya no está definido. `--check` te los señala. Lo que
+   `--check` **no** señala es un alias definido que ya nadie usa: se queda en silencio y es ruido. Al borrar una capa,
+   borra también su activador en `core/triggers.kbd`, la tecla de `layers/base.kbd` donde estaba y los alias que solo
+   ella usaba.
 
 ## Cómo comprobar que todo está bien
 
@@ -57,16 +65,39 @@ tecla deja de funcionar**.
 kanata -c ~/dotfiles/kanata/config.kbd --check
 ```
 
-Dice `config file is valid` o señala el archivo y la línea. Hazlo siempre antes de reiniciar el daemon: si la config
-no parsea, kanata no arranca y te quedas sin teclado remapeado. En mi `.zshrc` hay dos alias:
-`kanata-check` (solo valida) y `kanata-restart` (valida y, si pasa, reinicia el daemon).
+Dice `config file is valid` o señala el archivo y la línea. Hazlo siempre antes de reiniciar kanata: si la config no
+parsea, kanata no arranca y te quedas sin teclado remapeado. En mi `.zshrc` hay dos alias: `kanata-check` (solo valida)
+y `kanata-restart` (valida y, si pasa, reinicia el daemon de macOS).
 
-Con kitty, `kitty/sessions/dotfiles.kitty-session` abre un panel que vuelve a ejecutar `--check` cada vez que
-guardas cualquier `.kbd` bajo `kanata/`.
+Con kitty, `kitty/sessions/dotfiles.kitty-session` abre un panel que vuelve a ejecutar `--check` cada vez que guardas
+cualquier `.kbd` bajo `kanata/` (necesita `fswatch`).
 
-## Instalarlo en otro Mac
+## Mapa de capas
 
-Esto es lo que necesita que no viene en el repo. Haz los pasos en este orden.
+Se activan **manteniendo** una tecla de la capa base (al tocarla, escribe lo normal). Las letras son las de la
+disposición Dvorak, es decir, la tecla que produce esa letra.
+
+| Mantener | Capa | Módulo | Para qué | Plataforma |
+|---|---|---|---|---|
+| espacio | `number` | `number.kbd` | Teclado numérico y saltos de palabra | adaptar |
+| backspace / enter | `ControlLayer` / `RightControlLayer` | `control.kbd` | Atajos con Ctrl y hyper | macOS |
+| shift izq. / der. | `LeftShift` / `RightShift` | `shift.kbd` | Símbolos, mayúsculas y acentos | adaptar |
+| `a` | `QuickAppFloatLayer` | `quick-apps.kbd` | Abrir apps y atajos hyper | solo macOS |
+| `o` | `TabLayer` | `tabs.kbd` | Pestañas del navegador | adaptar |
+| `e` | `SpaceLayer` / `SpaceSubLayer` | `workspaces.kbd` | Espacios de trabajo de OmniWM | solo macOS |
+| `u` | `SesionLayer` | `sessions.kbd` | Sesiones de kitty | adaptar |
+| `h` | `TerminalLayer` | `terminal.kbd` | Prompts y scroll en kitty | adaptar |
+| `t` | `TerminalPaneLayer` | `terminal.kbd` | Paneles y layouts de kitty | adaptar |
+| `n` | `WindowsLayer` / `WindowsSubLayer` | `windows.kbd` | Ventanas de OmniWM | solo macOS |
+| `s` | `systemLayer` | `system.kbd` | Volumen, brillo, bloquear, zoom | solo macOS |
+| `{` | `ScreenShotLayer` | `screenshot.kbd` | Capturas y grabación | solo macOS |
+
+"adaptar" significa que la idea sirve en cualquier sistema pero las teclas que emite (`M-...`, que es Cmd en macOS, o
+atajos de macOS) hay que cambiarlas.
+
+## Instalarlo en macOS **[solo macOS]**
+
+Haz los pasos en este orden.
 
 ### 1. El driver de Karabiner
 
@@ -89,7 +120,7 @@ Ten en cuenta que `cmd` ejecuta comandos arbitrarios con los permisos con los qu
 
 ### 3. `local.kbd`
 
-kanata corre como daemon de root, así que no sabe qué usuario tiene abierta la sesión de OmniWM. Esos valores se
+El daemon de macOS corre como root, así que no sabe qué usuario tiene abierta la sesión de OmniWM. Esos valores se
 ponen en `kanata/local.kbd`, que no está en git:
 
 ```bash
@@ -109,10 +140,10 @@ Ejecútalo una vez a mano para que macOS te pida el permiso:
 sudo kanata -c ~/dotfiles/kanata/config.kbd
 ```
 
-Activa el binario de kanata en Ajustes del Sistema > Privacidad y seguridad > Monitorización de entrada. Si cambias el binario de sitio o lo
-recompilas y kanata deja de interceptar teclas, revisa que siga activado ahí.
+Activa el binario de kanata en Ajustes del Sistema > Privacidad y seguridad > Monitorización de entrada. Si cambias el
+binario de sitio o lo recompilas y kanata deja de interceptar teclas, revisa que siga activado ahí.
 
-### 5. El daemon
+### 5. El daemon (LaunchDaemon)
 
 Para que arranque con el Mac, crea `/Library/LaunchDaemons/com.TUUSUARIO.kanata.plist` (propietario `root:wheel`)
 con tus rutas:
@@ -157,22 +188,133 @@ sudo launchctl kickstart -k system/com.TUUSUARIO.kanata                         
 sudo launchctl bootout system/com.TUUSUARIO.kanata                                   # parar
 ```
 
-## Qué asume esta config
+### Qué asume la config en macOS **[solo macOS]**
 
 Los atajos que dispara no funcionan solos: hace falta que esas apps estén instaladas y configuradas.
 
-- **Teclado**: ISO (usa la tecla `102d`, la tecla extra de los teclados ISO) con la capa base en **Dvorak**. Si usas
-  QWERTY o ANSI, hay que rehacer `layers/base.kbd` y las teclas `102d` de `core/defsrc.kbd`.
+- **Teclado ISO de MacBook** (usa la tecla `102d`, la tecla extra de los teclados ISO, y `fn`) con la capa base en
+  **Dvorak**.
 - **OmniWM** (`omniwmctl`) para espacios de trabajo y ventanas, más `jq` (lo usa `scripts/omniwm-cycle-right.sh`).
-- **Raycast**, con las extensiones que llaman los enlaces `raycast://extensions/...`.
-- **Hammerspoon**, que atiende los enlaces `hammerspoon://toggleapp?name=...`.
-- **tmux** con el prefijo `C-x`, y kitty/Ghostty para los atajos de terminal.
-- Atajos con las cuatro teclas modificadoras a la vez (`S-C-A-M-...`, el "hyper") que otras apps (Homerow, Raycast,
-  CleanShot, etc.) tienen que tener asignados con esa misma combinación.
+- **Raycast**, con la extensión de Raindrop.io para el enlace `raycast://extensions/lardissone/raindrop-io/...`.
+- **Hammerspoon**, que atiende los enlaces `hammerspoon://toggleapp?name=...` (`.hammerspoon/modules/app_toggler.lua`).
+- **kitty** con los atajos de `kitty/kitty.conf` (sesiones con `ctrl+cmd+N`, paneles con `ctrl+j/k/q/x`, layouts con
+  `ctrl+cmd+option+...`).
+- Atajos con las cuatro teclas modificadoras a la vez (`S-C-A-M-...`, el "hyper") que otras apps (Homerow,
+  Easydict, toggleMute, etc.) tienen asignados con esa misma combinación.
+
+## Si usas Linux
+
+Lo más importante: **esta config no funciona tal cual en Linux.** No es un problema de kanata (kanata funciona igual
+en Linux) sino de lo que dispara: Raycast, OmniWM, Hammerspoon, macshot, Homerow, los atajos `M-` (Cmd) y los comandos
+`open raycast://...` solo existen en macOS. Si la copias entera, esas teclas no harán nada o fallarán.
+
+Lo que sí te sirve y puedes reutilizar:
+
+- La estructura en `core/`, `shared/` y `layers/`, y las [reglas de kanata](#reglas-de-kanata-que-hay-que-conocer).
+- El sistema de capas con tap-hold (`core/triggers.kbd`) y los home-row mods.
+- `layers/_template.kbd.example` y la receta de [añadir una capa](#cómo-añadir-una-capa).
+
+### Qué tocar antes de usarla en Linux
+
+| Qué | Por qué |
+|---|---|
+| `core/defsrc.kbd` | Es la distribución de un MacBook ISO (`fn`, `102d`, `grv`). Ajústala a tu teclado y haz lo mismo en **todas** las capas (regla 6). Para ver cómo llama kanata a tus teclas, ejecútalo con `kanata --debug`. |
+| `layers/base.kbd` | Es Dvorak. Si usas QWERTY, hay que reescribirla. |
+| `M-...` en cualquier alias | En kanata, `M-` es la tecla Meta: **Cmd en macOS y Super en Linux**. Todos los atajos `M-c`, `M-v`, `M-t`, `M-w`, `M-1` ... (pestañas, copiar/pegar, `number.kbd`) tienen que pasar a `C-...` en Linux. |
+| `A-left`, `A-rght` (`number.kbd`) | Saltar palabra con Option es de macOS; en Linux es `C-left` / `C-rght`, y `M-left` / `M-rght` (inicio/fin de línea) es `home` / `end`. |
+| `A-n`, `A-e`, `A-u`, `A-1`, `S-A-/` (`shared/chars.kbd`, `shared/shortcuts.kbd`) | Son las teclas muertas de acentos y `¡ ¿` con Option de macOS. En Linux usa AltGr o la tecla Compose de tu entorno. |
+| `(cmd open ...)` | `open` es de macOS. En Linux el equivalente es `xdg-open`, pero los destinos (`raycast://`, `hammerspoon://`) tampoco existen. |
+| `sudo -u $user ...` | Solo hace falta en macOS porque allí kanata corre como root. En Linux kanata corre con tu usuario y esos `sudo` pedirían contraseña y fallarían. |
+| `local.kbd` | Los valores `user` y `cycle-script` solo los usan los comandos de OmniWM. Si quitas esos módulos, puedes quitar también `(include core/local-guard.kbd)` y no necesitas `local.kbd`. |
+| `kitty/kitty.conf` | Los atajos de `sessions.kbd` y `terminal.kbd` emiten `C-M-...` y `C-A-M-...` (Ctrl+Cmd, Ctrl+Option+Cmd), que en kitty son combinaciones de macOS. Hay que reasignarlos en tu `kitty.conf`. |
+
+### Qué módulos puedes quitar y qué se rompe
+
+Cada fila es un módulo que sobra en Linux. Para quitarlo: borra su `include` de `config.kbd`, borra su activador en
+`core/triggers.kbd` (regla 8) y arregla lo que dependía de él:
+
+| Quitar | Qué más hay que cambiar |
+|---|---|
+| `layers/workspaces.kbd` | `layers/control.kbd` usa `@lastSpc` y `@lastWin`; `layers/quick-apps.kbd` usa `@lastSpc`. Sustitúyelos por `XX`. |
+| `layers/windows.kbd` | `layers/shift.kbd` usa `@prvFcus` y `@nxtFcus`. Sustitúyelos por `XX`. |
+| `layers/raycast.kbd` | `layers/shift.kbd` y `layers/quick-apps.kbd` usan `@b_raind`; `quick-apps.kbd` también `@c_clipb`. |
+| `layers/screenshot.kbd` | `layers/shift.kbd` usa `@fullSS`. |
+| `layers/quick-apps.kbd` | Nada la usa salvo el activador (`@qckApp`, `@Lhypr_lyr`, `@Rhypr_lyr` en `core/triggers.kbd`). |
+| `layers/system.kbd` | Nada la usa salvo su activador (`@sys_lyr`). Usa alias de `shared/shortcuts.kbd`. |
+| `shared/shortcuts.kbd` | La usan `core/triggers.kbd`, `layers/base.kbd`, `control.kbd`, `shift.kbd` y `system.kbd`. Es lo último que conviene quitar. |
+
+Dependencias entre módulos (las que cruzan archivos), por si cambias algo más: `triggers` usa `shared/chars` y
+`shared/shortcuts`; `base` usa `triggers`, `chars` y `shortcuts`; `control` usa `triggers`, `chars`, `shortcuts` y
+`workspaces`; `shift` usa `chars`, `shortcuts`, `raycast`, `screenshot` y `windows`; `number` usa `chars`; `quick-apps`
+usa `raycast` y `workspaces`; `system` usa `shortcuts`.
+
+### Instalar kanata en Linux **[solo Linux]**
+
+Estos pasos vienen de la [guía de Linux de kanata](https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md); no
+los he probado yo en Linux, así que si algo no coincide con tu distribución, manda esa guía.
+
+1. **Permisos.** Aquí no hay daemon de root ni driver de Karabiner: kanata corre con tu usuario, pero necesita acceso a
+   `/dev/input` y a `/dev/uinput`.
+
+   ```bash
+   sudo groupdel uinput 2>/dev/null
+   sudo groupadd --system uinput
+   sudo usermod -aG input $USER
+   sudo usermod -aG uinput $USER
+   sudo modprobe uinput
+   sudo tee /etc/udev/rules.d/99-input.rules > /dev/null <<'EOF'
+   KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
+   EOF
+   sudo udevadm control --reload-rules && sudo udevadm trigger
+   ```
+
+   Cierra sesión y vuelve a entrar para que cuenten los grupos (`groups` debe listar `input` y `uinput`).
+   Para que `uinput` se cargue en cada arranque, añade `uinput` a `/etc/modules-load.d/`.
+
+2. **El binario.** Instálalo con `cargo install kanata`. Si conservas algún `(cmd ...)` en tu config, necesitas
+   `cargo install kanata --features cmd` (los binarios precompilados no traen `cmd` salvo que la release publique una
+   variante con él). Si no usas `cmd`, quita `danger-enable-cmd yes` de `defcfg`.
+
+3. **Probar a mano.**
+
+   ```bash
+   kanata -c ~/dotfiles/kanata/config.kbd --check   # validar
+   kanata -c ~/dotfiles/kanata/config.kbd           # ejecutar en la terminal
+   ```
+
+4. **Arrancar con la sesión (systemd de usuario)**, en `~/.config/systemd/user/kanata.service`:
+
+   ```ini
+   [Unit]
+   Description=Kanata keyboard remapper
+
+   [Service]
+   Type=simple
+   ExecStart=%h/.cargo/bin/kanata --cfg %h/dotfiles/kanata/config.kbd --no-wait
+   Restart=on-failure
+   RestartSec=3
+
+   [Install]
+   WantedBy=default.target
+   ```
+
+   Cambia la ruta del binario si no lo instalaste con cargo. `--no-wait` es necesario para que `Restart=on-failure`
+   funcione.
+
+   ```bash
+   systemctl --user daemon-reload
+   systemctl --user enable --now kanata
+   systemctl --user restart kanata     # tras cambiar la config
+   journalctl --user -u kanata -f      # ver los logs
+   ```
+
+   Esto sustituye a todo el apartado del LaunchDaemon y de los permisos de macOS: **no existe `/Library/LaunchDaemons`
+   ni Monitorización de entrada en Linux.**
 
 ## Cómo añadir una capa
 
-1. Copia `layers/_template.kbd.example` a `layers/<nombre>.kbd` (la plantilla ya trae el número correcto de teclas).
+1. Copia `layers/_template.kbd.example` a `layers/<nombre>.kbd` (la plantilla ya trae el número correcto de teclas
+   para el `defsrc` de este repo; si cambiaste `defsrc`, ajústala).
 2. Define sus alias (`defalias`) en el mismo archivo y rellena el `deflayer`.
 3. Añade `(include layers/<nombre>.kbd)` en `config.kbd`.
 4. Crea el activador en `core/triggers.kbd`, por ejemplo
