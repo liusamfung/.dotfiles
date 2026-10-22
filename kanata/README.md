@@ -25,7 +25,8 @@ kanata/
 ├── shared/               alias usados por más de una capa
 │   ├── chars.kbd         símbolos y mayúsculas
 │   └── shortcuts.kbd     atajos hyper y de macOS
-└── layers/               un archivo por función: sus alias + su deflayer
+├── layers/               un archivo por función: sus alias + su deflayer
+└── tools/fmt.py          formatea las cuadrículas y revisa los nombres (ver "Formato y nombres")
 ```
 
 Criterio para decidir dónde va algo: **lo que se edita junto vive junto**. Una capa y los alias que solo ella usa van
@@ -45,7 +46,7 @@ o, peor, **no falla y una tecla deja de funcionar**.
 3. **Las rutas del `include` son relativas a `config.kbd`**, no al directorio desde donde ejecutas kanata.
 4. **El orden importa cuando un alias usa otro alias.** Si dentro de un `defalias` escribes `@otro`, `otro` tiene que
    estar declarado antes. Por eso en `config.kbd` el orden es `core/vars`, `core/defsrc`, `shared/*`,
-   `core/triggers` y luego las capas: `triggers.kbd` usa alias de `shared/` (`@hrow_cl`, `@{`, ...). Dentro de un
+   `core/triggers` y luego las capas: `triggers.kbd` usa alias de `shared/` (`@hr-click`, `@{`, ...). Dentro de un
    `deflayer` el orden no importa: puede usar alias definidos en cualquier archivo, antes o después.
 5. **La primera `deflayer` es la capa con la que arranca kanata.** `layers/base.kbd` tiene que seguir siendo el primer
    `layers/*` de la lista.
@@ -72,6 +73,81 @@ y `kanata-restart` (valida y, si pasa, reinicia el daemon de macOS).
 Con kitty, `kitty/sessions/dotfiles.kitty-session` abre un panel que vuelve a ejecutar `--check` cada vez que guardas
 cualquier `.kbd` bajo `kanata/` (necesita `fswatch`).
 
+## Formato y nombres
+
+Dos cosas que mantienen la config ordenada y que **comprueba un script**, así que no dependen de tu disciplina.
+
+### Las capas son cuadrículas con forma de teclado
+
+Cada `deflayer` se escribe como el teclado: una fila por línea, cada tecla en una celda de ancho fijo, la barra
+espaciadora ocupando cuatro celdas. `core/defsrc.kbd` es la leyenda: la tecla que está en esa posición del `defsrc` es
+la que se redefine en esa posición de la capa.
+
+```
+(deflayer windows
+  XX        XX        XX        f3        f4        f5   ...
+  102d      @wm-float XX        XX        XX        XX   ...
+  ...
+  lsft      caps      XX        @wm-west  @wm-south @wm-north @wm-east  ...
+  fn        lctl      lalt      XX        @ly-winmv                               rmet  ...
+)
+```
+
+¿Es la mejor forma? Para esta config, sí. kanata también tiene `deflayermap`, donde cada capa lista solo `tecla acción`,
+y es más corto para capas casi vacías. Pero ahí las teclas se nombran por su tecla física **QWERTY** (`s` sería la tecla
+que escribe `o` en Dvorak), y justo eso es lo que confunde. La cuadrícula muestra cada acción en el sitio donde la
+pulsas. Si tu base fuera QWERTY, `deflayermap` también sería una buena opción.
+
+Para mantenerla:
+
+1. Edita el contenido de la capa sin preocuparte de los espacios.
+2. Ejecuta el formateador, que realinea todo con el mismo ancho de celda:
+
+   ```bash
+   python3 ~/dotfiles/kanata/tools/fmt.py           # reescribe los archivos
+   python3 ~/dotfiles/kanata/tools/fmt.py --check   # no cambia nada; sale con error si algo está desordenado
+   ```
+
+   En mi `.zshrc` el primero es el alias `kanata-fmt`.
+
+3. Una capa tiene que tener tantas teclas como el `defsrc`. Si no, el formateador lo dice (`has 78 keys, defsrc has 79`).
+4. No pongas comentarios **dentro** de la cuadrícula (el formateador no los puede recolocar y se negará a tocar esa
+   capa); ponlos encima.
+5. `XX` es una tecla bloqueada. Un `@alias` ocupa su celda como cualquier otra tecla.
+
+Los `defalias` y `defvar` también los formatea: una entrada por línea, con los valores alineados dentro de cada grupo
+(los grupos se separan con una línea en blanco).
+
+### Convención de nombres
+
+Alias: minúsculas, con guiones, **máximo 8 caracteres**, con la forma `<prefijo>-<nombre>`. El prefijo es la
+herramienta que recibe la acción. El límite de 8 no es capricho: con `@` son 9 caracteres, que es lo que cabe en una
+celda de la cuadrícula; un nombre más largo descuadraría todas las capas, y el formateador lo rechaza.
+
+| Prefijo | Qué es | Ejemplos |
+|---|---|---|
+| `ly-` | Mantener para activar una capa (tap-hold) | `ly-num`, `ly-ws`, `ly-lsft` |
+| `mod-` | Tap = la tecla, hold = un modificador. `mod-<mano><modificador>` | `mod-la` (mano izquierda, alt) |
+| `wm-` | OmniWM | `wm-ws3` ir al espacio 3, `wm-mv3` mover la ventana, `wm-west` foco, `wm-colw` mover columna |
+| `kt-` | kitty | `kt-pdn` panel de abajo, `kt-grid` layout, `kt-code` sesión `coding` |
+| `rc-` | Raycast | `rc-clip`, `rc-rain` |
+| `hs-` | Hammerspoon (abrir o alternar una app) | `hs-notes` |
+| `ss-` | Capturas de pantalla | `ss-area`, `ss-rec` |
+| `tab-`, `nav-` | Pestañas del navegador, historial | `tab-new`, `nav-back` |
+| `hr-` | Homerow | `hr-click`, `hr-scrl` |
+| `sys-` | Atajos del sistema macOS | `sys-lock`, `sys-zin` |
+| `hy-` | Hyper + tecla de función | `hy-f4` |
+| `jmp-` | Saltos de cursor (palabra, línea) | `jmp-wl`, `jmp-ll` |
+| `app-`, `opt-`, `mic-`, `pw-`, `ctl-` | Otros atajos de una sola herramienta | `app-tab`, `opt-n`, `mic-mute` |
+| sin prefijo | Teclas de doble función por lo que hacen al tocar y al mantener | `at-1pw` (`@` / autorrelleno de 1Password), `pst-cpy` |
+
+- Los alias de **1 o 2 caracteres** (`@A`, `@!`, `@''`) se llaman como el carácter que escriben, y quedan exentos de la
+  regla anterior. Los que no se pueden escribir como nombre llevan palabra: `lpar`, `rpar`, `dquote`.
+- Las **capas** también van en minúsculas con guiones, con el nombre de lo que hacen (`windows`, `terminal-panes`);
+  la subcapa de una capa lleva `-move` o similar (`windows-move`).
+- Los nombres dicen lo que **hace** el alias, no la tecla donde está hoy. Así no hay que renombrar nada cuando
+  cambias de sitio una capa.
+
 ## Mapa de capas
 
 Se activan **manteniendo** una tecla de la capa base (al tocarla, escribe lo normal). Las letras son las de la
@@ -80,17 +156,17 @@ disposición Dvorak, es decir, la tecla que produce esa letra.
 | Mantener | Capa | Módulo | Para qué | Plataforma |
 |---|---|---|---|---|
 | espacio | `number` | `number.kbd` | Teclado numérico y saltos de palabra | adaptar |
-| backspace / enter | `ControlLayer` / `RightControlLayer` | `control.kbd` | Atajos con Ctrl y hyper | macOS |
-| shift izq. / der. | `LeftShift` / `RightShift` | `shift.kbd` | Símbolos, mayúsculas y acentos | adaptar |
-| `a` | `QuickAppFloatLayer` | `quick-apps.kbd` | Abrir apps y atajos hyper | solo macOS |
-| `o` | `TabLayer` | `tabs.kbd` | Pestañas del navegador | adaptar |
-| `e` | `SpaceLayer` / `SpaceSubLayer` | `workspaces.kbd` | Espacios de trabajo de OmniWM | solo macOS |
-| `u` | `SesionLayer` | `sessions.kbd` | Sesiones de kitty | adaptar |
-| `h` | `TerminalLayer` | `terminal.kbd` | Prompts y scroll en kitty | adaptar |
-| `t` | `TerminalPaneLayer` | `terminal.kbd` | Paneles y layouts de kitty | adaptar |
-| `n` | `WindowsLayer` / `WindowsSubLayer` | `windows.kbd` | Ventanas de OmniWM | solo macOS |
-| `s` | `systemLayer` | `system.kbd` | Volumen, brillo, bloquear, zoom | solo macOS |
-| `{` | `ScreenShotLayer` | `screenshot.kbd` | Capturas y grabación | solo macOS |
+| backspace / enter | `control-l` / `control-r` | `control.kbd` | Atajos con Ctrl y hyper | macOS |
+| shift izq. / der. | `shift-l` / `shift-r` | `shift.kbd` | Símbolos, mayúsculas y acentos | adaptar |
+| `a` | `quick-apps` | `quick-apps.kbd` | Abrir apps y atajos hyper | solo macOS |
+| `o` | `tabs` | `tabs.kbd` | Pestañas del navegador | adaptar |
+| `e` | `workspaces` / `workspaces-move` | `workspaces.kbd` | Espacios de trabajo de OmniWM | solo macOS |
+| `u` | `sessions` | `sessions.kbd` | Sesiones de kitty | adaptar |
+| `h` | `terminal` | `terminal.kbd` | Prompts y scroll en kitty | adaptar |
+| `t` | `terminal-panes` | `terminal.kbd` | Paneles y layouts de kitty | adaptar |
+| `n` | `windows` / `windows-move` | `windows.kbd` | Ventanas de OmniWM | solo macOS |
+| `s` | `system` | `system.kbd` | Volumen, brillo, bloquear, zoom | solo macOS |
+| `{` | `screenshot` | `screenshot.kbd` | Capturas y grabación | solo macOS |
 
 "adaptar" significa que la idea sirve en cualquier sistema pero las teclas que emite (`M-...`, que es Cmd en macOS, o
 atajos de macOS) hay que cambiarlas.
@@ -235,18 +311,18 @@ Cada fila es un módulo que sobra en Linux. Para quitarlo: borra su `include` de
 
 | Quitar | Qué más hay que cambiar |
 |---|---|
-| `layers/workspaces.kbd` | `layers/control.kbd` usa `@lastSpc` y `@lastWin`; `layers/quick-apps.kbd` usa `@lastSpc`. Sustitúyelos por `XX`. |
-| `layers/windows.kbd` | `layers/shift.kbd` usa `@prvFcus` y `@nxtFcus`. Sustitúyelos por `XX`. |
-| `layers/raycast.kbd` | `layers/shift.kbd` y `layers/quick-apps.kbd` usan `@b_raind`; `quick-apps.kbd` también `@c_clipb`. |
-| `layers/screenshot.kbd` | `layers/shift.kbd` usa `@fullSS`. |
-| `layers/quick-apps.kbd` | Nada la usa salvo el activador (`@qckApp`, `@Lhypr_lyr`, `@Rhypr_lyr` en `core/triggers.kbd`). |
-| `layers/system.kbd` | Nada la usa salvo su activador (`@sys_lyr`). Usa alias de `shared/shortcuts.kbd`. |
+| `layers/workspaces.kbd` | `layers/control.kbd` usa `@wm-wsprv` y `@wm-cycle`; `layers/quick-apps.kbd` usa `@wm-wsprv`. Sustitúyelos por `XX`. |
+| `layers/windows.kbd` | `layers/shift.kbd` usa `@wm-fprev` y `@wm-fnext`. Sustitúyelos por `XX`. |
+| `layers/raycast.kbd` | `layers/shift.kbd` usa `@rc-rain` y `@rc-prmpt`; `layers/quick-apps.kbd` usa `@rc-rain` y `@rc-clip`; `layers/system.kbd` usa `@rc-dism`. |
+| `layers/screenshot.kbd` | `layers/shift.kbd` usa `@ss-full`. |
+| `layers/quick-apps.kbd` | Nada la usa salvo el activador (`@ly-qck`, `@ly-lhyp`, `@ly-rhyp` en `core/triggers.kbd`). |
+| `layers/system.kbd` | Nada la usa salvo su activador (`@ly-sys`). Usa alias de `shared/shortcuts.kbd` y `layers/raycast.kbd`. |
 | `shared/shortcuts.kbd` | La usan `core/triggers.kbd`, `layers/base.kbd`, `control.kbd`, `shift.kbd` y `system.kbd`. Es lo último que conviene quitar. |
 
 Dependencias entre módulos (las que cruzan archivos), por si cambias algo más: `triggers` usa `shared/chars` y
 `shared/shortcuts`; `base` usa `triggers`, `chars` y `shortcuts`; `control` usa `triggers`, `chars`, `shortcuts` y
 `workspaces`; `shift` usa `chars`, `shortcuts`, `raycast`, `screenshot` y `windows`; `number` usa `chars`; `quick-apps`
-usa `raycast` y `workspaces`; `system` usa `shortcuts`.
+usa `raycast` y `workspaces`; `system` usa `shortcuts` y `raycast`.
 
 ### Instalar kanata en Linux **[solo Linux]**
 
@@ -315,11 +391,12 @@ los he probado yo en Linux, así que si algo no coincide con tu distribución, m
 
 1. Copia `layers/_template.kbd.example` a `layers/<nombre>.kbd` (la plantilla ya trae el número correcto de teclas
    para el `defsrc` de este repo; si cambiaste `defsrc`, ajústala).
-2. Define sus alias (`defalias`) en el mismo archivo y rellena el `deflayer`.
+2. Define sus alias (`defalias`) en el mismo archivo, con los [nombres](#formato-y-nombres) de la convención, y
+   rellena el `deflayer`. No hace falta alinear a mano: lo hace el formateador.
 3. Añade `(include layers/<nombre>.kbd)` en `config.kbd`.
 4. Crea el activador en `core/triggers.kbd`, por ejemplo
-   `mi_lyr (tap-hold $tap-time $hold-time x (layer-toggle MiCapa))`, y ponlo (`@mi_lyr`) en la tecla de
+   `ly-mi (tap-hold $tap-time $hold-time x (layer-toggle mi-capa))`, y ponlo (`@ly-mi`) en la tecla de
    `layers/base.kbd` que quieras.
-5. `kanata -c config.kbd --check`.
+5. `python3 tools/fmt.py` y `kanata -c config.kbd --check`.
 
 Un nombre de capa mal escrito en `layer-toggle` o un `include` olvidado en el paso 3 solo se detectan con `--check`.
