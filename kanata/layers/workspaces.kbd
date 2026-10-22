@@ -1,51 +1,46 @@
 ;; OmniWM workspaces (held from "e"): go to / send window to workspace N, back-and-forth.
 
 (defalias
+  wm-ws1 (cmd sudo -u $user omniwmctl command switch-workspace 1)
+  wm-ws2 (cmd sudo -u $user omniwmctl command switch-workspace 2)
+  wm-ws3 (cmd sudo -u $user omniwmctl command switch-workspace 3)
+  wm-ws4 (cmd sudo -u $user omniwmctl command switch-workspace 4)
+  wm-ws5 (cmd sudo -u $user omniwmctl command switch-workspace 5)
+  wm-ws6 (cmd sudo -u $user omniwmctl command switch-workspace 6)
+  wm-ws7 (cmd sudo -u $user omniwmctl command switch-workspace 7)
+  wm-ws8 (cmd sudo -u $user omniwmctl command switch-workspace 8)
+  wm-ws9 (cmd sudo -u $user omniwmctl command switch-workspace 9)
 
-  h_spac1 (cmd sudo -u $user omniwmctl command switch-workspace 1)
-  t_spac2 (cmd sudo -u $user omniwmctl command switch-workspace 2)
-  n_spac3 (cmd sudo -u $user omniwmctl command switch-workspace 3)
-  g_spac4 (cmd sudo -u $user omniwmctl command switch-workspace 4)
-  c_spac5 (cmd sudo -u $user omniwmctl command switch-workspace 5)
-  r_spac6 (cmd sudo -u $user omniwmctl command switch-workspace 6)
-  7_spac7 (cmd sudo -u $user omniwmctl command switch-workspace 7)
-  8_spac8 (cmd sudo -u $user omniwmctl command switch-workspace 8)
-  9_spac9 (cmd sudo -u $user omniwmctl command switch-workspace 9)
-
-  lastSpc (cmd sudo -u $user omniwmctl command switch-workspace back-and-forth)
-    lastWin (cmd sudo -u $user $cycle-script)
-
-  )
-
- (deflayer SpaceLayer
-    esc       f1       f2       f3       f4       f5       f      f7       f8       f9       f10       f11       f12
- 102d     XX      XX       XX       XX       XX       XX       @7_spac7   @8_spac8 @9_spac9 XX XX       XX       XX
-    tab       XX       XX       XX       XX       XX       XX    @g_spac4 @c_spac5 @r_spac6 XX    XX       XX       XX
-      @spa_slyr      XX       XX       XX       XX       XX       XX    @h_spac1 @t_spac2 @n_spac3    XX       XX       XX
-   lsft    caps     XX       XX       XX       XX       XX       XX       XX    XX XX    XX       rsft
-    fn    lctl lalt lmet                 @spa_slyr                     rmet    ralt         left down up  rght
-  )
-
-(defalias
-
-  h_sndW1 (cmd sudo -u $user omniwmctl command move-to-workspace slot 1)
-  t_sndW2 (cmd sudo -u $user omniwmctl command move-to-workspace slot 2)
-  n_sndW3 (cmd sudo -u $user omniwmctl command move-to-workspace slot 3)
-  g_sndW4 (cmd sudo -u $user omniwmctl command move-to-workspace slot 4)
-  c_sndW5 (cmd sudo -u $user omniwmctl command move-to-workspace slot 5)
-  r_sndW6 (cmd sudo -u $user omniwmctl command move-to-workspace slot 6)
-  7_sndW7 (cmd sudo -u $user omniwmctl command move-to-workspace slot 7)
-  8_sndW8 (cmd sudo -u $user omniwmctl command move-to-workspace slot 8)
-  9_sndW9 (cmd sudo -u $user omniwmctl command move-to-workspace slot 9)
-
+  wm-wsprv (cmd sudo -u $user omniwmctl command switch-workspace back-and-forth)
+  wm-cycle (cmd sudo -u $user $cycle-script)
 )
 
- (deflayer SpaceSubLayer
+(deflayer workspaces
+  esc       f1        f2        f3        f4        f5        f         f7        f8        f9        f10       f11       f12
+  102d      XX        XX        XX        XX        XX        XX        @wm-ws7   @wm-ws8   @wm-ws9   XX        XX        XX        XX
+  tab       XX        XX        XX        XX        XX        XX        @wm-ws4   @wm-ws5   @wm-ws6   XX        XX        XX        XX
+  @ly-wsmv  XX        XX        XX        XX        XX        XX        @wm-ws1   @wm-ws2   @wm-ws3   XX        XX        XX
+  lsft      caps      XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        rsft
+  fn        lctl      lalt      lmet      @ly-wsmv                                rmet      ralt      left      down      up        rght
+)
 
-    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
- 102d     XX      XX       XX       XX       XX       XX       @7_sndW7    @8_sndW8 @9_sndW9 XX        XX       XX       XX
-    tab       XX       XX       XX       XX       XX       XX    @g_sndW4 @c_sndW5 @r_sndW6    XX       XX       XX       XX
-      esc      XX       XX       XX       XX       XX       XX    @h_sndW1 @t_sndW2 @n_sndW3    XX       XX       XX
-   lsft    caps     XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       rsft
-    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
-  )
+(defalias
+  wm-mv1 (cmd sudo -u $user omniwmctl command move-to-workspace slot 1)
+  wm-mv2 (cmd sudo -u $user omniwmctl command move-to-workspace slot 2)
+  wm-mv3 (cmd sudo -u $user omniwmctl command move-to-workspace slot 3)
+  wm-mv4 (cmd sudo -u $user omniwmctl command move-to-workspace slot 4)
+  wm-mv5 (cmd sudo -u $user omniwmctl command move-to-workspace slot 5)
+  wm-mv6 (cmd sudo -u $user omniwmctl command move-to-workspace slot 6)
+  wm-mv7 (cmd sudo -u $user omniwmctl command move-to-workspace slot 7)
+  wm-mv8 (cmd sudo -u $user omniwmctl command move-to-workspace slot 8)
+  wm-mv9 (cmd sudo -u $user omniwmctl command move-to-workspace slot 9)
+)
+
+(deflayer workspaces-move
+  esc       f1        f2        f3        f4        f5        f6        f7        f8        f9        f10       f11       f12
+  102d      XX        XX        XX        XX        XX        XX        @wm-mv7   @wm-mv8   @wm-mv9   XX        XX        XX        XX
+  tab       XX        XX        XX        XX        XX        XX        @wm-mv4   @wm-mv5   @wm-mv6   XX        XX        XX        XX
+  esc       XX        XX        XX        XX        XX        XX        @wm-mv1   @wm-mv2   @wm-mv3   XX        XX        XX
+  lsft      caps      XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        rsft
+  fn        lctl      lalt      lmet      spc                                     rmet      ralt      left      down      up        rght
+)

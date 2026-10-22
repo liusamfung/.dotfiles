@@ -32,6 +32,7 @@ alias e='exit'
 
 
 alias kanata-check="~/Dev/Tools/kanata/target/release/kanata -c ~/dotfiles/kanata/config.kbd --check"
+alias kanata-fmt="python3 ~/dotfiles/kanata/tools/fmt.py"
 # config/kanata: variable 'lrld' reloads everything inside your layers — defsrc, deflayer, defalias, defchords, etc. It does not reload anything in the defcfg block related to which physical device kanata is attached to (things like macos-dev-names-include/exclude)
 alias kanata-restart="~/Dev/Tools/kanata/target/release/kanata -c ~/dotfiles/kanata/config.kbd --check && sudo launchctl kickstart -k system/com.liusam.kanata"  
 

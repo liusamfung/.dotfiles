@@ -1,11 +1,11 @@
 ;; Base layer: the first deflayer, so kanata starts on it.
 
-;; lrld reloads everything inside your layers — defsrc, deflayer, defalias, defchords, etc. It does not reload anything in the defcfg block related to which physical device kanata is attached to (things like macos-dev-names-include/exclude)
+;; lrld reloads layers, aliases and defsrc, but not defcfg (e.g. macos-dev-names-include): restart kanata for those.
 (deflayer base
-  lrld  f1   @toggleMic   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  caps  @~ @[ @scr_lyr     @pl   @%_1pass   @$     @pr    @}   @]     @+    @`    @#    rght
-  tab @Ralt_  @Rcntrl_  @Rmet  @Rshft_    y    f @Lalt_  @Lcntrl_ @Lmet @Lshft_    @/    @@_1fill    left
-  esc @qckApp  @tab_ @spce_ @sesion_     i    d  @term_  @termPane_  @windw_  @sys_lyr -    \
-  @MLsft_lyr @MLsft_lyr    @;       q    j    k       x        b    m    w    v    z    @MRsft_lyr
-  fn XX XX    @Cntrl_lyr           @num_lyr           @RiCntrl_lyr    XX left down up   rght
+  lrld      f1        @mic-mute f3        f4        f5        f6        f7        f8        f9        f10       f11       f12
+  caps      @~        @[        @ly-scr   @lpar     @pct-1pw  @$        @rpar     @}        @]        @+        @`        @#        rght
+  tab       @mod-la   @mod-lc   @mod-lm   @mod-ls   y         f         @mod-rs   @mod-rm   @mod-rc   @mod-ra   @/        @at-1pw   left
+  esc       @ly-qck   @ly-tab   @ly-ws    @ly-ses   i         d         @ly-term  @ly-pane  @ly-win   @ly-sys   -         \
+  @ly-lsft  @ly-lsft  @;        q         j         k         x         b         m         w         v         z         @ly-rsft
+  fn        XX        XX        @ly-ctl   @ly-num                                 @ly-rctl  XX        left      down      up        rght
 )

@@ -1,7 +1,8 @@
 ;; Raycast extensions called by deep link.
 
 (defalias
- c_clipb (cmd open raycast://extensions/raycast/clipboard-history/clipboard-history)
- b_raind (cmd open raycast://extensions/lardissone/raindrop-io/search) ;; Invoke 'raindrop.io search bookmarks'(Raycast's plugin). Plus, Raindrop.io is page for save all your bookmarks for use in anywhre
+  rc-clip  (cmd open raycast://extensions/raycast/clipboard-history/clipboard-history)
+  rc-rain  (cmd open raycast://extensions/lardissone/raindrop-io/search) ;; Invoke 'raindrop.io search bookmarks'(Raycast's plugin). Plus, Raindrop.io is page for save all your bookmarks for use in anywhre
+  rc-dism  (cmd open raycast://extensions/raycast/system-actions/dismiss-notifications)
+  rc-prmpt S-C-A-M-spc
 )
-

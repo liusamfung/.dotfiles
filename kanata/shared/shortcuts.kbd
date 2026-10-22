@@ -3,24 +3,21 @@
 (defalias
   ;; Utilitys
 
- s_DissN (cmd open raycast://extensions/raycast/system-actions/dismiss-notifications)
-  raycastPrompt S-C-A-M-spc
-  hrow_sc S-C-A-M-2
-  hrow_cl S-C-A-M-7
-  hrow_sl S-C-A-M-3
- q_lockS C-M-q
- z_dndDi S-C-A-.
- bsc_FrcQ A-M-esc
- b_notif  S-C-A-u
- #_zoom+ A-M-'
- !_zoom- A-M--
- @_zTogl A-M-8
+  hr-scrl  S-C-A-M-2
+  hr-click S-C-A-M-7
+  hr-srch  S-C-A-M-3
+  sys-lock C-M-q
+  sys-dnd  S-C-A-.
+  sys-kill A-M-esc
+  sys-ntf  S-C-A-u
+  sys-zin  A-M-'
+  sys-zout A-M--
+  sys-ztog A-M-8
 
-toggleMic S-C-A-M-m
+  mic-mute S-C-A-M-m
 
- swtApp2 M-tab
-   act_acc (macro A-n)
-   grv_acc (macro A-e)
-   virgu (macro A-u)
-
+  app-tab M-tab
+  opt-n   (macro A-n)
+  opt-e   (macro A-e)
+  opt-u   (macro A-u)
 )

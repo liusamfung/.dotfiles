@@ -1,27 +1,26 @@
 ;; Screenshot / screen-recording tool (held from "{").
 
 (defalias
-  fullSS C-A-M-f ;; raw key, used from the shift layers
+  ss-full C-A-M-f ;; raw key, used from the shift layers
 
-  fullSS_ (macro C-A-M-f)
-  record_ (macro C-A-M-r)
-  viewHis (macro C-A-M-h)
-  textSS_ (macro C-A-M-t)
-  areaSS_ (macro C-A-M-a)
-  scrllSS (macro C-A-M-s)
-  openSS_ (macro C-A-M-spc)
-  repeatA (macro C-A-M-l)
-  pinSS_ (macro C-A-p)
+  ss-fullm (macro C-A-M-f)
+  ss-rec   (macro C-A-M-r)
+  ss-hist  (macro C-A-M-h)
+  ss-text  (macro C-A-M-t)
+  ss-area  (macro C-A-M-a)
+  ss-scrl  (macro C-A-M-s)
+  ss-open  (macro C-A-M-spc)
+  ss-rpt   (macro C-A-M-l)
+  ss-pin   (macro C-A-p)
 
-  gif__SS (macro C-A-M-g)
+  ss-gif (macro C-A-M-g)
 )
 
- (deflayer ScreenShotLayer
-
-    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
- 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-    tab       XX      XX       XX    @pinSS_    XX    @fullSS_ @gif__SS    XX  @record_  @repeatA       XX       XX       XX
-      esc   @areaSS_    XX       XX       XX       XX       XX     @viewHis  @textSS_  XX    @scrllSS    XX       XX
-   lsft    caps     XX       XX       XX       XX       XX       XX       XX    XX    XX       XX       rsft
-    fn    lctl lalt lmet                 @openSS_                     rmet    ralt         left down up  rght
-  )
+(deflayer screenshot
+  esc       f1        f2        f3        f4        f5        f6        f7        f8        f9        f10       f11       f12
+  102d      XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX
+  tab       XX        XX        XX        @ss-pin   XX        @ss-fullm @ss-gif   XX        @ss-rec   @ss-rpt   XX        XX        XX
+  esc       @ss-area  XX        XX        XX        XX        XX        @ss-hist  @ss-text  XX        @ss-scrl  XX        XX
+  lsft      caps      XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        rsft
+  fn        lctl      lalt      lmet      @ss-open                                rmet      ralt      left      down      up        rght
+)

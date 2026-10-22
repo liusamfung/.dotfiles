@@ -2,67 +2,67 @@
 
 ;; Symbols (used by base, control and shift layers)
 (defalias
-  ^  S-6
-  <  S-,
-  >  S-.
-  $  S-4
-  %  S-5
-  @  S-2
-  &  S-7
-  *  S-8
+  ^ S-6
+  < S-,
+  > S-.
+  $ S-4
+  % S-5
+  @ S-2
+  & S-7
+  * S-8
   ` 102d ;; Not conventional keyboard 🤷‍♂️
 
-  {  S-[
-  pl S-9
-  pr S-0
-  }  S-]
-  =  =
-  +  S-=
-  -  -
-  /  /
-  '' S-'
+  {      S-[
+  lpar   S-9
+  rpar   S-0
+  }      S-]
+  =      =
+  +      S-=
+  -      -
+  /      /
+  dquote S-'
 
-  ~  S-102d ;; In my case 'shift + ` ' doesn't do ~
-  [  [
-  ]  ]
-  _  S--
-  #  S-3
-  |  S-\
-  !  S-1
-  ¡  A-1
-  ;  ;
-  :  S-;
-  ?  S-/
-  ¿  S-A-/
+  ~ S-102d ;; In my case 'shift + ` ' doesn't do ~
+  [ [
+  ] ]
+  _ S--
+  # S-3
+  | S-\
+  ! S-1
+  ¡ A-1
+  ; ;
+  : S-;
+  ? S-/
+  ¿ S-A-/
 )
 
 ;; Uppercase letters (used by the shift layers)
 (defalias
- A S-a
- B S-b
- C S-c
- D S-d
- E S-e
- F S-f
- G S-g
- H S-h
- I S-i
- J S-j
- K S-k
- L S-l
- M S-m
- N S-n
- ;; nñ
- O S-o
- P S-p
- Q S-q
- R S-r
- S S-s
- T S-t
- U S-u
- V S-v
- W S-w
- X S-x
- Y S-y
- Z S-z
+  A S-a
+  B S-b
+  C S-c
+  D S-d
+  E S-e
+  F S-f
+  G S-g
+  H S-h
+  I S-i
+  J S-j
+  K S-k
+  L S-l
+  M S-m
+  N S-n
+  ;; nñ
+  O S-o
+  P S-p
+  Q S-q
+  R S-r
+  S S-s
+  T S-t
+  U S-u
+  V S-v
+  W S-w
+  X S-x
+  Y S-y
+  Z S-z
 )

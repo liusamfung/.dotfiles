@@ -3,4 +3,6 @@
 ;; alias below uses a number that only local.kbd defines: without the file `kanata --check` fails loudly
 ;; instead of leaving every `sudo -u $user ...` key broken.
 
-(defalias _require-local-kbd (tap-hold $local-kbd-loaded 1 a a))
+(defalias
+  _require-local-kbd (tap-hold $local-kbd-loaded 1 a a)
+)

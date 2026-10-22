@@ -1,17 +1,17 @@
 ;; Numpad layer held from space, with word / line jumps on the left hand.
 
 (defalias
-  e_leftO A-left
-  u_rgthO A-rght
-  o_leftC M-left
-  i_rgthC M-rght
+  jmp-wl A-left
+  jmp-wr A-rght
+  jmp-ll M-left
+  jmp-lr M-rght
 )
 
 (deflayer number
-  esc  XX   XX   XX   XX   XX   XX   @/   @*   @-   XX  XX  XX
-  XX  XX    XX    XX    XX    XX    XX    7   8    9   @+    XX    XX    bspc
-  tab  ralt   lctl    lsft    lmet    XX    XX    4    5    6    @+    @/    XX    ret
-  esc XX    @o_leftC @e_leftO @u_rgthO @i_rgthC XX    1    2    3    ret    XX    XX
-  lsft caps @:    left  down  up  rght   ,    0   0   .    XX    rsft
-  lmet lctl lalt bspc        spc        rsft ralt left down up   rght
+  esc       XX        XX        XX        XX        XX        XX        @/        @*        @-        XX        XX        XX
+  XX        XX        XX        XX        XX        XX        XX        7         8         9         @+        XX        XX        bspc
+  tab       ralt      lctl      lsft      lmet      XX        XX        4         5         6         @+        @/        XX        ret
+  esc       XX        @jmp-ll   @jmp-wl   @jmp-wr   @jmp-lr   XX        1         2         3         ret       XX        XX
+  lsft      caps      @:        left      down      up        rght      ,         0         0         .         XX        rsft
+  lmet      lctl      lalt      bspc      spc                                     rsft      ralt      left      down      up        rght
 )

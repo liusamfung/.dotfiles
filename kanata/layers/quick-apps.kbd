@@ -1,36 +1,33 @@
 ;; Quick app launcher and floating apps (held from "a", and from the hyper keys on the control layers).
 
 (defalias
-  d_dicti S-C-A-M-d ;; easydictionary (https://github.com/tisfeng/Easydict)
-  quickT A-102d ;; this is '`'
-;; Hammerspoon toggles the app by name (modules/app_toggler.lua)
-quickN (cmd open "hammerspoon://toggleapp?name=Notes")
-quickSim (cmd open "hammerspoon://toggleapp?name=Simulator")
-quickCam (cmd open "hammerspoon://toggleapp?name=Quick Camera")
-qk1passw S-C-A-M-p
+  app-dict S-C-A-M-d ;; easydictionary (https://github.com/tisfeng/Easydict)
+  wm-quake A-102d ;; this is '`'
+  ;; Hammerspoon toggles the app by name (modules/app_toggler.lua)
+  hs-notes (cmd open "hammerspoon://toggleapp?name=Notes")
+  hs-sim   (cmd open "hammerspoon://toggleapp?name=Simulator")
+  hs-cam   (cmd open "hammerspoon://toggleapp?name=Quick Camera")
+  pw-quick S-C-A-M-p
 
-  quickCal S-C-A-M-c
-  h_f1 S-C-A-M-f1
-  h_f2 (cmd sudo -u $user omniwmctl command switch-workspace back-and-forth)
-  h_f3 C-tab
-  h_f4 S-C-A-M-f4
-  h_f5 S-C-A-M-f5
-  h_f6 S-C-A-M-f6
-  h_f7 S-C-A-M-f7
-  h_f8 S-C-A-M-f8
-  h_f9 S-C-A-M-f9
-  h_f10 S-C-A-M-f10
-  h_f11 S-C-A-M-f11
-  h_f12 S-C-A-M-f12
-
+  hy-cal  S-C-A-M-c
+  hy-f1   S-C-A-M-f1
+  ctl-tab C-tab
+  hy-f4   S-C-A-M-f4
+  hy-f5   S-C-A-M-f5
+  hy-f6   S-C-A-M-f6
+  hy-f7   S-C-A-M-f7
+  hy-f8   S-C-A-M-f8
+  hy-f9   S-C-A-M-f9
+  hy-f10  S-C-A-M-f10
+  hy-f11  S-C-A-M-f11
+  hy-f12  S-C-A-M-f12
 )
 
- (deflayer QuickAppFloatLayer
-
-    esc      @h_f1     @h_f2     @h_f3     @h_f4     @h_f5     @h_f6     @h_f7     @h_f8     @h_f9    @h_f10     @h_f11     @h_f12
- 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-    XX       XX       XX       XX       @qk1passw       XX       XX       XX    @quickCal    XX       XX       XX       XX       XX
-      F3      XX       XX       XX       XX       XX    @d_dicti    @c_clipb    @quickT  @quickN     @quickSim       XX       XX
-   @lastSpc    XX     XX       XX       XX       XX       XX       @b_raind       XX       XX       XX       XX       rsft
-    fn    lctl lalt XX              @quickCam                  rmet    ralt         left down up  rght
-  )
+(deflayer quick-apps
+  esc       @hy-f1    @wm-wsprv @ctl-tab  @hy-f4    @hy-f5    @hy-f6    @hy-f7    @hy-f8    @hy-f9    @hy-f10   @hy-f11   @hy-f12
+  102d      XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX
+  XX        XX        XX        XX        @pw-quick XX        XX        XX        @hy-cal   XX        XX        XX        XX        XX
+  F3        XX        XX        XX        XX        XX        @app-dict @rc-clip  @wm-quake @hs-notes @hs-sim   XX        XX
+  @wm-wsprv XX        XX        XX        XX        XX        XX        @rc-rain  XX        XX        XX        XX        rsft
+  fn        lctl      lalt      XX        @hs-cam                                 rmet      ralt      left      down      up        rght
+)

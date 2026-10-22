@@ -1,22 +1,21 @@
 ;; Terminal session switcher (held from "u").
 
 (defalias
-  h1term_ (macro C-M-1)
-  n3nvim_ (macro C-M-3)
-  g4Obsid (macro C-M-4)
-  c5FileE (macro C-M-5)
-  r6dotfi (macro C-M-6)
-  r9testt (macro C-M-9)
+  kt-code (macro C-M-1)
+  kt-log  (macro C-M-3)
+  kt-obs  (macro C-M-4)
+  kt-yazi (macro C-M-5)
+  kt-dot  (macro C-M-6)
+  kt-test (macro C-M-9)
 
-  closeSe (macro C-M-w)
+  kt-close (macro C-M-w)
 )
 
- (deflayer SesionLayer
-
-    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
- 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       @r9testt       XX       XX       XX
-    tab       XX       XX       XX       XX       XX       XX    @g4Obsid @c5FileE @r6dotfi    XX       XX       XX       XX
-      esc      XX       XX       XX       XX       XX       XX    @h1term_ XX @n3nvim_    XX       XX       XX
-   lsft    caps     XX       XX       XX       XX       XX       XX       XX       @closeSe       XX       XX       rsft
-    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
-  )
+(deflayer sessions
+  esc       f1        f2        f3        f4        f5        f6        f7        f8        f9        f10       f11       f12
+  102d      XX        XX        XX        XX        XX        XX        XX        XX        XX        @kt-test  XX        XX        XX
+  tab       XX        XX        XX        XX        XX        XX        @kt-obs   @kt-yazi  @kt-dot   XX        XX        XX        XX
+  esc       XX        XX        XX        XX        XX        XX        @kt-code  XX        @kt-log   XX        XX        XX
+  lsft      caps      XX        XX        XX        XX        XX        XX        XX        @kt-close XX        XX        rsft
+  fn        lctl      lalt      lmet      spc                                     rmet      ralt      left      down      up        rght
+)

@@ -1,47 +1,45 @@
 ;; Tap-hold activators: hold = layer / modifier, tap = the key itself. Used by layers/base.kbd and layers/control.kbd.
 
 (defalias
+  ly-wsmv  (layer-toggle workspaces-move)
+  ly-winmv (layer-toggle windows-move)
 
-   spa_slyr (layer-toggle SpaceSubLayer)
-   win_slyr (layer-toggle WindowsSubLayer)
+  ly-lhyp (tap-hold-press  $tap-time $hold-time @hr-click (layer-toggle quick-apps))
+  ly-rsft (tap-hold-press  $tap-time $hold-time XX (layer-toggle shift-r))
+  ly-rhyp (tap-hold-press  $tap-time $hold-time @hr-scrl (layer-toggle quick-apps))
+  ly-lsft (tap-hold-press  $tap-time $hold-time XX (layer-toggle shift-l))
 
-   Lhypr_lyr (tap-hold-press  $tap-time $hold-time @hrow_cl (layer-toggle QuickAppFloatLayer))
-   MRsft_lyr (tap-hold-press  $tap-time $hold-time XX (layer-toggle RightShift))
-   Rhypr_lyr (tap-hold-press  $tap-time $hold-time @hrow_sc (layer-toggle QuickAppFloatLayer))
-   MLsft_lyr (tap-hold-press  $tap-time $hold-time XX (layer-toggle LeftShift))
+  ly-ctl  (tap-hold-press  $tap-time $hold-time bspc (layer-toggle control-l))
+  ly-rctl (tap-hold-press  $tap-time $hold-time ret  (layer-toggle control-r))
 
-   Cntrl_lyr (tap-hold-press  $tap-time $hold-time bspc (layer-toggle ControlLayer))
-   RiCntrl_lyr (tap-hold-press  $tap-time $hold-time ret  (layer-toggle RightControlLayer))
+  ly-num (tap-hold $tap-time $hold-time spc (layer-toggle number))
 
-   num_lyr (tap-hold $tap-time $hold-time spc (layer-toggle number))
+  ly-sys (tap-hold $tap-time $hold-time s (layer-toggle system)) ;; trickster
 
-  sys_lyr (tap-hold $tap-time $hold-time s (layer-toggle systemLayer)) ;; trickster
+  ly-scr (tap-hold $tap-time $hold-time @{ (layer-toggle screenshot))
 
-  scr_lyr (tap-hold $tap-time $hold-time @{ (layer-toggle ScreenShotLayer))
+  ly-tab (tap-hold $tap-time $hold-time o (layer-toggle tabs))
+  ly-ws  (tap-hold $tap-time $hold-time e (layer-toggle workspaces))
+  ly-ses (tap-hold $tap-time $hold-time u (layer-toggle sessions))
+  ly-qck (tap-hold $tap-time $hold-time a (layer-toggle quick-apps))
 
-  tab_ (tap-hold $tap-time $hold-time o (layer-toggle TabLayer))
-  spce_ (tap-hold $tap-time $hold-time e (layer-toggle SpaceLayer))
-  sesion_ (tap-hold $tap-time $hold-time u (layer-toggle SesionLayer))
-  qckApp (tap-hold $tap-time $hold-time a (layer-toggle QuickAppFloatLayer))
+  ly-pane (tap-hold $tap-time $hold-time t (layer-toggle terminal-panes))
+  ly-term (tap-hold $tap-time $hold-time h (layer-toggle terminal))
+  ly-win  (tap-hold $tap-time $hold-time n (layer-toggle windows))
 
-  termPane_ (tap-hold $tap-time $hold-time t (layer-toggle TerminalPaneLayer))
-  term_ (tap-hold $tap-time $hold-time h (layer-toggle TerminalLayer))
-  windw_ (tap-hold $tap-time $hold-time n (layer-toggle WindowsLayer))
+  mod-la (tap-hold $tap-time $hold-time ' ralt)
+  mod-lc (tap-hold $tap-time $hold-time , lctl)
+  mod-lm (tap-hold $tap-time $hold-time . lmet)
+  mod-ls (tap-hold $tap-time $hold-time p lsft)
 
-  Ralt_ (tap-hold $tap-time $hold-time ' ralt)
-  Rcntrl_ (tap-hold $tap-time $hold-time , lctl)
-  Rmet (tap-hold $tap-time $hold-time . lmet)
-  Rshft_ (tap-hold $tap-time $hold-time p lsft)
-
-  Lalt_ (tap-hold $tap-time $hold-time g rsft)
-  Lcntrl_ (tap-hold $tap-time $hold-time c rmet)
-  Lmet (tap-hold $tap-time $hold-time r lctl)
-  Lshft_ (tap-hold $tap-time $hold-time l ralt)
+  mod-rs (tap-hold $tap-time $hold-time g rsft)
+  mod-rm (tap-hold $tap-time $hold-time c rmet)
+  mod-rc (tap-hold $tap-time $hold-time r lctl)
+  mod-ra (tap-hold $tap-time $hold-time l ralt)
 )
 
 (defalias
-
-  @_1fill (tap-hold $tap-time $hold-time @@ C-A-M-p) ;; trickster
-  %_1pass (tap-hold $tap-time $hold-time @% C-A-M-p) ;; trickster
-  cpy (tap-hold $tap-time $hold-time M-v M-c) ;;Copy paste
+  at-1pw  (tap-hold $tap-time $hold-time @@ C-A-M-p) ;; trickster
+  pct-1pw (tap-hold $tap-time $hold-time @% C-A-M-p) ;; trickster
+  pst-cpy (tap-hold $tap-time $hold-time M-v M-c) ;;Copy paste
 )

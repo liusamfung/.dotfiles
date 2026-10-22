@@ -1,47 +1,45 @@
 ;; Terminal panes (held from "t") and prompt / scroll control (held from "h"), for kitty.
 
 (defalias
-bttmPane  (macro C-j)
-topPane_  (macro C-k)
-leftPane  (macro C-q)
-rightPane (macro C-x)
+  kt-pdn (macro C-j)
+  kt-pup (macro C-k)
+  kt-plf (macro C-q)
+  kt-prt (macro C-x)
 
-gridLyt__ (macro C-A-M-y)
-stackLyt_ (macro C-A-M-o)
-fatLyt___ (macro C-A-M-i)
+  kt-grid  (macro C-A-M-y)
+  kt-stack (macro C-A-M-o)
+  kt-fat   (macro C-A-M-i)
 
-zoomPane_ (macro C-A-M-d)
+  kt-zoom (macro C-A-M-d)
 
-nwHorPane (macro M-ret)
-nwVerPane (macro M-ret)
-deletPane (macro C-A-M-x)
+  kt-pnh  (macro M-ret)
+  kt-pnv  (macro M-ret)
+  kt-pdel (macro C-A-M-x)
 )
 
- (deflayer TerminalPaneLayer
-    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
- 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-    tab    @fatLyt___    @gridLyt__    @zoomPane_ @stackLyt_    XX       XX       XX       XX       XX       XX       XX       XX       XX
-      esc      XX       XX       XX       XX       XX       XX    @nwHorPane    XX       XX    @nwVerPane    XX       XX
-   lsft    caps     XX    @leftPane @bttmPane @topPane_ @rightPane    XX       XX       XX       XX       XX       rsft
-    fn    lctl lalt @deletPane                 spc                     rmet    ralt         left down up  rght
-  )
+(deflayer terminal-panes
+  esc       f1        f2        f3        f4        f5        f6        f7        f8        f9        f10       f11       f12
+  102d      XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX
+  tab       @kt-fat   @kt-grid  @kt-zoom  @kt-stack XX        XX        XX        XX        XX        XX        XX        XX        XX
+  esc       XX        XX        XX        XX        XX        XX        @kt-pnh   XX        XX        @kt-pnv   XX        XX
+  lsft      caps      XX        @kt-plf   @kt-pdn   @kt-pup   @kt-prt   XX        XX        XX        XX        XX        rsft
+  fn        lctl      lalt      @kt-pdel  spc                                     rmet      ralt      left      down      up        rght
+)
 
 (defalias
-reloadCn (macro C-M-,)
-prvPrmpt (macro C-S-e)
-nxtPrmpt (macro C-S-u)
-LineUP__    (macro-repeat C-S-k)
-LineDown  (macro-repeat C-A-S-j)
+  kt-rld   (macro C-M-,)
+  kt-prmup (macro C-S-e)
+  kt-prmdn (macro C-S-u)
+  kt-sup   (macro-repeat C-S-k)
+  kt-sdn   (macro-repeat C-A-S-j)
 
-quickTerm  (macro-repeat C-A-S-spc)
-
+  kt-quick (macro-repeat C-A-S-spc)
 )
- (deflayer TerminalLayer
-
-    @reloadCn       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
- 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-    tab       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-      esc      XX       XX    @nxtPrmpt    @prvPrmpt       XX       XX       XX       @LineDown       XX       XX       XX       XX
-   lsft    lsft     XX    XX @LineDown @LineUP__    XX    XX       XX       XX       XX       XX       rsft
-    fn    lctl lalt lmet                 @quickTerm                     rmet    ralt         left down up  rght
-  )
+(deflayer terminal
+  @kt-rld   f1        f2        f3        f4        f5        f6        f7        f8        f9        f10       f11       f12
+  102d      XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX
+  tab       XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX
+  esc       XX        XX        @kt-prmdn @kt-prmup XX        XX        XX        @kt-sdn   XX        XX        XX        XX
+  lsft      lsft      XX        XX        @kt-sdn   @kt-sup   XX        XX        XX        XX        XX        XX        rsft
+  fn        lctl      lalt      lmet      @kt-quick                               rmet      ralt      left      down      up        rght
+)

@@ -1,51 +1,47 @@
 ;; OmniWM window management (held from "n"): focus, float, split, fullscreen, move column.
 
 (defalias
+  wm-float (cmd sudo -u $user omniwmctl command toggle-focused-window-floating)
+  wm-split (cmd sudo -u $user omniwmctl command toggle-split)
+  wm-close (cmd sudo -u $user omniwmctl command close-focused-window)
+  app-min  M-m
+  app-hide M-h
 
-  test_c (cmd sudo -u $user omniwmctl command toggle-focused-window-floating)
-  s_split (cmd sudo -u $user omniwmctl command toggle-split)
-  x_close (cmd sudo -u $user omniwmctl command close-focused-window)
-  m_minim M-m
-  h_hideW M-h
+  wm-west  (cmd sudo -u $user omniwmctl command focus left)
+  wm-south (cmd sudo -u $user omniwmctl command focus down)
+  wm-north (cmd sudo -u $user omniwmctl command focus up)
+  wm-east  (cmd sudo -u $user omniwmctl command focus right)
 
-  h_westt (cmd sudo -u $user omniwmctl command focus left)
-  t_south (cmd sudo -u $user omniwmctl command focus down)
-  c_north (cmd sudo -u $user omniwmctl command focus up)
-  n_eastt (cmd sudo -u $user omniwmctl command focus right)
-
-  x_maxWi (cmd sudo -u $user omniwmctl command toggle-native-fullscreen)
-  z_fulls (cmd sudo -u $user omniwmctl command toggle-fullscreen)
-  )
-
- (deflayer WindowsLayer
-    XX    XX    XX    f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
- 102d     @test_c      XX    XX XX XX    XX       XX       XX       XX       XX       XX       XX       XX
-    tab    XX XX @z_fulls XX XX   XX       XX       XX    XX    XX       XX       XX       XX
-      esc   @s_split    XX       XX       XX       XX       XX       @h_hideW       XX       XX    XX    XX       XX
-   lsft    caps     XX    @h_westt @t_south @c_north @n_eastt XX @m_minim    @x_close      XX    @x_maxWi    rsft
-    fn    lctl lalt XX                 @win_slyr                     rmet    ralt         left down up  rght
-  )
-
-(defalias
-
-  h_rLeft (cmd sudo -u $user omniwmctl command move-column left)
-  t_rBttn (cmd sudo -u $user omniwmctl command move-column down)
-  c_rTopp (cmd sudo -u $user omniwmctl command move-column up)
-  n_rRgth (cmd sudo -u $user omniwmctl command move-column right)
-
+  wm-nfull (cmd sudo -u $user omniwmctl command toggle-native-fullscreen)
+  wm-full  (cmd sudo -u $user omniwmctl command toggle-fullscreen)
 )
 
- (deflayer WindowsSubLayer
-
-    esc       f1       f2       f3       f4       f5       f6       f7       f8       f9       f10       f11       f12
- 102d     XX      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-    tab       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-      esc      XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-   lsft    caps     XX    @h_rLeft @t_rBttn @c_rTopp @n_rRgth    XX       XX       XX       XX       XX       rsft
-    fn    lctl lalt lmet                 spc                     rmet    ralt         left down up  rght
-  )
+(deflayer windows
+  XX        XX        XX        f3        f4        f5        f6        f7        f8        f9        f10       f11       f12
+  102d      @wm-float XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX
+  tab       XX        XX        @wm-full  XX        XX        XX        XX        XX        XX        XX        XX        XX        XX
+  esc       @wm-split XX        XX        XX        XX        XX        @app-hide XX        XX        XX        XX        XX
+  lsft      caps      XX        @wm-west  @wm-south @wm-north @wm-east  XX        @app-min  @wm-close XX        @wm-nfull rsft
+  fn        lctl      lalt      XX        @ly-winmv                               rmet      ralt      left      down      up        rght
+)
 
 (defalias
-  nxtFcus (cmd sudo -u $user omniwmctl command focus-window down-or-top)
-  prvFcus (cmd sudo -u $user omniwmctl command focus-window up-or-bottom)
+  wm-colw (cmd sudo -u $user omniwmctl command move-column left)
+  wm-cols (cmd sudo -u $user omniwmctl command move-column down)
+  wm-coln (cmd sudo -u $user omniwmctl command move-column up)
+  wm-cole (cmd sudo -u $user omniwmctl command move-column right)
+)
+
+(deflayer windows-move
+  esc       f1        f2        f3        f4        f5        f6        f7        f8        f9        f10       f11       f12
+  102d      XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX
+  tab       XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX
+  esc       XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX
+  lsft      caps      XX        @wm-colw  @wm-cols  @wm-coln  @wm-cole  XX        XX        XX        XX        XX        rsft
+  fn        lctl      lalt      lmet      spc                                     rmet      ralt      left      down      up        rght
+)
+
+(defalias
+  wm-fnext (cmd sudo -u $user omniwmctl command focus-window down-or-top)
+  wm-fprev (cmd sudo -u $user omniwmctl command focus-window up-or-bottom)
 )

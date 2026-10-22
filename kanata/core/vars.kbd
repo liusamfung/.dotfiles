@@ -3,5 +3,5 @@
 (defvar
   tap-time 20 ;; Deshabilitamos el tapcontinous porque interfiere con mi num_lyr
 
-  hold-time  150
+  hold-time 150
 )
