@@ -29,6 +29,11 @@ rev = "e0bbd20"
 hash = "4f2a05edce73aef2bceb2ee2c134c8f2"
 
 [[plugin.deps]]
+use = "yazi-rs/plugins:piper"
+rev = "e0bbd20"
+hash = "d1e0499cae5f3aeb628c267616d4b682"
+
+[[plugin.deps]]
 use = "yazi-rs/plugins:toggle-pane"
 rev = "e0bbd20"
 hash = "5b2fbef7d1513ce38ff72623a071a5e"

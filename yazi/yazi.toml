@@ -76,6 +76,9 @@ group = "git"
 
   prepend_previewers = [
     
+    # EPUB is a zip: this rule must come BEFORE the ouch ones below or the file list would win (first match wins).
+    { url = "*.epub", run = 'piper -- pandoc -t plain --columns=$w "$1"' },
+
     # Tree previewer for compress archives https://github.com/ndtoan96/ouch.yazi
     { mime = "application/*zip",            run = "ouch" },
     { mime = "application/x-tar",           run = "ouch" },
@@ -88,6 +91,31 @@ group = "git"
     { mime = "application/x-zstd",          run = "ouch" },
     { mime = "application/zstd",            run = "ouch" },
     { mime = "application/java-archive",    run = "ouch" },
+
+    # piper (https://github.com/yazi-rs/plugins/tree/main/piper.yazi): the output of a shell command is the preview.
+    # "$1" is the hovered file, $w / $h the size of the preview pane. A piper command can use pipes; stderr shows
+    # as an error in the pane, so commands that may fail redirect it (2>/dev/null) and fall back to another one.
+    # Folders: tree of two levels with icons (yazi's own folder preview only lists the first level).
+    { url = "*/", run = 'piper -- eza --tree --level=2 --icons=always --color=always --group-directories-first "$1"' },
+    # JSON: pretty-printed and colored (minified JSON is one unreadable line otherwise); invalid JSON/JSONC falls back to bat.
+    { url = "*.json", run = 'piper -- jq -C . "$1" 2>/dev/null || bat -p --color=always "$1"' },
+    # CSV / TSV: aligned columns. Only the first 500 lines (`column` needs the whole input before printing, which
+    # would freeze yazi on a huge file); the sed makes empty fields keep their column (BSD `column` collapses them).
+    { url = "*.csv", run = 'piper -- head -n 500 "$1" | sed "s/,,/, ,/g;s/,,/, ,/g" | column -t -s ","' },
+    { url = "*.tsv", run = 'piper -- head -n 500 "$1" | column -t -s "$(printf "\t")"' },
+    # Markdown rendered with glow (headings, lists, tables, code blocks). The style follows the terminal theme ($t).
+    { url = "*.{md,markdown}", run = 'piper -- CLICOLOR_FORCE=1 glow -w=$w -s="$([ "$t" = light ] && echo light || echo dark)" "$1"' },
+    # Documents: pandoc turns them into plain text at the width of the pane (HTML is handled by w3m below).
+    { url = "*.{docx,odt,rst,tex,org}", run = 'piper -- pandoc -t plain --columns=$w "$1"' },
+    # HTML: w3m renders the page as text (lists, tables, link list) at the width of the pane.
+    { url = "*.{html,htm}", run = 'piper -- w3m -dump -cols $w "$1"' },
+    # Logs: a Salesforce debug log shows only its USER_DEBUG / EXCEPTION / FATAL lines, any other log shows its END.
+    # The decision lives in a script because it needs an if/else (see scripts/yazi-log-preview.sh).
+    { url = "*.log", run = 'piper -- "$HOME/dotfiles/scripts/yazi-log-preview.sh" "$1" "$h"' },
+    # Audio: tags and technical data with ffprobe (ffmpeg is in the Brewfile; images and video keep yazi's own thumbnail).
+    { mime = "audio/*", run = 'piper -- ffprobe -hide_banner "$1" 2>&1' },
+    # SQLite: the schema.
+    { url = "*.{db,sqlite,sqlite3}", run = 'piper -- sqlite3 -readonly "$1" .schema 2>&1 | bat -p -l sql --color=always' },
   ]
 
 # For a large file like Adobe Illustrator, Adobe Photoshop, etc

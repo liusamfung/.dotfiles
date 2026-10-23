@@ -32,6 +32,9 @@ brew "ghostscript"  # not a leaf on the author's Mac (a dependency there)
 brew "chafa"
 brew "exiftool"  # yazi's "Show EXIF" entry in the Shift+O menu
 brew "ouch"
+brew "glow"  # yazi preview of Markdown files (piper)
+brew "pandoc"  # yazi preview of docx, odt, epub, rst, tex and org files (piper)
+brew "w3m"  # yazi preview of HTML files (piper)
 
 # Neovim: editor, parsers, Mason (needs python3 for its pip packages), LuaSnip build, sf.nvim
 brew "neovim"
