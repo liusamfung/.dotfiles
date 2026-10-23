@@ -4,10 +4,6 @@ run = 'shell -- ya emit cd "$(git rev-parse --show-toplevel)"'
 desc = "Go to root(.git level in current project)"
 
 [[mgr.prepend_keymap]]
-on = "<C-p>"
-run = 'shell -- qlmanage -p "$@"'
-
-[[mgr.prepend_keymap]]
 on = "<C-/>"
 for = "unix"
 run = 'shell "$SHELL" --block'
@@ -59,10 +55,27 @@ on   = [ "g", "c" ]
 run  = "plugin vcs-files"
 desc = "Show Git file changes"
 
+# System clipboard: clipboard.yazi (installed with `ya pkg add XYenon/clipboard`), with the keys its README recommends.
+# Yazi 26.9 has a built-in plugin called `clipboard` and shows a "deprecated plugin name" popup when a custom one uses
+# that name, so the keys call it through a symlink, plugins/file-clipboard.yazi -> clipboard.yazi (the fix suggested by
+# Yazi's author in sxyazi/yazi#4280). `ya pkg upgrade` keeps updating clipboard.yazi and the symlink follows.
+# It works on what you selected with Space or visual mode, any number of files: y / x yank (or cut) as always and
+# ALSO copy the files to the clipboard as files (paste in Finder, WhatsApp, ...); <C-p> pastes the files of the
+# system clipboard here. Pasting a cut (x) file in another app copies it; only yazi's own `p` moves it.
 [[mgr.prepend_keymap]]
-on = "<C-y>"
-run = "plugin system-clipboard"
-desc = "Copy file as File/photo, etc"
+on  = "y"
+run = [ "yank", "plugin file-clipboard -- --action=copy" ]
+desc = "Yank selected files (copy) and copy them to the system clipboard"
+
+[[mgr.prepend_keymap]]
+on  = "x"
+run = [ "yank --cut", "plugin file-clipboard -- --action=copy" ]
+desc = "Yank selected files (cut) and copy them to the system clipboard"
+
+[[mgr.prepend_keymap]]
+on  = "<C-p>"
+run = "plugin file-clipboard -- --action=paste"
+desc = "Paste the files of the system clipboard here"
 
 # [[mgr.prepend_keymap]]
 # on = ["d","d"]
