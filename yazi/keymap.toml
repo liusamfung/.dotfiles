@@ -14,11 +14,6 @@ run = 'shell "$SHELL" --block'
 desc = "Open $SHELL here"
 
 [[mgr.prepend_keymap]]
-on = ["c","p"]
-run = "plugin command"
-desc = "Yazi command prompt"
-
-[[mgr.prepend_keymap]]
 on = ":"
 run = "plugin custom-shell -- zsh --wait --block=true"
 desc = "custom-shell as default, waits for user"
