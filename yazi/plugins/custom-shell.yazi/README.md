@@ -85,6 +85,23 @@ Check the keybindings below to see how to set these options.
 
 You can also add `--wait`(default `false`) to make it wait for the user to press return key after executing the command. This allows the command output not to disappear immediately after exit and to stay readable on screen. Note that it is up to the command you run to decide whether to wait for user input or not, so this option may or may not be needed.
 
+### Selected/Hovered Files
+
+You can reference the selected/hovered files in your command using yazi's own `shell` placeholders, resolved natively by yazi itself:
+
+| **Placeholder** | **Description**                                                 |
+| ---------------- | ---------------------------------------------------------------- |
+| `%h`             | Hovered file, empty if nothing is hovered                        |
+| `%s`             | All selected files                                                |
+| `%sN`            | The N-th selected file, e.g. `%s1`, `%s2`                         |
+| `%d`             | Dirnames of all selected files                                    |
+| `%dN`            | Dirname of the N-th selected file                                 |
+| `%%`             | Escaped `%` character                                             |
+
+For example, `nvim %h` opens the hovered file, and `echo %s` prints all selected files.
+
+For `bash`, `zsh`, `sh`, `ksh`, `dash`, `fish`, `csh`, and `tcsh`, the selected files are also automatically appended as trailing positional arguments, so a command written for `$@`/`$1`/`$2` (without `%s`) also picks up the selection. `$0` is set to the shell's name, not a file — use `%h`/`%s1` for that. `pwsh` and `nu` don't support trailing positional args, so use `%h`/`%s` explicitly on those shells.
+
 ![wait argument demo](.assets/wait_demo.gif)
 
 ### Keybindings for Custom Shell

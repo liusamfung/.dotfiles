@@ -23,11 +23,6 @@ on = ":"
 run = "plugin custom-shell -- zsh --wait --block=true"
 desc = "custom-shell as default, waits for user"
 
-[[mgr.prepend_keymap]]
-on = "i"
-run = "plugin easyjump"
-desc = "easyjump"
-
 # C = Compress. Cn: no password (ouch). Ce: encrypted 7z (AES-256, file names encrypted too); 7zz asks for the
 # password in the terminal.
 [[mgr.prepend_keymap]]
@@ -41,39 +36,14 @@ run = 'shell --block -- "$HOME/dotfiles/scripts/yazi-encrypt.sh" %s'
 desc = "Compress encrypted: 7z AES-256, names encrypted"
 
 [[mgr.prepend_keymap]]
-on = "H"
-run = "plugin duckdb -1"
-desc = "Scroll one column to the left"
-
-[[mgr.prepend_keymap]]
-on = "L"
-run = "plugin duckdb +1"
-desc = "Scroll one column to the right"
-
-[[mgr.prepend_keymap]]
-on = ["g","b","o"]
-run = "plugin duckdb -open"
-desc = "open with duckdb"
-
-[[mgr.prepend_keymap]]
-on = ["g","b","u"]
-run = "plugin duckdb -ui"
-desc = "open with duckdb ui"
-
-[[mgr.prepend_keymap]]
-on = "P"
-run = "plugin toggle-pane max-preview"
-desc = "Maximize or restore the preview pane"
-
-[[mgr.prepend_keymap]]
 on = "u"
 run = "plugin restore-last"
 desc = "Restore last deleted files/folders (native trash)"
 
-[[mgr.prepend_keymap]]
-on = ["T","s"]
-run = "cd '~/.Trash/'"
-desc = "System Trash (MacOS)"
+# [[mgr.prepend_keymap]]
+# on = ["T","s"]
+# run = "cd '~/.Trash/'"
+# desc = "System Trash (MacOS)"
 
 # NOTE: `dd` manda a la papelera SIN pedir confirmacion (se recupera con `u`). Como empieza con `d`
 # y va antes que los atajos de fabrica, un solo `d` ahora espera la segunda tecla. `D` (borrar
@@ -83,14 +53,20 @@ on = ["d","d"]
 run = "remove --force" # --force es para que no pregunte "yes" or "no" 
 desc = "Trash selected files without confirmation (restore with u)"
 
+# keymap.toml
 [[mgr.prepend_keymap]]
-on = "F"
-run = "plugin smart-filter"
-desc = "Smart filter"
+on   = "T"
+run  = "plugin toggle-pane max-preview"
+desc = "Maximize or restore the preview pane"
 
 [[mgr.prepend_keymap]]
-on = ["g","c"]
+on = ["g","j"]
 run = "plugin git-files"
+desc = "Show Git file changes"
+
+[[mgr.prepend_keymap]]
+on   = [ "g", "c" ]
+run  = "plugin vcs-files"
 desc = "Show Git file changes"
 
 [[mgr.prepend_keymap]]

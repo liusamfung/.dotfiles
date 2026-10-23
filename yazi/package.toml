@@ -1,22 +1,7 @@
 [[plugin.deps]]
 use = "AnirudhG07/custom-shell"
-rev = "b04213d"
-hash = "3efc7ddc9bac120c618462eb994edf75"
-
-[[plugin.deps]]
-use = "yazi-rs/plugins:no-status"
-rev = "8f1d971"
-hash = "3e023d31f29201efdac2a6ae35fedb78"
-
-[[plugin.deps]]
-use = "mikavilpas/easyjump.yazi:easyjump"
-rev = "53533be"
-hash = "33d34d0e26fd367868e8c4ca5918b2ee"
-
-[[plugin.deps]]
-use = "Rolv-Apneseth/starship"
-rev = "a63550b"
-hash = "c2021386289a0cbb3e152a052f67c177"
+rev = "6f68404"
+hash = "32558ab53db6009fb2b0c131c437a139"
 
 [[plugin.deps]]
 use = "ndtoan96/ouch"
@@ -24,39 +9,29 @@ rev = "596b666"
 hash = "c2f4f4aca257dcceafa9e3b828dbf1c9"
 
 [[plugin.deps]]
-use = "wylie102/duckdb"
-rev = "3f8c863"
-hash = "87b9233a74325e95011670ed20bbd0d4"
-
-[[plugin.deps]]
-use = "yazi-rs/plugins:toggle-pane"
-rev = "8f1d971"
-hash = "8a7c58225816a163a6e8730c0adafbc8"
-
-[[plugin.deps]]
-use = "yazi-rs/plugins:smart-filter"
-rev = "8f1d971"
-hash = "bcda8eeb3f4013bae156aecabfc745e8"
-
-[[plugin.deps]]
-use = "ktunprasert/git-files"
-rev = "c7289ad"
-hash = "cdb1a69bed63211c75b72521bbab875d"
-
-[[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "8f1d971"
-hash = "63b6c222bf2103b3023389dde5e2ecfe"
+rev = "e0bbd20"
+hash = "347cc6b190eb0c2fd60513cc7ae37412"
 
 [[plugin.deps]]
 use = "orhnk/system-clipboard"
-rev = "888026c"
-hash = "9f82a544335a53d79e87ea315746caaa"
+rev = "ed946c3"
+hash = "43fff18b85896a499105f621de458ea1"
 
 [[plugin.deps]]
 use = "lpnh/frank"
-rev = "1c101b1"
-hash = "b8171400c4582ef7e2c5098cde089126"
+rev = "2784ba2"
+hash = "ed6ef316e1d4f76ec9fd77080f48fbcf"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:vcs-files"
+rev = "e0bbd20"
+hash = "4f2a05edce73aef2bceb2ee2c134c8f2"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:toggle-pane"
+rev = "e0bbd20"
+hash = "5b2fbef7d1513ce38ff72623a071a5e"
 
 [flavor]
 deps = []

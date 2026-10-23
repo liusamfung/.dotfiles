@@ -63,34 +63,19 @@ voicememo = [
     { run = '"$HOME/dotfiles/scripts/wa2memo.sh" %s', desc = "Enviar a Voice Memos", for = "macos" },
 ]
 
-[plugin]
-  # prepend_fetchers = [
-  #   # https://github.com/yazi-rs/plugins/tree/8f1d9711bcd0e48af1fcb4153c16d24da76e732d/git.yazi
-  #   { id = "git", name = "*", run = "git" },
-  #   { id = "git", name = "*/", run = "git" },
-  # ]
+  [[plugin.prepend_fetchers]]
+url   = "*"
+run   = "git"
+group = "git"
 
-  prepend_preloaders = [
-    # https://github.com/wylie102/duckdb.yazi
-    # { name = "*.csv", run = "duckdb", multi = false },  
-    # { name = "*.tsv", run = "duckdb", multi = false },  
-    # { name = "*.json", run = "duckdb", multi = false },  
-    # { name = "*.parquet", run = "duckdb", multi = false },
-    # { name = "*.txt", run = "duckdb", multi = false },  
-    # { name = "*.xlsx", run = "duckdb", multi = false },
-  ]
+[[plugin.prepend_fetchers]]
+url   = "*/"
+run   = "git"
+group = "git"
+[plugin]
+
   prepend_previewers = [
     
-    # https://github.com/wylie102/duckdb.yazi
-    # { name = "*.csv", run = "duckdb" },  
-    # { name = "*.tsv", run = "duckdb" },  
-    # { name = "*.json", run = "duckdb" },  
-    # { name = "*.parquet", run = "duckdb" },  
-    # { name = "*.txt", run = "duckdb" },  
-    # { name = "*.xlsx", run = "duckdb" },  
-    # { name = "*.db", run = "duckdb" },
-    # { name = "*.duckdb", run = "duckdb" },
-
     # Tree previewer for compress archives https://github.com/ndtoan96/ouch.yazi
     { mime = "application/*zip",            run = "ouch" },
     { mime = "application/x-tar",           run = "ouch" },
