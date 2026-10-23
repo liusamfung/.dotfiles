@@ -148,6 +148,13 @@ return {
 				},
 			})
 
+			-- mason-tool-installer starts its install check from a VimEnter autocmd that it registers when it LOADS.
+			-- This spec loads on BufReadPre: when nvim starts without a file (dashboard) that is AFTER VimEnter, so
+			-- the autocmd would never fire and nothing would be installed. In that case run the check by hand.
+			if vim.v.vim_did_enter == 1 then
+				require("mason-tool-installer").run_on_start()
+			end
+
 			-- mason-lspconfig has no mapping for apex-language-server, so automatic_enable can't turn it on.
 			vim.lsp.enable({ "apex_ls" })
 
