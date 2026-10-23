@@ -28,10 +28,17 @@ on = "i"
 run = "plugin easyjump"
 desc = "easyjump"
 
+# C = Compress. Cn: no password (ouch). Ce: encrypted 7z (AES-256, file names encrypted too); 7zz asks for the
+# password in the terminal.
 [[mgr.prepend_keymap]]
-on = ["C"]
+on = ["C", "n"]
 run = "plugin ouch"
-desc = "Compress with ouch"
+desc = "Compress, no password (ouch)"
+
+[[mgr.prepend_keymap]]
+on = ["C", "e"]
+run = 'shell --block -- "$HOME/dotfiles/scripts/yazi-encrypt.sh" %s'
+desc = "Compress encrypted: 7z AES-256, names encrypted"
 
 [[mgr.prepend_keymap]]
 on = "H"
