@@ -27,12 +27,15 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 	end,
 })
 
--- Transparent background for every theme (some have no option for it)
+-- Transparent background for every theme (some have no option for it).
+-- nvim_set_hl replaces the whole group, so the theme's foreground is read first and kept. Without it Normal
+-- had no colors at all and snacks.gh (the GitHub pickers, :checkhealth snacks) failed when it blended them.
 vim.api.nvim_create_autocmd("ColorScheme", {
 	group = group,
 	desc = "Transparent background",
 	callback = function()
-		vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+		local normal = vim.api.nvim_get_hl(0, { name = "Normal", link = false })
+		vim.api.nvim_set_hl(0, "Normal", vim.tbl_extend("force", normal, { bg = "none" }))
 	end,
 })
 
