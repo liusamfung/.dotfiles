@@ -1,11 +1,24 @@
 [flavor]
 # dark = "ayu-dark"
 # dark = "catppuccin-frappe"  #1
-[filetype]
-rules = [
-  # { mime = "text/*", name = "*.cls", icon = "", color = "#00A1E0" },
-  # { mime = "text/*", name = "*.trigger", icon = "", color = "#00A1E0" },
-  # { mime = "text/*", name = "*.apex", icon = "", color = "#00A1E0" },
-  # { mime = "text/*", name = "*.soql", icon = "", color = "#F4A261" },
-  # { mime = "text/*", name = "*.sosl", icon = "", color = "#F4A261" }
+
+# Custom file icons. Keep them equal to override_by_extension in nvim/lua/plugins/nvim-web-devicons.lua
+# (same glyph, same color), so a file looks the same in Neovim, Yazi and any other tool that uses it.
+# The glyphs are written as \u escapes because they live in the Private Use Area and are invisible in most editors:
+#    = nf-fa-cloud    = nf-fa-database    = nf-seti-json
+# Yazi 26.x takes icons from [icon], not from [filetype] (that one only sets colors and styles).
+[icon]
+# Apex test classes (TestFoo.cls, FooTest.cls, FooTests.cls). A glob beats an extension rule, and globs ignore
+# upper/lower case unless they start with \s, so the prefix keeps "Testimonial.cls" from matching.
+prepend_globs = [
+  { url = '\s**/Test[A-Z]*.cls', text = "\U000F0163", fg = "#00A1E0" },
+  { url = '\s**/*Test.cls',      text = "\U000F0163", fg = "#00A1E0" },
+  { url = '\s**/*Tests.cls',     text = "\U000F0163", fg = "#00A1E0" },
+]
+prepend_exts = [
+  { name = "apex",           text = "", fg = "#00A1E0" },
+  { name = "cls",            text = "", fg = "#00A1E0" },
+  { name = "trigger",        text = "", fg = "#00A1E0" },
+  { name = "soql",           text = "", fg = "#00A1E0" },
+  { name = "code-workspace", text = "", fg = "#cbcb41" },
 ]
