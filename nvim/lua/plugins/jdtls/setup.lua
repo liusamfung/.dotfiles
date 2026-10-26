@@ -9,13 +9,19 @@ function M:setup()
 		.. package.config:sub(1, 1)
 		.. project_name
 	local os_name = vim.loop.os_uname().sysname -- 'Darwin' for macos
+	-- jdtls 1.62+ needs Java 25 or newer to RUN (exit code 13 otherwise; your projects can still compile with an older JDK).
+	-- The `java` on PATH is 21 (apex_ls and the shell functions use it), so jdtls gets Homebrew's openjdk@25 (an LTS,
+	-- so it does not jump to a newer major version on `brew upgrade`)
+	local java = (vim.env.HOMEBREW_PREFIX or "/opt/homebrew") .. "/opt/openjdk@25/bin/java"
+	if vim.fn.executable(java) == 0 then
+		java = "java"
+	end
 	local config = {
 		-- The command that starts the language server
 		-- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
 		cmd = {
 			-- 💀
-			"java", -- or '/path/to/java17_or_newer/bin/java'
-			-- depends on if `java` is in your $PATH env variable and if it points to the right version.
+			java,
 
 			"-Declipse.application=org.eclipse.jdt.ls.core.id1",
 			"-Dosgi.bundles.defaultStartLevel=4",
