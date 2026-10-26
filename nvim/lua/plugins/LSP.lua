@@ -125,6 +125,8 @@ return {
 					"jdtls", -- started by nvim-jdtls, not by automatic_enable
 					"cspell_ls", -- installed but kept OFF for now (see exclude below)
 
+					"basedpyright", --newer,fast Python language server
+
 					-- Salesforce
 					"apex-language-server", -- Apex (enabled by hand below)
 					"lwc_ls", -- Lightning Web Components
