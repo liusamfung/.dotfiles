@@ -29,7 +29,7 @@ return {
 				"<leader>ff",
 				"files",
 				"Find File (modificado)",
-				{ exclude = { "node_modules", ".git", ".sfdx", ".sf" } }
+				{ exclude = { "node_modules", ".git", ".sfdx", ".sf", ".venv" } }
 			),
 			pick("<leader>fF", "files", "Find Files (all, without filters)"),
 			pick("<leader>fc", "files", "Find Config File", { cwd = "~/dotfiles/" }),
