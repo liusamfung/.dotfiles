@@ -5,8 +5,8 @@ new_tab FILE EXPLORER
   cd ~/Downloads
 # Create the "main" window and run an editor in it to edit the project files
     launch --title "Yazi Pane" /bin/zsh -i -c 'y'
-# Create a side window to run a shell to build or test project
-      focus
+    focus
+
 # When you open many session in diferents OS windows, focus the window that it
 # has already open the session and no create another same session in that OS Window. (Duplicate session)
 focus_os_window

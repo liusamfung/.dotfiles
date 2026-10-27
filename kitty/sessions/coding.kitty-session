@@ -15,6 +15,5 @@ new_tab Term-Log
     launch  --title  "pane3" zsh
   cd ~/Dev/
     launch  --title  "pane4" zsh
-# launch --cwd=current --title  "Currennt" zsh
 
 focus_os_window
