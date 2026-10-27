@@ -32,13 +32,14 @@
   kt-prmdn (macro C-S-u)
   kt-sup   (macro-repeat C-S-k)
   kt-sdn   (macro-repeat C-A-S-j)
+  kt-scb   (macro M-A-y) ;; kitty scrollback (fast way to copy in terminal with vim motion)
 
   kt-quick (macro-repeat C-A-S-spc)
 )
 (deflayer terminal
   @kt-rld   f1        f2        f3        f4        f5        f6        f7        f8        f9        f10       f11       f12
   102d      XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX
-  tab       XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX        XX
+  tab       XX        XX        XX        XX        @kt-scb   XX        XX        XX        XX        XX        XX        XX        XX
   esc       XX        XX        @kt-prmdn @kt-prmup XX        XX        XX        @kt-sdn   XX        XX        XX        XX
   lsft      lsft      XX        XX        @kt-sdn   @kt-sup   XX        XX        XX        XX        XX        XX        rsft
   fn        lctl      lalt      lmet      @kt-quick                               rmet      ralt      left      down      up        rght
