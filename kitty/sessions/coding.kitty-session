@@ -1,8 +1,7 @@
 new_tab Conding
 layout tall
     launch --title "nvim" /bin/zsh -i -c 'echo "Choose which project you’d like to work on, dude."; zsh'
-
-      focus # Con esta linea estoy volviendo el pane actual en el enfocado después de crear los demás panes(Windows)
+    focus # Con esta linea estoy volviendo el pane actual en el enfocado después de crear los demás panes(Windows)
 
 new_tab Term-Log
   layout fat
