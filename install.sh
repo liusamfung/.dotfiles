@@ -228,6 +228,16 @@ step_links() {
 			warn "dangling link ${l/#$HOME/~} (points into dotfiles but the target is gone): rm it"
 		fi
 	done
+	# No "Last login: ..." line in every new terminal tab: macOS `login` skips it when this empty file exists
+	if [ -e "$HOME/.hushlogin" ]; then
+		pass "~/.hushlogin"
+	elif [ "$MODE" = "check" ]; then
+		warn "~/.hushlogin is missing (every new terminal tab prints \"Last login: ...\")"
+	elif [ "$DRY" -eq 1 ]; then
+		todo "[dry-run] create ~/.hushlogin"
+	else
+		touch "$HOME/.hushlogin" && pass "created ~/.hushlogin" || fail "could not create ~/.hushlogin"
+	fi
 }
 
 step_ohmyzsh() {
