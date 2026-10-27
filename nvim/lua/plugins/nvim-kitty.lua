@@ -1,33 +1,33 @@
 return {
-	-- {
-	-- 	"knubie/vim-kitty-navigator",
-	-- 	-- cmd = {
-	-- 	-- 	"KittyNavigateLeft",
-	-- 	-- 	"KittyNavigateDown",
-	-- 	-- 	"KittyNavigateUp",
-	-- 	-- 	"KittyNavigateRight",
-	-- 	-- },
-	-- 	build = "cp ./*.py ~/.config/kitty/",
-	-- 	-- Yo no uso el teclado QWERTY, uso dvrk. Por ello me es mas comodo rempearlo
-	-- 	-- de esta forma para que todo los motions esten en una sola mano.bb
-	-- 	-- Si tú usas QWERTY, qudate con la configuración por defecto.
-	-- 	init = function()
-	-- 		-- Deshabilita los keymaps por defecto del plugin (Vimscript: let g:kitty_navigator_no_mappings = 1)
-	-- 		vim.g.kitty_navigator_no_mappings = 1
-	-- 	end,
-	-- 	-- Función `config`: Se ejecuta después de que el plugin se ha cargado.
-	-- 	-- Aquí definimos nuestros keymaps personalizados de forma directa.
-	-- 	config = function()
-	-- 		local map = vim.keymap.set
-	-- 		local opts = { silent = true, remap = false }
-	-- 		-- if you don't want to see the pop-up for a micro while. Don't use ":KittyNavigate...<CR>"
-	-- 		-- Instead of use "<cmd>KittyNavigate...<CR>"
-	-- 		-- Aditionality. If you want to type inmdiality when you switch in panes. You can do it like that line below
-	-- 		-- map('n', '<C-q>', '<cmd>KittyNavigateLeft<CR><cmd>startinsert<CR>', { desc = 'Kitty: Mover Izquierda' })
-	-- 		map("n", "<C-q>", "<cmd>KittyNavigateLeft<CR>", { desc = "Kitty: Mover Izquierda" })
-	-- 		map("n", "<C-j>", "<cmd>KittyNavigateDown<CR>", { desc = "Kitty: Mover Abajo" })
-	-- 		map("n", "<C-k>", "<cmd>KittyNavigateUp<CR>", { desc = "Kitty: Mover Arriba" })
-	-- 		map("n", "<C-x>", "<cmd>KittyNavigateRight<CR>", { desc = "Kitty: Mover Derecha" })
-	-- 	end,
-	-- },
+	{
+		"knubie/vim-kitty-navigator",
+		-- cmd = {
+		-- 	"KittyNavigateLeft",
+		-- 	"KittyNavigateDown",
+		-- 	"KittyNavigateUp",
+		-- 	"KittyNavigateRight",
+		-- },
+		build = "cp ./*.py ~/.config/kitty/",
+		-- Yo no uso el teclado QWERTY, uso dvrk. Por ello me es mas comodo rempearlo
+		-- de esta forma para que todo los motions esten en una sola mano.bb
+		-- Si tú usas QWERTY, qudate con la configuración por defecto.
+		init = function()
+			-- Deshabilita los keymaps por defecto del plugin (Vimscript: let g:kitty_navigator_no_mappings = 1)
+			vim.g.kitty_navigator_no_mappings = 1
+		end,
+		-- Función `config`: Se ejecuta después de que el plugin se ha cargado.
+		-- Aquí definimos nuestros keymaps personalizados de forma directa.
+		config = function()
+			local map = vim.keymap.set
+			local opts = { silent = true, remap = false }
+			-- if you don't want to see the pop-up for a micro while. Don't use ":KittyNavigate...<CR>"
+			-- Instead of use "<cmd>KittyNavigate...<CR>"
+			-- Aditionality. If you want to type inmdiality when you switch in panes. You can do it like that line below
+			-- map('n', '<C-q>', '<cmd>KittyNavigateLeft<CR><cmd>startinsert<CR>', { desc = 'Kitty: Mover Izquierda' })
+			map("n", "<C-q>", "<cmd>KittyNavigateLeft<CR>", { desc = "Kitty: Mover Izquierda" })
+			map("n", "<C-j>", "<cmd>KittyNavigateDown<CR>", { desc = "Kitty: Mover Abajo" })
+			map("n", "<C-k>", "<cmd>KittyNavigateUp<CR>", { desc = "Kitty: Mover Arriba" })
+			map("n", "<C-x>", "<cmd>KittyNavigateRight<CR>", { desc = "Kitty: Mover Derecha" })
+		end,
+	},
 }
