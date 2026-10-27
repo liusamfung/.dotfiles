@@ -1,14 +1,14 @@
-new_tab Conding
+new_tab Coding
 layout tall
-    launch --title "nvim" /bin/zsh -i -c 'echo "Choose which project you’d like to work on, dude."; zsh'
+    launch --title "nvim" --cwd ~/Dev/ /bin/zsh -i -c 'echo "Choose which project you’d like to work on, dude."; zsh'
     focus # Con esta linea estoy volviendo el pane actual en el enfocado después de crear los demás panes(Windows)
 
 new_tab Term-Log
   layout fat
   # cd ~/Dev/
-    launch  --title  "MainTerm" zsh
+    launch  --title  "MainTerm" --cwd ~/Dev/ zsh
   # cd ~/Dev/
-    launch  --title  "pane2" zsh
+    launch  --title  "pane2" --cwd ~/Dev/ zsh
   # cd ~/Dev/
-    launch  --title  "pane3" zsh
+    launch  --title  "pane3" --cwd ~/Dev/ zsh
 focus_os_window
