@@ -42,7 +42,7 @@ return {
 					"ios",
 				},
 			}),
-			pick("<leader>fF", "files", "Find Files (all, without filters)"),
+			pick("<leader>fF", "files", "Find Files (all, with exclude directories)"),
 			pick("<leader>fc", "files", "Find Config File", { cwd = "~/dotfiles/" }),
 			pick("<leader>fg", "git_files", "Find git files (Trackeados)"),
 			pick("<leader>fp", "projects", "Find Projects"), -- TODO: How detect projects
