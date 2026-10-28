@@ -1,7 +1,8 @@
 new_tab Dotfiles
 layout tall
     launch --title "nvim" --cwd ~/dotfiles/ /bin/zsh -i -c 'nvim; zsh'
-    focus # Con esta linea estoy volviendo el pane actual en el enfocado después de crear los demás panes(Windows)
+    focus # Con esta linea estoy volviendo el pane actual en el enfocado 
+    después de crear los demás panes()
 
 new_tab Term-Log
   layout fat
@@ -10,6 +11,6 @@ new_tab Term-Log
   # cd ~/Dev/
     launch  --title  "pane2" zsh
   # cd ~/Dev/
-    launch  --title  "pane3" zsh
+    launch --title "pane2"  /bin/zsh -i -c "fswatch -o -r -e '.*' -i '\\.kbd$' ~/dotfiles/kanata | xargs -n1 -I{} ~/Dev/Tools/kanata/target/release/kanata -c ~/dotfiles/kanata/config.kbd --check; zsh"
 focus_os_window
 
