@@ -25,12 +25,23 @@ return {
 			pick("<leader>,", "buffers", "Picker buffers"),
 			pick("<leader>fb", "buffers", "Find Buffers"),
 			pick("<leader>:", "command_history", "Command History"),
-			pick(
-				"<leader>ff",
-				"files",
-				"Find File (modificado)",
-				{ exclude = { "node_modules", ".git", ".sfdx", ".sf", ".venv" } }
-			),
+			pick("<leader>ff", "files", "Find File (modificado)", {
+				exclude = {
+					--General
+					".git",
+					"node_modules",
+
+					--Exclude salesforce temp directories
+					".sfdx",
+					".sf",
+
+					-- Exclude python deps
+					".venv",
+
+					-- Exclude compiled ios/ app
+					"ios",
+				},
+			}),
 			pick("<leader>fF", "files", "Find Files (all, without filters)"),
 			pick("<leader>fc", "files", "Find Config File", { cwd = "~/dotfiles/" }),
 			pick("<leader>fg", "git_files", "Find git files (Trackeados)"),
