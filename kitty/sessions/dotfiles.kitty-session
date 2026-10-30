@@ -1,8 +1,7 @@
 new_tab Dotfiles
 layout tall
     launch --title "nvim" --cwd ~/dotfiles/ /bin/zsh -i -c 'nvim; zsh'
-    focus # Con esta linea estoy volviendo el pane actual en el enfocado 
-    después de crear los demás panes()
+    focus # Con esta linea estoy volviendo el pane actual en el enfocado después de crear los demás panes()
 
 new_tab Term-Log
   layout fat
