@@ -11,6 +11,11 @@ return {
 		},
 		---@module "atone"
 		---@type AtoneConfig
-		opts = {},
+		opts = {
+			layout = {
+				direction = "right",
+				width = 0.40,
+			},
+		},
 	},
 }
