@@ -5,7 +5,7 @@
   XX        @!        @=        @opt-n    @ss-full  XX        @&        @*        @opt-e    @opt-u    @¿        @¡        XX        bspc
   @app-tab  @dquote   @<        @>        @P        @Y        @F        @G        @C        @R        @L        @?        @^        ret
   esc       @A        @O        @E        @U        @I        @D        @H        @T        @N        @S        @_        @|
-  lsft      caps      @:        @Q        @J        @K        @X        @B        @M        @W        @V        @Z        XX
+  lsft      caps      @;        @Q        @J        @K        @X        @B        @M        @W        @V        @Z        XX
   fn        lctl      lmet      lsft      @rc-prmpt                               @rc-rain  ralt      @wm-fprev down      up        @wm-fnext
 )
 
@@ -14,6 +14,6 @@
   XX        @!        @=        @opt-n    @ss-full  XX        @&        @*        @opt-e    @opt-u    @¿        @¡        XX        bspc
   S-tab     @dquote   @<        @>        @P        @Y        @F        @G        @C        @R        @L        @?        @^        ret
   esc       @A        @O        @E        @U        @I        @D        @H        @T        @N        @S        @_        @|
-  lsft      @wm-fprev @:        @Q        @J        @K        @X        @B        @M        @W        @V        @Z        @wm-fnext
+  lsft      @wm-fprev @;        @Q        @J        @K        @X        @B        @M        @W        @V        @Z        @wm-fnext
   fn        lctl      lmet      @rc-prmpt XX                                      @hr-scrl  ralt      left      down      up        rght
 )
