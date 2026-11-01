@@ -19,7 +19,7 @@ prepend_rules = [
   # "Empty trash bin" con Shift+O. Con `url = "*.png"` la regla tambien atrapaba la papelera.
   { mime = "image/png",     use = [ "imagen", "edit_image", "reveal" ] },
   { mime = "image/svg+xml", use = [ "open", "reveal" ] },  # svg y gif: comportamiento default
-  { mime = "image/gif",     use = [ "open", "reveal" ] },
+  { mime = "image/gif",     use = [ "imagen", "reveal" ] },
   { mime = "image/*",       use = [ "imagen", "reveal" ] },
 
   # { mime = "application/pdf", use = "docs" },
