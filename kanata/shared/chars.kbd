@@ -31,7 +31,11 @@
   ! S-1
   ¡ A-1
   ; ;
-  : S-;
+    ;; NOTE:
+    ;; The fork action means: “send S-; normally, but send plain ; when Left or Right Command is being held”. So:
+    ;;     : without Command works as before.
+    ;;     Command + that key sends Command+;, which opens the Claude side chat.
+  : (fork S-; ; (lmet rmet))
   ? S-/
   ¿ S-A-/
 )
