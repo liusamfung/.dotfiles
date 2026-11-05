@@ -2,6 +2,7 @@
 
 (defalias
   kt-code (macro C-M-1)
+  kt-cod2 (macro C-M-2)
   kt-log  (macro C-M-3)
   kt-obs  (macro C-M-4)
   kt-yazi (macro C-M-5)
@@ -15,7 +16,7 @@
   esc       f1        f2        f3        f4        f5        f6        f7        f8        f9        f10       f11       f12
   102d      XX        XX        XX        XX        XX        XX        XX        XX        XX        @kt-test  XX        XX        XX
   tab       XX        XX        XX        XX        XX        XX        @kt-obs   @kt-yazi  @kt-dot   XX        XX        XX        XX
-  esc       XX        XX        XX        XX        XX        XX        @kt-code  XX        @kt-log   XX        XX        XX
+  esc       XX        XX        XX        XX        XX        XX        @kt-code  @kt-cod2        @kt-log   XX        XX        XX
   lsft      caps      XX        XX        XX        XX        XX        XX        XX        @kt-close XX        XX        rsft
   fn        lctl      lalt      lmet      spc                                     rmet      ralt      left      down      up        rght
 )
