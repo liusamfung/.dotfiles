@@ -15,6 +15,8 @@ plugins=( git z )
 [[ -r $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 [[ -r $HOMEBREW_PREFIX/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]] && source $HOMEBREW_PREFIX/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
+export HOMEBREW_NO_ENV_HINTS=1
+export HOMEBREW_NO_UPDATE_REPORT_NEW=1
 
 alias ll='eza -lg --group-directories-first --icons' ##Lista sin mostrar carpetas ocultas
 alias la='eza -lag --group-directories-first --icons'
